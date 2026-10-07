@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.join(ROOT, "build"))
 import manifest  # noqa: E402
 
 SITE = os.path.join(ROOT, "site")
+PHONE_PAGES = {"iphone-3g", "sacred-apps", "myspace", "twitter", "iphone-keynote"}   # articles with a "Turn on the iPhone 3G" button
 RESERVED = {"index", "all-pages", "search", "random", "read", "write", "playlist"}
 PLAYLIST_URL = "https://music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
 PLAYLIST_EMBED = "https://embed.music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
@@ -44,7 +45,8 @@ def site_version():
     h = hashlib.sha1()
     files = (glob.glob(os.path.join(ROOT, "content", "**", "*"), recursive=True)
              + glob.glob(os.path.join(ROOT, "build", "*.py")) + glob.glob(os.path.join(ROOT, "build", "*.css"))
-             + glob.glob(os.path.join(ROOT, "build", "*.js")) + [os.path.join(ROOT, "site", "assets", "chill-chris.png")])
+             + glob.glob(os.path.join(ROOT, "build", "*.js")) + glob.glob(os.path.join(ROOT, "build", "*.png"))
+             + [os.path.join(ROOT, "site", "assets", "chill-chris.png")])
     for path in sorted(f for f in files if os.path.isfile(f)):
         h.update(os.path.relpath(path, ROOT).encode())
         with open(path, "rb") as f:
@@ -216,6 +218,7 @@ def nav_html(active=None, sidebar=None):
       <li><a href="index.html">Main Page</a></li>
       <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the MASTER FILE</a></li>
       <li><a href="playlist.html"{" aria-current=page" if active == "playlist" else ""}>The Official Playlist</a></li>
+      <li><a href="#iphone-3g">The iPhone 3G</a></li>
       <li><a href="all-pages.html">All pages (A–Z)</a></li>
       <li><a href="random.html" class="random-link">Random page</a></li>
     </ul>
@@ -248,6 +251,7 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{asset("style.css")}">
+<link rel="stylesheet" href="{asset("phone.css")}">
 <script>try{{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 {head_extra}</head>
 <body{f' class="{body_class}"' if body_class else ""}>
@@ -259,6 +263,7 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
       <input id="q" type="search" placeholder="Search the lore…" autocomplete="off" aria-label="Search the wiki">
       <ul id="results" role="listbox" hidden></ul>
     </form>
+    <button class="phone-btn" type="button" aria-label="Open the iPhone 3G" title="The iPhone 3G: MySpace and Twitter Bluebird"><svg viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="4" fill="currentColor"/><rect x="5" y="3.5" width="14.5" height="11" rx=".8" fill="#5aa9f0"/><circle cx="22.2" cy="9" r="1.3" fill="#888"/><path d="M15 4l-2 3.5 2.5 2-3 4" stroke="#fff" stroke-width=".7" fill="none"/></svg></button>
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
@@ -275,6 +280,7 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
 </div>
 <script src="{asset("search-index.js")}"></script>
 <script src="{asset("wiki.js")}"></script>
+<script src="{asset("phone.js")}"></script>
 {scripts}</body>
 </html>
 """
@@ -749,13 +755,16 @@ def main():
     img_out = os.path.join(SITE, "assets", "img")
     shutil.rmtree(img_out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "content", "images"), img_out)
-    for name in ("style.css", "wiki.js", "editor.css", "book.js", "reader.js", "editor.js", "firebase-config.js"):
+    for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "editor.js", "firebase-config.js"):
         with open(os.path.join(ROOT, "build", name), encoding="utf-8") as f:
             text = f.read()
         if name.endswith(".js"):
             text = re.sub(r'from "\./([\w-]+\.js)"', lambda m: f'from "./{m.group(1)}?v={VERSION}"', text)
+            text = text.replace("__LOC_VERSION__", VERSION)
         with open(os.path.join(SITE, "assets", name), "w", encoding="utf-8") as f:
             f.write(text)
+    for png in glob.glob(os.path.join(ROOT, "build", "app-*.png")):   # app icons for the iPhone 3G
+        shutil.copyfile(png, os.path.join(SITE, "assets", os.path.basename(png)))
     with open(os.path.join(SITE, "version.json"), "w", encoding="utf-8") as f:
         f.write(json.dumps({"v": VERSION}) + "\n")
 
@@ -774,6 +783,9 @@ def main():
                      + "</ul></details>")
         else:
             block = '<p class="orphan muted">No pages link here. This article is an orphan, like Plankton.</p>'
+        if slug in PHONE_PAGES:
+            block = ('<p class="phone-cta"><button class="phone-open" type="button">Turn on the iPhone 3G</button> '
+                     '<span class="muted">MySpace v1.3.3 and Twitter: Bluebird Variant are installed.</span></p>' + block)
         body = body.replace("<!--BACKLINKS-->", block)
         with open(os.path.join(SITE, f"{slug}.html"), "w", encoding="utf-8") as f:
             f.write(page(e["title"], body, active=slug if slug in CHAPTER_ORDER else e["category"],

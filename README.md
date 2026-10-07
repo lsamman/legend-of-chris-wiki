@@ -12,6 +12,7 @@ Live site: https://lsamman.github.io/legend-of-chris-wiki/
 - `build/build.py` is the static site generator. It writes into `site/`.
 - `build/fetch_images.py` re-fetches the photos.
 - `site/` is the generated website. GitHub Pages deploys it on every push to `main`.
+- `build/phone.js` and `build/phone.css` are the iPhone 3G: the phone button in the toolbar (or `#iphone-3g` on any page) flies Steve's phone to the front of the screen, with Will's apps on it: MySpace v1.3.3 (YouTube client) and Twitter: Bluebird Variant (X client), whose icons are `build/app-*.png`. The other Sacred Apps show as still downloading and link to their articles.
 - `site/read.html` is the complete book for readers. `site/write.html` is the author-only writing room. Both use `build/book.js`, `build/reader.js` and `build/editor.js`, and keep the text in Firebase (see below).
 
 ## Updating
