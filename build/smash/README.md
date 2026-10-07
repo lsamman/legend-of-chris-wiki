@@ -20,6 +20,7 @@ Load order (see `smash.html`): `core.js` → `game.js` → `render.js` → `audi
 | audio.js | WebAudio SFX/music (`S.audio`) |
 | ai.js | CPU players (`S.AI`) |
 | ui.js | title, character select, stage select, results (`S.ui`) |
+| roadmap.js | the to-be-added list shown on the title screen ("Coming soon") |
 
 ## Rules
 - The sim must stay deterministic: in sim code (moves, projectiles, stage updates, AI) use `g.rng()`, never `Math.random()`.
@@ -120,3 +121,8 @@ Stage hazards spawn with `owner: null`.
 ## Testing
 - `python3 -m http.server -d build/smash 8765`, then open `smash.html?quick=chris,lebron-james&stage=the-court&cpu=0,2&debug=1`.
 - `S.simulate(cfg, ticks, padFn?)` runs a headless match (CPU brains drive pads when no padFn is given).
+
+## Roadmap (to-be-added fighters and stages)
+The beta's coming-soon list lives in `roadmap.js` and shows on the title screen. Ids are wiki slugs. When a fighter or stage
+ships, register it under the same id and delete its entry from `roadmap.js` in that same update (the title screen already
+hides entries whose id is registered, so nothing shows twice in between).

@@ -275,6 +275,11 @@
       enter() { primeDevices(); try { S.audio && S.audio.music && S.audio.music("menu"); } catch (e) { /* ignore */ } },
       update() {
         const inp = this.poll();
+        if (this.roadmapOpen) {   // any key / button / click closes the coming-soon list
+          if (inp.presses.length || inp.events.some((e) => e.type !== "dir") || inp.click) { this.roadmapOpen = false; sfx("back"); }
+          return;
+        }
+        if (inp.click && inp.click.id === "roadmap") { this.roadmapOpen = true; sfx("select"); return; }
         const go = inp.presses.some((k) => k !== "KeyM" && k !== "Backquote") || inp.events.some((e) => e.type !== "dir") || (inp.click && inp.click.id !== "mute");
         if (inp.click && inp.click.id === "mute") { try { S.audio && S.audio.toggleMute && S.audio.toggleMute(); } catch (e) { /* ignore */ } return; }
         if (go && this.t > 10) { sfx("select"); S.ui.charSelect(); return; }
@@ -307,6 +312,11 @@
         S.text(c, "BALLERS", 0, big * 2.02, big * 1.08, C.yellow, "center", S.FONT_BIG, "900", C.ink);
         c.restore();
         S.text(c, "a platform fighter where everyone is a baller (allegedly)", VW / 2, logoY + big * 2.02 + 38, 19, C.sub, "center", S.FONT_COMIC, "bold");
+        // BETA stamp
+        c.save(); c.translate(VW / 2 + big * 3.1, logoY + big * 1.55); c.rotate(-0.22);
+        panel(c, -52, -22, 104, 40, "#e8333a", { r: 8, shadow: 4 });
+        S.text(c, "BETA", 0, 10, 26, "#fff", "center", S.FONT_BIG, "900");
+        c.restore();
         // press start
         const blink = (Math.sin(t * 0.09) + 1) / 2;
         c.globalAlpha = 0.45 + blink * 0.55;
@@ -328,8 +338,32 @@
         // mute toggle
         const muted = S.audio && S.audio.muted;
         button(c, this, "mute", VW - 150, 14, 132, 36, muted ? "🔇 SOUND OFF" : "🔊 SOUND ON", { size: 13, font: S.FONT, weight: "bold" });
+        if (S.roadmap) button(c, this, "roadmap", VW - 312, 14, 150, 36, "🛠 COMING SOON", { size: 13, font: S.FONT, weight: "bold" });
+        if (this.roadmapOpen && S.roadmap) this.drawRoadmap(c, VW, VH);
         S.text(c, "fan-made for the Legend Of Chris wiki · no balls were harmed", VW / 2, VH - 12, 13, C.faint, "center", S.FONT_COMIC, "bold");
         this.end(c);
+      },
+      // The to-be-added list (roadmap.js); entries vanish as fighters/stages are added to the game.
+      drawRoadmap(c, VW, VH) {
+        const R = S.roadmap();
+        c.fillStyle = "rgba(20,20,24,.55)"; c.fillRect(0, 0, VW, VH);
+        const w = Math.min(980, VW - 40), x = (VW - w) / 2, y = 64, rows = Math.max(R.fighters.length, R.stages.length);
+        const lh = Math.min(34, (VH - y - 150) / Math.max(1, rows)), h = 104 + rows * lh;
+        panel(c, x, y, w, h, C.card, { shadow: 6 });
+        S.text(c, "COMING SOON TO THE BETA", x + w / 2, y + 42, 28, C.ink, "center", S.FONT_BIG, "900");
+        S.text(c, "fighters and stages from the lore that are still on the bench", x + w / 2, y + 66, 15, C.sub, "center", S.FONT_COMIC, "bold");
+        const col = (list, cx, head) => {
+          S.text(c, head + " (" + list.length + ")", cx, y + 96, 16, "#e8333a", "left", S.FONT_BIG, "900");
+          list.forEach((it, i) => {
+            const yy = y + 104 + (i + 1) * lh - 8;
+            S.text(c, it.name, cx, yy - lh * 0.36, Math.min(16, lh * 0.5), C.ink, "left", S.FONT, "bold");
+            S.text(c, it.note, cx, yy, fitText(c, it.note, w / 2 - 50, Math.min(13, lh * 0.4), S.FONT_COMIC), C.sub, "left", S.FONT_COMIC, "bold");
+          });
+          if (!list.length) S.text(c, "all in the game!", cx, y + 104 + lh, 15, C.sub, "left", S.FONT_COMIC, "bold");
+        };
+        col(R.fighters, x + 28, "FIGHTERS");
+        col(R.stages, x + w / 2 + 14, "STAGES");
+        S.text(c, "press any key or click to close", x + w / 2, y + h + 26, 14, "#fff", "center", S.FONT_COMIC, "bold");
       },
       drawControls(c, VW, VH) {
         // Button names follow the first connected controller (Xbox/XInput & Steam Input, PlayStation, Switch).
