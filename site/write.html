@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing room | The Legend Of Chris Wiki</title>
+<meta name="description" content="">
+<link rel="icon" href="assets/chill-chris.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css">
+<link rel="stylesheet" href="assets/editor.css">
+</head>
+<body class="writing">
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+    <a class="docname" href="index.html"><img src="assets/chill-chris.png" alt="" width="22" height="24"><span>The Legend Of Chris <b>MASTER FILE</b> <i>— Wiki</i></span></a>
+    <form class="search" action="all-pages.html" role="search" onsubmit="return false">
+      <input id="q" type="search" placeholder="Search the lore…" autocomplete="off" aria-label="Search the wiki">
+      <ul id="results" role="listbox" hidden></ul>
+    </form>
+    <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+<div class="desk">
+  
+<nav class="sidebar" aria-label="Outline">
+  <div class="side-box outline-box">
+    <div class="side-head">Outline</div>
+    <ol class="outline" id="outline"><li class="muted">Headings show up here.</li></ol>
+  </div>
+  <div class="side-box">
+    <div class="side-head">Wiki</div>
+    <ul>
+      <li><a href="read.html" target="_blank" rel="noopener">Published version ↗</a></li>
+      <li><a href="index.html">Main Page</a></li>
+    </ul>
+  </div>
+</nav>
+  <main class="sheet">
+    
+<section id="gate">
+  <h1 class="title">Writing room</h1>
+  <p class="crumbs">Where the MASTER FILE gets written. Only the author can sign in. Everyone else can <a href="read.html">read it here</a>.</p>
+  <p id="gate-loading" class="muted">Loading…</p>
+  <form id="signin" class="signin" hidden>
+    <label>Email <input id="email" type="email" autocomplete="username" required></label>
+    <label>Password <input id="password" type="password" autocomplete="current-password" required></label>
+    <div class="signin-row"><button class="btn primary" type="submit">Sign in</button> <button class="linkish" type="button" id="forgot">Forgot password?</button></div>
+    <p id="signin-msg" class="form-msg" role="status"></p>
+  </form>
+  <div id="setup" class="notice" hidden></div>
+</section>
+
+<section id="studio" hidden>
+  <div class="studio-bar">
+    <span id="save-state" class="save-state" role="status">Saved</span>
+    <span id="words" class="muted"></span>
+    <span class="studio-spacer"></span>
+    <details class="studio-menu">
+      <summary class="btn" aria-label="More">More ▾</summary>
+      <div class="menu-pop">
+        <button type="button" data-act="history">Version history…</button>
+        <button type="button" data-act="revert">Revert draft to published</button>
+        <button type="button" data-act="import">Import the original book…</button>
+        <button type="button" data-act="signout">Sign out</button>
+      </div>
+    </details>
+    <button id="publish" class="btn primary" type="button">Publish</button>
+  </div>
+  <div id="conflict" class="notice conflict" hidden>This draft was just changed on another device.
+    <button class="btn" type="button" id="take-theirs">Load that version</button>
+    <button class="btn" type="button" id="keep-mine">Keep mine</button></div>
+  <div id="toolbar" class="pages-toolbar">
+    <span class="ql-formats">
+      <button type="button" class="ql-undo" title="Undo"><svg viewBox="0 0 18 18"><path class="ql-stroke" fill="none" d="M5 7h7a4 4 0 0 1 0 8H8M5 7l3-3M5 7l3 3"/></svg></button>
+      <button type="button" class="ql-redo" title="Redo"><svg viewBox="0 0 18 18"><path class="ql-stroke" fill="none" d="M13 7H6a4 4 0 0 0 0 8h4M13 7l-3-3M13 7l-3 3"/></svg></button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-header" title="Paragraph style"><option value="1">Chapter title</option><option value="2">Heading</option><option value="3">Subheading</option><option selected>Body</option></select>
+      <select class="ql-font" title="Font"><option selected>Arial</option><option value="comic">Comic Sans</option></select>
+      <select class="ql-size" title="Size"><option value="small"></option><option selected></option><option value="large"></option><option value="huge"></option></select>
+    </span>
+    <span class="ql-formats">
+      <button type="button" class="ql-bold" title="Bold"></button><button type="button" class="ql-italic" title="Italic"></button>
+      <button type="button" class="ql-underline" title="Underline"></button><button type="button" class="ql-strike" title="Strikethrough"></button>
+      <select class="ql-color" title="Text colour"></select><select class="ql-background" title="Highlight"></select>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-align" title="Alignment"></select>
+      <button type="button" class="ql-list" value="ordered" title="Numbered list"></button><button type="button" class="ql-list" value="bullet" title="Bulleted list"></button>
+      <button type="button" class="ql-indent" value="-1" title="Outdent"></button><button type="button" class="ql-indent" value="+1" title="Indent"></button>
+    </span>
+    <span class="ql-formats">
+      <button type="button" class="ql-blockquote" title="Quote"></button><button type="button" class="ql-link" title="Link"></button>
+      <button type="button" class="ql-image" title="Picture from a link"></button><button type="button" class="ql-clean" title="Clear formatting"></button>
+    </span>
+  </div>
+  <div class="page-wrap"><div id="editor" class="book"></div></div>
+  <div id="empty" class="empty-draft" hidden>
+    <p><b>Your draft is empty.</b> Start from the original MASTER FILE, or start writing on a blank page.</p>
+    <button class="btn primary" type="button" id="empty-import">Import the original book</button>
+    <button class="btn" type="button" id="empty-blank">Blank page</button>
+  </div>
+</section>
+
+<dialog id="dlg" class="dlg"><form method="dialog">
+  <h2 id="dlg-title"></h2><div id="dlg-body"></div>
+  <div class="dlg-row"><button class="btn" value="cancel">Cancel</button> <button class="btn primary" id="dlg-ok" value="ok">OK</button></div>
+</form></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<script>window.LOC_CHAPTERS=[["chapter-before-chapter-2", "The Chapter Before Chapter 2"], ["chapter-2", "Chapter 2"], ["chapter-triangle", "Chapter Triangle"], ["chapter-the-fourth", "Chapter the fourth one the one after the one after the second one which is before the third one"], ["dunder-mifflan-chapter", "Dunder Mifflan: A chapter that is not the first or second or third or the one that comes after the second one and the fourth one which is not the first one"], ["flashback-chapter", "chapter that is after the last one but its all a flashback"], ["chapter-maybe-seventh", "chapter the maybe seventh one if you can still count idk tho"], ["chapter-4-point-1", "Chapter 4+.1+.1+.1+.1+.1+.1+.1+.1+.1+.1+idk bro figure it out"]];</script>
+    <footer class="sheet-foot">
+      <span>The Legend Of Chris Wiki — a fan wiki. Lore is canon. Spelling is canon. Nothing is canon.</span>
+      <span class="pgnum" aria-hidden="true">0</span>
+    </footer>
+  </main>
+</div>
+<script src="assets/search-index.js"></script>
+<script src="assets/wiki.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js" defer></script>
+<script type="module" src="assets/editor.js"></script>
+</body>
+</html>

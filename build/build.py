@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.join(ROOT, "build"))
 import manifest  # noqa: E402
 
 SITE = os.path.join(ROOT, "site")
-RESERVED = {"index", "all-pages", "search", "random"}
+RESERVED = {"index", "all-pages", "search", "random", "read", "write"}
 
 CATEGORIES = [
     ("chapters", "Chapters", "The canon, in the order it was written (which is not the order it is numbered)."),
@@ -147,19 +147,22 @@ def slugify(s):
 
 
 # ----------------------------------------------------------------- layout
-def nav_html(active=None):
+def nav_html(active=None, sidebar=None):
     links = "".join(
         f'<li><a href="category-{c}.html"{" aria-current=page" if active == c else ""}>{n}</a></li>'
         for c, n, _ in CATEGORIES)
     chapters = "".join(
         f'<li><a href="{s}.html"{" aria-current=page" if active == s else ""}>{html.escape(CHAPTER_SHORT[s])}</a></li>'
         for s in CHAPTER_ORDER)
+    if sidebar is not None:
+        return sidebar
     return f"""
 <nav class="sidebar" aria-label="Wiki navigation">
   <div class="side-box">
     <div class="side-head">Navigation</div>
     <ul>
       <li><a href="index.html">Main Page</a></li>
+      <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the MASTER FILE</a></li>
       <li><a href="all-pages.html">All pages (A–Z)</a></li>
       <li><a href="random.html" class="random-link">Random page</a></li>
     </ul>
@@ -176,7 +179,7 @@ def nav_html(active=None):
 </nav>"""
 
 
-def page(title, body, *, active=None, description="", page_no=None):
+def page(title, body, *, active=None, description="", page_no=None, head_extra="", scripts="", sidebar=None, body_class=""):
     doc_title = "The Legend Of Chris Wiki" if title is None else f"{title} | The Legend Of Chris Wiki"
     num = page_no if page_no is not None else random.randint(2, 52)
     return f"""<!doctype html>
@@ -192,8 +195,8 @@ def page(title, body, *, active=None, description="", page_no=None):
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <script>try{{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}}catch(e){{}}</script>
-</head>
-<body>
+{head_extra}</head>
+<body{f' class="{body_class}"' if body_class else ""}>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -207,7 +210,7 @@ def page(title, body, *, active=None, description="", page_no=None):
   </div>
 </header>
 <div class="desk">
-  {nav_html(active)}
+  {nav_html(active, sidebar)}
   <main class="sheet">
     {body}
     <footer class="sheet-foot">
@@ -218,7 +221,7 @@ def page(title, body, *, active=None, description="", page_no=None):
 </div>
 <script src="assets/search-index.js"></script>
 <script src="assets/wiki.js"></script>
-</body>
+{scripts}</body>
 </html>
 """
 
@@ -286,6 +289,7 @@ def render_article(e, R, entries):
 
     # Chapter prev / next
     if slug in CHAPTER_ORDER:
+        parts.append(f'<p class="read-chapter"><a href="read.html#{slug}">Read this chapter in the MASTER FILE →</a></p>')
         i = CHAPTER_ORDER.index(slug)
         prev_ = CHAPTER_ORDER[i - 1] if i > 0 else None
         next_ = CHAPTER_ORDER[i + 1] if i + 1 < len(CHAPTER_ORDER) else None
@@ -441,6 +445,195 @@ def render_random(entries):
     return page("Random page", body)
 
 
+# ----------------------------------------------------------------- the book
+# First line of prose in each chapter of content/book.txt (the lines before it are
+# the stacked chapter title, which becomes a single heading).
+BOOK_BODY_START = {
+    "chapter-before-chapter-2": 11, "chapter-2": 305, "chapter-triangle": 415, "chapter-the-fourth": 523,
+    "dunder-mifflan-chapter": 645, "flashback-chapter": 759, "chapter-maybe-seventh": 909, "chapter-4-point-1": 1065,
+}
+BOOK_SUBTITLES = {"chapter-before-chapter-2": "Chris Origins"}
+VERIZON = "“The 3 year contract plan from Verizon"
+
+
+def render_book_html():
+    """content/book.txt (hard-wrapped text from the PDF) as clean HTML: one <h1> per chapter, real paragraphs."""
+    with open(os.path.join(ROOT, "content", "book.txt"), encoding="utf-8") as f:
+        lines = f.read().replace("\x0c", "").split("\n")
+    out = []
+    for slug, printed, _short, _a, last in manifest.CHAPTERS:
+        out.append(f'<h1 id="{slug}">{html.escape(printed)}</h1>')
+        if slug in BOOK_SUBTITLES:
+            out.append(f'<h2 class="ql-align-center">{html.escape(BOOK_SUBTITLES[slug])}</h2>')
+        para, verse = [], []
+
+        def flush():
+            if para:
+                out.append(f"<p>{html.escape(' '.join(para))}</p>")
+                para.clear()
+            if verse:
+                out.append("<p>" + "<br>".join(html.escape(v) for v in verse) + "</p>")
+                verse.clear()
+
+        body = [l.strip() for l in lines[BOOK_BODY_START[slug] - 1:last]]
+        i, keep_going = 0, False
+        while i < len(body):
+            s = body[i]
+            nxt = body[i + 1] if i + 1 < len(body) else ""
+            if not s:
+                if not keep_going:
+                    flush()
+                i += 1
+                continue
+            keep_going = False
+            if i == 0 and re.match(r"^[A-Z]\s{3,}\w", s):     # the drop cap: "W         hy do we believe"
+                s = re.sub(r"^([A-Z])\s+", r"\1", s)
+                keep_going = True
+            if s.startswith(VERIZON):                         # the sacred plan, always set apart
+                flush()
+                quote = [s]
+                if not s.endswith("”") and nxt:
+                    quote.append(nxt)
+                    i += 1
+                out.append(f'<p class="ql-align-center"><strong>{html.escape(" ".join(quote))}</strong></p>')
+                i += 1
+                continue
+            if len(s) < 20 and (verse or (len(nxt) < 20 and nxt)):   # a little list, e.g. the Goober Gang
+                if para:
+                    flush()
+                verse.append(s)
+                i += 1
+                continue
+            if verse:
+                flush()
+            if not para and len(body[i]) and lines[BOOK_BODY_START[slug] - 1 + i].startswith(" " * 12) and not nxt:
+                out.append(f'<p class="ql-align-center"><em>{html.escape(s)}</em></p>')   # "(This is a Flashback)"
+                i += 1
+                continue
+            para.append(s)
+            # A short line that ends a sentence ends the paragraph, unless the sentence carries on.
+            if len(s) < 48 and re.search(r"[.…”\"!?)]$", s) and not re.match(r"^[a-z]", nxt):
+                flush()
+            i += 1
+        flush()
+    return "\n".join(out)
+
+
+def render_read(book_html):
+    chapters = json.dumps([[s, p] for s, p, *_ in manifest.CHAPTERS], ensure_ascii=False)
+    body = f"""
+<div class="chapter-title read-title" aria-hidden="true"><span>The</span> <span>Legend</span> <span>Of</span> <span>Chris</span></div>
+<h1 class="sr-title">The Legend Of Chris — the MASTER FILE</h1>
+<p class="crumbs read-meta">The complete text of the MASTER FILE · <span id="book-updated">Original edition</span><a class="write-link" href="write.html" title="Writing room (author only)">✎</a></p>
+<nav class="toc book-toc" aria-label="Chapters"><div class="toc-head">Contents</div><ol id="book-toc"></ol></nav>
+<article class="book" id="book">
+{book_html}
+</article>
+<script>window.LOC_CHAPTERS={chapters};</script>"""
+    return page("Read the MASTER FILE", body, active="read",
+                description="The complete text of The Legend Of Chris, the MASTER FILE.",
+                scripts='<script type="module" src="assets/reader.js"></script>\n')
+
+
+QUILL = "https://cdn.jsdelivr.net/npm/quill@2.0.3/dist"
+
+
+def render_write():
+    chapters = json.dumps([[s, p] for s, p, *_ in manifest.CHAPTERS], ensure_ascii=False)
+    sidebar = """
+<nav class="sidebar" aria-label="Outline">
+  <div class="side-box outline-box">
+    <div class="side-head">Outline</div>
+    <ol class="outline" id="outline"><li class="muted">Headings show up here.</li></ol>
+  </div>
+  <div class="side-box">
+    <div class="side-head">Wiki</div>
+    <ul>
+      <li><a href="read.html" target="_blank" rel="noopener">Published version ↗</a></li>
+      <li><a href="index.html">Main Page</a></li>
+    </ul>
+  </div>
+</nav>"""
+    icon = lambda d: f'<svg viewBox="0 0 18 18"><path class="ql-stroke" fill="none" d="{d}"/></svg>'
+    body = f"""
+<section id="gate">
+  <h1 class="title">Writing room</h1>
+  <p class="crumbs">Where the MASTER FILE gets written. Only the author can sign in. Everyone else can <a href="read.html">read it here</a>.</p>
+  <p id="gate-loading" class="muted">Loading…</p>
+  <form id="signin" class="signin" hidden>
+    <label>Email <input id="email" type="email" autocomplete="username" required></label>
+    <label>Password <input id="password" type="password" autocomplete="current-password" required></label>
+    <div class="signin-row"><button class="btn primary" type="submit">Sign in</button> <button class="linkish" type="button" id="forgot">Forgot password?</button></div>
+    <p id="signin-msg" class="form-msg" role="status"></p>
+  </form>
+  <div id="setup" class="notice" hidden></div>
+</section>
+
+<section id="studio" hidden>
+  <div class="studio-bar">
+    <span id="save-state" class="save-state" role="status">Saved</span>
+    <span id="words" class="muted"></span>
+    <span class="studio-spacer"></span>
+    <details class="studio-menu">
+      <summary class="btn" aria-label="More">More ▾</summary>
+      <div class="menu-pop">
+        <button type="button" data-act="history">Version history…</button>
+        <button type="button" data-act="revert">Revert draft to published</button>
+        <button type="button" data-act="import">Import the original book…</button>
+        <button type="button" data-act="signout">Sign out</button>
+      </div>
+    </details>
+    <button id="publish" class="btn primary" type="button">Publish</button>
+  </div>
+  <div id="conflict" class="notice conflict" hidden>This draft was just changed on another device.
+    <button class="btn" type="button" id="take-theirs">Load that version</button>
+    <button class="btn" type="button" id="keep-mine">Keep mine</button></div>
+  <div id="toolbar" class="pages-toolbar">
+    <span class="ql-formats">
+      <button type="button" class="ql-undo" title="Undo">{icon("M5 7h7a4 4 0 0 1 0 8H8M5 7l3-3M5 7l3 3")}</button>
+      <button type="button" class="ql-redo" title="Redo">{icon("M13 7H6a4 4 0 0 0 0 8h4M13 7l-3-3M13 7l-3 3")}</button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-header" title="Paragraph style"><option value="1">Chapter title</option><option value="2">Heading</option><option value="3">Subheading</option><option selected>Body</option></select>
+      <select class="ql-font" title="Font"><option selected>Arial</option><option value="comic">Comic Sans</option></select>
+      <select class="ql-size" title="Size"><option value="small"></option><option selected></option><option value="large"></option><option value="huge"></option></select>
+    </span>
+    <span class="ql-formats">
+      <button type="button" class="ql-bold" title="Bold"></button><button type="button" class="ql-italic" title="Italic"></button>
+      <button type="button" class="ql-underline" title="Underline"></button><button type="button" class="ql-strike" title="Strikethrough"></button>
+      <select class="ql-color" title="Text colour"></select><select class="ql-background" title="Highlight"></select>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-align" title="Alignment"></select>
+      <button type="button" class="ql-list" value="ordered" title="Numbered list"></button><button type="button" class="ql-list" value="bullet" title="Bulleted list"></button>
+      <button type="button" class="ql-indent" value="-1" title="Outdent"></button><button type="button" class="ql-indent" value="+1" title="Indent"></button>
+    </span>
+    <span class="ql-formats">
+      <button type="button" class="ql-blockquote" title="Quote"></button><button type="button" class="ql-link" title="Link"></button>
+      <button type="button" class="ql-image" title="Picture from a link"></button><button type="button" class="ql-clean" title="Clear formatting"></button>
+    </span>
+  </div>
+  <div class="page-wrap"><div id="editor" class="book"></div></div>
+  <div id="empty" class="empty-draft" hidden>
+    <p><b>Your draft is empty.</b> Start from the original MASTER FILE, or start writing on a blank page.</p>
+    <button class="btn primary" type="button" id="empty-import">Import the original book</button>
+    <button class="btn" type="button" id="empty-blank">Blank page</button>
+  </div>
+</section>
+
+<dialog id="dlg" class="dlg"><form method="dialog">
+  <h2 id="dlg-title"></h2><div id="dlg-body"></div>
+  <div class="dlg-row"><button class="btn" value="cancel">Cancel</button> <button class="btn primary" id="dlg-ok" value="ok">OK</button></div>
+</form></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<script>window.LOC_CHAPTERS={chapters};</script>"""
+    head = (f'<meta name="robots" content="noindex">\n<link rel="stylesheet" href="{QUILL}/quill.snow.css">\n'
+            '<link rel="stylesheet" href="assets/editor.css">\n')
+    scripts = f'<script src="{QUILL}/quill.js" defer></script>\n<script type="module" src="assets/editor.js"></script>\n'
+    return page("Writing room", body, description="", page_no=0, head_extra=head, scripts=scripts,
+                sidebar=sidebar, body_class="writing")
+
+
 # ----------------------------------------------------------------- build
 def main():
     entries = load_entries()
@@ -454,7 +647,7 @@ def main():
     img_out = os.path.join(SITE, "assets", "img")
     shutil.rmtree(img_out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "content", "images"), img_out)
-    for name in ("style.css", "wiki.js"):
+    for name in ("style.css", "wiki.js", "editor.css", "book.js", "reader.js", "editor.js", "firebase-config.js"):
         shutil.copy(os.path.join(ROOT, "build", name), os.path.join(SITE, "assets", name))
 
     random.seed(1)
@@ -484,6 +677,13 @@ def main():
         f.write(render_all(entries))
     with open(os.path.join(SITE, "random.html"), "w", encoding="utf-8") as f:
         f.write(render_random(entries))
+    book_html = render_book_html()
+    with open(os.path.join(SITE, "assets", "book-import.html"), "w", encoding="utf-8") as f:
+        f.write(book_html + "\n")
+    with open(os.path.join(SITE, "read.html"), "w", encoding="utf-8") as f:
+        f.write(render_read(book_html))
+    with open(os.path.join(SITE, "write.html"), "w", encoding="utf-8") as f:
+        f.write(render_write())
     with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
         idx_html = render_index(entries, R)
         f.write(idx_html)

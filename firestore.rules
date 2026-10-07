@@ -1,0 +1,30 @@
+rules_version = '2';
+// Who can do what with the MASTER FILE (see README → "Writing room setup").
+// Paste the user ID the writing room shows you after your first sign-in below,
+// then publish these rules in Firebase console → Firestore → Rules.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthor() {
+      return request.auth != null && request.auth.uid == "PASTE-YOUR-USER-ID-HERE";
+    }
+    function isText(field, max) {
+      return request.resource.data[field] is string && request.resource.data[field].size() < max;
+    }
+
+    // What readers see on read.html: anyone can read it, only the author can publish.
+    match /book/published {
+      allow read: if true;
+      allow write: if isAuthor() && isText("html", 900000) && isText("delta", 900000);
+
+      // A copy of every published version.
+      match /history/{version} {
+        allow read, write: if isAuthor();
+      }
+    }
+
+    // The private draft in the writing room.
+    match /book/draft {
+      allow read, write: if isAuthor();
+    }
+  }
+}

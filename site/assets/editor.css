@@ -1,0 +1,133 @@
+/* The writing room: a Pages-style editor on the wiki's sheet of paper.
+   Builds on style.css; Quill's own look comes from quill.snow.css. */
+
+body.writing { --sx: 84px; --bar-h: 50px; }
+body.writing .sheet { padding: 0 var(--sx) 40px; }
+body.writing .sheet-foot { display: none; }
+#gate { padding-top: 64px; }
+
+.btn {
+  font: inherit; font-size: 14px; line-height: 1.2; padding: 6px 12px; cursor: pointer;
+  border: 1px solid var(--bar-edge); border-radius: 7px; background: var(--paper); color: var(--ink);
+}
+.btn:hover:not(:disabled) { background: var(--bar); }
+.btn:disabled { cursor: default; opacity: .7; }
+.btn.primary { background: #0a66d8; border-color: #0a58bd; color: #fff; font-weight: 700; }
+.btn.primary:hover:not(:disabled) { background: #0958bb; }
+.btn.primary:disabled { background: var(--bar); border-color: var(--bar-edge); color: var(--ink-2); opacity: 1; }
+.linkish { font: inherit; font-size: 14px; background: none; border: 0; color: var(--link); cursor: pointer; padding: 0; }
+
+/* sign in */
+.signin { display: grid; gap: 14px; max-width: 360px; margin-top: 8px; }
+.signin label { display: grid; gap: 4px; font-weight: 700; font-size: 14px; }
+.signin input, .dlg-input {
+  font: inherit; font-weight: 400; padding: 8px 10px; border: 1px solid var(--bar-edge); border-radius: 7px;
+  background: var(--box); color: var(--ink); width: 100%;
+}
+.signin-row { display: flex; align-items: center; gap: 14px; }
+.form-msg { min-height: 1.4em; margin: 0; font-size: 14px; color: var(--ink-2); }
+#setup code { font-size: 13px; background: var(--paper); padding: 1px 5px; border: 1px solid var(--rule); overflow-wrap: anywhere; }
+#setup .btn { margin-left: 4px; }
+
+/* document bar + formatting toolbar, both stuck under the window bar */
+.studio-bar, .pages-toolbar {
+  position: sticky; z-index: 6; margin: 0 calc(-1 * var(--sx)); padding-left: var(--sx); padding-right: var(--sx);
+  background: var(--paper);
+}
+.studio-bar {
+  top: calc(var(--bar-h) + env(safe-area-inset-top, 0px)); height: 52px; z-index: 7;   /* above the toolbar, so the More menu opens over it */
+  display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--rule); font-size: 14px;
+}
+.studio-spacer { flex: 1; }
+.save-state { font-weight: 700; }
+.save-state::before { content: "●"; margin-right: 6px; color: #28a745; }
+.save-state[data-state="saving"]::before, .save-state[data-state="dirty"]::before { color: #e0a800; }
+.save-state[data-state="error"]::before, .save-state[data-state="offline"]::before { color: var(--red); }
+.studio-menu { position: relative; }
+.studio-menu summary { list-style: none; }
+.studio-menu summary::-webkit-details-marker { display: none; }
+.menu-pop {
+  position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; min-width: 250px; padding: 4px;
+  background: var(--paper); border: 1px solid var(--bar-edge); border-radius: 8px; box-shadow: var(--shadow);
+}
+.menu-pop button {
+  display: block; width: 100%; text-align: left; font: inherit; font-size: 14px; padding: 8px 10px;
+  border: 0; border-radius: 5px; background: none; color: var(--ink); cursor: pointer;
+}
+.menu-pop button:hover { background: var(--hi); }
+
+.ql-toolbar.ql-snow.pages-toolbar {
+  top: calc(var(--bar-h) + 52px + env(safe-area-inset-top, 0px));
+  border: 0; border-bottom: 1px solid var(--rule); padding-top: 6px; padding-bottom: 6px;
+  font-family: var(--sans); background: var(--bar);
+}
+.ql-snow .ql-stroke { stroke: var(--ink-2); }
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill { fill: var(--ink-2); }
+.ql-snow .ql-picker { color: var(--ink-2); }
+.ql-snow .ql-picker-options { background: var(--paper); border-color: var(--bar-edge) !important; box-shadow: var(--shadow); }
+.ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke { stroke: var(--link); }
+.ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-fill { fill: var(--link); }
+.ql-snow.ql-toolbar button:hover, .ql-snow.ql-toolbar button.ql-active,
+.ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active,
+.ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected { color: var(--link); }
+.ql-snow .ql-picker.ql-header { width: 128px; }
+.ql-snow .ql-picker.ql-font { width: 112px; }
+.ql-snow .ql-picker.ql-header .ql-picker-label::before, .ql-snow .ql-picker.ql-header .ql-picker-item::before { content: "Body"; }
+.ql-snow .ql-picker.ql-header [data-value="1"]::before { content: "Chapter title" !important; }
+.ql-snow .ql-picker.ql-header [data-value="2"]::before { content: "Heading" !important; }
+.ql-snow .ql-picker.ql-header [data-value="3"]::before { content: "Subheading" !important; }
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before { font-size: 1.6em; font-weight: 700; }
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before { font-size: 1.3em; font-weight: 700; }
+.ql-snow .ql-picker.ql-font .ql-picker-label::before, .ql-snow .ql-picker.ql-font .ql-picker-item::before { content: "Arial"; font-family: var(--sans); }
+.ql-snow .ql-picker.ql-font [data-value="comic"]::before { content: "Comic Sans" !important; font-family: var(--comic); }
+
+/* the page itself */
+.page-wrap { padding-top: 56px; }
+.ql-container.ql-snow { border: 0; font: inherit; }
+#editor .ql-editor { padding: 0; min-height: 70vh; font: 16px/1.62 var(--sans); color: var(--ink); overflow: visible; }
+#editor .ql-editor.ql-blank::before { left: 0; right: 0; color: var(--ink-3); font-style: italic; }
+#editor .ql-editor h1 { font-size: clamp(32px, 5.4vw, 60px); line-height: 1.08; margin: 72px 0 26px; }
+#editor .ql-editor > h1:first-child { margin-top: 0; }
+#editor .ql-editor h2 { font-size: 26px; margin: 0 0 22px; }
+#editor .ql-editor h3 { font-size: 19px; margin: 22px 0 8px; }
+#editor .ql-editor p { margin: 0 0 14px; }
+#editor .ql-editor h1, #editor .ql-editor h2, #editor .ql-editor h3 { scroll-margin-top: 170px; }
+#editor .ql-editor blockquote { border-left: 3px solid var(--rule); margin: 0 0 14px; padding-left: 16px; color: var(--ink-2); }
+#editor .ql-editor a { color: var(--link); }
+.ql-snow .ql-tooltip { z-index: 8; background: var(--paper); color: var(--ink); border-color: var(--bar-edge); box-shadow: var(--shadow); }
+.ql-snow .ql-tooltip input[type=text] { background: var(--box); color: var(--ink); border-color: var(--bar-edge); }
+
+.empty-draft { border: 2px dashed var(--rule); padding: 22px; margin-top: -60vh; position: relative; background: var(--paper); text-align: center; }
+.empty-draft p { margin: 0 0 14px; }
+.conflict { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 0; }
+
+body.writing:not(.signed-in) .outline-box { display: none; }
+.outline { font-family: var(--sans); font-size: 14px; overflow-wrap: anywhere; }
+.outline li { padding: 3px 0; line-height: 1.3; }
+.outline .lvl-2 { padding-left: 14px; font-size: 13px; }
+
+/* dialogs and toasts */
+.dlg { border: 1px solid var(--bar-edge); border-radius: 12px; padding: 20px 22px; max-width: min(520px, calc(100vw - 32px)); width: 100%;
+  background: var(--paper); color: var(--ink); box-shadow: var(--shadow); }
+.dlg::backdrop { background: rgba(0,0,0,.35); }
+.dlg h2 { margin: 0 0 8px; font-size: 20px; border: 0; padding: 0; }
+.dlg p { margin: 0 0 12px; }
+.dlg-row { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+.history { list-style: none; padding: 0 !important; margin: 0; max-height: 50vh; overflow: auto; }
+.history li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+.toast {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 50;
+  max-width: min(560px, calc(100vw - 32px)); padding: 10px 16px; border-radius: 8px;
+  background: var(--ink); color: var(--paper); font-size: 14px; box-shadow: var(--shadow);
+}
+
+@media (max-width: 960px) { body.writing { --sx: 40px; } }
+@media (max-width: 640px) {
+  body.writing { --sx: 16px; }
+  .studio-bar { gap: 8px; }
+  #words { display: none; }
+  .ql-toolbar.ql-snow.pages-toolbar { overflow-x: auto; white-space: nowrap; }
+  .ql-toolbar.ql-snow .ql-formats { margin-right: 8px; }
+  .page-wrap { padding-top: 28px; }
+}
