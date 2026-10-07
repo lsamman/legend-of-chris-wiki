@@ -141,6 +141,23 @@
     if (f.moveName === "dspecial") return f.move.aerial ? t >= 3 && t <= 50 : t >= 4 && t <= 30;
     return false;
   }
+  // Idle Chris stands like the cover: hands in his pockets.
+  function chrisPockets(f) { return f.state === "idle" || f.state === "respawn"; }
+  function chrisCuffs(ctx, f, R) {
+    const s = f.h / 70;
+    ctx.save();
+    if (R.P.rot) { ctx.translate(0, -f.h / 2); ctx.rotate(R.P.rot); ctx.translate(0, f.h / 2); }
+    [[R.legB, -0.1], [R.legF, 0]].forEach(([L, d]) => {
+      const j = L.joint, e = L.end, t = 0.62;
+      const m = { x: lerp(j.x, e.x, t), y: lerp(j.y, e.y, t) };
+      ctx.strokeStyle = S.shade("#c4e4e1", d); ctx.lineWidth = 9.5 * s; ctx.lineCap = "butt";
+      ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(lerp(j.x, e.x, 0.82), lerp(j.y, e.y, 0.82)); ctx.stroke();
+      ctx.fillStyle = S.shade("#c8322b", d); ctx.fillRect(e.x - 3 * s, e.y - 2.4 * s, 8 * s, 1.8 * s);   // red sneaker stripe
+      ctx.fillStyle = S.shade("#9a2a22", d); ctx.fillRect(e.x - 4 * s, e.y + 2 * s, 12 * s, 1.6 * s);    // sole
+    });
+    ctx.restore();
+  }
+
   function drawChrisBall(ctx, f, g) {
     const R = 21, cy = -R - 1;
     if (f.move.aerial && !f.grounded && f.mf > 8) {   // falling streaks
@@ -154,37 +171,57 @@
     halo(ctx, 0, cy - R - 7, 12, 0.8);
   }
 
+  // Chris is the dog from the MASTER FILE cover: tan fur, long snout, big black nose, grey sweater,
+  // pale rolled-up jeans, red-and-white sneakers, and (when he can) his hands in his pockets.
+  const CHRIS_FUR = "#c8955c", CHRIS_FUR_D = "#a8743f";
+  function dogHead(ctx, r, f, hot) {
+    // ear (behind the skull), tall and rounded, tipping back
+    ctx.fillStyle = CHRIS_FUR_D;
+    ctx.beginPath(); ctx.ellipse(-r * 0.12, -r * 1.2, r * 0.34, r * 0.78, -0.18, 0, TAU); ctx.fill();
+    ctx.fillStyle = CHRIS_FUR; ctx.beginPath(); ctx.ellipse(r * 0.22, -r * 1.12, r * 0.3, r * 0.72, 0.12, 0, TAU); ctx.fill();
+    ctx.fillStyle = "#e3b98a"; ctx.beginPath(); ctx.ellipse(r * 0.24, -r * 1.08, r * 0.13, r * 0.46, 0.12, 0, TAU); ctx.fill();
+    // skull + long snout
+    ctx.fillStyle = CHRIS_FUR; circle(ctx, 0, 0, r); ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(r * 0.2, -r * 0.5);
+    ctx.quadraticCurveTo(r * 1.1, -r * 0.42, r * 1.62, -r * 0.18);
+    ctx.quadraticCurveTo(r * 1.9, r * 0.1, r * 1.55, r * 0.44);
+    ctx.quadraticCurveTo(r * 1.0, r * 0.66, r * 0.25, r * 0.7);
+    ctx.closePath(); ctx.fill();
+    // lower jaw shadow + smug little smile
+    ctx.fillStyle = CHRIS_FUR_D; ctx.beginPath(); ctx.ellipse(r * 0.9, r * 0.56, r * 0.55, r * 0.12, 0.05, 0, Math.PI); ctx.fill();
+    ctx.strokeStyle = "#5a3418"; ctx.lineWidth = Math.max(1, r * 0.08); ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(r * 0.55, r * 0.42); ctx.quadraticCurveTo(r * 0.85, r * 0.52, r * 1.12, r * 0.4); ctx.stroke();
+    // the big black nose
+    ctx.fillStyle = "#151515"; ctx.beginPath(); ctx.ellipse(r * 1.62, -r * 0.02, r * 0.36, r * 0.3, -0.25, 0, TAU); ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,.35)"; ctx.beginPath(); ctx.ellipse(r * 1.55, -r * 0.14, r * 0.12, r * 0.06, -0.3, 0, TAU); ctx.fill();
+    // half-lidded, very chill eye
+    ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.ellipse(r * 0.42, -r * 0.24, r * 0.2, r * 0.17, 0, 0, TAU); ctx.fill();
+    ctx.fillStyle = "#2a1a0e"; circle(ctx, r * 0.5, -r * 0.2, r * 0.09); ctx.fill();
+    const lid = f.state === "hitstun" || f.state === "tumble" ? 0.1 : 0.62;
+    ctx.fillStyle = CHRIS_FUR_D; ctx.beginPath(); ctx.ellipse(r * 0.42, -r * 0.24, r * 0.22, r * 0.19, 0, Math.PI, Math.PI + Math.PI * lid * 1.6, false); ctx.lineTo(r * 0.42, -r * 0.24); ctx.fill();
+    ctx.beginPath(); ctx.rect(r * 0.2, -r * 0.45, r * 0.44, r * 0.19 * (lid > 0.5 ? 1.15 : 0.2)); ctx.fill();
+    ctx.strokeStyle = "#5a3418"; ctx.lineWidth = Math.max(1, r * 0.07);
+    ctx.beginPath(); ctx.moveTo(r * 0.2, -r * 0.24 + (lid > 0.5 ? -r * 0.02 : -r * 0.18)); ctx.lineTo(r * 0.64, -r * 0.24 + (lid > 0.5 ? -r * 0.02 : -r * 0.18)); ctx.stroke();
+    if (hot) halo(ctx, 0, -r * 2.1, r * 0.78, 1);   // the god shows through only when he ascends
+  }
+
   const chrisLook = {
-    skin: "#efc39b", shirt: "#f26b1d", pants: "#2a2a40", shoes: "#f4f4f4", shortSleeves: true,
-    headR: 13.5, bodyW: 22,
+    skin: CHRIS_FUR, shirt: "#a7abb2", sleeve: "#a7abb2", forearm: "#a7abb2", pants: "#a9d3d0", shoes: "#f3f1ec",
+    headR: 13.5, bodyW: 24,
     head(ctx, f, P, r) {
-      ctx.fillStyle = chrisLook.skin; circle(ctx, 0, 0, r); ctx.fill();
-      // hair cap + baby curl
-      ctx.fillStyle = "#6b4226";
-      ctx.beginPath(); ctx.arc(0, 0, r, Math.PI * 1.06, Math.PI * 1.78); ctx.arc(-r * 0.05, r * 0.25, r * 0.95, Math.PI * 1.78, Math.PI * 1.06, true); ctx.fill();
-      ctx.strokeStyle = "#6b4226"; ctx.lineWidth = 1.8; ctx.lineCap = "round";
-      ctx.beginPath(); ctx.arc(r * 0.18, -r * 1.02, r * 0.2, Math.PI * 0.1, Math.PI * 1.5); ctx.stroke();
-      ctx.fillStyle = S.shade(chrisLook.skin, -0.07); ctx.beginPath(); ctx.ellipse(-r * 0.16, r * 0.1, r * 0.16, r * 0.21, 0, 0, TAU); ctx.fill();
-      // big friendly eye
-      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.ellipse(r * 0.47, -r * 0.03, r * 0.17, r * 0.21, 0, 0, TAU); ctx.fill();
-      ctx.fillStyle = "#3a2414"; circle(ctx, r * 0.53, 0, r * 0.12); ctx.fill();
-      ctx.fillStyle = "#fff"; circle(ctx, r * 0.57, -r * 0.06, r * 0.045); ctx.fill();
-      ctx.strokeStyle = "#5a3820"; ctx.lineWidth = 1.3;
-      ctx.beginPath(); ctx.moveTo(r * 0.3, -r * 0.33); ctx.quadraticCurveTo(r * 0.48, -r * 0.42, r * 0.66, -r * 0.33); ctx.stroke();
-      ctx.fillStyle = "rgba(255,110,110,.33)"; circle(ctx, r * 0.55, r * 0.36, r * 0.14); ctx.fill();
-      ctx.beginPath(); ctx.arc(r * 0.66, r * 0.3, r * 0.17, Math.PI * 0.15, Math.PI * 0.85); ctx.stroke();
       const hot = attacking(f, "uspecial") || (attacking(f, "usmash") && f.mf >= 8 && f.mf <= 20);
-      halo(ctx, 0, -r * 1.38, r * 0.82, hot ? 1 : 0.45);
+      dogHead(ctx, r, f, hot);
     },
     torso(ctx, f, P, b) {
-      ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.6;
-      ctx.beginPath(); ctx.arc(b.x + b.w * 0.55, b.y + 1, b.w * 0.3, Math.PI * 0.12, Math.PI * 0.88); ctx.stroke();
-      ctx.fillStyle = "rgba(255,255,255,.85)"; ctx.fillRect(b.x + 1, b.y + b.h - 6, b.w - 2, 1.6);
-      jerseyText(ctx, f, "C", b.x + b.w * 0.52, b.y + b.h * 0.56, b.h * 0.46, "#fff", "#a83a08");
+      // cable-knit sweater: ribbed collar and hem
+      ctx.strokeStyle = "#8d9198"; ctx.lineWidth = 1.2;
+      for (let i = 1; i < 4; i++) { ctx.beginPath(); ctx.moveTo(b.x + (b.w * i) / 4, b.y + 4); ctx.lineTo(b.x + (b.w * i) / 4, b.y + b.h - 6); ctx.stroke(); }
+      ctx.fillStyle = "#94989f"; ctx.fillRect(b.x + 1, b.y + b.h - 6, b.w - 2, 4); ctx.fillRect(b.x + b.w * 0.25, b.y - 1, b.w * 0.55, 3);
     },
     prop(ctx, f, P, hand) {
-      if (alive(f.data.ball)) return;
-      if (f.state === "idle" || f.state === "walk") {   // dribble
+      if (alive(f.data.ball) || chrisPockets(f)) return;
+      if (f.state === "walk") {   // dribble
         const u = 1 - Math.abs(Math.cos(FRAME * 0.11));
         drawBall(ctx, hand.x + 5, lerp(hand.y + 7, -7, u), 7, FRAME * 0.08);
       } else ballInHand(ctx, hand, 7);
@@ -209,10 +246,16 @@
     },
   };
 
+  // Same look, but the arms are tucked into the jeans pockets (drawn short, hands hidden).
+  const chrisPocketLook = Object.assign({}, chrisLook, {
+    skin: "#a7abb2", armScale: 0.8,   // hands vanish into the pockets
+    posePatch(f, P) { P.armF = [-0.32, 0.5]; P.armB = [-0.45, 0.45]; P.lean = -0.25; },
+  });
+
   S.registerFighter({
     id: "chris", slug: "chris", name: "Chris", short: "Chris",
     tagline: "Baby. Baller. Corpse. Ball. God.",
-    color: "#f26b1d",
+    color: "#c8955c",
     stats: { weight: 95, walk: 4.3, run: 7.5, dashInit: 7.9, airSpeed: 5.1, jump: 13.6, airJump: 12.8, width: 34, height: 66 },
     reach: 1, power: 1,
     moveNames: { nspecial: "Ball Bounce", sspecial: "Baller Dash", uspecial: "God Ascension", dspecial: "Ball Form", fsmash: "Slam Dunk", usmash: "Halo Flare", nair: "Ball Roll" },
@@ -300,8 +343,8 @@
     draw(ctx, f, g) {
       FRAME = g.frame;
       if (chrisBallForm(f)) { drawChrisBall(ctx, f, g); return; }
-      const R = S.drawHumanoid(ctx, f, chrisLook, g);
-      bareShins(ctx, f, R, chrisLook.skin, "#ffffff", chrisLook.shoes, "#2a2a40");
+      const R = S.drawHumanoid(ctx, f, chrisPockets(f) ? chrisPocketLook : chrisLook, g);
+      chrisCuffs(ctx, f, R);
     },
   });
 

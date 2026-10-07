@@ -134,9 +134,11 @@
   //   prop(ctx, f, P, hand)   draw a held item; hand = {x, y, ang} front hand, ang = forearm angle (from down)
   //   backProp(ctx, f, P, hand) item in the back hand (drawn behind the body)
   //   behind(ctx, f, P)       anything behind the whole body (capes, wings, auras)
+  //   posePatch(f, P, g)      tweak the pose before drawing (e.g. hands in pockets)
   // }
   S.drawHumanoid = function (ctx, f, look, g) {
     const P = S.pose(f, g);
+    if (look.posePatch) look.posePatch(f, P, g);
     const h = f.h, s = h / 70;
     const limbW = look.limbW || 7 * s;
     const headR = look.headR || h * 0.13;
