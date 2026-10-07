@@ -66,24 +66,25 @@
         for (const f of g.fighters) if (!f.cpu) { const was = f._startHeld; f._startHeld = f.pad.start; if (f.pad.start && !was) startPressed = true; }
         if (presses.includes("Backquote")) S.debug = !S.debug;
         if (this.paused) {
-          for (const f of g.fighters) if (!f.cpu) S.input.readPad(f.pad, f.devices);
+          for (const f of g.fighters) if (!f.cpu) S.input.readPad(f.pad, f.devices, { mouse: true });
           if (startPressed) this.paused = false;
-          if (presses.includes("KeyQ")) { this.quit(); return; }
+          // Q and R are shield and grab in a match, so the pause menu uses Backspace and N.
+          if (presses.includes("Backspace")) { this.quit(); return; }
           if (presses.includes("KeyV")) { S.input.setRumble(!S.input.rumbleOn); if (S.input.rumbleOn) for (const f of g.fighters) if (!f.cpu) S.input.rumble(f.devices, 0.6, 0.6, 200); }
-          if (presses.includes("KeyR")) { S.startMatch(cfg); return; }
+          if (presses.includes("KeyN")) { S.startMatch(cfg); return; }
           return;
         }
         if (startPressed && !g.over && this.countdown <= 0) { this.paused = true; S.audio && S.audio.pause && S.audio.pause(); return; }
         if (this.countdown > 0) {
           this.countdown--;
-          for (const f of g.fighters) if (!f.cpu) S.input.readPad(f.pad, f.devices);
+          for (const f of g.fighters) if (!f.cpu) S.input.readPad(f.pad, f.devices, { mouse: true });
           if (this.countdown % 50 === 0 && S.audio && S.audio.count) S.audio.count(this.countdown === 0);
           updateCamera(cam, g);
           return;
         }
         for (const f of g.fighters) {
           if (f.cpu && f.brain) { f.brain.think(g, f.pad); S.input.finishAiPad(f.pad); }
-          else if (!f.cpu) S.input.readPad(f.pad, f.devices);
+          else if (!f.cpu) S.input.readPad(f.pad, f.devices, { mouse: true });
         }
         g.step();
         updateCamera(cam, g);
@@ -217,7 +218,7 @@
     c.fillStyle = "rgba(0,0,0,.6)"; c.fillRect(0, 0, W, H);
     S.text(c, "PAUSED", W / 2, H / 2 - 40, 64, "#fff", "center", S.FONT_BIG, "900", "#000");
     S.text(c, "Enter / Esc / Start — resume", W / 2, H / 2 + 10, 20, "#ddd", "center");
-    S.text(c, "R — restart     Q — quit to character select", W / 2, H / 2 + 40, 20, "#ddd", "center");
+    S.text(c, "N — new match (restart)     Backspace — quit to character select", W / 2, H / 2 + 40, 20, "#ddd", "center");
     S.text(c, "V — controller rumble: " + (S.input.rumbleOn ? "ON" : "OFF") + "     ` — show hitboxes", W / 2, H / 2 + 70, 16, "#999", "center");
   }
 
@@ -298,6 +299,7 @@
     ensureContent();
     const quick = S.quickConfig();
     if (quick) S.startMatch(quick);
+    else if (S.ui && S.ui.boot) S.ui.boot();
     else if (S.ui && S.ui.title) S.ui.title();
     else S.startMatch({ stage: S.STAGE_ORDER[0], stocks: 3, seed: 1, players: [
       { fighter: S.FIGHTER_ORDER[0], port: 0, cpu: false, devices: ["kbA", "pad0"] },

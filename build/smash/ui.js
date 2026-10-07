@@ -280,7 +280,14 @@
           return;
         }
         if (inp.click && inp.click.id === "roadmap") { this.roadmapOpen = true; sfx("select"); return; }
-        const go = inp.presses.some((k) => k !== "KeyM" && k !== "Backquote") || inp.events.some((e) => e.type !== "dir") || (inp.click && inp.click.id !== "mute");
+        // controllers with an unknown raw layout: their first button press opens the setup instead of starting
+        const unset = S.input.needsSetup ? S.input.needsSetup() : [];
+        this.unset = unset;
+        if (inp.click && inp.click.id === "padsetup") { const ps = navigator.getGamepads ? navigator.getGamepads() : []; const i = unset[0] != null ? unset[0] : [0, 1, 2, 3].find((n) => ps && ps[n]); if (i != null) { sfx("select"); padSetup(i, title); } else { S.input.toast = { text: "Connect a controller first", t: 150 }; } return; }
+        const fromUnset = inp.events.find((e) => e.type !== "dir" && e.dev.startsWith("pad") && unset.includes(+e.dev.slice(3)));
+        if (fromUnset && this.t > 10) { sfx("select"); padSetup(+fromUnset.dev.slice(3), title); return; }
+        if (inp.presses.includes("KeyC")) { const ps = navigator.getGamepads ? navigator.getGamepads() : []; const i = [0, 1, 2, 3].find((n) => ps && ps[n]); if (i != null) { sfx("select"); padSetup(i, title); return; } }
+        const go = inp.presses.some((k) => k !== "KeyM" && k !== "Backquote" && k !== "KeyC") || inp.events.some((e) => e.type !== "dir") || (inp.click && inp.click.id !== "mute");
         if (inp.click && inp.click.id === "mute") { try { S.audio && S.audio.toggleMute && S.audio.toggleMute(); } catch (e) { /* ignore */ } return; }
         if (go && this.t > 10) { sfx("select"); S.ui.charSelect(); return; }
         for (const p of parade) {
@@ -317,11 +324,21 @@
         panel(c, -52, -22, 104, 40, "#e8333a", { r: 8, shadow: 4 });
         S.text(c, "BETA", 0, 10, 26, "#fff", "center", S.FONT_BIG, "900");
         c.restore();
-        // press start
+        // press start (or, while a controller still needs setting up, a banner in its place)
         const blink = (Math.sin(t * 0.09) + 1) / 2;
-        c.globalAlpha = 0.45 + blink * 0.55;
-        S.text(c, "PRESS ANY KEY / CLICK TO BALL", VW / 2, panelY - 18, 28, C.ink, "center", S.FONT_BIG, "900");
-        c.globalAlpha = 1;
+        if (this.unset && this.unset.length) {
+          const inf = S.input.padInfo(this.unset[0]);
+          const msg = "New controller (" + ((inf && inf.kind) || "Gamepad") + "): press any button on it to set it up";
+          const bw = Math.min(VW - 40, 700), bx = (VW - bw) / 2, by = panelY - 62;
+          c.globalAlpha = 0.85 + blink * 0.15;
+          panel(c, bx, by, bw, 44, C.yellow, { r: 10, shadow: 4 });
+          S.text(c, msg, VW / 2, by + 29, fitText(c, msg, bw - 30, 18, S.FONT_BIG, "900"), C.ink, "center", S.FONT_BIG, "900");
+          c.globalAlpha = 1;
+        } else {
+          c.globalAlpha = 0.45 + blink * 0.55;
+          S.text(c, "PRESS ANY KEY / CLICK TO BALL", VW / 2, panelY - 18, 28, C.ink, "center", S.FONT_BIG, "900");
+          c.globalAlpha = 1;
+        }
         this.panelY = panelY;
         // ground + parade of fighters
         const gy = VH - 40;
@@ -339,6 +356,8 @@
         const muted = S.audio && S.audio.muted;
         button(c, this, "mute", VW - 150, 14, 132, 36, muted ? "🔇 SOUND OFF" : "🔊 SOUND ON", { size: 13, font: S.FONT, weight: "bold" });
         if (S.roadmap) button(c, this, "roadmap", VW - 312, 14, 150, 36, "🛠 COMING SOON", { size: 13, font: S.FONT, weight: "bold" });
+        button(c, this, "padsetup", VW - 504, 14, 184, 36, "🎮 CONTROLLER SETUP", { size: 13, font: S.FONT, weight: "bold" });
+
         if (this.roadmapOpen && S.roadmap) this.drawRoadmap(c, VW, VH);
         S.text(c, "fan-made for the Legend Of Chris wiki · no balls were harmed", VW / 2, VH - 12, 13, C.faint, "center", S.FONT_COMIC, "bold");
         this.end(c);
@@ -375,13 +394,13 @@
             `${G.a} attack · ${G.b} special · ${G.j} jump`,
             `${G.sh} shield · ${G.z} grab (Z)`,
             "Right stick = C-stick smashes/aerials",
-            n ? "Pause: Start · V in pause: rumble" : "XInput, Steam Input, PS & Switch pads",
+            n ? "Pause: Start · C: controller setup" : "XInput, Steam Input, PS & Switch pads",
           ]];
         }
         const w = Math.min(1180, VW - 60), h = 132, x = (VW - w) / 2, y = this.panelY;
         panel(c, x, y, w, h, "rgba(255,255,255,.94)", { shadow: 5 });
         const cols = [
-          ["KEYBOARD P1", ["Move: W A S D", "Attack: F   Special: G", "Jump: H / Space", "Shield: T / L-Shift"]],
+          ["KEYBOARD + MOUSE P1", ["Move: W A S D   Jump: Space / H", "Attack: left click (or F)", "Special: right click (or G)", "Shield: Q   Grab: R"]],
           ["KEYBOARD P2", ["Move: Arrow keys", "Attack: ,   Special: .", "Jump: /  (Numpad 1/2/3/0)", "Shield: R-Shift"]],
           padColumn(),
           ["HOW TO BALL", ["Dash: double-tap a direction", "Smash: tap direction + attack", "Tilt: hold direction, then attack", "Enter/Esc pause · M mute"]],
@@ -398,6 +417,126 @@
         });
       },
     });
+    S.setScene(sc);
+  }
+
+
+  // ------------------------------------------------------------ CONTROLLER SETUP
+  // For controllers whose raw layout the browser doesn't standardise (e.g. newer Steam Controllers): press each
+  // control once and the layout is saved for that controller on this device (S.input.saveMap).
+  const SETUP_STEPS = [
+    { k: "lx", stick: true, say: "Push the LEFT STICK all the way RIGHT" },
+    { k: "ly", stick: true, say: "Push the LEFT STICK all the way DOWN" },
+    { k: "a", say: "Press ATTACK", hint: "the bottom face button (A)" },
+    { k: "b", say: "Press SPECIAL", hint: "the right face button (B)" },
+    { k: "j1", say: "Press JUMP", hint: "the left face button (X)" },
+    { k: "j2", say: "Press JUMP again on another button", hint: "the top face button (Y)", opt: true },
+    { k: "s1", say: "Press SHIELD", hint: "the left trigger (LT)" },
+    { k: "s2", say: "Press SHIELD on another button", hint: "the right trigger (RT) or LB", opt: true },
+    { k: "z", say: "Press GRAB", hint: "the right bumper (RB)" },
+    { k: "start", say: "Press PAUSE", hint: "Start / Menu (☰)" },
+    { k: "rx", stick: true, say: "Push the RIGHT STICK all the way RIGHT", hint: "C-stick for smashes and aerials", opt: true },
+    { k: "ry", stick: true, say: "Push the RIGHT STICK all the way DOWN", opt: true },
+    { k: "dup", say: "Press D-PAD UP", opt: true }, { k: "ddown", say: "Press D-PAD DOWN", opt: true },
+    { k: "dleft", say: "Press D-PAD LEFT", opt: true }, { k: "dright", say: "Press D-PAD RIGHT", opt: true },
+  ];
+  const STEP_NAME = { a: "ATTACK", b: "SPECIAL", j1: "JUMP", j2: "JUMP", s1: "SHIELD", s2: "SHIELD", z: "GRAB", start: "PAUSE", lx: "LEFT STICK", ly: "LEFT STICK", rx: "RIGHT STICK", ry: "RIGHT STICK", dup: "D-PAD", ddown: "D-PAD", dleft: "D-PAD", dright: "D-PAD" };
+  function padSetup(index, then) {
+    const getPad = () => { const ps = navigator.getGamepads ? navigator.getGamepads() : []; return ps && ps[index]; };
+    const gp0 = getPad();
+    if (!gp0) { (then || title)(); return; }
+    const id = gp0.id;
+    const inf = S.input.padInfo && S.input.padInfo(index);
+    // Resting positions: from when the controller was first seen (it may be mid-press right now, since a button
+    // press is how you get here). Buttons all rest unpressed; the opening press is waited out in "release".
+    const idleAxes = inf && inf.rest && inf.rest.length === gp0.axes.length ? inf.rest.slice() : Array.from(gp0.axes, (v) => v);
+    const idleBtn = Array.from(gp0.buttons, () => false);
+    const map = { v: 1 }, used = [];
+    let step = 0, phase = "release", note = "", noteT = 0, doneT = 0;
+    const sc = baseScene({
+      enter() { S.input.takePresses(); },
+      update() {
+        const inp = this.poll();
+        const cur = SETUP_STEPS[step];
+        const leave = () => { primeDevices(); (then || title)(); };
+        for (const k of inp.presses) {
+          if (k === "Escape") { sfx("back"); leave(); return; }
+          if ((k === "Space" || k === "KeyS") && cur && cur.opt) { sfx("menu"); next(); }
+        }
+        if (inp.click && inp.click.id === "cancel") { sfx("back"); leave(); return; }
+        if (inp.click && inp.click.id === "skip" && cur && cur.opt) { sfx("menu"); next(); }
+        if (phase === "done") { if (++doneT > 100 || inp.presses.length || inp.click) leave(); return; }
+        const gp = getPad();
+        if (!gp || !gp.connected) { note = "Controller disconnected"; noteT = 999; return; }
+        const pressed = (i) => !!(gp.buttons[i] && (gp.buttons[i].pressed || gp.buttons[i].value > 0.5)) && !idleBtn[i];
+        const moved = (i) => (gp.axes[i] || 0) - (idleAxes[i] || 0);
+        if (phase === "release") {   // wait until everything is back at rest before listening for the next control
+          let busy = false;
+          for (let i = 0; i < gp.buttons.length; i++) if (pressed(i)) busy = true;
+          for (let i = 0; i < gp.axes.length; i++) if (Math.abs(moved(i)) > 0.3) busy = true;
+          if (!busy) phase = "listen";
+          return;
+        }
+        // listen
+        let found = null;
+        if (cur.stick) {
+          let best = -1, bv = 0;
+          for (let i = 0; i < gp.axes.length; i++) { const d = moved(i); if (Math.abs(d) > Math.abs(bv)) { bv = d; best = i; } }
+          if (best >= 0 && Math.abs(bv) > 0.6) found = { i: best, s: Math.sign(bv) };
+        } else {
+          for (let i = 0; i < gp.buttons.length && !found; i++) if (pressed(i)) found = { t: "b", i };
+          for (let i = 0; i < gp.axes.length && !found; i++) { const d = moved(i); if (Math.abs(d) > 0.6) found = { t: "a", i, dir: Math.sign(d), rest: idleAxes[i] || 0 }; }
+        }
+        if (!found) return;
+        const sig = (found.t === "b" ? "b" : "a") + found.i + (found.t === "b" ? "" : found.dir || found.s);
+        const clash = used.find((u) => u.sig === sig || (cur.stick && u.axis === found.i) || (!cur.stick && found.t === "a" && u.axis === found.i));
+        if (clash) { note = "That's already " + STEP_NAME[clash.k] + ". Try another."; noteT = 120; phase = "release"; sfx("back"); return; }
+        map[cur.k] = found;
+        used.push({ k: cur.k, sig, axis: cur.stick ? found.i : found.t === "a" ? found.i : null });
+        sfx("select");
+        next();
+      },
+      render(c, W, H) {
+        this.begin(c, W, H);
+        const { VW, VH, t } = this;
+        paperBg(c, VW, VH, t);
+        const w = Math.min(820, VW - 60), h = 400, x = (VW - w) / 2, y = Math.max(40, (VH - h) / 2 - 20);
+        panel(c, x, y, w, h, C.card, { shadow: 6 });
+        S.text(c, "CONTROLLER SETUP", x + w / 2, y + 52, 34, C.ink, "center", S.FONT_BIG, "900");
+        S.text(c, "Pad " + (index + 1) + " · " + ((inf && inf.kind) || "Gamepad"), x + w / 2, y + 80, 16, C.sub, "center", S.FONT_COMIC, "bold");
+        if (phase === "done") {
+          S.text(c, "ALL SET!", x + w / 2, y + 190, 54, "#2a9d3a", "center", S.FONT_BIG, "900", C.ink);
+          S.text(c, "This controller's layout is saved on this device.", x + w / 2, y + 236, 18, C.sub, "center", S.FONT_COMIC, "bold");
+        } else {
+          const cur = SETUP_STEPS[step];
+          // progress pips
+          const pw = Math.min(26, (w - 80) / SETUP_STEPS.length);
+          SETUP_STEPS.forEach((st, i) => {
+            c.fillStyle = i < step ? "#2a9d3a" : i === step ? C.yellow : "#ddd";
+            c.beginPath(); c.arc(x + w / 2 + (i - (SETUP_STEPS.length - 1) / 2) * pw, y + 108, 6, 0, Math.PI * 2); c.fill();
+            c.lineWidth = 2; c.strokeStyle = C.ink; c.stroke();
+          });
+          const pulse = 1 + Math.sin(t * 0.12) * 0.03;
+          c.save(); c.translate(x + w / 2, y + 190); c.scale(pulse, pulse);
+          S.text(c, cur.say.toUpperCase(), 0, 0, fitText(c, cur.say.toUpperCase(), w - 60, 34, S.FONT_BIG, "900"), C.ink, "center", S.FONT_BIG, "900");
+          c.restore();
+          if (cur.hint) S.text(c, "usually " + cur.hint, x + w / 2, y + 226, 18, C.sub, "center", S.FONT_COMIC, "bold");
+          S.text(c, phase === "release" ? "let go of everything…" : "listening…", x + w / 2, y + 262, 16, phase === "release" ? "#c97a00" : "#2a9d3a", "center", S.FONT_COMIC, "bold");
+          if (noteT > 0) { noteT--; S.text(c, note, x + w / 2, y + 292, 17, "#e8333a", "center", S.FONT_COMIC, "bold"); }
+          if (cur.opt) button(c, this, "skip", x + w / 2 - 210, y + h - 76, 200, 48, "SKIP (Space)", { size: 16 });
+          button(c, this, "cancel", x + w / 2 + (cur.opt ? 10 : -100), y + h - 76, 200, 48, "CANCEL (Esc)", { size: 16 });
+        }
+        this.end(c);
+      },
+    });
+    function next() {
+      step++; phase = "release";
+      if (step >= SETUP_STEPS.length) {
+        if (!map.dup && !map.ddown && !map.dleft && !map.dright) delete map.dup;
+        S.input.saveMap(id, map);
+        phase = "done"; doneT = 0; sfx("coin");
+      }
+    }
     S.setScene(sc);
   }
 
@@ -1022,5 +1161,5 @@
     return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
   }
 
-  S.ui = { setup: null, title, charSelect, stageSelect, results, buildConfig, DEVICE_OPTIONS };
+  S.ui = { setup: null, title, charSelect, stageSelect, results, buildConfig, padSetup, DEVICE_OPTIONS };
 })();

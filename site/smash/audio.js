@@ -236,6 +236,81 @@
     if (master && ac) { const t = ac.currentTime; master.gain.cancelScheduledValues(t); master.gain.setTargetAtTime(muted ? 0 : MASTER, t, 0.03); }
   }
 
+  // ------------------------------------------------------------ boot intro music
+  // An original, synthesized "orchestral" sting for the boot splash (in the spirit of a big console intro):
+  // rumble + rising choir, an impact on the emblem, a brass fanfare, a stab per title word, and a final chord.
+  // All times are seconds from the start; INTRO_TIMES is shared with the visuals in intro.js.
+  const INTRO_TIMES = { impact: 3.2, fanfare: [3.95, 4.3, 4.65], words: [5.3, 5.62, 5.94], final: 6.5, end: 9.2 };
+  // Several detuned voices through a lowpass whose cutoff swells: choir pads and brass.
+  function ensemble(t0, o) {
+    const t = t0 + (o.at || 0), dur = o.dur, out = ac.createGain(), f = ac.createBiquadFilter();
+    f.type = "lowpass"; f.Q.value = o.q || 0.7;
+    f.frequency.setValueAtTime(o.lp0 || 300, t);
+    f.frequency.exponentialRampToValueAtTime(o.lp1 || 2400, t + (o.bright || 0.08));
+    if (o.lp2) f.frequency.exponentialRampToValueAtTime(o.lp2, t + dur);
+    out.gain.setValueAtTime(0.0001, t);
+    out.gain.linearRampToValueAtTime(o.vol, t + (o.att || 0.02));
+    out.gain.setValueAtTime(o.vol, t + Math.max(o.att || 0.02, dur - (o.rel || 0.3)));
+    out.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    f.connect(out); out.connect(o.bus || sfxBus);
+    for (const n of o.notes) for (const det of o.det || [-7, 0, 7]) {
+      const osc = ac.createOscillator(); osc.type = o.type || "sawtooth";
+      osc.frequency.setValueAtTime(mtof(n), t); osc.detune.setValueAtTime(det, t);
+      if (o.vib) { const l = ac.createOscillator(), lg = ac.createGain(); l.frequency.value = 5 + Math.random(); lg.gain.value = o.vib; l.connect(lg); lg.connect(osc.detune); l.start(t); l.stop(t + dur + 0.05); }
+      osc.connect(f); osc.start(t); osc.stop(t + dur + 0.05);
+    }
+  }
+  function timpani(t0, at, m, vol) {
+    const t = t0 + at;
+    tone({ type: "sine", f: mtof(m) * 1.5, f2: mtof(m), slide: 0.06, dur: 1.4, vol, delay: t - ac.currentTime });
+    tone({ type: "triangle", f: mtof(m) * 2, f2: mtof(m) * 1.4, dur: 0.5, vol: vol * 0.3, delay: t - ac.currentTime });
+    noise({ f: 600, f2: 90, q: 0.6, dur: 0.5, vol: vol * 0.7, filter: "lowpass", delay: t - ac.currentTime });
+  }
+  function crash(t0, at, vol, dur) {
+    noise({ f: 7000, f2: 2500, q: 0.4, dur: dur || 2.4, vol, filter: "highpass", att: 0.003, delay: t0 + at - ac.currentTime });
+    noise({ f: 3500, f2: 1200, q: 0.8, dur: (dur || 2.4) * 0.6, vol: vol * 0.6, filter: "bandpass", delay: t0 + at - ac.currentTime });
+  }
+  function swellNoise(t0, at, dur, vol) {   // reverse cymbal: rises, then cuts dead at the hit
+    const t = t0 + at, src = ac.createBufferSource(); src.buffer = noiseBuf; src.loop = true;
+    const f = ac.createBiquadFilter(); f.type = "highpass"; f.frequency.setValueAtTime(1200, t); f.frequency.exponentialRampToValueAtTime(6000, t + dur);
+    const g = ac.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + dur); g.gain.setValueAtTime(0.0001, t + dur + 0.01);
+    src.connect(f); f.connect(g); g.connect(sfxBus); src.start(t); src.stop(t + dur + 0.05);
+  }
+  let introBus = null;
+  function playIntro() {
+    // everything goes through its own bus so skipping the intro can fade it out
+    introBus = ac.createGain(); introBus.gain.value = 1; introBus.connect(comp);
+    const keep = sfxBus; sfxBus = introBus;
+    try { scheduleIntro(); } finally { sfxBus = keep; }
+  }
+  function scheduleIntro() {
+    const t0 = ac.currentTime + 0.05, T = INTRO_TIMES;
+    // 0 → impact: sub rumble, dark choir rising (C minor), reverse cymbal
+    tone({ type: "sine", f: 41, f2: 55, slide: T.impact, dur: T.impact + 0.3, vol: 0.32, att: 0.8, delay: 0.05 });
+    ensemble(t0, { at: 0.2, dur: T.impact - 0.15, notes: [48, 55, 60, 63], type: "sawtooth", vol: 0.05, att: 2.2, rel: 0.1, lp0: 180, lp1: 1600, bright: T.impact - 0.4, det: [-9, 0, 9], vib: 9 });
+    ensemble(t0, { at: 1.4, dur: T.impact - 1.35, notes: [72, 75, 79], type: "triangle", vol: 0.035, att: 1.6, rel: 0.05, lp0: 900, lp1: 4000, bright: 1.6, vib: 14 });
+    swellNoise(t0, T.impact - 1.6, 1.6, 0.22);
+    [0.9, 1.7, 2.3, 2.7, 2.95, 3.08].forEach((at, i) => timpani(t0, at, 36, 0.12 + i * 0.05));   // timpani roll accelerating in
+    // impact: huge chord + timpani + crash
+    timpani(t0, T.impact, 36, 0.6); crash(t0, T.impact, 0.32, 3);
+    ensemble(t0, { at: T.impact, dur: 1.2, notes: [36, 48, 55, 60, 63, 67], vol: 0.11, att: 0.01, rel: 0.6, lp0: 3500, lp1: 3500, lp2: 600, det: [-12, 0, 12] });
+    // fanfare: Ab → Bb → C (brass stabs)
+    [[56, 60, 63, 68], [58, 62, 65, 70], [60, 64, 67, 72]].forEach((ch, i) => {
+      ensemble(t0, { at: T.fanfare[i], dur: i === 2 ? 0.6 : 0.3, notes: ch, vol: 0.085, att: 0.012, rel: 0.12, lp0: 500, lp1: 3800, bright: 0.05, lp2: 900 });
+      timpani(t0, T.fanfare[i], i === 2 ? 36 : 31 + i * 2, 0.25);
+    });
+    // a stab per title word: SUPER · SMASH · BALLERS
+    T.words.forEach((at, i) => {
+      ensemble(t0, { at, dur: 0.22, notes: [55 + i * 2, 60 + i * 2, 64 + i * 2], vol: 0.08, att: 0.008, rel: 0.1, lp0: 700, lp1: 4200, bright: 0.04, lp2: 800 });
+      timpani(t0, at, 31 + i * 2, 0.35); noise({ f: 2500, q: 0.7, dur: 0.12, vol: 0.12, delay: t0 + at - ac.currentTime });
+    });
+    // final: C major, brass + choir, long ring, cymbal
+    timpani(t0, T.final, 36, 0.55); crash(t0, T.final, 0.28, 3.2);
+    ensemble(t0, { at: T.final, dur: 2.6, notes: [36, 48, 55, 60, 64, 67, 72], vol: 0.1, att: 0.015, rel: 1.6, lp0: 1200, lp1: 4200, bright: 0.06, lp2: 1100, det: [-10, 0, 10], vib: 6 });
+    ensemble(t0, { at: T.final, dur: 2.7, notes: [76, 79, 84], type: "triangle", vol: 0.04, att: 0.25, rel: 1.8, lp0: 3000, lp1: 6000, vib: 12 });
+    for (let k = 0; k < 10; k++) timpani(t0, T.final + 0.9 + k * 0.07, 36, 0.06 + 0.02 * Math.min(k, 6));   // little roll into the ring-out
+  }
+
   // ------------------------------------------------------------ public API (never throws)
   const api = {
     get muted() { return muted; },
@@ -245,6 +320,19 @@
     unlock,
     music(id) { try { wantMusic = id; if (ac && ac.state === "running") startMusic(id); } catch (e) { /* ignore */ } },
     stopMusic() { try { wantMusic = null; stopMusic(); } catch (e) { /* ignore */ } },
+    INTRO_TIMES,
+    // Plays the boot sting once the context is running (call from a user gesture). Never throws.
+    stopIntro() {
+      try { if (!introBus) return; const t = ac.currentTime, b = introBus; introBus = null; b.gain.cancelScheduledValues(t); b.gain.setValueAtTime(b.gain.value, t); b.gain.linearRampToValueAtTime(0, t + 0.35); setTimeout(() => { try { b.disconnect(); } catch (e) { /* gone */ } }, 600); } catch (e) { /* ignore */ }
+    },
+    intro() {
+      try {
+        if (!ensure()) return;
+        wantMusic = null; stopMusic();
+        const go = () => { try { if (!muted) playIntro(); } catch (e) { /* ignore */ } };
+        if (ac.state === "running") go(); else ac.resume().then(go).catch(() => {});
+      } catch (e) { /* ignore */ }
+    },
   };
   for (const name of Object.keys(fx)) {
     api[name] = function () {

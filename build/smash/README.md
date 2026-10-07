@@ -4,12 +4,13 @@ A Melee-style platform fighter for the Legend of Chris wiki. Vanilla JS + Canvas
 (`build/build.py` copies this folder to `site/smash/`). Everything hangs off `window.Smash` (`S`).
 
 Load order (see `smash.html`): `core.js` → `game.js` → `render.js` → `audio.js` → `fighters-a.js` → `fighters-b.js`
-→ `stages.js` → `ai.js` → `ui.js` → `engine.js` (boots).
+→ `stages.js` → `ai.js` → `ui.js` → `intro.js` → `engine.js` (boots).
 
 ## Files
 | file | owns |
 |---|---|
-| core.js | namespace, registries, seeded RNG, keyboard/gamepad → virtual pads |
+| core.js | namespace, registries, seeded RNG, keyboard/mouse/gamepad → virtual pads, saved controller layouts |
+| intro.js | boot splash: press-any-button gate, then the dramatic intro, then the title |
 | game.js | the deterministic sim: Fighter state machine, physics, moves/hitboxes, knockback, shields, grabs, ledges, projectiles, `S.Game` |
 | render.js | `S.drawHumanoid` rig + `S.pose`, fighter overlays, particles, default platform drawing |
 | render3d.js | 3D fighters: three.js world/portrait rendering and the modelling toolkit `S.K3` (`K.humanoid`, `K.poseHumanoid`, primitives, painted textures) |
@@ -29,7 +30,7 @@ Load order (see `smash.html`): `core.js` → `game.js` → `render.js` → `audi
 - Melee scale: 5 px = 1 Melee unit. Main stages are ~700–900 px wide; blast zones ~±1150 x, -950 top, +650 bottom.
 
 ## Controls
-- P1 keys: WASD move, F attack, G special, H/Space jump, T/LShift shield.
+- P1 keyboard + mouse: WASD move, left click (or F) attack, right click (or G) special, Space/H jump, Q (or LShift) shield, R grab. Mouse buttons only count in matches, so menu clicks never attack.
 - P2 keys: arrows move, `,` attack, `.` special, `/` jump, RShift shield (numpad 1/2/3/0 also work).
 - Gamepads (Gamepad API): A attack, B special, X/Y jump, LT/RT (analog) or LB shield, RB grab (Z), right stick = C-stick
   (smash attacks on the ground, aerials in the air), Start/Back pause, V (while paused) toggles rumble.
@@ -40,6 +41,13 @@ Load order (see `smash.html`): `core.js` → `game.js` → `render.js` → `audi
     Linux Firefox) are recognised by vendor/product id and remapped (`S.input.describe`). Menus label each slot with
     the controller type and the title screen shows matching button names.
   - Rumble on hits and KOs via `vibrationActuator` (Chrome/Edge; Steam Input passes it through).
+- Pause menu: Enter/Esc/Start resume, N new match, Backspace quit to character select, V rumble (Q and R are shield/grab, so they no longer quit/restart).
+- Controller setup (title screen button, C key, or automatically when a controller with an unknown raw layout presses a button):
+  press each control once and the layout is saved per controller id in localStorage (`smash.padmap:<id>`, read by `readCustom` in core.js).
+  Raw layouts the browser doesn't standardise (e.g. newer Steam Controllers) are flagged by `S.input.needsSetup()`. Axes that rest at ±1
+  (triggers) are never read as a d-pad.
+- Boot: intro.js plays a "press any button" gate (browsers need a gesture for sound), then the splash with its synthesized score
+  (`S.audio.intro()`, timings in `S.audio.INTRO_TIMES`). Any input skips it; it plays once per browser session; `?skipintro` skips it.
 - Keyboard: double-tap a direction to dash; tap a direction + attack together for a smash attack; hold a direction then attack for a tilt.
 - Enter/Esc pause, R restart, Q quit (while paused), backquote toggles hitbox view.
 

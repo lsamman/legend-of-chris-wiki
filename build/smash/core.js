@@ -50,10 +50,13 @@
   S.newPad = () => ({ x: 0, y: 0, cx: 0, cy: 0, ct: 99, a: false, b: false, j: false, s: false, z: false, tx: 99, ty: 99, dash: false, start: false });
 
   const KEYMAPS = {
-    kbA: { left: ["KeyA"], right: ["KeyD"], up: ["KeyW"], down: ["KeyS"], a: ["KeyF"], b: ["KeyG"], j: ["KeyH", "Space"], s: ["KeyT", "ShiftLeft"] },
+    // P1: left click attacks and right click is special (in matches; F and G still work), Q shields, R grabs
+    kbA: { left: ["KeyA"], right: ["KeyD"], up: ["KeyW"], down: ["KeyS"], a: ["KeyF"], b: ["KeyG"], j: ["KeyH", "Space"], s: ["KeyQ", "ShiftLeft"], z: ["KeyR"] },
     kbB: { left: ["ArrowLeft"], right: ["ArrowRight"], up: ["ArrowUp"], down: ["ArrowDown"], a: ["Comma", "Numpad1"], b: ["Period", "Numpad2"], j: ["Slash", "Numpad3"], s: ["ShiftRight", "Numpad0"] },
   };
   S.KEYMAPS = KEYMAPS;
+  // Mouse buttons for a keyboard map, while a match is running (0 = left, 2 = right).
+  const MOUSEMAPS = { kbA: { a: 0, b: 2 } };
   S.DEVICE_LABELS = { kbA: "Keys A", kbB: "Keys B", pad0: "Pad 1", pad1: "Pad 2", pad2: "Pad 3", pad3: "Pad 4" };
 
   const down = new Set();
@@ -65,7 +68,7 @@
     down,
     // Fresh key presses since the last menu poll (menus use these; the sim uses pads).
     presses: [],
-    mouse: { x: 0, y: 0, clicked: false, down: false },
+    mouse: { x: 0, y: 0, clicked: false, down: false, buttons: new Set() },
     attach(target) {
       addEventListener("keydown", (e) => {
         if (GAME_KEYS.has(e.code) || e.code === "Enter" || e.code === "Escape") e.preventDefault();
@@ -73,15 +76,20 @@
         down.add(e.code);
       });
       addEventListener("keyup", (e) => down.delete(e.code));
-      addEventListener("blur", () => down.clear());
+      addEventListener("blur", () => { down.clear(); S.input.mouse.buttons.clear(); });
       const pos = (e) => {
         const r = target.getBoundingClientRect();
         S.input.mouse.x = e.clientX - r.left;   // CSS pixels, same space scenes render in
         S.input.mouse.y = e.clientY - r.top;
       };
       target.addEventListener("mousemove", pos);
-      target.addEventListener("mousedown", (e) => { pos(e); S.input.mouse.down = true; S.input.mouse.clicked = true; });
-      addEventListener("mouseup", () => (S.input.mouse.down = false));
+      target.addEventListener("mousedown", (e) => {
+        pos(e); S.input.mouse.buttons.add(e.button);
+        if (e.button === 0) { S.input.mouse.down = true; S.input.mouse.clicked = true; }   // menus only react to the left button
+        target.focus && target.focus();
+      });
+      addEventListener("mouseup", (e) => { S.input.mouse.buttons.delete(e.button); if (e.button === 0) S.input.mouse.down = false; });
+      target.addEventListener("contextmenu", (e) => e.preventDefault());   // right click is "special", not a menu
     },
     // Call once per sim tick before reading pads.
     tick() { inputFrame++; },
@@ -118,7 +126,7 @@
     else x = l ? -1 : r ? 1 : 0;
     if (u && d) y = Math.max(...map.up.map((c) => keyDownAt[c] ?? -1)) > Math.max(...map.down.map((c) => keyDownAt[c] ?? -1)) ? -1 : 1;
     else y = u ? -1 : d ? 1 : 0;
-    return { x, y, a: any(map.a), b: any(map.b), j: any(map.j), s: any(map.s) };
+    return { x, y, a: any(map.a), b: any(map.b), j: any(map.j), s: any(map.s), z: any(map.z || []) };
   }
 
   // ------------------------------------------------------------ gamepads (XInput, Steam Input, PlayStation, Switch…)
@@ -132,6 +140,12 @@
   const XPAD = { a: 0, b: 1, x: 2, y: 3, lb: 4, rb: 5, back: 6, start: 7, ls: 9, rs: 10, axes: [0, 1, 3, 4], ltAxis: 2, rtAxis: 5, dpadAxes: [6, 7] };
   // Raw DualShock 4 / DualSense (hid-sony / hid-playstation on Linux, Firefox): ✕ ○ △ □ order.
   const SONY = { a: 0, b: 1, y: 2, x: 3, lb: 4, rb: 5, lt: 6, rt: 7, back: 8, start: 9, ls: 11, rs: 12, axes: [0, 1, 3, 4], ltAxis: 2, rtAxis: 5, dpadAxes: [6, 7] };
+
+  // Custom layouts recorded on the controller setup screen, per controller id (remembered on this device).
+  const MAP_KEY = "smash.padmap:";
+  S.input.savedMap = function (id) { try { const raw = localStorage.getItem(MAP_KEY + id); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } };
+  S.input.saveMap = function (id, map) { try { localStorage.setItem(MAP_KEY + id, JSON.stringify(map)); } catch (e) { /* storage blocked */ } refreshLabels(); };
+  S.input.clearMap = function (id) { try { localStorage.removeItem(MAP_KEY + id); } catch (e) { /* ignore */ } refreshLabels(); };
 
   function vidpid(id) {
     let m = /Vendor:\s*([0-9a-f]{4})\s*Product:\s*([0-9a-f]{4})/i.exec(id);          // Chrome
@@ -148,12 +162,19 @@
     else if (v === "054c" || /playstation|dualshock|dualsense|wireless controller/.test(low)) { kind = "PlayStation"; family = "sony"; }
     else if (v === "057e" || /nintendo|pro controller|joy-con/.test(low)) { kind = "Switch"; family = "nintendo"; }
     else if (/8bitdo/.test(low)) kind = "8BitDo";
-    let profile = STD;
+    // Axes that sit at ±1 when untouched are triggers, not d-pads; remember the resting values.
+    const rest = Array.from(gp.axes, (v) => v);
+    const custom = S.input.savedMap(id);
+    if (custom) return { kind, family, profile: custom, standard: gp.mapping === "standard", custom: true, known: true, rest };
+    let profile = STD, known = true;
     if (gp.mapping !== "standard") {
       if (family === "sony") profile = SONY;
       else if (kind !== "Gamepad" || gp.axes.length >= 6) profile = XPAD;   // XInput-style raw layout (Xbox, Steam virtual pad)
+      // Raw layouts are a best guess. Only Xbox pads and the original Steam Controller/Deck match XPAD reliably;
+      // anything else (e.g. newer Valve hardware) is flagged so the title screen offers the controller setup.
+      known = family === "sony" || kind === "Xbox" || kind === "Steam Deck" || kind === "Steam Controller";
     }
-    return { kind, family, profile, standard: gp.mapping === "standard" };
+    return { kind, family, profile, standard: gp.mapping === "standard", known, rest };
   };
   const padInfo = {};   // index -> describe() result, refreshed on connect
 
@@ -181,9 +202,15 @@
       if (ai != null && gp.axes[ai] != null) { const v = gp.axes[ai]; return v === 0 ? 0 : (v + 1) / 2; }   // rest is -1 (or 0 before first touch)
       return 0;
     };
+    if (info.custom) return readCustom(gp, P);
     let [x, y] = stick(gp, P.axes[0], P.axes[1]);
     const [cx, cy] = stick(gp, P.axes[2], P.axes[3], 0.3);
-    if (P.dpadAxes) { const dx = gp.axes[P.dpadAxes[0]] || 0, dy = gp.axes[P.dpadAxes[1]] || 0; if (Math.abs(dx) > 0.5) x = Math.sign(dx); if (Math.abs(dy) > 0.5) y = Math.sign(dy); }
+    if (P.dpadAxes) {
+      // a "d-pad axis" that rests at ±1 is really a trigger; ignore it instead of reading it as up/down held forever
+      const ok = (ai) => gp.axes[ai] != null && !(info.rest && Math.abs(info.rest[ai] || 0) > 0.5);
+      const dx = ok(P.dpadAxes[0]) ? gp.axes[P.dpadAxes[0]] : 0, dy = ok(P.dpadAxes[1]) ? gp.axes[P.dpadAxes[1]] : 0;
+      if (Math.abs(dx) > 0.5) x = Math.sign(dx); if (Math.abs(dy) > 0.5) y = Math.sign(dy);
+    }
     else { if (bt(P.left)) x = -1; if (bt(P.right)) x = 1; if (bt(P.up)) y = -1; if (bt(P.down)) y = 1; }
     const lt = trig(P.lt, P.ltAxis), rt = trig(P.rt, P.rtAxis);
     return {
@@ -195,6 +222,34 @@
       shieldAnalog: Math.max(lt, rt),
     };
   }
+
+  // A layout recorded on the setup screen: every control is a button, or an axis pushed past halfway from rest.
+  function readCustom(gp, M) {
+    const on = (b) => {
+      if (!b) return false;
+      if (b.t === "b") { const x = gp.buttons[b.i]; return !!(x && (x.pressed || x.value > 0.5)); }
+      const v = gp.axes[b.i]; return v != null && (v - (b.rest || 0)) * b.dir > 0.5;
+    };
+    const axis = (m) => (m ? (gp.axes[m.i] || 0) * m.s : 0);
+    const dz = (x, y, d) => { const m = Math.hypot(x, y); if (m < d) return [0, 0]; const k = Math.min(1, (m - d) / (1 - d)) / m; return [x * k, y * k]; };
+    let [x, y] = dz(axis(M.lx), axis(M.ly), 0.22);
+    const [cx, cy] = dz(axis(M.rx), axis(M.ry), 0.3);
+    if (on(M.dleft)) x = -1; if (on(M.dright)) x = 1; if (on(M.dup)) y = -1; if (on(M.ddown)) y = 1;
+    const s = on(M.s1) || on(M.s2);
+    return { x, y, cx, cy, a: on(M.a), b: on(M.b), j: on(M.j1) || on(M.j2), s, z: on(M.z), start: on(M.start), shieldAnalog: s ? 1 : 0 };
+  }
+  // Connected controllers whose raw layout is only a guess and that haven't been set up yet.
+  S.input.needsSetup = function () {
+    const out = [];
+    const pads = navigator.getGamepads ? navigator.getGamepads() : [];
+    for (let i = 0; i < 4; i++) {
+      const gp = pads && pads[i];
+      if (!gp || !gp.connected) continue;
+      const inf = padInfo[i] && padInfo[i].id === gp.id ? padInfo[i] : (padInfo[i] = Object.assign({ id: gp.id }, S.input.describe(gp)));
+      if (!inf.known) out.push(i);
+    }
+    return out;
+  };
 
   // Hot-plug: label each slot with what's in it ("Pad 1 · Xbox", "Pad 2 · Steam Deck"…) and tell the UI.
   S.input.onPadChange = null;
@@ -239,11 +294,17 @@
   };
 
   // devices: array like ["kbA", "pad0"]. Results are OR-merged.
-  S.input.readPad = function (pad, devices) {
+  // opts.mouse: also read mouse buttons for keyboard maps (matches only, so menu clicks don't press "attack").
+  S.input.readPad = function (pad, devices, opts) {
     let x = 0, y = 0, cx = 0, cy = 0, a = false, b = false, j = false, s = false, z = false, start = false, digital = false;
     for (const d of devices) {
       const v = d.startsWith("kb") ? readKeyboard(KEYMAPS[d]) : readGamepad(+d.slice(3));
       if (!v) continue;
+      if (opts && opts.mouse && MOUSEMAPS[d]) {
+        const mb = S.input.mouse.buttons;
+        if (mb.has(MOUSEMAPS[d].a)) v.a = true;
+        if (mb.has(MOUSEMAPS[d].b)) v.b = true;
+      }
       if (Math.abs(v.x) > Math.abs(x)) { x = v.x; digital = d.startsWith("kb"); }
       if (Math.abs(v.y) > Math.abs(y)) y = v.y;
       if (v.cx != null && Math.hypot(v.cx, v.cy) > Math.hypot(cx, cy)) { cx = v.cx; cy = v.cy; }
