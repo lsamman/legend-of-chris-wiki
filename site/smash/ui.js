@@ -332,12 +332,24 @@
         this.end(c);
       },
       drawControls(c, VW, VH) {
+        // Button names follow the first connected controller (Xbox/XInput & Steam Input, PlayStation, Switch).
+        function padColumn() {
+          let fam = "xbox", n = 0, kind = "";
+          for (let i = 0; i < 4; i++) { const inf = S.input.padInfo && S.input.padInfo(i); if (inf) { if (!n) { fam = inf.family; kind = inf.kind; } n++; } }
+          const G = fam === "sony" ? { a: "✕", b: "○", j: "□/△", sh: "L2/R2/L1", z: "R1" } : fam === "nintendo" ? { a: "B", b: "A", j: "X/Y", sh: "ZL/ZR/L", z: "R" } : { a: "A", b: "B", j: "X/Y", sh: "LT/RT/LB", z: "RB" };
+          return [n ? `GAMEPAD · ${kind}${n > 1 ? " +" + (n - 1) : ""}` : "GAMEPAD", [
+            `${G.a} attack · ${G.b} special · ${G.j} jump`,
+            `${G.sh} shield · ${G.z} grab (Z)`,
+            "Right stick = C-stick smashes/aerials",
+            n ? "Pause: Start · V in pause: rumble" : "XInput, Steam Input, PS & Switch pads",
+          ]];
+        }
         const w = Math.min(1180, VW - 60), h = 132, x = (VW - w) / 2, y = this.panelY;
         panel(c, x, y, w, h, "rgba(255,255,255,.94)", { shadow: 5 });
         const cols = [
           ["KEYBOARD P1", ["Move: W A S D", "Attack: F   Special: G", "Jump: H / Space", "Shield: T / L-Shift"]],
           ["KEYBOARD P2", ["Move: Arrow keys", "Attack: ,   Special: .", "Jump: /  (Numpad 1/2/3/0)", "Shield: R-Shift"]],
-          ["GAMEPAD", ["Stick / D-pad to move", "A attack · B special", "X / Y jump", "Bumpers/Triggers shield"]],
+          padColumn(),
           ["HOW TO BALL", ["Dash: double-tap a direction", "Smash: tap direction + attack", "Tilt: hold direction, then attack", "Enter/Esc pause · M mute"]],
         ];
         const cw = w / 4;

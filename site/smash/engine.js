@@ -48,6 +48,12 @@
   S.startMatch = function (cfg) {
     const g = new S.Game(cfg);
     S.game = g;
+    // controller rumble: the one who got hit feels it most; the hitter gets a light tap
+    g.onHit = (A, T, dmg, kb) => {
+      if (!T.cpu) S.input.rumble(T.devices, Math.min(1, 0.25 + kb / 220), Math.min(1, 0.2 + dmg / 25), Math.min(400, 80 + kb * 1.4));
+      if (A && !A.cpu && A !== T) S.input.rumble(A.devices, 0, Math.min(0.6, dmg / 30), 60 + dmg * 4);
+    };
+    g.onKO = (f) => { if (!f.cpu) S.input.rumble(f.devices, 1, 1, 450); };
     const cam = makeCamera(g);
     const sc = {
       g, cam, paused: false, pauseSel: 0, countdown: 150,
@@ -63,6 +69,7 @@
           for (const f of g.fighters) if (!f.cpu) S.input.readPad(f.pad, f.devices);
           if (startPressed) this.paused = false;
           if (presses.includes("KeyQ")) { this.quit(); return; }
+          if (presses.includes("KeyV")) { S.input.setRumble(!S.input.rumbleOn); if (S.input.rumbleOn) for (const f of g.fighters) if (!f.cpu) S.input.rumble(f.devices, 0.6, 0.6, 200); }
           if (presses.includes("KeyR")) { S.startMatch(cfg); return; }
           return;
         }
@@ -211,7 +218,19 @@
     S.text(c, "PAUSED", W / 2, H / 2 - 40, 64, "#fff", "center", S.FONT_BIG, "900", "#000");
     S.text(c, "Enter / Esc / Start — resume", W / 2, H / 2 + 10, 20, "#ddd", "center");
     S.text(c, "R — restart     Q — quit to character select", W / 2, H / 2 + 40, 20, "#ddd", "center");
-    S.text(c, "` — show hitboxes", W / 2, H / 2 + 70, 16, "#999", "center");
+    S.text(c, "V — controller rumble: " + (S.input.rumbleOn ? "ON" : "OFF") + "     ` — show hitboxes", W / 2, H / 2 + 70, 16, "#999", "center");
+  }
+
+  // "Controller connected: Pad 1 · Xbox" toasts (drawn over every scene).
+  function drawToast(c, W) {
+    const t = S.input.toast;
+    if (!t || t.t <= 0) return;
+    t.t--;
+    c.save(); c.globalAlpha = Math.min(1, t.t / 30);
+    c.font = "bold 15px " + S.FONT; const w = c.measureText(t.text).width + 28;
+    c.fillStyle = "rgba(10,10,14,.85)"; S.roundRect(c, W / 2 - w / 2, 14, w, 32, 8); c.fill();
+    S.text(c, "🎮 " + t.text, W / 2, 36, 15, "#fff", "center");
+    c.restore();
   }
 
   // ------------------------------------------------------------ placeholder content
@@ -254,6 +273,7 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
     if (S.scene) { try { S.scene.render(ctx, W, H); } catch (e) { console.error(e); S.lastError = e; } }
+    drawToast(ctx, W);
     if (steps) S.input.mouse.clicked = false;   // keep a click for the next update on high-refresh screens
   }
 

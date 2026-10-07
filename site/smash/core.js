@@ -41,11 +41,13 @@
 
   // ------------------------------------------------------------ controllers
   // A "pad" is the virtual controller the sim reads. Humans and the AI both write one.
+  //   cx, cy : C-stick (right stick); ct = frames since it was flicked (0 = this tick)
+  //   z      : grab button (RB), like Melee's Z
   //   x, y   : stick, -1..1 (y is +1 DOWN)
   //   a, b, j, s : held buttons (attack, special, jump, shield)
   //   tx, ty : frames since the stick was "tapped" hard on that axis (smash inputs, drop-through, fastfall)
   //   dash   : true on the frame a dash is requested (analog flick, or a keyboard double-tap)
-  S.newPad = () => ({ x: 0, y: 0, a: false, b: false, j: false, s: false, tx: 99, ty: 99, dash: false, start: false });
+  S.newPad = () => ({ x: 0, y: 0, cx: 0, cy: 0, ct: 99, a: false, b: false, j: false, s: false, z: false, tx: 99, ty: 99, dash: false, start: false });
 
   const KEYMAPS = {
     kbA: { left: ["KeyA"], right: ["KeyD"], up: ["KeyW"], down: ["KeyS"], a: ["KeyF"], b: ["KeyG"], j: ["KeyH", "Space"], s: ["KeyT", "ShiftLeft"] },
@@ -119,30 +121,140 @@
     return { x, y, a: any(map.a), b: any(map.b), j: any(map.j), s: any(map.s) };
   }
 
+  // ------------------------------------------------------------ gamepads (XInput, Steam Input, PlayStation, Switch…)
+  // Browsers expose controllers through the Gamepad API. XInput pads (Xbox, and Steam Input's "Steam Virtual Gamepad",
+  // which is how Steam remaps PlayStation/Switch/Steam Controller/Steam Deck input for non-Steam apps) usually arrive
+  // with mapping "standard". Some browser/OS combos report the raw layout instead, so known raw layouts get a profile.
+  //   Melee-style layout: A attack · B special · X/Y jump · LT/RT (analog) shield · RB grab (Z) · LB shield
+  //   right stick = C-stick (smash attacks / aerials) · d-pad moves too · Start pause · Back/Select also pauses
+  const STD = { a: 0, b: 1, x: 2, y: 3, lb: 4, rb: 5, lt: 6, rt: 7, back: 8, start: 9, ls: 10, rs: 11, up: 12, down: 13, left: 14, right: 15, axes: [0, 1, 2, 3] };
+  // Linux xpad / raw XInput (Firefox): triggers and d-pad are axes.
+  const XPAD = { a: 0, b: 1, x: 2, y: 3, lb: 4, rb: 5, back: 6, start: 7, ls: 9, rs: 10, axes: [0, 1, 3, 4], ltAxis: 2, rtAxis: 5, dpadAxes: [6, 7] };
+  // Raw DualShock 4 / DualSense (hid-sony / hid-playstation on Linux, Firefox): ✕ ○ △ □ order.
+  const SONY = { a: 0, b: 1, y: 2, x: 3, lb: 4, rb: 5, lt: 6, rt: 7, back: 8, start: 9, ls: 11, rs: 12, axes: [0, 1, 3, 4], ltAxis: 2, rtAxis: 5, dpadAxes: [6, 7] };
+
+  function vidpid(id) {
+    let m = /Vendor:\s*([0-9a-f]{4})\s*Product:\s*([0-9a-f]{4})/i.exec(id);          // Chrome
+    if (!m) m = /^([0-9a-f]{1,4})-([0-9a-f]{1,4})-/i.exec(id);                        // Firefox
+    return m ? [m[1].toLowerCase().padStart(4, "0"), m[2].toLowerCase().padStart(4, "0")] : ["", ""];
+  }
+  // What kind of controller is this? Used for labels, button glyphs and the raw-layout profile.
+  S.input.describe = function (gp) {
+    const id = gp.id || "", [v, p] = vidpid(id), low = id.toLowerCase();
+    let kind = "Gamepad", family = "xbox";
+    if (v === "28de" || /steam|valve/.test(low)) {
+      kind = p === "1205" || /deck/.test(low) ? "Steam Deck" : p === "1102" || p === "1142" ? "Steam Controller" : "Steam Input";
+    } else if (v === "045e" || /xbox|xinput|x-box/.test(low)) kind = "Xbox";
+    else if (v === "054c" || /playstation|dualshock|dualsense|wireless controller/.test(low)) { kind = "PlayStation"; family = "sony"; }
+    else if (v === "057e" || /nintendo|pro controller|joy-con/.test(low)) { kind = "Switch"; family = "nintendo"; }
+    else if (/8bitdo/.test(low)) kind = "8BitDo";
+    let profile = STD;
+    if (gp.mapping !== "standard") {
+      if (family === "sony") profile = SONY;
+      else if (kind !== "Gamepad" || gp.axes.length >= 6) profile = XPAD;   // XInput-style raw layout (Xbox, Steam virtual pad)
+    }
+    return { kind, family, profile, standard: gp.mapping === "standard" };
+  };
+  const padInfo = {};   // index -> describe() result, refreshed on connect
+
+  // Radial deadzone with rescaling, so small stick drift is ignored but full range is kept.
+  function stick(gp, ix, iy, dz = 0.22) {
+    const x = gp.axes[ix] || 0, y = gp.axes[iy] || 0, m = Math.hypot(x, y);
+    if (m < dz) return [0, 0];
+    const k = Math.min(1, (m - dz) / (1 - dz)) / m;
+    return [x * k, y * k];
+  }
   function readGamepad(i) {
     const pads = navigator.getGamepads ? navigator.getGamepads() : [];
     const gp = pads && pads[i];
     if (!gp || !gp.connected) return null;
-    const ax = (n) => { const v = gp.axes[n] || 0; return Math.abs(v) < 0.2 ? 0 : v; };
-    const bt = (n) => !!(gp.buttons[n] && gp.buttons[n].pressed);
-    let x = ax(0), y = ax(1);
-    if (bt(14)) x = -1; if (bt(15)) x = 1; if (bt(12)) y = -1; if (bt(13)) y = 1;   // d-pad
-    // Standard mapping: A attack, B special, X/Y jump, shoulders/triggers shield, Start pause.
-    return { x, y, a: bt(0), b: bt(1), j: bt(2) || bt(3), s: bt(4) || bt(5) || bt(6) || bt(7), start: bt(9) };
+    let info = padInfo[i];
+    if (!info || info.id !== gp.id) {   // pads already plugged in at load never fire "gamepadconnected"
+      info = padInfo[i] = Object.assign({ id: gp.id }, S.input.describe(gp));
+      S.DEVICE_LABELS["pad" + i] = "Pad " + (i + 1) + " · " + info.kind;
+    }
+    const P = info.profile;
+    const btn = (n) => n != null && gp.buttons[n] ? gp.buttons[n] : null;
+    const bt = (n) => { const b = btn(n); return !!(b && (b.pressed || b.value > 0.5)); };
+    const trig = (bi, ai) => {   // analog trigger 0..1 from a button value or a -1..1 axis
+      const b = btn(bi); if (b) return Math.max(b.value || 0, b.pressed ? 1 : 0);
+      if (ai != null && gp.axes[ai] != null) { const v = gp.axes[ai]; return v === 0 ? 0 : (v + 1) / 2; }   // rest is -1 (or 0 before first touch)
+      return 0;
+    };
+    let [x, y] = stick(gp, P.axes[0], P.axes[1]);
+    const [cx, cy] = stick(gp, P.axes[2], P.axes[3], 0.3);
+    if (P.dpadAxes) { const dx = gp.axes[P.dpadAxes[0]] || 0, dy = gp.axes[P.dpadAxes[1]] || 0; if (Math.abs(dx) > 0.5) x = Math.sign(dx); if (Math.abs(dy) > 0.5) y = Math.sign(dy); }
+    else { if (bt(P.left)) x = -1; if (bt(P.right)) x = 1; if (bt(P.up)) y = -1; if (bt(P.down)) y = 1; }
+    const lt = trig(P.lt, P.ltAxis), rt = trig(P.rt, P.rtAxis);
+    return {
+      x, y, cx, cy,
+      a: bt(P.a), b: bt(P.b), j: bt(P.x) || bt(P.y),
+      s: lt > 0.35 || rt > 0.35 || bt(P.lb),
+      z: bt(P.rb),
+      start: bt(P.start) || bt(P.back),
+      shieldAnalog: Math.max(lt, rt),
+    };
   }
+
+  // Hot-plug: label each slot with what's in it ("Pad 1 · Xbox", "Pad 2 · Steam Deck"…) and tell the UI.
+  S.input.onPadChange = null;
+  function refreshLabels() {
+    const pads = navigator.getGamepads ? navigator.getGamepads() : [];
+    for (let i = 0; i < 4; i++) {
+      const gp = pads && pads[i];
+      if (gp && gp.connected) { padInfo[i] = Object.assign({ id: gp.id }, S.input.describe(gp)); S.DEVICE_LABELS["pad" + i] = "Pad " + (i + 1) + " · " + padInfo[i].kind; }
+      else { delete padInfo[i]; S.DEVICE_LABELS["pad" + i] = "Pad " + (i + 1); }
+    }
+  }
+  addEventListener("gamepadconnected", (e) => {
+    refreshLabels();
+    S.input.toast = { text: "Controller connected: " + S.DEVICE_LABELS["pad" + e.gamepad.index], t: 180 };
+    if (S.input.onPadChange) S.input.onPadChange(e.gamepad.index, true);
+  });
+  addEventListener("gamepaddisconnected", (e) => {
+    refreshLabels();
+    S.input.toast = { text: "Controller " + (e.gamepad.index + 1) + " disconnected", t: 180 };
+    if (S.input.onPadChange) S.input.onPadChange(e.gamepad.index, false);
+  });
+  S.input.padInfo = (i) => padInfo[i] || null;
+  // Which button glyphs to show for a device ("xbox" A/B/X/Y, "sony" ✕○□△, "nintendo").
+  S.input.family = (devices) => { for (const d of devices || []) if (d.startsWith("pad") && padInfo[+d.slice(3)]) return padInfo[+d.slice(3)].family; return null; };
+
+  // Rumble (XInput and Steam Input both pass it through; Chrome/Edge support "dual-rumble").
+  S.input.rumbleOn = (() => { try { return localStorage.getItem("smash.rumble") !== "0"; } catch (e) { return true; } })();
+  S.input.setRumble = function (on) { S.input.rumbleOn = on; try { localStorage.setItem("smash.rumble", on ? "1" : "0"); } catch (e) { /* ignore */ } };
+  S.input.rumble = function (devices, strong, weak, ms) {
+    if (!S.input.rumbleOn || !navigator.getGamepads) return;
+    const pads = navigator.getGamepads();
+    for (const d of devices || []) {
+      if (!d.startsWith("pad")) continue;
+      const gp = pads[+d.slice(3)];
+      const act = gp && (gp.vibrationActuator || (gp.hapticActuators && gp.hapticActuators[0]));
+      if (!act) continue;
+      try {
+        if (act.playEffect) act.playEffect("dual-rumble", { duration: ms, strongMagnitude: Math.min(1, strong), weakMagnitude: Math.min(1, weak) }).catch(() => {});
+        else if (act.pulse) act.pulse(Math.min(1, strong), ms);
+      } catch (e) { /* unsupported */ }
+    }
+  };
 
   // devices: array like ["kbA", "pad0"]. Results are OR-merged.
   S.input.readPad = function (pad, devices) {
-    let x = 0, y = 0, a = false, b = false, j = false, s = false, start = false, digital = false;
+    let x = 0, y = 0, cx = 0, cy = 0, a = false, b = false, j = false, s = false, z = false, start = false, digital = false;
     for (const d of devices) {
       const v = d.startsWith("kb") ? readKeyboard(KEYMAPS[d]) : readGamepad(+d.slice(3));
       if (!v) continue;
       if (Math.abs(v.x) > Math.abs(x)) { x = v.x; digital = d.startsWith("kb"); }
       if (Math.abs(v.y) > Math.abs(y)) y = v.y;
-      a = a || v.a; b = b || v.b; j = j || v.j; s = s || v.s; start = start || !!v.start;
+      if (v.cx != null && Math.hypot(v.cx, v.cy) > Math.hypot(cx, cy)) { cx = v.cx; cy = v.cy; }
+      a = a || v.a; b = b || v.b; j = j || v.j; s = s || v.s; z = z || !!v.z; start = start || !!v.start;
     }
     trackTaps(pad, x, y, digital);
-    pad.x = x; pad.y = y; pad.a = a; pad.b = b; pad.j = j; pad.s = s; pad.start = start;
+    // C-stick: ct = 0 on the tick it is flicked out of neutral (like Melee's C-stick smash/aerial inputs)
+    const cm = Math.hypot(cx, cy), pm = Math.hypot(pad.cx || 0, pad.cy || 0);
+    pad.ct = cm > 0.7 && pm < 0.4 ? 0 : Math.min(99, (pad.ct == null ? 99 : pad.ct) + 1);
+    pad.cx = cx; pad.cy = cy;
+    pad.x = x; pad.y = y; pad.a = a; pad.b = b; pad.j = j; pad.s = s; pad.z = z; pad.start = start;
     return pad;
   };
   S.input.gamepadCount = function () {

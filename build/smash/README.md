@@ -30,7 +30,15 @@ Load order (see `smash.html`): `core.js` → `game.js` → `render.js` → `audi
 ## Controls
 - P1 keys: WASD move, F attack, G special, H/Space jump, T/LShift shield.
 - P2 keys: arrows move, `,` attack, `.` special, `/` jump, RShift shield (numpad 1/2/3/0 also work).
-- Gamepads (standard mapping): A attack, B special, X/Y jump, shoulders/triggers shield, Start pause.
+- Gamepads (Gamepad API): A attack, B special, X/Y jump, LT/RT (analog) or LB shield, RB grab (Z), right stick = C-stick
+  (smash attacks on the ground, aerials in the air), Start/Back pause, V (while paused) toggles rumble.
+  - XInput pads (Xbox) work directly. Steam Input works through Steam's virtual XInput gamepad (run the browser as a
+    non-Steam game, or on Steam Deck), which also covers PlayStation, Switch, Steam Controller and Deck controls.
+    A web page cannot call the native Steamworks Steam Input API; the browser only sees the virtual pad.
+  - Non-"standard" layouts that some browsers report (raw XInput/xpad, Steam Virtual Gamepad, DualShock/DualSense on
+    Linux Firefox) are recognised by vendor/product id and remapped (`S.input.describe`). Menus label each slot with
+    the controller type and the title screen shows matching button names.
+  - Rumble on hits and KOs via `vibrationActuator` (Chrome/Edge; Steam Input passes it through).
 - Keyboard: double-tap a direction to dash; tap a direction + attack together for a smash attack; hold a direction then attack for a tilt.
 - Enter/Esc pause, R restart, Q quit (while paused), backquote toggles hitbox view.
 

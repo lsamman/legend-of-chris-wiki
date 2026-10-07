@@ -70,7 +70,7 @@
       this.moves = Object.assign(S.genericMoves(def.reach || 1, def.power || 1), def.moves || {});
       this.w = this.stats.width; this.h = this.stats.height;
       this.pad = S.newPad();
-      this.prev = { a: false, b: false, j: false, s: false };
+      this.prev = { a: false, b: false, j: false, s: false, z: false };
       this.stocks = opts.stocks || 4;
       this.damage = 0;
       this.kos = 0; this.falls = 0; this.sds = 0; this.dmgDealt = 0; this.dmgTaken = 0;
@@ -116,7 +116,7 @@
       if (!this.grounded && this.moves[name + "Air"]) def = this.moves[name + "Air"];
       this.setState("attack");
       this.move = def; this.moveName = name; this.mf = 0; this.moveId = moveSerial++;
-      this.hitSet = new Set(); this.charging = 0; this.chargeMult = 1;
+      this.hitSet = new Set(); this.charging = 0; this.chargeMult = 1; this.cCharge = false;
       this.counter = null; this.armor = false;
       if (def.start) def.start(this, g, this.pad);
       return true;
@@ -180,7 +180,7 @@
       this.physics(g, st);
       this.savePrev();
     }
-    savePrev() { const p = this.pad; this.prev.a = p.a; this.prev.b = p.b; this.prev.j = p.j; this.prev.s = p.s; }
+    savePrev() { const p = this.pad; this.prev.a = p.a; this.prev.b = p.b; this.prev.j = p.j; this.prev.s = p.s; this.prev.z = !!p.z; }
 
     think(g, pad, st) {
       const s = this.state;
@@ -350,6 +350,17 @@
           this.startMove(name, g); return true;
         }
       }
+      // C-stick (right stick): smash attacks on the ground, aerials in the air, in the flicked direction
+      if (pad.ct === 0 && (pad.cx || pad.cy)) {
+        const cx = pad.cx, cy = pad.cy, ax = Math.abs(cx), ay = Math.abs(cy);
+        let name;
+        if (air) name = ay >= ax ? (cy < 0 ? "uair" : "dair") : sign(cx) === this.facing ? "fair" : "bair";
+        else if (ay >= ax) name = cy < 0 ? "usmash" : "dsmash";
+        else { name = "fsmash"; this.facing = sign(cx); }
+        if (this.startMove(name, g)) { this.cCharge = !air; return true; }
+      }
+      // Z (grab button): grab on the ground, nair in the air
+      if (this.pressed("z")) { this.startMove(air ? "nair" : "grab", g); return true; }
       // attacks
       if (this.pressed("a")) {
         let name;
@@ -399,7 +410,8 @@
     runMove(g, pad, st) {
       const m = this.move;
       // smash charge
-      if (m.charge && this.mf === m.charge && pad.a && this.charging < 60) {
+      const holding = pad.a || (this.cCharge && Math.hypot(pad.cx || 0, pad.cy || 0) > 0.6);
+      if (m.charge && this.mf === m.charge && holding && this.charging < 60) {
         this.charging++; this.chargeMult = 1 + 0.4 * (this.charging / 60);
         if (this.grounded) this.friction(st);
         if (this.charging % 8 === 0) S.fx.spark(g, this.x + this.facing * 10, this.y - this.h * 0.6, "#fff6a0", 2);
@@ -441,7 +453,7 @@
       this.shieldHP -= 0.14;
       if (this.shieldHP <= 0) { this.shieldBreak(g); return; }
       if (this.pressed("j")) { this.setState("jumpsquat"); return; }
-      if (this.pressed("a")) { this.startMove("grab", g); return; }
+      if (this.pressed("a") || this.pressed("z")) { this.startMove("grab", g); return; }
       if (!pad.s) { this.setState("idle"); return; }
       if (Math.abs(pad.x) > 0.7 && pad.tx <= 3) { this.rollDir = sign(pad.x); this.setState("roll"); this.invuln = 18; return; }
       if (pad.y > 0.7 && pad.ty <= 3) { this.setState("spotdodge"); this.invuln = 16; return; }
@@ -637,6 +649,7 @@
       S.fx.koBlast(g, this);
       S.audio && S.audio.ko && S.audio.ko();
       g.shake = 14;
+      if (g.onKO) g.onKO(this);
       this.setState("dead"); this.deadTimer = 70; this.kbx = this.kby = this.vx = this.vy = 0;
       if (this.def.onKO) this.def.onKO(this, g);
       if (this.stocks <= 0) this.deadTimer = 1;
@@ -740,6 +753,7 @@
     S.fx.hit(g, hx, T.y - T.h / 2, dmg, kb);
     if (kb > 140) g.shake = Math.max(g.shake, 8);
     S.audio && S.audio.hit && S.audio.hit(dmg, kb);
+    if (g.onHit) g.onHit(A, T, dmg, kb);   // live matches only (controller rumble)
     return true;
   };
 
