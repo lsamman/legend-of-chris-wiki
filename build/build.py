@@ -17,7 +17,9 @@ sys.path.insert(0, os.path.join(ROOT, "build"))
 import manifest  # noqa: E402
 
 SITE = os.path.join(ROOT, "site")
-RESERVED = {"index", "all-pages", "search", "random", "read", "write"}
+RESERVED = {"index", "all-pages", "search", "random", "read", "write", "playlist"}
+PLAYLIST_URL = "https://music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
+PLAYLIST_EMBED = "https://embed.music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
 
 CATEGORIES = [
     ("chapters", "Chapters", "The canon, in the order it was written (which is not the order it is numbered)."),
@@ -213,6 +215,7 @@ def nav_html(active=None, sidebar=None):
     <ul>
       <li><a href="index.html">Main Page</a></li>
       <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the MASTER FILE</a></li>
+      <li><a href="playlist.html"{" aria-current=page" if active == "playlist" else ""}>The Official Playlist</a></li>
       <li><a href="all-pages.html">All pages (A–Z)</a></li>
       <li><a href="random.html" class="random-link">Random page</a></li>
     </ul>
@@ -443,6 +446,12 @@ def render_index(entries, R):
 <p class="muted">Eight chapters. The numbering is canon. Please do not ask about the numbering.</p>
 <ol class="canon">{chapters}</ol>
 
+<h2 class="home-h">The Official Playlist</h2>
+<div class="home-box playlist-box">
+  <p>The official soundtrack of the MASTER FILE, on Apple Music. Best enjoyed while balling.</p>
+  <p><a href="playlist.html">Listen to the playlist →</a></p>
+</div>
+
 <h2 class="home-h">The Goober Gang</h2>
 <div class="goober">
 —————<br><a href="goober-gang.html">The Goober Gang</a><br>-<a href="lightning-mcqueen.html">McQueen</a><br>-<a href="agent-007.html">007</a><br>-<a href="mr-bean.html">Mr.Bean</a><br>—————-
@@ -494,6 +503,21 @@ def render_random(entries):
     body = ('<h1 class="title">Random page</h1><p>Rolling the roulette ball… <i>Several NFTs on red!</i></p>'
             '<script>var k=Object.keys(window.LOC_INDEX||{});if(k.length)location.replace(k[Math.floor(Math.random()*k.length)]+".html");</script>')
     return page("Random page", body)
+
+
+def render_playlist():
+    body = f"""
+<div class="chapter-title" aria-hidden="true"><span>The</span> <span>Official</span> <span>Playlist</span></div>
+<h1 class="sr-title">The Official Playlist</h1>
+<p class="crumbs">The official soundtrack of the MASTER FILE. Listen while you read.</p>
+<iframe class="playlist-embed" title="The Legend Of Chris playlist on Apple Music" src="{PLAYLIST_EMBED}"
+  height="450" loading="lazy" frameborder="0"
+  allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+  sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+<p class="listen"><a class="listen-btn" href="{PLAYLIST_URL}" target="_blank" rel="noopener">Listen on Apple Music ↗</a></p>
+<p><a href="read.html">Read the MASTER FILE while you listen →</a></p>"""
+    return page("The Official Playlist", body, active="playlist",
+                description="The official Legend Of Chris playlist on Apple Music.")
 
 
 # ----------------------------------------------------------------- the book
@@ -736,6 +760,8 @@ def main():
         f.write(render_all(entries))
     with open(os.path.join(SITE, "random.html"), "w", encoding="utf-8") as f:
         f.write(render_random(entries))
+    with open(os.path.join(SITE, "playlist.html"), "w", encoding="utf-8") as f:
+        f.write(render_playlist())
     book_html = render_book_html()
     with open(os.path.join(SITE, "assets", "book-import.html"), "w", encoding="utf-8") as f:
         f.write(book_html + "\n")

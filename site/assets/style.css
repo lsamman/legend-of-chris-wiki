@@ -282,6 +282,19 @@ img { max-width: 100%; height: auto; }
 .book .ql-indent-1 { padding-left: 3em; } .book .ql-indent-2 { padding-left: 6em; } .book .ql-indent-3 { padding-left: 9em; }
 .book .ql-indent-4 { padding-left: 12em; } .book .ql-indent-5 { padding-left: 15em; } .book .ql-indent-6 { padding-left: 18em; }
 
+/* ---------- the official playlist ---------- */
+.playlist-embed {
+  display: block; width: 100%; max-width: 660px; height: 450px; margin: 6px 0 18px;
+  border: 1px solid var(--rule); border-radius: 10px; background: var(--box); overflow: hidden;
+}
+.listen { margin: 0 0 14px; }
+.listen-btn {
+  display: inline-block; padding: 8px 16px; border-radius: 8px; font-weight: 700;
+  background: #fa2d48; color: #fff !important; text-decoration: none !important;
+}
+.listen-btn:hover { background: #e0213b; }
+.playlist-box { max-width: 520px; padding-top: 14px; }
+
 /* ---------- small screens ---------- */
 @media (max-width: 960px) {
   .desk { grid-template-columns: minmax(0, 1fr); padding-top: 16px; }
