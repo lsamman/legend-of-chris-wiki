@@ -257,8 +257,16 @@ img { max-width: 100%; height: auto; }
 .read-cover { margin: 0 0 28px; }
 .read-cover img { display: block; width: 100%; height: auto; }   /* as wide as the page, like the cover */
 .read-meta { display: flex; flex-wrap: wrap; column-gap: 6px; align-items: baseline; }
-.write-link { margin-left: auto; color: var(--ink-3) !important; text-decoration: none !important; padding: 0 4px; }
-.write-link:hover { color: var(--ink) !important; }
+.write-btn {
+  position: absolute; top: 18px; right: 20px; z-index: 2; font-size: 14px; font-weight: 700;
+  padding: 6px 12px; border: 1px solid var(--bar-edge); border-radius: 7px; background: var(--paper);
+  color: var(--ink) !important; text-decoration: none !important;
+}
+.write-btn:hover, .write-btn:visited:hover { background: var(--hi); }
+.write-btn:visited { color: var(--ink) !important; }
+.feat-day { font-family: var(--sans); font-size: 13px; font-weight: 400; color: var(--ink-3); }
+@media (max-width: 960px) { .read-title { margin-top: 30px; } }
+@media (max-width: 640px) { .write-btn { top: 10px; right: 12px; } .read-title { margin-top: 34px; } }
 .book-toc { margin-bottom: 30px; }
 .read-chapter { font-weight: 700; margin: 26px 0 0; }
 .book { font: 16px/1.62 var(--sans); overflow-wrap: break-word; }

@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "5a4c988e1c97";
+  var SITE_VERSION = "8d9c60e7ac82";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -33,7 +33,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=5a4c988e1c97">
+<link rel="stylesheet" href="assets/style.css?v=8d9c60e7ac82">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -85,11 +85,11 @@
 <div class="verizon">“The 3 year contract plan from Verizon<br>for unlimited talk and text”</div>
 
 <div class="home-grid">
-  <section class="home-box featured">
-    <h2>Featured article</h2>
-    <a href="chris.html" class="feat-title">Chris: All Balled Up Deluxe Edition</a>
-    <p>Chris, known in his full and most feared form as Chris: All Balled Up Deluxe Edition, is the title character of The Legend of Chris and the central figure of its entire cosmology. He is at once a baby, a baller, a corpse, the ball itself, a founding member of Apple Podcasts, a war criminal, and the being whose defeat on the court is foretold by the Prophecy. According to the opening incantation, everything that is believed is ultimately “a matter of Chris.”</p>
-    <p><a href="chris.html">Read more →</a></p>
+  <section class="home-box featured" id="featured">
+    <h2>Featured article <small class="feat-day" id="feat-day"></small></h2>
+    <a href="chris.html" class="feat-title" id="feat-title">Chris: All Balled Up Deluxe Edition</a>
+    <div id="feat-lead"><p>Chris, known in his full and most feared form as Chris: All Balled Up Deluxe Edition, is the title character of The Legend of Chris and the central figure of its entire cosmology. He is at once a baby, a baller, a corpse, the ball itself, a founding member of Apple Podcasts, a war criminal, and the being whose defeat on the court is foretold by the Prophecy. According to the opening incantation, everything that is believed is ultimately “a matter of Chris.”</p></div>
+    <p><a href="chris.html" id="feat-more">Read more →</a></p>
   </section>
   <section class="home-box">
     <h2>Did you know…</h2>
@@ -124,7 +124,21 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=5a4c988e1c97"></script>
-<script src="assets/wiki.js?v=5a4c988e1c97"></script>
+<script src="assets/search-index.js?v=8d9c60e7ac82"></script>
+<script src="assets/wiki.js?v=8d9c60e7ac82"></script>
+<script src="assets/featured.js?v=8d9c60e7ac82"></script>
+<script>
+(function () {
+  var list = window.LOC_FEATURED || [];
+  if (!list.length) return;
+  var now = new Date(), day = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 864e5);
+  var f = list[day % list.length];
+  var title = document.getElementById("feat-title"), more = document.getElementById("feat-more");
+  title.href = more.href = f[0] + ".html";
+  title.textContent = f[1];
+  document.getElementById("feat-lead").innerHTML = f[2];
+  document.getElementById("feat-day").textContent = "· " + now.toLocaleDateString(undefined, { month: "long", day: "numeric" });
+})();
+</script>
 </body>
 </html>

@@ -427,11 +427,11 @@ def render_index(entries, R):
 <div class="verizon">“The 3 year contract plan from Verizon<br>for unlimited talk and text”</div>
 
 <div class="home-grid">
-  <section class="home-box featured">
-    <h2>Featured article</h2>
-    <a href="chris.html" class="feat-title">Chris: All Balled Up Deluxe Edition</a>
-    {featured_lead}
-    <p><a href="chris.html">Read more →</a></p>
+  <section class="home-box featured" id="featured">
+    <h2>Featured article <small class="feat-day" id="feat-day"></small></h2>
+    <a href="chris.html" class="feat-title" id="feat-title">Chris: All Balled Up Deluxe Edition</a>
+    <div id="feat-lead">{featured_lead}</div>
+    <p><a href="chris.html" id="feat-more">Read more →</a></p>
   </section>
   <section class="home-box">
     <h2>Did you know…</h2>
@@ -460,7 +460,32 @@ def render_index(entries, R):
 <div class="nuh" aria-label="The Great Nuh Uh–Yuh Huh Debate (excerpt)"><a href="nuh-uh-debate.html">{nuh}</a></div>
 <p class="nines" aria-hidden="true">9999999999999</p>
 """
-    return page(None, body, description="A complete fan wiki for The Legend Of Chris.", page_no=1)
+    # A new featured article every day (the visitor's local date), the same for everyone that day.
+    pick = """<script src="%s"></script>
+<script>
+(function () {
+  var list = window.LOC_FEATURED || [];
+  if (!list.length) return;
+  var now = new Date(), day = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 864e5);
+  var f = list[day %% list.length];
+  var title = document.getElementById("feat-title"), more = document.getElementById("feat-more");
+  title.href = more.href = f[0] + ".html";
+  title.textContent = f[1];
+  document.getElementById("feat-lead").innerHTML = f[2];
+  document.getElementById("feat-day").textContent = "· " + now.toLocaleDateString(undefined, { month: "long", day: "numeric" });
+})();
+</script>
+""" % asset("featured.js")
+    return page(None, body, description="A complete fan wiki for The Legend Of Chris.", page_no=1, scripts=pick)
+
+
+def featured_pool(entries, R):
+    """Articles that can be the featured article: written ones with a real lead, in a fixed shuffled order."""
+    pool = [e for e in entries.values() if not e.get("stub") and len(plain(e.get("lead", ""), 10000)) >= 200]
+    pool.sort(key=lambda e: e["slug"])
+    random.Random(2027).shuffle(pool)
+    R.current = None
+    return [[e["slug"], e["title"], R.block(plain(e["lead"], 520))] for e in pool]
 
 
 # ----------------------------------------------------------------- lists
@@ -597,10 +622,11 @@ def render_book_html():
 def render_read(book_html):
     chapters = json.dumps([[s, p] for s, p, *_ in manifest.CHAPTERS], ensure_ascii=False)
     body = f"""
+<a class="write-btn" href="write.html" title="Sign in to the writing room (author only)">✎ Write</a>
 <div class="chapter-title read-title" aria-hidden="true"><span>The</span> <span>Legend</span> <span>Of</span> <span>Chris</span></div>
 <h1 class="sr-title">The Legend Of Chris — the MASTER FILE</h1>
 <figure class="read-cover"><img src="assets/chill-chris.png" alt="Chris, the chill dog from the cover of the MASTER FILE" width="215" height="234"></figure>
-<p class="crumbs read-meta">The complete text of the MASTER FILE · <span id="book-updated">Original edition</span><a class="write-link" href="write.html" title="Writing room (author only)">✎</a></p>
+<p class="crumbs read-meta">The complete text of the MASTER FILE · <span id="book-updated">Original edition</span></p>
 <nav class="toc book-toc" aria-label="Chapters"><div class="toc-head">Contents</div><ol id="book-toc"></ol></nav>
 <article class="book" id="book">
 {book_html}
@@ -782,6 +808,8 @@ def main():
     index = {s: [e["title"], CAT_NAME[e["category"]], plain(e.get("subtitle") or e.get("lead", ""), 90),
                  " ".join(str(v) for k, v in (e.get("infobox") or {}).items() if "alias" in k.lower() or "name" in k.lower())]
              for s, e in entries.items()}
+    with open(os.path.join(SITE, "assets", "featured.js"), "w", encoding="utf-8") as f:
+        f.write("window.LOC_FEATURED=" + json.dumps(featured_pool(entries, R), ensure_ascii=False) + ";")
     with open(os.path.join(SITE, "assets", "search-index.js"), "w", encoding="utf-8") as f:
         f.write("window.LOC_INDEX=" + json.dumps(index, ensure_ascii=False) + ";")
 
