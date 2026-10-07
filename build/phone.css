@@ -1,4 +1,5 @@
-/* The iPhone 3G (build/phone.js): Steve's phone, flown to the front of the screen with the Sacred Apps on it. */
+/* The phone (build/phone.js): a sacred phone flown to the front of the screen with the Sacred Apps on it.
+   Two models: Steve Jobs's iPhone 3G (sideways, cracked) and the Nokia I-4500 flip phone. */
 .phone-btn { flex: none; display: grid; place-items: center; padding: 4px 7px; cursor: pointer;
   border: 1px solid var(--bar-edge); border-radius: 7px; background: var(--paper); color: var(--ink); }
 .phone-btn svg { width: 26px; height: 18px; display: block; }
@@ -59,25 +60,17 @@ html.ip-open, html.ip-open body { overflow: hidden; }
 .ip-icon { background: linear-gradient(#8fd6ff, #2a8fd8); position: relative; display: block; width: clamp(40px, 6.4vw, 60px); aspect-ratio: 1; border-radius: 22%; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, .6); }
 .ip-icon::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;   /* the iPhone OS gloss */
   background: radial-gradient(ellipse 120% 70% at 50% -10%, rgba(255, 255, 255, .55) 0 55%, rgba(255, 255, 255, 0) 56%); }
-.ip-icon img { width: 100%; height: 100%; object-fit: cover; }
+.ip-icon img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ip-icon img.pad, .nk-icon img.pad { inset: 13%; width: 74%; height: 74%; object-fit: contain; }
 .ip-icon .glyph { display: grid; place-items: center; width: 100%; height: 100%; color: #fff; font: bold clamp(20px, 3.4vw, 32px)/1 Helvetica, Arial, sans-serif; text-shadow: 0 -1px 0 rgba(0, 0, 0, .3); }
 .ip-icon .glyph img { width: 74%; height: 74%; object-fit: contain; }
 .ip-label { font-size: 11px; font-weight: bold; text-shadow: 0 1px 2px #000; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 .ip-app:hover .ip-icon, .ip-app:focus-visible .ip-icon { box-shadow: 0 0 0 2px #fff, 0 2px 8px rgba(0, 0, 0, .6); }
 .ip-app:focus { outline: none; }
 .ip-app:active .ip-icon { filter: brightness(.6); }
-/* still downloading, like an app waiting in iTunes */
-.ip-app.waiting .ip-icon { filter: brightness(.55) saturate(.6); }
-.ip-bar { display: block; width: clamp(34px, 5vw, 48px); height: 5px; margin-top: -14px; position: relative; z-index: 1; border-radius: 3px; background: rgba(0, 0, 0, .6); border: 1px solid rgba(255, 255, 255, .8); }
-.ip-bar i { display: block; width: 8%; height: 100%; background: #fff; border-radius: 2px; }
-.ip-app.waiting .ip-label { margin-top: 3px; font-weight: normal; opacity: .85; }
 
 .ip-crack { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; opacity: .55; }
 .ip-crack path { fill: none; stroke: #fff; stroke-width: 1.1; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 1px rgba(0, 0, 0, .8)); }
-.ip-hud { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); z-index: 6; width: min(300px, 80%); padding: 14px 16px; border-radius: 10px;
-  background: rgba(0, 0, 0, .82); color: #fff; text-align: center; font-size: 13px; line-height: 1.35; display: grid; gap: 6px; }
-.ip-hud b { font-size: 14px; }
-.ip-hud a { color: #8cc8ff; font-weight: bold; }
 .ip-zoom { position: absolute; inset: 0; z-index: 7; transform-origin: 0 0; opacity: 0; pointer-events: none; background: #000 center / 30% no-repeat; }
 .ip-overlay.launching .ip-zoom { pointer-events: auto; }
 
@@ -90,7 +83,6 @@ html.ip-open, html.ip-open body { overflow: hidden; }
   .ip-apps { grid-template-columns: repeat(3, 1fr); gap: 7% 0; padding-top: 10%; }
   .ip-icon { width: clamp(44px, 15vw, 60px); }
   .ip-icon .glyph { font-size: clamp(22px, 7vw, 32px); }
-  .ip-bar { width: clamp(36px, 12vw, 48px); }
   .ip-dock { gap: 3%; padding: 3% 0 2.5%; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -98,3 +90,95 @@ html.ip-open, html.ip-open body { overflow: hidden; }
   .ip-overlay.in .ip-app { animation: none; }
 }
 .phone-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 24px 0; }
+
+/* ---------- model toggle ---------- */
+.ph-models { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); display: flex; padding: 3px; border-radius: 20px; z-index: 2;
+  background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .22); opacity: 0; transition: opacity .4s .3s; }
+.ip-overlay.in .ph-models { opacity: 1; }
+.ip-overlay.out .ph-models { opacity: 0; transition-delay: 0s; }
+.ph-models button { border: 0; border-radius: 16px; padding: 6px 14px; background: none; color: rgba(255, 255, 255, .75); font: bold 13px var(--sans); cursor: pointer; white-space: nowrap; }
+.ph-models button.on { background: #fff; color: #111; }
+.ph-models button:focus-visible { outline: 2px solid #8cc8ff; outline-offset: 2px; }
+.ph-stage { display: grid; place-items: center; }
+
+/* ---------- the Nokia I-4500 flip phone ---------- */
+.nk { --w: min(280px, 74vw, calc((100vh - 190px) / 2.2)); position: relative; width: var(--w); perspective: 1600px; font-family: Arial, Helvetica, sans-serif; }
+.nk-lid { position: relative; height: calc(var(--w) * 1.08); transform-style: preserve-3d; transform-origin: 50% 100%;
+  transform: rotateX(-180deg); transition: transform .6s cubic-bezier(.3, 1.35, .55, 1); z-index: 2; }
+.nk.open .nk-lid { transform: none; }
+.nk-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 18% 18% 6% 6% / 14% 14% 4% 4%; }
+.nk-inside { background: linear-gradient(160deg, #4a4f57, #24272c 60%, #1a1c20); box-shadow: inset 0 0 0 2px #6d737c, inset 0 2px 2px rgba(255, 255, 255, .25);
+  display: flex; flex-direction: column; align-items: center; padding-top: calc(var(--w) * .07); }
+.nk-outside { transform: rotateX(180deg); background: linear-gradient(200deg, #c9ced6, #8e959f 55%, #6b727c); box-shadow: inset 0 0 0 2px #5a6069, inset 0 2px 3px rgba(255, 255, 255, .6);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8%; }
+.nk-cam { width: 12%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #4b6da0, #0b0f18 60%); box-shadow: 0 0 0 3px #555; }
+.nk-mini { width: 46%; aspect-ratio: 1.25; border-radius: 6px; background: linear-gradient(#0c1f2c, #071019); box-shadow: inset 0 0 0 2px #333;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8fe3ff; text-shadow: 0 0 6px rgba(80, 200, 255, .7); }
+.nk-mini b { font-size: calc(var(--w) * .085); }
+.nk-mini span { font-size: calc(var(--w) * .04); letter-spacing: 2px; opacity: .8; }
+.nk-brand { margin-top: auto; margin-bottom: 4%; font: bold calc(var(--w) * .05) Arial, sans-serif; letter-spacing: .25em; color: #d9dde3; }
+.nk-outside .nk-brand { margin: 0; color: #3c414a; }
+.nk-speaker { width: 22%; height: 5px; border-radius: 3px; background: repeating-linear-gradient(90deg, #111 0 3px, #3a3d42 3px 5px); margin-bottom: 4%; }
+
+.nk-screen { position: relative; width: 82%; height: 74%; overflow: hidden; display: flex; flex-direction: column; border-radius: 3px;
+  box-shadow: 0 0 0 3px #0b0c0e, 0 0 0 4px #5a5f66; color: #fff; font-size: calc(var(--w) * .043);
+  background: radial-gradient(ellipse at 50% 110%, #3fa2ff 0%, rgba(63, 162, 255, 0) 60%), linear-gradient(#0a2a55, #1a5aa0); }
+.nk-status { flex: none; display: flex; align-items: center; gap: 4px; padding: 2px 4px; font-size: .78em; font-weight: bold; background: rgba(0, 0, 0, .35); }
+.nk-status .sig { display: inline-flex; align-items: flex-end; gap: 1px; height: 8px; }
+.nk-status .sig i { width: 2px; background: #fff; }
+.nk-status .sig i:nth-child(1) { height: 2px; } .nk-status .sig i:nth-child(2) { height: 4px; } .nk-status .sig i:nth-child(3) { height: 6px; } .nk-status .sig i:nth-child(4) { height: 8px; }
+.nk-droid { color: #a4c639; font-size: .85em; }
+.nk-clock { margin-left: auto; }
+.nk-status .batt { display: inline-flex; gap: 1px; padding: 1px; border: 1px solid #fff; border-radius: 1px; }
+.nk-status .batt i { width: 3px; height: 5px; background: #9be15d; }
+.nk-title { flex: none; padding: 3px 6px; font-weight: bold; text-align: center; background: linear-gradient(#5aa9f0, #1f6fc4); border-bottom: 1px solid #0d3d73; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nk-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 4%; padding: 5% 6%; }
+.nk-app { display: grid; place-items: center; min-height: 0; border-radius: 6px; outline: none; }
+.nk-app.on { background: linear-gradient(rgba(255, 255, 255, .55), rgba(255, 255, 255, .15)); box-shadow: 0 0 0 2px #fff, 0 0 10px rgba(255, 255, 255, .7); }
+.nk-icon { position: relative; display: block; height: 82%; max-width: 82%; aspect-ratio: 1; border-radius: 18%; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+.nk-icon .glyph { display: grid; place-items: center; width: 100%; height: 100%; color: #fff; font: bold calc(var(--w) * .07)/1 Arial, sans-serif; }
+.nk-icon img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.nk-soft { flex: none; display: flex; justify-content: space-between; align-items: center; padding: 2px 6px; font-size: .85em; background: linear-gradient(#3a3a3a, #0d0d0d); }
+.nk-soft b { color: #9fd3ff; }
+.nk-connect { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; padding: 8px;
+  background: linear-gradient(#0a2a55, #1a5aa0); }
+.nk-connect span { font-size: .8em; opacity: .8; }
+.nk-connect i { width: 70%; height: 8px; border: 1px solid #fff; padding: 1px; }
+.nk-connect s { display: block; height: 100%; width: 0; background: #9be15d; animation: nk-load .7s steps(7) forwards; }
+@keyframes nk-load { to { width: 100%; } }
+
+.nk-base { position: relative; height: calc(var(--w) * 1.12); margin-top: -2px; border-radius: 4% 4% 20% 20% / 3% 3% 16% 16%;
+  background: linear-gradient(170deg, #d4d8de, #9aa1ab 50%, #7c838d); box-shadow: inset 0 0 0 2px #5a6069, inset 0 -3px 4px rgba(0, 0, 0, .25), 0 30px 60px rgba(0, 0, 0, .6);
+  padding: 7% 8% 0; display: flex; flex-direction: column; gap: 5%; }
+.nk-base::before { content: ""; position: absolute; left: 6%; right: 6%; top: -1px; height: 6%; border-radius: 0 0 8px 8px;   /* the hinge */
+  background: linear-gradient(#5d636c, #9097a0 50%, #5d636c); }
+.nk-nav { display: grid; grid-template-columns: 1fr 1.25fr 1fr; grid-template-rows: auto auto; gap: 6px 8px; align-items: center; }
+.nk-key { border: 0; cursor: pointer; padding: 0; color: #1d2026; border-radius: 9px; font: bold calc(var(--w) * .055) Arial, sans-serif;
+  background: linear-gradient(#f6f7f9, #c8ccd2); box-shadow: 0 2px 0 #6b717a, inset 0 1px 0 #fff; }
+.nk-key:active { transform: translateY(1px); box-shadow: 0 1px 0 #6b717a; }
+.nk-softkey { height: calc(var(--w) * .09); font-size: calc(var(--w) * .05); }
+.nk-call, .nk-end { height: calc(var(--w) * .09); font-size: calc(var(--w) * .065); }
+.nk-call { grid-column: 1; grid-row: 2; color: #1f9a3a; }
+.nk-end { grid-column: 3; grid-row: 2; color: #d22c2c; }
+.nk-end span { display: inline-block; transform: rotate(135deg); }
+.nk-dpad { grid-column: 2; grid-row: 1 / span 2; position: relative; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, #e9ecef 0 30%, #a9afb7 31%, #d9dde2 33%, #b5bbc3 100%); box-shadow: 0 2px 0 #6b717a, inset 0 1px 0 #fff; }
+.nk-dpad button { position: absolute; border: 0; padding: 0; background: none; cursor: pointer; }
+.nk-dpad [data-key="up"] { left: 30%; right: 30%; top: 0; height: 30%; }
+.nk-dpad [data-key="down"] { left: 30%; right: 30%; bottom: 0; height: 30%; }
+.nk-dpad [data-key="left"] { top: 30%; bottom: 30%; left: 0; width: 30%; }
+.nk-dpad [data-key="right"] { top: 30%; bottom: 30%; right: 0; width: 30%; }
+.nk-dpad [data-key="up"]::after, .nk-dpad [data-key="down"]::after, .nk-dpad [data-key="left"]::after, .nk-dpad [data-key="right"]::after {
+  content: ""; position: absolute; left: 50%; top: 50%; border: 5px solid transparent; transform: translate(-50%, -50%); }
+.nk-dpad [data-key="up"]::after { border-bottom-color: #555; margin-top: -3px; }
+.nk-dpad [data-key="down"]::after { border-top-color: #555; margin-top: 3px; }
+.nk-dpad [data-key="left"]::after { border-right-color: #555; margin-left: -3px; }
+.nk-dpad [data-key="right"]::after { border-left-color: #555; margin-left: 3px; }
+.nk-dpad .nk-ok { left: 31%; top: 31%; width: 38%; height: 38%; border-radius: 50%; background: linear-gradient(#fdfdfd, #cfd3d8); box-shadow: inset 0 0 0 1px #9aa0a8; }
+.nk-dpad button:active { filter: brightness(.85); }
+.nk-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--w) * .025) calc(var(--w) * .04); }
+.nk-pad .nk-key { height: calc(var(--w) * .095); display: flex; align-items: baseline; justify-content: center; gap: 4px; line-height: calc(var(--w) * .095); }
+.nk-pad small { font-size: calc(var(--w) * .032); color: #5a606a; font-weight: normal; text-transform: uppercase; }
+.nk-mic { position: absolute; left: 50%; bottom: 5%; width: 3%; aspect-ratio: 1; border-radius: 50%; background: #3a3f46; transform: translateX(-50%); }
+.nk-key:focus-visible, .nk-dpad button:focus-visible { outline: 2px solid #1f6fc4; outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) { .nk-lid { transition: none; } }
