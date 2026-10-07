@@ -128,7 +128,7 @@
   // look = {
   //   skin, shirt, pants, shoes, outline?,
   //   headR (default h*0.13), bodyW (default w*0.62), limbW (default 7*scale),
-  //   sleeve?: color for upper arm (defaults to shirt), shortSleeves?: bool
+  //   sleeve?: color for upper arm (defaults to shirt), forearm?: color for long sleeves (defaults to skin), shortSleeves?: bool
   //   head(ctx, f, P, r)      draw the head at (0,0) (already translated to head centre, facing +x). Default: plain skin circle + eye.
   //   torso(ctx, f, P, box)   extra torso decoration; box = {x, y, w, h} (top-left corner, local coords)
   //   prop(ctx, f, P, hand)   draw a held item; hand = {x, y, ang} front hand, ang = forearm angle (from down)
@@ -160,7 +160,7 @@
     strokeLimb(ctx, legB, pantsD, limbW * 1.1);
     foot(ctx, legB, S.shade(look.shoes || "#222", -0.1), limbW, s);
     if (look.backProp) look.backProp(ctx, f, P, { x: armB.end.x, y: armB.end.y, ang: armB.ang2 });
-    drawArm(ctx, armB, look.shortSleeves ? skinD : sleeveD, skinD, limbW);
+    drawArm(ctx, armB, look.shortSleeves ? skinD : sleeveD, look.forearm ? S.shade(look.forearm, -0.1) : skinD, limbW, skinD);
     // torso
     ctx.fillStyle = look.shirt;
     const box = { x: Math.min(sh.x, hip.x) - bodyW / 2, y: sh.y - 2, w: bodyW, h: hip.y - sh.y + 6 };
@@ -178,18 +178,18 @@
     ctx.restore();
     // front arm + prop
     if (look.prop) look.prop(ctx, f, P, { x: armF.end.x, y: armF.end.y, ang: armF.ang2 });
-    drawArm(ctx, armF, look.shortSleeves ? look.skin : (look.sleeve || look.shirt), look.skin, limbW);
+    drawArm(ctx, armF, look.shortSleeves ? look.skin : (look.sleeve || look.shirt), look.forearm || look.skin, limbW, look.skin);
     ctx.restore();
     return { P, hip, sh, armF, armB, legF, legB, headR };
   };
 
-  function drawArm(ctx, L, sleeve, skin, w) {
+  function drawArm(ctx, L, sleeve, skin, w, hand = skin) {
     ctx.lineCap = "round";
     ctx.strokeStyle = sleeve; ctx.lineWidth = w;
     ctx.beginPath(); ctx.moveTo(L.from.x, L.from.y); ctx.lineTo(L.joint.x, L.joint.y); ctx.stroke();
     ctx.strokeStyle = skin; ctx.lineWidth = w * 0.85;
     ctx.beginPath(); ctx.moveTo(L.joint.x, L.joint.y); ctx.lineTo(L.end.x, L.end.y); ctx.stroke();
-    ctx.fillStyle = skin; ctx.beginPath(); ctx.arc(L.end.x, L.end.y, w * 0.62, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = hand; ctx.beginPath(); ctx.arc(L.end.x, L.end.y, w * 0.62, 0, Math.PI * 2); ctx.fill();
   }
   function foot(ctx, L, color, w, s) {
     ctx.fillStyle = color;
