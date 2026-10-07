@@ -1,0 +1,6 @@
+# Source text of the book stays private
+content/book.txt
+content/book-numbered.txt
+__pycache__/
+*.pyc
+build/artifact-index.html

@@ -1,0 +1,1214 @@
+[
+ {
+  "slug": "red-bull",
+  "title": "Red Bull",
+  "category": "items",
+  "subtitle": "Four cans and a lightsaber: the standard senatorial loadout.",
+  "infobox": {
+   "Type": "Energy drink",
+   "Notable users": "[[rfk|RFK]], [[hank-hill|Hank Hill]], [[jesse-pinkman|Jesse Pinkman]], [[walter-white|Walter White]]",
+   "Issued by": "[[the-67-casino|The 6 7 Casino]] (to security staff)",
+   "Quantity (RFK)": "4",
+   "First appearance": "[[chapter-2]]"
+  },
+  "quote": {
+   "text": "It’s over Bon Jovi I have 4 Red Bulls and a lightsaber, no one can mess with me I’m cool",
+   "by": "[[rfk|RFK]], [[chapter-2]]"
+  },
+  "lead": "**Red Bull** is an energy drink that appears at two of the most dramatic moments in the canon: the last stand at the [[galactic-senate|Galactic Senate]] and the night watch over the [[verizon-contract|Verizon contract]]. Scholars agree it is one of the few items in the book that is used for exactly what it is for.",
+  "sections": [
+   {
+    "heading": "In the Siege of the Senate",
+    "body": "During the [[siege-of-the-senate|Siege of the Galactic Senate]], [[bon-jovi|Bon Jovi]] pushed out all of the 80-year-old senators except one: [[rfk|RFK]]. RFK declared his readiness by listing his inventory, which consisted of \"4 Red Bulls and a [[lightsaber]]\". It is never stated how many of the four were consumed before the [[nuh-uh-debate|Nuh Uh–Yuh Huh Debate]] began, but given the debate's length, fan consensus is \"all of them\"."
+   },
+   {
+    "heading": "At the 6 7 Casino",
+    "body": "In [[flashback-chapter|the Flashback Chapter]], [[microsoft-bing|Microsoft Bing]] hires [[hank-hill|Hank Hill]], [[jesse-pinkman|Jesse]] and [[walter-white|Mr. White]] to guard the relic. The crew walked down to [[the-vault|the vault]] \"with their casino issued scars and red bulls\", then \"slammed their red bulls and nodded off, in no fear, since their scars were gold\".\n\nIn [[chapter-maybe-seventh|Chapter the Maybe Seventh]], woken by alarms, Truth Social notifications and [[yuno-miles|Yuno Miles]], Hank \"chugged the last of his red bull\" before grabbing his [[golden-scar|golden SCAR]]."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- Red Bull is the only energy drink known to cause sleep in the canon; the casino guards fall asleep immediately after drinking theirs.\n- Rival beverages in the canon include [[g-fuel|G Fuel]], [[prime|Prime]], [[mountain-dew|Mountain Dew]] and [[diet-dr-pepper|Diet Dr Pepper]].\n- Real-world: Red Bull's slogan is \"Red Bull gives you wings\", which may or may not be connected to [[erger-wings|Erger Wings]] (unconfirmed)."
+   }
+  ],
+  "appearances": [
+   "chapter-2",
+   "flashback-chapter",
+   "chapter-maybe-seventh"
+  ],
+  "related": [
+   "rfk",
+   "hank-hill",
+   "g-fuel",
+   "golden-scar",
+   "siege-of-the-senate",
+   "the-67-casino"
+  ]
+ },
+ {
+  "slug": "g-fuel",
+  "title": "G Fuel",
+  "category": "items",
+  "subtitle": "The post-regicide refreshment of choice.",
+  "infobox": {
+   "Type": "Gamer energy drink",
+   "Purchased by": "[[rfk|RFK]]",
+   "Purchased at": "A corner store in [[chai-town|Chai Town]]",
+   "First appearance": "[[chapter-triangle]]"
+  },
+  "lead": "**G Fuel** (written \"Gfuel\" and \"gfuel\" in the text) is an energy drink purchased by [[rfk|RFK]] shortly after he killed [[bon-jovi|Bon Jovi]] and left the [[galactic-senate|Galactic Senate]]. Walking through the streets, he \"picked up a bottle of Gfuel from his favorite corner store that probably was involved with several gangs on the streets of [[chai-town|Chai Town]].\"\n\nIt was while RFK \"drank his gfuel\" that [[plankton|Plankton]] approached him, making G Fuel the beverage present at the founding of the quest to defeat [[chris|Chris]].",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: G Fuel is a powdered energy drink marketed to gamers. It is usually sold in tubs, not bottles; the canon's \"bottle\" may be a ready-to-drink can or a continuity error.\n- RFK appears to be loyal to energy drinks generally, having previously carried four [[red-bull|Red Bulls]]."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle"
+  ],
+  "related": [
+   "rfk",
+   "chai-town",
+   "red-bull",
+   "plankton"
+  ]
+ },
+ {
+  "slug": "chai-town",
+  "title": "Chai Town",
+  "category": "locations",
+  "subtitle": "Home of RFK's favorite (probably gang-affiliated) corner store.",
+  "infobox": {
+   "Type": "Streets / neighborhood",
+   "Notable business": "RFK's favorite corner store",
+   "Gang activity": "\"several gangs\" (alleged)",
+   "First appearance": "[[chapter-triangle]]"
+  },
+  "lead": "**Chai Town** is a district whose streets [[rfk|RFK]] walked after leaving the [[galactic-senate|Galactic Senate]]. It is home to his \"favorite corner store that probably was involved with several gangs on the streets of Chai Town\", where he picked up a bottle of [[g-fuel|G Fuel]].\n\nChai Town is also where [[plankton|Plankton]] (no last name) first approached RFK, making it the birthplace of the anti-[[chris|Chris]] alliance. It is unclear whether Chai Town is on [[planet-patrick|Planet Patrick]], though since RFK walked there from the senate, most editors assume so.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- The store's gang involvement is described only as \"probably\". The wiki does not accuse the corner store of anything.\n- Not to be confused with [[corner-store-ohio|the Corner Store in Ohio]], which sells potato chips for 2.85 a gallon. The canon has at least two corner stores.\n- The name is likely a pun on \"Chinatown\"."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle"
+  ],
+  "related": [
+   "rfk",
+   "g-fuel",
+   "plankton",
+   "planet-patrick",
+   "corner-store-ohio"
+  ]
+ },
+ {
+  "slug": "chris-war-crimes",
+  "title": "Chris's War Crimes & the Cloning",
+  "category": "events",
+  "subtitle": "The incident that left exactly one Chris in circulation.",
+  "infobox": {
+   "Type": "Crimes, cloning, disposal",
+   "Location": "[[galactic-senate|The Galactic Senate]]",
+   "Perpetrator": "[[chris|Chris]]",
+   "Outcome": "Body thrown into [[the-endless-pit|the Pit With No End]]; soul stays in first body",
+   "Ruling by": "[[all-knowing-overseers|The All-Knowing Overseers]]",
+   "Chris count": "1",
+   "Recounted in": "[[chapter-triangle]]"
+  },
+  "quote": {
+   "text": "because we cloned his body his soul remained in the first one because our all knowing overseers declared it the less wack one.",
+   "by": "[[plankton|Plankton]], [[chapter-triangle]]"
+  },
+  "lead": "**Chris's War Crimes & the Cloning** refers to a pre-canon incident described by [[plankton|Plankton]] when he recruits [[rfk|RFK]]. After [[chris|Chris]] committed unspecified \"warcrimes in the galactic sentate\", his body was cloned and disposed of, which led to the question of how many Chrises there are. The answer, after some debate, is one.",
+  "sections": [
+   {
+    "heading": "Plankton's account",
+    "body": "Plankton explains: \"after his warcrimes in the galactic sentate his body was thought to be clones and thrown into a pit thought to have no end to it.\"\n\nRFK, reasonably, asks: \"Interesting so theres two on the prowl?\"\n\nPlankton's reply is the canon's main statement on Chris's metaphysics:\n\n> Not necessarily, you see in ancient times water was considered essential for human life, and it still it, however because we cloned his body his soul remained in the first one because our all knowing overseers declared it the less wack one.\n\n\"Baller, so theres only one then?\" asks RFK. \"Exactly,\" Plankton confirms, before adding that Chris has been missing since [[housing-crash|the housing market crash of 2007/2008]] and has recently been traced to the [[reformed-travis-scott-sector|Reformed Travis Scott Sector]]."
+   },
+   {
+    "heading": "Analysis",
+    "body": "### What were the war crimes?\nThe canon never says. Since the [[galactic-senate|Galactic Senate]] is later the site of [[bon-jovi|Bon Jovi]]'s siege, the senate seems to attract violence. No source connects Chris to that siege.\n\n### Which body was thrown in the pit?\nThe text says Chris's body \"was thought to be clones\" and was thrown into [[the-endless-pit|the pit]], while also saying \"we cloned his body\". The likeliest reading is that the clone(s) went into the pit and the original, which still had the soul, escaped. The phrase \"we cloned\" also suggests that Plankton, or an organization he belongs to, did the cloning, which raises questions the canon does not address.\n\n### The water digression\nPlankton's remark that water \"was considered essential for human life, and it still it\" has no clear link to the cloning. Some editors think it is a rhetorical warm-up. Others think it is the whole point."
+   },
+   {
+    "heading": "Fan theories",
+    "body": "- **Theory:** The \"less wack\" ruling means Chris's soul could move if the overseers changed their minds, which would make the [[all-knowing-overseers|All-Knowing Overseers]] the most powerful beings in the canon.\n- **Theory:** The cloning explains why Chris is called \"Chris: All balled up Deluxe Edition\", since a deluxe edition implies a standard edition exists somewhere (possibly the pit)."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- \"Senate\" is spelled \"sentate\" here and in RFK's exit from it (\"left then sentate\").\n- This is one of two times in the book that Chris is said to have died or been disposed of, the other being [[stabbing-of-chris|the Stabbing of Chris]] by [[ron-desantis|Ron DeSantis]]. Neither appears to have slowed him down."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle"
+  ],
+  "related": [
+   "chris",
+   "the-endless-pit",
+   "all-knowing-overseers",
+   "galactic-senate",
+   "housing-crash",
+   "plankton",
+   "stabbing-of-chris"
+  ]
+ },
+ {
+  "slug": "the-endless-pit",
+  "title": "The Pit With No End",
+  "category": "locations",
+  "subtitle": "Thought to have no end. Unconfirmed.",
+  "infobox": {
+   "Type": "Pit (bottomless, reportedly)",
+   "Contents": "[[chris|Chris]]'s cloned body (or bodies)",
+   "Depth": "Thought to be infinite",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "lead": "**The Pit With No End** is the place where [[chris|Chris]]'s body was thrown after [[chris-war-crimes|his war crimes in the Galactic Senate]]. According to [[plankton|Plankton]], the body \"was thought to be clones and thrown into a pit thought to have no end to it.\"\n\nThe pit is mentioned exactly once, and the wording is hedged twice: the body was only *thought* to be clones, and the pit is only *thought* to have no end. No one in the canon has checked either claim.",
+  "sections": [
+   {
+    "heading": "Significance",
+    "body": "Because Chris's soul stayed in his first body by ruling of [[all-knowing-overseers|the All-Knowing Overseers]], the pit apparently holds only the \"more wack\" body or bodies. Editors therefore list it as soulless.\n\n**Fan theory:** If the pit does have an end, a Chris clone is at the bottom of it. This has never been suggested in the canon and is included only because someone was going to say it."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle"
+  ],
+  "related": [
+   "chris-war-crimes",
+   "chris",
+   "all-knowing-overseers",
+   "shadow-realm"
+  ]
+ },
+ {
+  "slug": "all-knowing-overseers",
+  "title": "The All-Knowing Overseers",
+  "category": "factions",
+  "subtitle": "Arbiters of wackness.",
+  "infobox": {
+   "Type": "Overseers (all-knowing)",
+   "Known ruling": "Chris's first body is \"the less wack one\"",
+   "Mentioned by": "[[plankton|Plankton]]",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "lead": "**The All-Knowing Overseers** are a body of unknown membership whose only recorded act is deciding where [[chris|Chris]]'s soul lives. After Chris's body was cloned (see [[chris-war-crimes|Chris's War Crimes & the Cloning]]), [[plankton|Plankton]] explains that \"his soul remained in the first one because our all knowing overseers declared it the less wack one.\"\n\nPlankton says \"*our* all knowing overseers\", which suggests he answers to them, or at least claims them. The overseers are never mentioned again. Despite being all-knowing, they apparently lost track of Chris after [[housing-crash|the housing market crash of 2007/2008]].",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Wackness is the only metric the overseers are known to use.\n- **Fan theory:** The overseers are the same group as the \"all knowing\" [[tech-bros|tech bros]]. Nothing supports this."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle"
+  ],
+  "related": [
+   "chris-war-crimes",
+   "chris",
+   "plankton",
+   "the-endless-pit"
+  ]
+ },
+ {
+  "slug": "housing-crash",
+  "title": "The Housing Market Crash of 2007/2008",
+  "category": "events",
+  "subtitle": "Also the last time anyone saw Chris.",
+  "infobox": {
+   "Type": "Economic catastrophe / disappearance",
+   "Date": "2007/2008 (the canon allows both)",
+   "Consequence": "[[chris|Chris]] can no longer be located",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "lead": "**The Housing Market Crash of 2007/2008** is, according to [[plankton|Plankton]], the point after which [[chris|Chris]] could no longer be found: \"after the crash of the housing market in 2007/2008 we have been unable to locate it\". Plankton calls Chris \"it\" here, which some editors read as a hint that Chris is no longer fully a person.\n\nThe crash is the canon's only known real-world economic event. The only lead since then is that Chris has been traced to the [[reformed-travis-scott-sector|Reformed Travis Scott Sector]], where he is apparently buying a McDouble.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: the US housing bubble burst in 2007–2008 and set off the global financial crisis.\n- The crash happened around the same time that the [[inav|Inav]] stopped being developed (\"we continued to develop it until 2008\") and that the [[iphone-3g|iPhone 3G]] came out. 2008 is a busy year in the lore.\n- **Fan theory:** Chris caused the crash. Unproven, but very baller if true."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle"
+  ],
+  "related": [
+   "chris",
+   "plankton",
+   "reformed-travis-scott-sector",
+   "chris-war-crimes"
+  ]
+ },
+ {
+  "slug": "operation-desert-storm",
+  "title": "Operation Desert Storm (Cartoon Network)",
+  "category": "events",
+  "subtitle": "Last aired: around when anyone last said Chris's name.",
+  "infobox": {
+   "Type": "Military operation / TV broadcast",
+   "Network": "Cartoon Network (per RFK)",
+   "Cited by": "[[rfk|RFK]]",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "quote": {
+   "text": "I haven’t heard that name since operation desert storm aired on cartoon network",
+   "by": "[[rfk|RFK]], [[chapter-triangle]]"
+  },
+  "lead": "**Operation Desert Storm** is, according to [[rfk|RFK]], something that \"aired on cartoon network\". RFK brings it up when [[plankton|Plankton]] first says the name \"Chris: All balled up Deluxe Edition\", to explain how long it has been since he last heard it.\n\nThe canon gives no other details about the broadcast, such as its time slot or which Cartoon Network block it aired in. Plankton's reply, \"I.K\" (\"I know\"), suggests he also remembers it airing.",
+  "sections": [
+   {
+    "heading": "Behind the scenes",
+    "body": "- Real-world: Operation Desert Storm was the 1991 US-led combat phase of the Gulf War. It famously got wall-to-wall live coverage on CNN, not Cartoon Network. Both channels were owned by Turner Broadcasting, so RFK's mix-up is at least within the right corporate family.\n- Cartoon Network launched in 1992, after Desert Storm ended. This continuity error may just be the multiverse doing its thing."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle"
+  ],
+  "related": [
+   "rfk",
+   "plankton",
+   "chris"
+  ]
+ },
+ {
+  "slug": "reformed-travis-scott-sector",
+  "title": "The Reformed Travis Scott Sector",
+  "category": "locations",
+  "subtitle": "Last known McDouble-purchase location of Chris.",
+  "infobox": {
+   "Type": "Sector of space",
+   "Contains": "[[kanye-system|The Kanye System]]",
+   "Security": "[[department-of-defense|Department of Defense (DOD)]]",
+   "Notable sighting": "[[chris|Chris]], buying a McDouble",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "lead": "**The Reformed Travis Scott Sector** is a region of space where [[plankton|Plankton]]'s sources have picked up \"traces\" of [[chris|Chris]]. According to Plankton, \"it will be hard to find exactly which planet in this system it is buying a mcdouble from however with the help of some former friends it should be possible.\"",
+  "sections": [
+   {
+    "heading": "Security",
+    "body": "In [[chapter-the-fourth|Chapter the Fourth]], the [[department-of-defense|Department of Defense]], an army \"divided by [[jeff-bezosi|Jeff bezosi]] and Mark zucc\", is said to have been \"created to contain damn level threats in the reformed Travis Scott sector\". The DOD had recently been sent to [[kanye-system|the Kanye System]], which is inside the sector, to contain [[hank-hill|Hank Hill]] and his [[propane]] empire.\n\nThis means a Chris sighting and the Hank Hill propane crisis happened in the same sector, though the canon does not say they are connected."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- The sector being \"Reformed\" suggests there was once an unreformed Travis Scott Sector. Its history is not recorded.\n- Real-world: Travis Scott is a rapper, and the McDouble is a McDonald's burger. Travis Scott famously had a McDonald's meal promotion in 2020, so the McDouble sighting is probably not a coincidence.\n- Plankton calls it a \"sector\" and a \"system\" in the same sentence."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle",
+   "chapter-the-fourth"
+  ],
+  "related": [
+   "kanye-system",
+   "department-of-defense",
+   "chris",
+   "plankton",
+   "hank-hill",
+   "mcdonalds"
+  ]
+ },
+ {
+  "slug": "nokia-i-4500",
+  "title": "Nokia I-4500 Flip Phone",
+  "category": "items",
+  "subtitle": "The only phone you can fight Chris with. At first, anyway.",
+  "infobox": {
+   "Manufacturer": "Nokia",
+   "Form factor": "Flip phone",
+   "OS": "\"android wireless technology\"",
+   "Network": "\"cutting edge 3g\"",
+   "Plan": "3-year contract from \"version\" for unlimited talk and text",
+   "Required apps": "[[sacred-apps|The sacred social media apps]]",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "quote": {
+   "text": "the only person capable of battling him is one who has met with the tech bros and has downloaded the sacred social media apps onto there nokia I-4500 flip phone with android wireless technology and 3 year contract plan from version for unlimited talk and text with there cutting edge 3g network.",
+   "by": "[[plankton|Plankton]], [[chapter-triangle]]"
+  },
+  "lead": "The **Nokia I-4500 Flip Phone** is, according to [[plankton|Plankton]]'s first briefing, the device that anyone hoping to battle [[chris|Chris]] must own. The would-be challenger must have met with the [[tech-bros|tech bros]] and downloaded [[sacred-apps|the sacred social media apps]] onto it.",
+  "sections": [
+   {
+    "heading": "Specifications",
+    "body": "Per the briefing, the phone has:\n- **Android wireless technology**, which is unusual for a Nokia flip phone.\n- **A 3-year contract plan from \"version\"** for unlimited talk and text. This is almost certainly the first mention of [[verizon-contract|the 3 Year Contract Plan from Verizon]], misspelled. The plan later becomes a sacred relic in its own right.\n- **A \"cutting edge 3g network\"**.\n\n[[rfk|RFK]] \"was puzzled, this was a feat never seen before\"."
+   },
+   {
+    "heading": "Later developments",
+    "body": "The flip phone requirement is quietly dropped later in the canon. In [[flashback-chapter|the Flashback Chapter]], [[steve-jobs|Steve Jobs]] presents the [[iphone-3g|iPhone 3G]] as the only phone that can run the sacred apps, and [[siri|Siri]] advises syncing with [[flip-phone-covenant|the Flip Phone Covenant]] instead. In [[chapter-4-point-1|Chapter 4+.1…]], [[the-prophecy|the Prophecy]] only asks for \"a phone capable of containing\" the apps and the Verizon plan.\n\nThe 3G requirement is the one constant. The iPhone 3G also runs on 3G, and Jobs warns that [[5g]] \"awakens Elon Mush's dormant twin\"."
+   },
+   {
+    "heading": "Continuity errors",
+    "body": "- \"version\" vs. \"Verizon\": the carrier is misspelled the first time and spelled correctly every time after.\n- Nokia flip phone vs. iPhone 3G: either the requirement changed, or the Flip Phone Covenant handles the flip-phone part. Editors are divided.\n- Real-world: there was no Nokia \"I-4500\", and Nokia's flip phones did not run Android."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle"
+  ],
+  "related": [
+   "verizon-contract",
+   "iphone-3g",
+   "sacred-apps",
+   "flip-phone-covenant",
+   "tech-bros",
+   "the-prophecy"
+  ]
+ },
+ {
+  "slug": "new-crips",
+  "title": "The New Crips",
+  "category": "factions",
+  "subtitle": "Everyone's last hope of universalizing Balling.",
+  "infobox": {
+   "Type": "Gang army / restoration movement",
+   "First member": "[[mf-vroom|MF Vroom]]",
+   "Recruiters": "[[rfk|RFK]], [[plankton|Plankton]]",
+   "Associated with": "[[ioannus-paranukus|Ioannus Paranukus]], [[son-s-sonionring|Son S. Sonionring]]",
+   "Base": "[[the-projects|The Projects]]",
+   "Goal": "Universalizing [[balling]]; defeating [[chris|Chris]]",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "quote": {
+   "text": "MF Vroom, if we can restore him to power in the projects we can harness the power of the gang army, more powerful than gang wars fueled by a new parks of nikes",
+   "by": "[[rfk|RFK]], [[chapter-triangle]]"
+  },
+  "lead": "**The New Crips** is the gang army that [[rfk|RFK]] and [[plankton|Plankton]] plan to raise by putting [[mf-vroom|MF Vroom]] back in power in [[the-projects|the Projects]]. The narrator calls MF Vroom \"the first member of the New Crips, Everyone's last hope of universalizing Balling\".",
+  "sections": [
+   {
+    "heading": "Origins",
+    "body": "While looking for allies against [[chris|Chris]], RFK briefly considers [[mark-zuckerberg|Mark Zuckerberg]] (whose \"baller finger just was chill like that\"), then decides: \"nah bro screw that we're gonna enlist MF Vroom.\" His reasoning is that restoring Vroom would let them \"harness the power of the gang army, more powerful than gang wars fueled by a new parks of nikes\". Plankton finds this \"a enticing idea\". Because Vroom was last seen being exiled into the [[call-of-duty-lobbies|COD lobbies]], the search leads to [[cod-hq|Call of Duty HQ]] deep inside [[dunder-mifflin|Dunder Mifflin]].\n\nPlankton approves the plan with the canon's most famous two words: \"[[aight-bet|Aight Bet]]\"."
+   },
+   {
+    "heading": "Membership",
+    "body": "The group is never formally sworn in, but these figures are generally counted as members or allies:\n- **[[mf-vroom|MF Vroom]]**, first member and rightful heir of [[projects-royal-family|the Projects Royal Family]]\n- **[[rfk|RFK]]** and **[[plankton|Plankton]]**, founders and recruiters\n- **[[ioannus-paranukus|Ioannus Paranukus]]**, a Jedi native to the projects who joins at COD HQ, \"I wish to free my king!\"\n- **[[son-s-sonionring|Son S. Sonionring]]**, MF Vroom's right-hand man, who resurfaces at [[projects-national-spaceport|the Projects National Spaceport]]\n\nWhen Plankton meets Ioannus, he asks: \"do you bid us harm or are you a desirable crip\". This is the closest thing to a recruitment test on record."
+   },
+   {
+    "heading": "Opposition",
+    "body": "The New Crips are opposed by [[osama-bin-bomin|Osama Bin Bom'in]], who exiled MF Vroom and took control of [[o-block|O'Block]], his ambassador [[tung-tung-tung-sahur|Tung Tung Tung Sahur]], the [[police-kirks|Police Kirks]], and the giant robot [[ton-618|TON 618]]. By the end of the current canon the gang is heading for the palace to retrieve [[facebook-pre-cringe|Facebook (Pre-Cringe)]]."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- The phrase \"new parks of nikes\" is probably a typo for \"new pair of Nikes\". The wiki keeps it as written.\n- [[kanye-west|Kanye West]] claims, separately, that \"all the crips will be buying their gas\" from [[corner-store-ohio|his corner store]]. It is not known whether he means the New Crips.\n- At [[the-67-casino|the casino]], the guards \"did the crip walk slowly down the stairs\". No membership is implied."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle",
+   "dunder-mifflan-chapter",
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "mf-vroom",
+   "rfk",
+   "plankton",
+   "ioannus-paranukus",
+   "son-s-sonionring",
+   "the-projects",
+   "balling",
+   "osama-bin-bomin"
+  ]
+ },
+ {
+  "slug": "dunder-mifflin",
+  "title": "Dunder Mifflin (Galaxy)",
+  "category": "locations",
+  "subtitle": "A galaxy. In an office building. Mostly paper.",
+  "infobox": {
+   "Type": "Galaxy (fully enclosed in an office building)",
+   "Alternate spellings": "Dunder Mifflan, dunder mifflin sector",
+   "Entry points": "Thousands",
+   "Security": "[[google-smart-guards|Google Smart Guards]]",
+   "Notable features": "[[paper-belt|The Paper Belt]], [[the-sign|the Giant LED Sign]], [[file-cabinet|the Lobby File Cabinet]], [[vending-machine-labyrinth|the Vending Machine Labyrinth]], [[cod-hq|Call of Duty HQ]]",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "quote": {
+   "text": "Dear god.. its huge there’s so much.. paper..",
+   "by": "[[rfk|RFK]], [[chapter-the-fourth]]"
+  },
+  "lead": "**Dunder Mifflin** (also spelled **Dunder Mifflan**) is a galaxy that \"had been completely encapsulated in a giant dunder mifflan office building\". It contains [[cod-hq|Call of Duty HQ]], where [[mf-vroom|MF Vroom]] is held, and is the destination of [[rfk|RFK]] and [[plankton|Plankton]]'s month-long trip in the [[mercedes-benz-system-cruiser|Mercedes Benz System Cruiser]]. A chapter is named after it.",
+  "sections": [
+   {
+    "heading": "Description",
+    "body": "On arrival, Plankton announces \"Alright RFK we're here.. Dunder Mifflan..\" RFK replies \"Dear god.. its huge there's so much.. paper..\" Plankton: \"Precisely..\"\n\nThe building has \"thousands of entry points, all of which were guarded heavily, by what? By Google Smart guards of course.\" Its outer features include:\n- **[[paper-belt|The Paper Belt]]**, a ring the ship passes through on approach.\n- **[[the-sign|The Giant LED Sign]]**, whose wires are so big that a ship can slip through them without the guards noticing.\n\nInside are:\n- **The lobby**, home of [[file-cabinet|the File Cabinet]], which holds documents on Call of Duty, WoW, Fortnite and [[bible-of-battle-passes|The Bible of battle passes]].\n- **The vending machine section**, entered \"through the crack in the door of the machine\", which leads to [[vending-machine-labyrinth|the Labyrinth]].\n- **Aisle 3**, location of [[cod-hq|Call of Duty HQ]], which is \"not as big as Dunder Mifflin but still pretty chonky\"."
+   },
+   {
+    "heading": "Infiltration",
+    "body": "With the Smart Guards \"everywhere\", Plankton chose to go in through the sign:\n\n> \"How big are they?\" \"So big\" \"like big big\" \"bigger than big\" \"baller\"\n\nThe ship \"slowly passed through The paper belt and then slipped behind the giant LED sign, as the ship hugged the wires is slowly entered..\" It then flew straight into the lobby and browsed the file cabinet, which suggests the lobby is big enough for a spaceship."
+   },
+   {
+    "heading": "Departure",
+    "body": "After rescuing MF Vroom, the crew \"flew back out of the dunder mifflin sector\" toward [[united-state-of-america|the United State of America]]. In one sentence, Dunder Mifflin is called a galaxy, an office building and a sector."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: Dunder Mifflin is the paper company in the TV sitcom *The Office*. The giant amount of paper is consistent with that.\n- The spelling switches between \"Mifflin\" (planning and departure) and \"Mifflan\" (arrival and the chapter title). The wiki uses \"Mifflin\" for the galaxy and \"Mifflan\" for [[dunder-mifflan-chapter|the chapter]].\n- No employees of Dunder Mifflin are ever seen."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle",
+   "chapter-the-fourth",
+   "dunder-mifflan-chapter",
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "cod-hq",
+   "google-smart-guards",
+   "paper-belt",
+   "the-sign",
+   "file-cabinet",
+   "vending-machine-labyrinth",
+   "dunder-mifflan-chapter",
+   "mercedes-benz-system-cruiser"
+  ]
+ },
+ {
+  "slug": "paper-belt",
+  "title": "The Paper Belt",
+  "category": "locations",
+  "subtitle": "Like an asteroid belt, but office supplies.",
+  "infobox": {
+   "Type": "Orbital ring",
+   "Location": "Outside [[dunder-mifflin|Dunder Mifflin]]",
+   "Traversed by": "[[mercedes-benz-system-cruiser|Mercedes Benz System Cruiser]]",
+   "First appearance": "[[chapter-the-fourth]]"
+  },
+  "lead": "**The Paper Belt** is a ring around the [[dunder-mifflin|Dunder Mifflin]] galaxy-building. During their infiltration, [[rfk|RFK]] and [[plankton|Plankton]]'s ship \"slowly passed through The paper belt and then slipped behind the giant LED sign\".\n\nIt gets one clause in the canon. Its makeup is never stated, but given RFK's first reaction to the galaxy (\"there's so much.. paper..\"), editors assume it is paper.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- It is modeled on an asteroid belt. Real-world: \"paper belt\" is also a term for the northeastern US corridor of paper and publishing industries. This is almost certainly a coincidence.\n- The Smart Guards apparently do not patrol the belt, so it is a safe approach route to [[the-sign|the Sign]]."
+   }
+  ],
+  "appearances": [
+   "chapter-the-fourth"
+  ],
+  "related": [
+   "dunder-mifflin",
+   "the-sign",
+   "google-smart-guards"
+  ]
+ },
+ {
+  "slug": "the-sign",
+  "title": "The Giant LED Sign",
+  "category": "locations",
+  "subtitle": "Wires: bigger than big.",
+  "infobox": {
+   "Type": "Signage (galactic scale)",
+   "Location": "[[dunder-mifflin|Dunder Mifflin]] exterior",
+   "Wire size": "\"bigger than big\"",
+   "Used for": "Getting past the [[google-smart-guards|Google Smart Guards]]",
+   "First appearance": "[[chapter-the-fourth]]"
+  },
+  "quote": {
+   "text": "We’re going to go through the sign RFK, the sign, the wires are so huge we can slip through them so easily the smart guards dont even know",
+   "by": "[[plankton|Plankton]], [[chapter-the-fourth]]"
+  },
+  "lead": "**The Giant LED Sign** is mounted on the outside of the [[dunder-mifflin|Dunder Mifflin]] office-galaxy. Its wiring is so large that [[plankton|Plankton]] chose it as the way in, so the [[mercedes-benz-system-cruiser|ship]] could avoid the [[google-smart-guards|Google Smart Guards]] at the thousands of regular entry points.\n\nWhen [[rfk|RFK]] asks how big the wires are, the answer gets bigger with each line: \"So big\" / \"like big big\" / \"bigger than big\" / \"baller\". The ship then \"slipped behind the giant LED sign, as the ship hugged the wires is slowly entered..\"",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- What the sign says is never stated. It probably says \"Dunder Mifflin\", but it could say \"Dunder Mifflan\".\n- \"Baller\" is the canon's largest unit of measurement."
+   }
+  ],
+  "appearances": [
+   "chapter-the-fourth"
+  ],
+  "related": [
+   "dunder-mifflin",
+   "paper-belt",
+   "google-smart-guards",
+   "plankton"
+  ]
+ },
+ {
+  "slug": "google-smart-guards",
+  "title": "Google Smart Guards",
+  "category": "factions",
+  "subtitle": "Everywhere. Except near the sign.",
+  "infobox": {
+   "Type": "Security force",
+   "Manufacturer": "Google (presumably)",
+   "Post": "The thousands of entry points of [[dunder-mifflin|Dunder Mifflin]]",
+   "Weakness": "[[the-sign|The Giant LED Sign]]'s wires",
+   "First appearance": "[[chapter-the-fourth]]"
+  },
+  "lead": "**Google Smart Guards** heavily guard the thousands of entry points into the [[dunder-mifflin|Dunder Mifflin]] galaxy. The narrator presents them as the obvious choice: \"all of which were guarded heavily, by what? By Google Smart guards of course.\"\n\n[[rfk|RFK]] worries that \"the google smart guards are everywhere!\", but [[plankton|Plankton]] gets around them by slipping through the wires of [[the-sign|the Giant LED Sign]], so that \"the smart guards dont even know\". The guards never actually appear in the scene.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: Google sells \"smart\" home devices such as the Nest line. A Smart Guard is presumably the military version.\n- They are one of several tech-company security forces in the canon, along with the [[department-of-defense|DOD]] (divided by [[jeff-bezosi|Jeff Bezosi]] and Mark Zucc) and the casino's [[charlie-kirks|Charlie Kirks]]."
+   }
+  ],
+  "appearances": [
+   "chapter-the-fourth"
+  ],
+  "related": [
+   "dunder-mifflin",
+   "the-sign",
+   "paper-belt",
+   "department-of-defense"
+  ]
+ },
+ {
+  "slug": "file-cabinet",
+  "title": "The Lobby File Cabinet",
+  "category": "items",
+  "subtitle": "Galactic records management.",
+  "infobox": {
+   "Type": "Filing cabinet",
+   "Location": "Lobby of [[dunder-mifflin|Dunder Mifflin]]",
+   "Known files": "Call of Duty, WoW, [[fortnite|Fortnite]], [[bible-of-battle-passes|The Bible of Battle Passes]]",
+   "Browsed by": "The [[mercedes-benz-system-cruiser|ship]]",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "lead": "**The Lobby File Cabinet** stands in the lobby of [[dunder-mifflin|Dunder Mifflin]]. It is the first thing the heroes check once inside: \"As the ship entered the lobby it browsed the file cabinet to find the document about Call of Duty\".\n\nThe text says the *ship* browsed the cabinet, which means the [[mercedes-benz-system-cruiser|Mercedes Benz System Cruiser]] either has a filing attachment or is small enough to fit in a drawer.",
+  "sections": [
+   {
+    "heading": "Contents",
+    "body": "[[rfk|RFK]] notes the highlights: \"Interesting, WoW, Fortnite, The Bible of battle passes, many interesting Things here plankton\". [[plankton|Plankton]] reminds him that \"MF. V'room is waiting for us\".\n\nThe Call of Duty file shows that \"the hq is in aisle 3 of the vending machine section\", which leads the crew to [[vending-machine-labyrinth|the Vending Machine Labyrinth]] and [[cod-hq|Call of Duty HQ]]."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- WoW is *World of Warcraft*. Together with Call of Duty and Fortnite, the cabinet seems to be filed by video game.\n- This is the first filing cabinet in the canon to hold a holy book."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "dunder-mifflin",
+   "bible-of-battle-passes",
+   "cod-hq",
+   "vending-machine-labyrinth"
+  ]
+ },
+ {
+  "slug": "bible-of-battle-passes",
+  "title": "The Bible of Battle Passes",
+  "category": "items",
+  "subtitle": "Scripture, Season 1 through Season ∞.",
+  "infobox": {
+   "Type": "Document (sacred)",
+   "Location": "[[file-cabinet|The Lobby File Cabinet]], [[dunder-mifflin|Dunder Mifflin]]",
+   "Noticed by": "[[rfk|RFK]]",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "lead": "**The Bible of Battle Passes** is a document in [[file-cabinet|the Lobby File Cabinet]] of [[dunder-mifflin|Dunder Mifflin]]. [[rfk|RFK]] lists it among the \"many interesting Things\" in the cabinet, between [[fortnite|Fortnite]] and the Call of Duty file. Nobody reads it, because \"MF. V'room is waiting for us\".\n\nIts contents are unknown. A battle pass is a paid seasonal reward track in games like Fortnite and Call of Duty, so the Bible is assumed to be their scripture.",
+  "sections": [
+   {
+    "heading": "Related scripture",
+    "body": "- When the [[inav|Inav]] comes out of a wormhole, a voice announces: \"We're Approaching the drop point epic gamers, buy your battle passes\". Some editors read this as a quote from the Bible.\n- [[plankton|Plankton]], a veteran of [[fortnite-island-wars|the Great Fortnite Island Wars]], chants \"Fornite battle pass, I just-\" by instinct. This is a real-world meme and may be a verse from the Bible."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "file-cabinet",
+   "fortnite",
+   "dunder-mifflin",
+   "fortnite-island-wars"
+  ]
+ },
+ {
+  "slug": "vending-machine-labyrinth",
+  "title": "The Vending Machine Labyrinth",
+  "category": "locations",
+  "subtitle": "Enter through the crack in the door. Proceed to aisle 3.",
+  "infobox": {
+   "Type": "Labyrinth (inside a vending machine)",
+   "Location": "Vending machine section, [[dunder-mifflin|Dunder Mifflin]]",
+   "Entrance": "The crack in the vending machine door",
+   "Leads to": "[[cod-hq|Call of Duty HQ]] (aisle 3)",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "lead": "**The Vending Machine Labyrinth** is the route from the lobby of [[dunder-mifflin|Dunder Mifflin]] to [[cod-hq|Call of Duty HQ]]. According to [[file-cabinet|the file cabinet]], \"the hq is in aisle 3 of the vending machine section\".\n\nThe route is: \"the ship flew slowly down the hall and into the vending machine room, through the crack in the door of the machine and into the Labyrinth, down aisle 3 and finally arriving at Call Of Duty HQ.\"\n\nThis means Call of Duty HQ, which has its own weather system and an ocean, is inside a vending machine. The canon does not address this.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- What the vending machine sells is never stated. Given what is found deeper inside ([[mountain-dew|Mountain Dew]] pipes, Dorito dust), editors suspect gamer snacks.\n- Aisle 3 is the only aisle named."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "dunder-mifflin",
+   "cod-hq",
+   "file-cabinet",
+   "chambers-360"
+  ]
+ },
+ {
+  "slug": "cod-hq",
+  "title": "Call of Duty HQ",
+  "category": "locations",
+  "subtitle": "Not as big as Dunder Mifflin, but still pretty chonky.",
+  "infobox": {
+   "Type": "Headquarters / prison complex",
+   "Location": "Aisle 3, vending machine section, [[dunder-mifflin|Dunder Mifflin]]",
+   "Climate": "\"a very dark heavy storm\"; raining Pepsi and Dew",
+   "Notable areas": "Landing platform, [[openable-door|the OpenAble Door]], [[xbox-live-dungeons|the Xbox Live Dungeons]], [[chambers-360|the 360 Chambers]]",
+   "Prisoners": "[[mf-vroom|MF Vroom]], [[snoopy-mcspookintosh|Snoopy McSpookintosh]]",
+   "First mentioned": "[[chapter-triangle]]"
+  },
+  "quote": {
+   "text": "Here we are bud, hq..” “Damn son",
+   "by": "[[plankton|Plankton]] and [[rfk|RFK]], [[dunder-mifflan-chapter]]"
+  },
+  "lead": "**Call of Duty HQ** (also \"COD HQ\", \"COD headquarters\", \"the Cod HQ\") is a fortress \"located deep into the heart of [[dunder-mifflin|Dunder Mifflin]]\", in aisle 3 of the vending machine section. It is where [[mf-vroom|MF Vroom]] ended up after his exile to \"forever get yelled at in COD lobbies\", and where the [[department-of-defense|DOD]] holds [[snoopy-mcspookintosh|Snoopy McSpookintosh]].",
+  "sections": [
+   {
+    "heading": "Exterior",
+    "body": "\"The hq was huge, not as big as Dunder Mifflin but still pretty chonky.\" [[rfk|RFK]] and [[plankton|Plankton]] landed on a landing platform in \"a very dark heavy storm, only lights lit the way to the building, the winds and rain ran through the air as if they were one, the drops hit the ship as if they were bullets\". Waves crash beneath the platform, so the HQ is apparently on an ocean, inside a vending machine, inside an office building, inside a galaxy.\n\nAs the ship's stairs lowered, Plankton said \"Insert and his name is john cena here\" (see [[john-cena|John Cena]]), and RFK \"felt a disturbance in the Fabric in the [[protestant-universe|Protestant universe]]\". Then [[ioannus-paranukus|Ioann-ius Nukian]] smashed through [[openable-door|the OpenAble Door]]."
+   },
+   {
+    "heading": "Interior",
+    "body": "Getting in requires a fingerprint scanner (\"*please put finger on scanner*\"), which Plankton ignores, walking \"through the door with the fam because he answers to no one\". RFK greets the room with \"What's up my meninges!\", and what they find is \"madness\":\n- \"Pokemon everyone\"\n- \"gamers being yelled at for not capping red\"\n- \"xbox 360s red ringing in the middle of Cod tournaments\"\n\n\"The horrors were just insane no cap fr fr.\" Ioannus jumps into the battle with his white [[lightsaber]] and disappears into the red mist, while RFK and Plankton run for the [[chambers-360|360 Chambers]]. Ioannus also warns them about the [[xbox-live-dungeons|Xbox Live Dungeons]].\n\nIn the 360 Chambers they find MF Vroom, who had \"escaped the COD lobbies\" and had been lost in the hallways for days. The group leaves through a door smothered in Dorito dust, runs along the outside of the base in a downpour of Pepsi and [[mountain-dew|Dew]], and takes off in the [[mercedes-benz-system-cruiser|Mercedes Benz System Cruiser]]."
+   },
+   {
+    "heading": "Known prisoners",
+    "body": "- **[[mf-vroom|MF Vroom]]**, exiled by [[osama-bin-bomin|Osama Bin Bom'in]] and rescued by the [[new-crips|New Crips]].\n- **[[snoopy-mcspookintosh|Snoopy McSpookintosh]]**, said by the DOD to be \"in our custody in the COD headquarters\". The rescue party never mentions him, and as far as anyone knows he is still there."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: \"capping red\" means capturing an objective in a team game. \"Red ringing\" is the Xbox 360's infamous Red Ring of Death hardware failure.\n- The HQ's ecosystem includes an ocean, a storm, Pokémon, and pipes full of Mountain Dew."
+   }
+  ],
+  "appearances": [
+   "chapter-triangle",
+   "chapter-the-fourth",
+   "dunder-mifflan-chapter",
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "dunder-mifflin",
+   "mf-vroom",
+   "chambers-360",
+   "xbox-live-dungeons",
+   "openable-door",
+   "ioannus-paranukus",
+   "snoopy-mcspookintosh",
+   "call-of-duty-lobbies"
+  ]
+ },
+ {
+  "slug": "openable-door",
+  "title": "The OpenAble Door™",
+  "category": "items",
+  "subtitle": "Extremely openable. Trademark pending.",
+  "infobox": {
+   "Type": "Door",
+   "Location": "[[cod-hq|Call of Duty HQ]]",
+   "Openability": "Extreme",
+   "Legal status": "Trademark pending",
+   "Opened by": "[[ioannus-paranukus|Ioann-ius Nukian]] (by smashing)",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "lead": "**The OpenAble Door™** is a door at [[cod-hq|Call of Duty HQ]], described in full as \"the extremely openable (trademark pending) OpenAble Door\". It is mentioned only once, when [[ioannus-paranukus|Ioann-ius Nukian]] makes his entrance: \"A man smashed through the extremely openable (trademark pending) OpenAble Door\".\n\nThe door was extremely openable, and Ioannus smashed through it anyway. Scholars disagree on whether this shows his commitment to drama or a design flaw.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Since the trademark is still pending, the ™ in this article's title may be premature.\n- Other notable doors in the canon include the Dorito-dust door of [[chambers-360|the 360 Chambers]] (\"Obama care did not reach this door\"), the [[port-a-potty-portal|Port-a-Potty Portal]], and [[the-vault|the vault]] door that the [[ibeam|Ibeam]] went through."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "ioannus-paranukus",
+   "cod-hq",
+   "chambers-360"
+  ]
+ },
+ {
+  "slug": "ioannus-paranukus",
+  "title": "Ioannus Paranukus",
+  "category": "characters",
+  "subtitle": "Jedi master. Dealer of justice ($40 a gram).",
+  "infobox": {
+   "Aliases": "Ioann-ius Nukian, Ioann-ius, Ioann, Ioann paranukus, Ioannius Paranukus",
+   "Occupation": "Jedi master; dealer of justice",
+   "Rates": "$40 a gram",
+   "Origin": "[[the-projects|The Projects]]",
+   "Allegiance": "[[mf-vroom|MF Vroom]] (\"my king\"), [[new-crips|New Crips]]",
+   "Weapon": "[[lightsaber|Lightsaber]] (white)",
+   "Attire": "Russian flag cloak",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "quote": {
+   "text": "I Am Ioann-ius Nukian Jedi master and dealer of justice (I sell per gram, $40 a gram) are thou here to break free MF V’rooms chains of COD that bind him?!",
+   "by": "Ioannus Paranukus, [[dunder-mifflan-chapter]]"
+  },
+  "lead": "**Ioannus Paranukus** (introduced as **Ioann-ius Nukian**) is a [[jedi|Jedi]] master from [[the-projects|the Projects]] who joins [[rfk|RFK]] and [[plankton|Plankton]] at [[cod-hq|Call of Duty HQ]] to free [[mf-vroom|MF Vroom]], whom he calls his king. He speaks in an archaic style, has a scarred face, fights with a white [[lightsaber]], and has more spellings of his name than any other character in the canon.",
+  "sections": [
+   {
+    "heading": "Biography",
+    "body": "### Introduction at COD HQ\nIoannus enters by smashing through [[openable-door|the extremely openable OpenAble Door]]. \"As lighting struck around them a flash of light illuminated his face, showing a scarred face filled with alpha energy.\" He asks whether they have come to break MF Vroom's \"chains of COD\".\n\nPlankton answers with a speech about \"chains that bind us, and some chains that blind us\", and asks: \"do you bid us harm or are you a desirable crip\". Ioannus is offended: \"Art thou a fool?, for I am not native to these lands, for I am of the projects, I wish to free my king!\"\n\nHe doubts the party (\"Pah with a party like yours I Do not see how you intend on freeing him\") and warns them about [[xbox-live-dungeons|the Xbox Live Dungeons]]. Plankton answers \"Nah we'll be fine\", Ioannus says \"aight bet\", and \"the party of 3\" goes in.\n\n### The battle and the 360 Chambers\nInside the HQ, \"Ioann-ius jumped into the battle, his lightsaber lit up a deep white\", and \"disappeared into the deep red mist of the bloodshed of the battle\". In [[chapter-4-point-1|Chapter 4+.1…]] he is running with RFK and Plankton into [[chambers-360|the 360 Chambers]] anyway. There he draws his lightsaber at a shadow (MF Vroom), notices the newly appeared Dorito-dusted door, and later remarks, \"brooding in his Russian flag cloak\": \"On Bitch Ass 1000 for real for real\".\n\n### Return to the Projects\nIoannus rides in the back of [[son-s-sonionring|Son]]'s [[honda-accord-2005|2005 Honda Accord]] with Plankton during [[spaceport-chase|the Spaceport Breakout]]. Through the window he is the first to spot the blue glow of [[dpf-facility-69420|DPF Facility 69420]], home of [[ton-618|TON 618]]. He is last seen with the gang as they head for the palace to retrieve [[facebook-pre-cringe|Facebook (Pre-Cringe)]]."
+   },
+   {
+    "heading": "Abilities",
+    "body": "- **Lightsaber combat**, including \"light sabers slicing\" in the spaceport breakout, where the gang's \"body count was going crazy\".\n- **Alpha energy**, visible in his scars.\n- **Rizz.** The phrase \"67 ioann rizz\" later turns up in [[the-67-casino|the casino]], used to describe [[walter-white|Mr. White]]'s determination: he \"ran to the hallway with 67 ioann rizz in his eyes\". This suggests Ioannus's rizz is famous enough to be used as a unit of measure across the multiverse."
+   },
+   {
+    "heading": "Continuity errors",
+    "body": "- **Name**: Ioann-ius Nukian, Ioann-ius, Ioann, Ioannus paranukus, Ioann paranukus, Ioannus Paranukus and Ioannius Paranukus. The wiki uses \"Ioannus Paranukus\" because it is the most common.\n- **Location**: he vanishes into the battle while \"Rfk and Plankton ran down the adjacent hallway\" alone, but he is with them when they arrive at the 360 Chambers.\n- **Nationality**: he says he is \"of the projects\", but he wears a Russian flag cloak."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- His job title pairs \"Jedi master\" with \"dealer of justice\", and he immediately clarifies that he sells justice by the gram.\n- He is the only character in the canon who uses \"thou\" and \"art\"."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter",
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "mf-vroom",
+   "new-crips",
+   "jedi",
+   "lightsaber",
+   "cod-hq",
+   "the-projects",
+   "rfk",
+   "plankton"
+  ]
+ },
+ {
+  "slug": "xbox-live-dungeons",
+  "title": "The Xbox Live Dungeons",
+  "category": "locations",
+  "subtitle": "Barbaric. Horrific. Endless.",
+  "infobox": {
+   "Type": "Dungeons",
+   "Location": "[[cod-hq|Call of Duty HQ]]",
+   "Hazards": "7-year-olds, modded controllers",
+   "Described by": "[[ioannus-paranukus|Ioannus Paranukus]]",
+   "First mentioned": "[[dunder-mifflan-chapter]]"
+  },
+  "quote": {
+   "text": "you do know how barbaric the Xbox Live dungeons are, you could be burned alive by the 7 year olds screaming obscenities at you, or perhaps headshots from xbox 360 players with modded controllers, the possibilities are horrific and endless!",
+   "by": "[[ioannus-paranukus|Ioann-ius]], [[dunder-mifflan-chapter]]"
+  },
+  "lead": "**The Xbox Live Dungeons** are the prison facilities of [[cod-hq|Call of Duty HQ]] that hold [[mf-vroom|MF Vroom]]. [[ioannus-paranukus|Ioannus Paranukus]] uses them to warn the party about their chances. Known dangers are being \"burned alive by the 7 year olds screaming obscenities at you\" and \"headshots from xbox 360 players with modded controllers\".\n\n[[plankton|Plankton]]'s full response is \"Nah we'll be fine\".",
+  "sections": [
+   {
+    "heading": "Relation to other locations",
+    "body": "The dungeons seem to be the same as, or closely tied to, the [[call-of-duty-lobbies|COD lobbies]] MF Vroom was exiled to. [[son-s-sonionring|Son]] later describes the sentence as having \"to listen to xbox live 2009 lobbies until his end\", and in [[chambers-360|the 360 Chambers]] \"the screams and slurs of xbox live lobbies\" come from every hallway.\n\nReal-world: online lobbies on the Xbox 360 era Xbox Live were famous for very young players yelling."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "cod-hq",
+   "call-of-duty-lobbies",
+   "chambers-360",
+   "mf-vroom",
+   "ioannus-paranukus"
+  ]
+ },
+ {
+  "slug": "chambers-360",
+  "title": "The 360 Chambers",
+  "category": "locations",
+  "subtitle": "All the screams, none of the rooms.",
+  "infobox": {
+   "Type": "Corridor complex",
+   "Location": "[[cod-hq|Call of Duty HQ]]",
+   "Atmosphere": "Silent, crisp, \"Erie\"",
+   "Plumbing": "Translucent pipes of [[mountain-dew|Mountain Dew]]",
+   "Notable occupant": "[[mf-vroom|MF Vroom]] (lost for days)",
+   "Exit": "A door smothered in Dorito dust and Mountain Dew oil",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "quote": {
+   "text": "This doesn’t feel right.. all these screams but no rooms..",
+   "by": "[[rfk|RFK]], [[chapter-4-point-1]]"
+  },
+  "lead": "**The 360 Chambers** are a network of corridors deep in [[cod-hq|Call of Duty HQ]], past the battlefield. When the battle starts, someone shouts \"This is our chance, quick to the 360 chambers!\" and [[rfk|RFK]] and [[plankton|Plankton]] \"ran down the adjacent hallway to meet their worst nightmare..\". This is where they find [[mf-vroom|MF Vroom]].",
+  "sections": [
+   {
+    "heading": "Description",
+    "body": "Entering from the battlefield, \"The red mist of blood slowly gave way to dead air. The air was crisp and clean, the chambers were silent and devoid of noise.\" The floor is \"grated panels\" and the walls are \"filled with translucent pipes filled with a green liquid\". [[ioannus-paranukus|Ioannus]] warns: \"These pipes are filled with Mountain Dew. An organic substance that has the power to make you super human, or super dead.\"\n\nDeeper in, \"the screams and slurs of xbox live lobbies\" come \"from every hallway\", even though no rooms can be seen."
+   },
+   {
+    "heading": "Events",
+    "body": "A shadow runs across the hallways. Ioannus draws his [[lightsaber]], RFK draws his [[hantavirus-vaccine|hantavirus vaccine]], and Plankton draws his [[metal-folding-chair|metal folding chair]]. The shadow turns out to be MF Vroom, \"a fuckig car wearing a robe\", who \"escaped the COD lobbies but for days now ive been roaming these hallways trying to find a way out!\"\n\nAn \"ethereal voice\" says \"Bruh just leave\", and a door appears, \"smothered in Dorito dust and mountain dew oil\". Plankton: \"Daum… Obama care did not reach this door\". Outside it is \"freaking stormy\", \"absolutely raining pepsi and dew\"."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- The name refers to the Xbox 360.\n- Who the ethereal voice belongs to is never explained.\n- The Chambers are the only place in the canon that is silent."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter",
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "cod-hq",
+   "mountain-dew",
+   "mf-vroom",
+   "xbox-live-dungeons",
+   "doritos",
+   "metal-folding-chair"
+  ]
+ },
+ {
+  "slug": "john-cena",
+  "title": "John Cena",
+  "category": "characters",
+  "subtitle": "You can't see him. Possibly because he was never inserted.",
+  "infobox": {
+   "Status": "Unconfirmed (template placeholder)",
+   "Invoked by": "[[plankton|Plankton]]",
+   "Location": "Landing platform, [[cod-hq|Call of Duty HQ]]",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "quote": {
+   "text": "Insert and his name is john cena here",
+   "by": "[[plankton|Plankton]], [[dunder-mifflan-chapter]]"
+  },
+  "lead": "**John Cena** is invoked once, by [[plankton|Plankton]], as the ship's stairs lower at [[cod-hq|Call of Duty HQ]]: \"Insert and his name is john cena here\".\n\nThe line looks like a placeholder that was never filled in. Whether Cena is present, was meant to be inserted, or is the stairs is not stated, and he does nothing else.",
+  "sections": [
+   {
+    "heading": "Behind the scenes",
+    "body": "- Real-world: John Cena is a professional wrestler and actor. \"And his name is John Cena!\" is the announcer's line from his entrance, which became a widespread meme. Another meme says \"you can't see him\", which would explain why nobody in the scene reacts.\n- The line is immediately followed by a parenthetical about [[larry-the-cucumber|Larry the Cucumber]]."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "plankton",
+   "cod-hq",
+   "larry-the-cucumber"
+  ]
+ },
+ {
+  "slug": "larry-the-cucumber",
+  "title": "Larry the Cucumber",
+  "category": "characters",
+  "subtitle": "Killed in a parenthetical.",
+  "infobox": {
+   "Species": "Cucumber",
+   "Status": "Deceased",
+   "Place of death": "[[21-jump-street|21 Jump Street]]",
+   "Cause of death": "Unspecified",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "lead": "**Larry the Cucumber** appears only in an aside during the arrival at [[cod-hq|Call of Duty HQ]]: \"(meanwhile Larry the cucumber got killed on 21 jump street)\". He is the only character in the canon whose whole life and death happen inside parentheses.\n\nNo killer, motive or connection to the plot is given. The narrative goes straight on to [[rfk|RFK]] feeling a disturbance in [[protestant-universe|the Protestant Universe]], which some editors link to his death.",
+  "sections": [
+   {
+    "heading": "Behind the scenes",
+    "body": "- Real-world: Larry the Cucumber is a main character of the Christian children's cartoon *VeggieTales*. That explains the **fan theory** that his death caused the disturbance RFK feels \"in the Fabric in the Protestant universe\" on the very next line.\n- The reply to the disturbance (\"What?! That is not poggers at all dude\", speaker unstated) is the closest thing Larry gets to a eulogy."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "21-jump-street",
+   "protestant-universe",
+   "john-cena",
+   "8aller-jump-street"
+  ]
+ },
+ {
+  "slug": "21-jump-street",
+  "title": "21 Jump Street",
+  "category": "locations",
+  "subtitle": "Site of the only cucumber homicide in the canon.",
+  "infobox": {
+   "Type": "Street",
+   "Notable event": "Death of [[larry-the-cucumber|Larry the Cucumber]]",
+   "See also": "[[8aller-jump-street|8aller Jump Street]]",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "lead": "**21 Jump Street** is where [[larry-the-cucumber|Larry the Cucumber]] \"got killed\", as reported in a parenthetical in [[dunder-mifflan-chapter|the Dunder Mifflan chapter]]. Nothing else is known about the street, the killing, or which universe it happened in.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: *21 Jump Street* is a TV police drama (1987–1991) that was remade as comedy films in 2012.\n- It is one of two Jump Streets in the canon. The other is [[8aller-jump-street|8aller Jump Street]] in [[constantinople|Constantinople]], where [[mr-bean|Mr. Bean]] and [[agent-007|007]] wait to be picked up. Whether the 13-number gap is meaningful is not known."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "larry-the-cucumber",
+   "8aller-jump-street"
+  ]
+ },
+ {
+  "slug": "protestant-universe",
+  "title": "The Protestant Universe",
+  "category": "locations",
+  "subtitle": "Its Fabric was disturbed. RFK felt it.",
+  "infobox": {
+   "Type": "Universe",
+   "Part of": "[[multiverse|The Multiverse]]",
+   "Notable event": "A disturbance in its Fabric",
+   "Detected by": "[[rfk|RFK]]",
+   "First appearance": "[[dunder-mifflan-chapter]]"
+  },
+  "quote": {
+   "text": "I felt a disturbance in the Fabric in the Protestant universe",
+   "by": "[[rfk|RFK]], [[dunder-mifflan-chapter]]"
+  },
+  "lead": "**The Protestant Universe** is one of the universes of [[multiverse|the Multiverse]]. It comes up once, when [[rfk|RFK]] suddenly announces at [[cod-hq|Call of Duty HQ]]: \"I felt a disturbance in the Fabric in the Protestant universe\". Someone, probably [[plankton|Plankton]], responds: \"What?! That is not poggers at all dude\".\n\nThe disturbance comes right after the death of [[larry-the-cucumber|Larry the Cucumber]] on [[21-jump-street|21 Jump Street]], and many editors think the two are connected.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- RFK's line echoes Obi-Wan Kenobi's \"I felt a great disturbance in the Force\" from *Star Wars*. RFK is a trained user of [[jedi|Jedi]] tactics.\n- [[steve-jobs|Steve Jobs]] later says something similar: \"I felt a disturbance in the iCloud\".\n- \"Fabric\" is capitalized, which suggests it is a proper noun."
+   }
+  ],
+  "appearances": [
+   "dunder-mifflan-chapter"
+  ],
+  "related": [
+   "rfk",
+   "larry-the-cucumber",
+   "multiverse",
+   "jedi"
+  ]
+ },
+ {
+  "slug": "mercedes-benz-system-cruiser",
+  "title": "Mercedes Benz System Cruiser",
+  "category": "items",
+  "subtitle": "Underpowered, cramped, no USB port. Beloved.",
+  "infobox": {
+   "Type": "Starship (system cruiser)",
+   "Owners": "[[rfk|RFK]] and [[plankton|Plankton]]",
+   "Condition": "Newly bought",
+   "Propellant": "Liquid deuterium + gaseous methane, plus [[galaxy-gas|Galaxy Gas]]",
+   "Performance boost": "+40%",
+   "Top recorded speed": "Mach 3 (in a turn)",
+   "Known flaws": "Underpowered; cramped cockpit; no USB port",
+   "Nickname": "\"Goofy Ahh ship\"",
+   "First appearance": "[[chapter-the-fourth]]"
+  },
+  "quote": {
+   "text": "Bro lowkey why r u built like a 2008 Honda accord Zyn weed addition",
+   "by": "[[plankton|Plankton]], [[chapter-4-point-1]]"
+  },
+  "lead": "The **Mercedes Benz System Cruiser** is the starship that [[rfk|RFK]] and [[plankton|Plankton]] use to reach [[dunder-mifflin|Dunder Mifflin]], rescue [[mf-vroom|MF Vroom]], and return to [[the-projects|the Projects]]. It is described as \"newly bought\" and \"extremely Underpowered for the galaxy To galaxy trips that would be required by it\", and it is the [[new-crips|New Crips]]' main means of transport.",
+  "sections": [
+   {
+    "heading": "Specifications and modifications",
+    "body": "The stock cruiser could not handle intergalactic travel. Thanks to \"a modification of the liquid deuterium and gaseous methane propellant the engines had 40% more performance, this modification was due to the addition to galaxy gas, graciously gifted to them by [[litl-wayne|litl Wayne]] of the [[litl-empire|litl empire]].\" Even modified, the trip to Dunder Mifflin took a month.\n\nOther known features:\n- **Hyperspace capability**: \"Preparing to exit hyper space!\"\n- **A cramped cockpit**, which seats at least four once MF Vroom and [[ioannus-paranukus|Ioannus Paranukus]] come aboard.\n- **No USB port.** MF Vroom asks \"Bro where's the usb port\" on boarding, \"And they never did find it as the ship took off..\"\n- **Atmospheric flight**: it can cruise through the treetops of [[adirondack-park|Adirondack Park]] and make \"a slow long turn, as fast as you could turn at mach 3\"."
+   },
+   {
+    "heading": "Service history",
+    "body": "### Dunder Mifflin infiltration\nThe cruiser passes through [[paper-belt|the Paper Belt]], hugs the wires of [[the-sign|the Giant LED Sign]], browses [[file-cabinet|the Lobby File Cabinet]], squeezes through the crack in a vending machine door into [[vending-machine-labyrinth|the Labyrinth]], and lands on the storm-battered landing platform of [[cod-hq|Call of Duty HQ]].\n\n### Escape\nAfter MF Vroom is rescued, the gang finds the ship \"unweathered in their endeavors in the base and was ready to cruise onto the next destination\". Plankton calls it their \"Goofy Ahh ship\" and asks why it is \"built like a 2008 Honda accord Zyn weed addition\".\n\n### Return to the Projects\nIt comes out of hyperspace \"With a goose on the windshield and leaves on their wings\", turns over the Adirondacks to line up with [[projects-national-spaceport|the Projects National Spaceport]], and lands after \"a hour or two of practicing mogging\". When [[tung-tung-tung-sahur|Tung Tung Tung Sahur]] tries to arrest MF Vroom, Plankton and RFK run back into the cruiser \"to grab their modded nerf guns\". The gang then escapes in [[son-s-sonionring|Son]]'s [[honda-accord-2005|2005 Honda Accord]] instead, and the cruiser is left at the spaceport."
+   },
+   {
+    "heading": "Continuity errors",
+    "body": "- Plankton compares the cruiser to a **2008** Honda Accord. Shortly afterwards the gang rides in a real **2005** Honda Accord, which [[ton-618|TON 618]] then searches for as \"the Camry\". The canon's car problems go back to [[toyota-corolla|the Toyota Corolla Question]].\n- \"Zyn weed addition\" is probably a typo for \"edition\". [[zyn|Zyn]] is a nicotine pouch brand."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: Mercedes-Benz makes cars and vans, not starships. Galaxy Gas is a real brand (see [[galaxy-gas|its article]]).\n- It is one of three main vehicles in the canon, along with the [[inav|Inav]] and the [[crack-van|Crack Van]]. It is the only one without a USB port."
+   }
+  ],
+  "appearances": [
+   "chapter-the-fourth",
+   "dunder-mifflan-chapter",
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "galaxy-gas",
+   "litl-wayne",
+   "rfk",
+   "plankton",
+   "dunder-mifflin",
+   "honda-accord-2005",
+   "projects-national-spaceport",
+   "inav"
+  ]
+ },
+ {
+  "slug": "galaxy-gas",
+  "title": "Galaxy Gas",
+  "category": "items",
+  "subtitle": "+40% engine performance. A gift.",
+  "infobox": {
+   "Type": "Propellant additive",
+   "Source": "[[litl-wayne|Litl Wayne]] of [[litl-empire|the Litl Empire]]",
+   "Used in": "[[mercedes-benz-system-cruiser|Mercedes Benz System Cruiser]]",
+   "Effect": "40% more engine performance",
+   "First appearance": "[[chapter-the-fourth]]"
+  },
+  "lead": "**Galaxy Gas** is the additive that made the [[mercedes-benz-system-cruiser|Mercedes Benz System Cruiser]] capable of intergalactic travel. Mixed into the \"liquid deuterium and gaseous methane propellant\", it gave the engines \"40% more performance\". It was \"graciously gifted to them by [[litl-wayne|litl Wayne]] of the [[litl-empire|litl empire]]\".\n\nWithout it, [[rfk|RFK]] and [[plankton|Plankton]] could not have reached [[dunder-mifflin|Dunder Mifflin]], and [[mf-vroom|MF Vroom]] would still be lost in the COD lobbies.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: Galaxy Gas is a brand of flavored nitrous oxide that became an internet controversy and meme in 2024. Nitrous oxide is also used as an engine performance booster in cars, which is presumably how it works here.\n- It is one of several gases in the canon, along with [[propane]] and [[ye-the-gas|Ye the Gas]]."
+   }
+  ],
+  "appearances": [
+   "chapter-the-fourth"
+  ],
+  "related": [
+   "litl-wayne",
+   "litl-empire",
+   "mercedes-benz-system-cruiser",
+   "propane"
+  ]
+ },
+ {
+  "slug": "litl-wayne",
+  "title": "Litl Wayne",
+  "category": "characters",
+  "subtitle": "Benefactor of the Mercedes Benz System Cruiser.",
+  "infobox": {
+   "Affiliation": "[[litl-empire|The Litl Empire]]",
+   "Known for": "Gifting [[galaxy-gas|Galaxy Gas]]",
+   "Relationship to protagonists": "Gracious benefactor",
+   "Status": "Unknown",
+   "First appearance": "[[chapter-the-fourth]]"
+  },
+  "lead": "**Litl Wayne** \"of the litl empire\" is mentioned once, as the person who \"graciously gifted\" [[galaxy-gas|Galaxy Gas]] to [[rfk|RFK]] and [[plankton|Plankton]]. The gift gave their [[mercedes-benz-system-cruiser|Mercedes Benz System Cruiser]] 40% more engine performance and made the trip to [[dunder-mifflin|Dunder Mifflin]] possible.\n\nHow he knows RFK and Plankton is not explained. Plankton earlier says Chris can be found \"with the help of some former friends\", and Litl Wayne may be one of them.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: a play on the rapper Lil Wayne. The \"Litl\" spelling is consistent and is used for his empire too. Compare [[lil-uzi-vert|\"lilt uzi vert\"]] in [[chapter-triangle]].\n- He is one of the few people in the canon who gives the heroes something without asking for anything back. Compare [[hank-hill|Hank Hill]], who asks [[microsoft-bing|Bing]] for 15 gallons of oil."
+   }
+  ],
+  "appearances": [
+   "chapter-the-fourth"
+  ],
+  "related": [
+   "litl-empire",
+   "galaxy-gas",
+   "mercedes-benz-system-cruiser",
+   "lil-uzi-vert"
+  ]
+ },
+ {
+  "slug": "litl-empire",
+  "title": "The Litl Empire",
+  "category": "factions",
+  "subtitle": "Small name. Generous gas policy.",
+  "infobox": {
+   "Type": "Empire",
+   "Ruler": "[[litl-wayne|Litl Wayne]]",
+   "Known exports": "[[galaxy-gas|Galaxy Gas]] (as a gift)",
+   "Allies": "[[rfk|RFK]] and [[plankton|Plankton]] (apparently)",
+   "First appearance": "[[chapter-the-fourth]]"
+  },
+  "lead": "**The Litl Empire** is the realm of [[litl-wayne|Litl Wayne]], who gave [[rfk|RFK]] and [[plankton|Plankton]] the [[galaxy-gas|Galaxy Gas]] that powers their [[mercedes-benz-system-cruiser|Mercedes Benz System Cruiser]]. It appears in exactly one clause: \"litl Wayne of the litl empire\".\n\nNothing is known about its size, location or government. Given the name, editors assume it is small.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- It is one of many empires in the canon, along with the [[barack-empire|Barack Empire]], the [[byzantine-empire-of-mexico|Byzantine Empire of Mexico]], Eastern Rome, and [[hank-hill|Hank Hill]]'s propane empire. It is the only one known to have done anything nice."
+   }
+  ],
+  "appearances": [
+   "chapter-the-fourth"
+  ],
+  "related": [
+   "litl-wayne",
+   "galaxy-gas",
+   "barack-empire"
+  ]
+ },
+ {
+  "slug": "metal-folding-chair",
+  "title": "Plankton's Metal Folding Chair",
+  "category": "items",
+  "subtitle": "Average sized. Above-average commitment.",
+  "infobox": {
+   "Type": "Metal folding chair",
+   "Size": "Average",
+   "Wielder": "[[plankton|Plankton]]",
+   "Notable target": "[[mf-vroom|MF Vroom]] (accidental)",
+   "First appearance": "[[chapter-4-point-1]]"
+  },
+  "lead": "**Plankton's Metal Folding Chair** is [[plankton|Plankton]]'s weapon of choice. In [[chambers-360|the 360 Chambers]], when a shadow runs across the hallways, \"Ioannus drew his light saber, RFK drew his hantavirus vaccine, Plankton drew his metal folding chair.\"\n\nWhen the shadow (\"a fuckig car wearing a robe\") jumps out, Plankton yells \"Agh!\" and throws \"his average sized metal chair\". The target is [[mf-vroom|MF Vroom]], the man they came to rescue, who replies: \"No plankton relax!, Jeez bro.\"",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: the folding chair is the classic improvised weapon in professional wrestling. This fits Plankton's earlier attempt to summon [[john-cena|John Cena]].\n- The text says \"drew\" a folding chair, which implies Plankton carries it in a holster.\n- Whether the chair was picked up afterwards is not recorded. Later in the same chapter Plankton grabs a \"modded nerf gun\"."
+   }
+  ],
+  "appearances": [
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "plankton",
+   "hantavirus-vaccine",
+   "lightsaber",
+   "mf-vroom",
+   "chambers-360"
+  ]
+ },
+ {
+  "slug": "hantavirus-vaccine",
+  "title": "Hantavirus Vaccine",
+  "category": "items",
+  "subtitle": "RFK's sidearm.",
+  "infobox": {
+   "Type": "Vaccine (used as a weapon)",
+   "Wielder": "[[rfk|RFK]]",
+   "Deployment": "Drawn, never fired",
+   "First appearance": "[[chapter-4-point-1]]"
+  },
+  "lead": "The **Hantavirus Vaccine** is the weapon [[rfk|RFK]] draws in [[chambers-360|the 360 Chambers]] when a shadow moves through the hallways: \"Ioannus drew his light saber, RFK drew his hantavirus vaccine, Plankton drew his metal folding chair.\" The shadow turns out to be [[mf-vroom|MF Vroom]], and the vaccine is never used.\n\nHow the vaccine works as a weapon is not explained. RFK earlier fought [[bon-jovi|Bon Jovi]] with a [[lightsaber]] and four [[red-bull|Red Bulls]], so this is a change of loadout.",
+  "sections": [
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: hantaviruses are spread mainly by rodents. Robert F. Kennedy Jr. is publicly known for his outspoken views on vaccines, which is presumably the joke.\n- Rodents may be relevant, since RFK also asks for roadkill to cook with."
+   }
+  ],
+  "appearances": [
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "rfk",
+   "metal-folding-chair",
+   "lightsaber",
+   "chambers-360"
+  ]
+ },
+ {
+  "slug": "mountain-dew",
+  "title": "Mountain Dew",
+  "category": "items",
+  "subtitle": "Super human, or super dead.",
+  "infobox": {
+   "Type": "Organic substance (soft drink)",
+   "Varieties": "Regular, Baja Blast",
+   "Properties": "Can make you \"super human, or super dead\"",
+   "Found in": "Pipes of [[chambers-360|the 360 Chambers]]; rain at [[cod-hq|COD HQ]]; the [[quick-check|Quick-Check]]",
+   "Related ventures": "[[erger-wings|Erger Wings]]",
+   "First appearance": "[[flashback-chapter]]"
+  },
+  "quote": {
+   "text": "Don’t let the environment fool you! These pipes are filled with Mountain Dew. An organic substance that has the power to make you super human, or super dead.",
+   "by": "[[chapter-4-point-1]]"
+  },
+  "lead": "**Mountain Dew** (also \"Dew\", \"mountain dew\") is a green liquid that shows up throughout the canon as a drink, a weather event, an infrastructure fluid and a business plan. One character calls it \"An organic substance that has the power to make you super human, or super dead\", which makes it one of the most dangerous items in the multiverse.",
+  "sections": [
+   {
+    "heading": "Appearances",
+    "body": "### Steve Jobs' keynote\nAt the end of the [[iphone-keynote|iPhone 3G Keynote]], \"The stage collapses into a pool of Mountain Dew Baja Blast\" and [[steve-jobs|Steve Jobs]] ascends into a hologram.\n\n### The wormhole\nThe [[inav|Inav]]'s trip to the casino goes through \"a tunnel of [[doritos|Doritos]] and mountain dew ads, xbox live cod clip comps and skrilla\".\n\n### Dusty Depot\n[[jesse-pinkman|Jesse Pinkman]] comes back from the [[quick-check|Quick-Check]] through the [[port-a-potty-portal|Port-a-Potty Portal]] \"with 2 mountain dews and a pack of zyns\". [[walter-white|Walter White]] then shares his retirement dream: \"I would like to open up a mountain dew refinery and restaurant here, we'll make it a chain.. call it [[erger-wings|erger wings]]..\"\n\n### The 360 Chambers\nThe walls of [[chambers-360|the 360 Chambers]] are \"filled with translucent pipes filled with a green liquid\", which is identified as Mountain Dew. The exit door is \"smothered in Dorito dust and mountain dew oil\", and outside it is \"absolutely raining pepsi and dew\"."
+   },
+   {
+    "heading": "Properties",
+    "body": "- **Biology**: classified as \"organic\".\n- **Effects**: either super human or super dead, with no known middle outcome.\n- **Refining**: Walter White wants to refine it, so it may occur naturally in crude form, possibly alongside [[oil]].\n- **Oil**: it produces \"mountain dew oil\", a residue."
+   },
+   {
+    "heading": "Trivia",
+    "body": "- Real-world: Mountain Dew is a PepsiCo soft drink, and Baja Blast is a flavor originally sold only at Taco Bell. Mountain Dew and Doritos together are the stereotypical gamer diet, which explains why they are all over [[cod-hq|Call of Duty HQ]].\n- The rain at COD HQ is a mix of Pepsi and Dew, both PepsiCo products. Editors suspect corporate sponsorship of the weather."
+   }
+  ],
+  "appearances": [
+   "flashback-chapter",
+   "chapter-4-point-1"
+  ],
+  "related": [
+   "chambers-360",
+   "erger-wings",
+   "doritos",
+   "walter-white",
+   "jesse-pinkman",
+   "iphone-keynote",
+   "cod-hq"
+  ]
+ }
+]

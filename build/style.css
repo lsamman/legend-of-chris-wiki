@@ -1,0 +1,279 @@
+/* The Legend Of Chris Wiki — styled after the MASTER FILE:
+   a white letter-size Pages document, Arial everywhere, enormous bold chapter
+   titles that wrap one word per line, and the occasional Comic Sans. */
+
+:root {
+  --desk: #d9d9dc;
+  --desk-2: #cfcfd3;
+  --paper: #ffffff;
+  --ink: #111111;
+  --ink-2: #444444;
+  --ink-3: #6b6b6b;
+  --rule: #d6d6d6;
+  --link: #0645ad;
+  --link-visited: #4b2a8a;
+  --red: #c4302b;
+  --box: #fbfbf7;
+  --box-edge: #222;
+  --shadow: 0 1px 2px rgba(0,0,0,.18), 0 8px 28px rgba(0,0,0,.14);
+  --bar: #ececee;
+  --bar-edge: #bdbdc2;
+  --hi: #fff3a8;
+  --sans: Arial, "Arimo", "Liberation Sans", Helvetica, sans-serif;
+  --comic: "Comic Sans MS", "Comic Neue", "Chalkboard SE", "Comic Sans", cursive;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --desk: #18181b; --desk-2: #111113; --paper: #232326; --ink: #ececec; --ink-2: #c4c4c4; --ink-3: #9a9a9a;
+    --rule: #3a3a3f; --link: #8ab4ff; --link-visited: #c3a6ff; --red: #ff7a72; --box: #2b2b2f; --box-edge: #8a8a8a;
+    --shadow: 0 1px 2px rgba(0,0,0,.5), 0 8px 28px rgba(0,0,0,.5); --bar: #2a2a2e; --bar-edge: #3d3d42; --hi: #5a4d10;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --desk: #18181b; --desk-2: #111113; --paper: #232326; --ink: #ececec; --ink-2: #c4c4c4; --ink-3: #9a9a9a;
+  --rule: #3a3a3f; --link: #8ab4ff; --link-visited: #c3a6ff; --red: #ff7a72; --box: #2b2b2f; --box-edge: #8a8a8a;
+  --shadow: 0 1px 2px rgba(0,0,0,.5), 0 8px 28px rgba(0,0,0,.5); --bar: #2a2a2e; --bar-edge: #3d3d42; --hi: #5a4d10;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--desk); color: var(--ink);
+  font: 16px/1.62 var(--sans);
+  background-image: radial-gradient(var(--desk-2) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.sheet a:visited { color: var(--link-visited); }
+img { max-width: 100%; height: auto; }
+
+/* ---------- toolbar (a Pages/Preview window title bar) ---------- */
+.toolbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--bar); border-bottom: 1px solid var(--bar-edge);
+}
+.toolbar-inner {
+  max-width: 1240px; margin: 0 auto; padding: 8px 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+.traffic { display: flex; gap: 7px; flex: none; }
+.traffic span { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; border: 1px solid rgba(0,0,0,.15); }
+.traffic span:nth-child(2) { background: #febc2e; }
+.traffic span:nth-child(3) { background: #28c840; }
+.docname { display: flex; align-items: center; gap: 8px; color: var(--ink); font-size: 14px; min-width: 0; }
+.docname span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.docname i { color: var(--ink-3); font-style: normal; }
+.docname img { border-radius: 4px; flex: none; }
+.search { position: relative; margin-left: auto; flex: 0 1 300px; min-width: 0; }
+.search input {
+  width: 100%; font: inherit; font-size: 14px; padding: 6px 10px 6px 28px;
+  border: 1px solid var(--bar-edge); border-radius: 7px; background: var(--paper); color: var(--ink);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: 9px 50%;
+}
+.search input:focus { outline: 2px solid var(--link); outline-offset: 1px; }
+#results {
+  position: absolute; right: 0; left: 0; top: calc(100% + 6px); margin: 0; padding: 4px; list-style: none;
+  background: var(--paper); border: 1px solid var(--bar-edge); border-radius: 8px; box-shadow: var(--shadow);
+  max-height: 70vh; overflow: auto; min-width: 280px;
+}
+#results li a { display: block; padding: 7px 9px; border-radius: 5px; color: var(--ink); }
+#results li a:hover, #results li a[aria-selected="true"] { background: var(--hi); text-decoration: none; }
+#results small { display: block; color: var(--ink-3); font-size: 12px; }
+#results .none { padding: 8px 10px; color: var(--ink-3); font-size: 14px; }
+.theme-btn, .menu-btn {
+  flex: none; font: inherit; font-size: 16px; line-height: 1; padding: 6px 9px; cursor: pointer;
+  border: 1px solid var(--bar-edge); border-radius: 7px; background: var(--paper); color: var(--ink);
+}
+.menu-btn { display: none; }
+
+/* ---------- desk + sheet ---------- */
+.desk {
+  max-width: 1240px; margin: 0 auto; padding: 28px 16px 64px;
+  display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 28px; align-items: start;
+}
+.sheet {
+  background: var(--paper); box-shadow: var(--shadow);
+  padding: 72px 84px 40px; min-height: 90vh; position: relative;
+  max-width: 940px; width: 100%;
+}
+
+/* ---------- sidebar (Comic Sans, like the infobox) ---------- */
+.sidebar { position: sticky; top: calc(72px + env(safe-area-inset-top, 0px)); font-family: var(--comic); font-size: 15px; }
+.side-box { background: var(--paper); box-shadow: var(--shadow); padding: 12px 14px; margin-bottom: 14px; }
+.side-head { font-weight: 700; border-bottom: 2px solid var(--ink); margin-bottom: 6px; padding-bottom: 2px; }
+.sidebar ul, .sidebar ol { margin: 0; padding: 0; list-style: none; }
+.sidebar li { padding: 2px 0; }
+.sidebar a { color: var(--ink); }
+.sidebar a[aria-current] { font-weight: 700; background: var(--hi); padding: 0 3px; }
+.chap-list { counter-reset: c; }
+.chap-list li { counter-increment: c; }
+.chap-list li::before { content: counter(c) ". "; color: var(--ink-3); }
+.side-mascot { display: block; margin: 8px auto 0; opacity: .9; }
+
+/* ---------- headings ---------- */
+.title {
+  font-size: clamp(38px, 6vw, 60px); line-height: 1.02; font-weight: 700; letter-spacing: -.01em;
+  margin: 0 0 10px;
+}
+.chapter-title {
+  font-weight: 700; font-size: clamp(44px, 8.4vw, 88px); line-height: 1.08; letter-spacing: -.01em;
+  margin: 10px 0 18px; overflow-wrap: anywhere;
+}
+.chapter-title span { display: inline; }
+.chapter-title.cat-title { font-size: clamp(36px, 6vw, 64px); }
+.home-title { font-size: clamp(40px, 7vw, 76px); margin-top: 48px; }
+.sr-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.crumbs { color: var(--ink-3); font-size: 14px; margin: 0 0 22px; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+.subtitle { font-style: italic; color: var(--ink-2); }
+.sheet h2 {
+  font-size: 26px; font-weight: 700; margin: 34px 0 10px; padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule); clear: none;
+}
+.sheet h3 { font-size: 19px; margin: 22px 0 6px; }
+.sheet p { margin: 0 0 14px; }
+.sheet ul, .sheet ol { padding-left: 24px; }
+.sheet li { margin: 3px 0; }
+.redlink { color: var(--red); }
+
+/* the book's spaced-out drop cap: "W    hy do we believe…" */
+.lead > p:first-child::first-letter, .drop::first-letter {
+  float: left; font-size: 3.6em; line-height: .86; font-weight: 400; margin: 6px 18px 0 0;
+}
+
+/* ---------- infobox ---------- */
+.infobox {
+  float: right; width: 300px; margin: 0 0 20px 28px;
+  background: var(--box); border: 2px solid var(--box-edge); font-family: var(--comic); font-size: 14.5px;
+}
+.ib-title { font-weight: 700; font-size: 19px; text-align: center; padding: 8px 10px; border-bottom: 2px solid var(--box-edge); }
+.ib-img { margin: 0; padding: 12px 12px 6px; text-align: center; border-bottom: 1px dashed var(--rule); }
+.ib-img img { display: block; margin: 0 auto 6px; width: 100%; max-height: 360px; object-fit: cover; object-position: center top; border: 1px solid var(--rule); background: var(--paper); }
+.ib-img figcaption { font-size: 12.5px; color: var(--ink-3); line-height: 1.35; }
+.ib-img .credit { display: block; margin-top: 3px; font-family: var(--sans); font-size: 10.5px; overflow-wrap: anywhere; }
+.infobox table { width: 100%; border-collapse: collapse; }
+.infobox th, .infobox td { text-align: left; vertical-align: top; padding: 6px 10px; border-bottom: 1px dashed var(--rule); }
+.infobox th { width: 40%; font-weight: 700; }
+.ib-cat { text-align: center; font-size: 12.5px; padding: 5px; color: var(--ink-3); }
+
+/* ---------- quotes ---------- */
+.epigraph { margin: 0 0 22px; }
+.epigraph blockquote { margin: 0; font-size: 19px; font-style: italic; font-weight: 700; line-height: 1.4; }
+.epigraph figcaption { margin-top: 6px; color: var(--ink-3); font-size: 14px; }
+.sheet blockquote:not(.epigraph blockquote) {
+  margin: 14px 0; padding: 4px 0 4px 18px; border-left: 4px solid var(--ink); font-style: italic; color: var(--ink-2);
+}
+/* "The 3 year contract plan from Verizon for unlimited talk and text" — centered, bold italic, exactly like the book */
+.verizon {
+  text-align: center; font-weight: 700; font-style: italic; font-size: clamp(18px, 2.6vw, 23px);
+  line-height: 1.35; margin: 34px auto; max-width: 30ch;
+}
+
+/* ---------- TOC / notices / meta ---------- */
+.toc {
+  display: inline-block; min-width: 230px; max-width: 100%; background: var(--box); border: 1px solid var(--rule);
+  padding: 10px 18px 10px 14px; margin: 6px 0 10px; font-size: 14.5px;
+}
+.toc-head { font-weight: 700; text-align: center; margin-bottom: 4px; }
+.toc ol { margin: 0; padding-left: 20px; }
+.notice { background: var(--box); border: 1px dashed var(--ink-3); padding: 10px 14px; margin-bottom: 18px; font-family: var(--comic); }
+.meta h2 { font-size: 20px; }
+.apps, .chips { list-style: none; padding: 0 !important; display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 0; }
+.apps li, .chips li { margin: 0; }
+.apps a, .chips a {
+  display: inline-block; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 11px; font-size: 14px; background: var(--box);
+}
+.backlinks { margin-top: 30px; border-top: 1px solid var(--rule); padding-top: 12px; }
+.backlinks summary { cursor: pointer; font-weight: 700; margin-bottom: 10px; }
+.orphan { margin-top: 30px; font-size: 14px; }
+.catbar { clear: both; margin-top: 30px; border: 1px solid var(--rule); background: var(--box); padding: 7px 12px; font-size: 14px; }
+.chapnav { clear: both; display: flex; justify-content: space-between; gap: 12px; margin: 34px 0 0; font-weight: 700; font-size: 17px; }
+.muted { color: var(--ink-3); }
+
+/* ---------- footer, with the book's page number ---------- */
+.sheet-foot {
+  clear: both; display: flex; justify-content: space-between; align-items: end; gap: 16px;
+  margin-top: 56px; padding-top: 14px; font-size: 12.5px; color: var(--ink-3);
+}
+.pgnum { font-size: 14px; color: var(--ink-2); }
+
+/* ---------- main page ---------- */
+.cover { text-align: center; padding: 6px 0 10px; }
+.cover-title { font-size: clamp(28px, 4.4vw, 40px); margin: 0 0 26px; }
+.cover-sub { font-family: var(--comic); font-size: 20px; margin: 4px 0 0; color: var(--ink-2); }
+.home-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 22px; margin: 10px 0 8px; }
+.home-box { border: 2px solid var(--box-edge); background: var(--box); padding: 4px 18px 14px; }
+.home-box h2 { font-family: var(--comic); font-size: 20px; margin: 12px 0 10px; border-bottom: 2px solid var(--ink); }
+.feat-title { display: block; font-weight: 700; font-size: 22px; margin-bottom: 8px; }
+.featured p::first-letter { float: none !important; font-size: inherit !important; margin: 0 !important; }
+.dyk { padding-left: 18px; font-size: 15px; }
+.dyk li { margin-bottom: 8px; }
+.dyk-src { font-size: 13px; }
+.home-h { font-size: 30px !important; margin-top: 46px !important; }
+.portals { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.portal {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr; column-gap: 12px;
+  border: 1px solid var(--rule); padding: 12px 14px; color: var(--ink) !important; background: var(--paper);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.portal:hover { text-decoration: none; transform: translateY(-2px); box-shadow: var(--shadow); }
+.portal-n { grid-row: span 2; font-size: 40px; font-weight: 700; line-height: 1; min-width: 1.6ch; }
+.portal-name { font-weight: 700; font-size: 17px; }
+.portal-d { font-size: 13.5px; color: var(--ink-3); line-height: 1.4; }
+.canon { padding-left: 0 !important; list-style: none; counter-reset: k; }
+.canon li { counter-increment: k; border-bottom: 1px solid var(--rule); }
+.canon a { display: grid; grid-template-columns: 2.4ch 1fr; column-gap: 12px; padding: 10px 0; color: var(--ink) !important; }
+.canon a::before { content: counter(k); grid-row: span 2; font-size: 30px; font-weight: 700; line-height: 1; }
+.canon a:hover { text-decoration: none; background: var(--hi); }
+.canon span { color: var(--ink-3); font-size: 14px; }
+.goober { font-family: var(--sans); line-height: 1.5; }
+.nuh { margin-top: 44px; font-size: 13.5px; color: var(--ink-3); line-height: 1.55; text-align: justify; max-height: 7.8em; overflow: hidden; mask-image: linear-gradient(#000 50%, transparent); -webkit-mask-image: linear-gradient(#000 50%, transparent); }
+.nuh a { color: inherit !important; }
+.nuh .yuh { color: var(--ink); font-weight: 700; }
+.nines { text-align: right; font-weight: 700; letter-spacing: .02em; margin: 20px 0 0; }
+
+/* ---------- category + A–Z ---------- */
+.filter {
+  width: 100%; max-width: 420px; font: inherit; padding: 8px 12px; margin: 0 0 18px;
+  border: 1px solid var(--rule); border-radius: 6px; background: var(--box); color: var(--ink);
+}
+.catlist { list-style: none; padding: 0 !important; columns: 2; column-gap: 34px; }
+.catlist li { break-inside: avoid; margin: 0 0 12px; }
+.catlist a { font-weight: 700; }
+.cat-desc { display: block; font-size: 13.5px; color: var(--ink-3); line-height: 1.4; }
+.jump { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.jump a { border: 1px solid var(--rule); min-width: 32px; text-align: center; padding: 3px 6px; font-weight: 700; }
+.az { columns: 2; column-gap: 34px; }
+.az li { break-inside: avoid; }
+.az small { color: var(--ink-3); }
+
+/* ---------- small screens ---------- */
+@media (max-width: 960px) {
+  .desk { grid-template-columns: minmax(0, 1fr); padding-top: 16px; }
+  .menu-btn { display: block; }
+  .sidebar {
+    display: none; position: fixed; top: 52px; left: 0; right: 0; bottom: 0; z-index: 15;
+    overflow: auto; padding: 16px; background: var(--desk);
+  }
+  body.nav-open .sidebar { display: block; }
+  .sheet { padding: 44px 40px 30px; }
+}
+@media (max-width: 640px) {
+  .desk { padding: 0 0 40px; }
+  .sheet { padding: 28px 16px 22px; box-shadow: none; }
+  .traffic, .docname i, .docname b { display: none; }
+  .search { flex-basis: auto; }
+  .infobox { float: none; width: 100%; margin: 0 0 20px; }
+  .home-grid { grid-template-columns: 1fr; }
+  .catlist, .az { columns: 1; }
+  .lead > p:first-child::first-letter, .drop::first-letter { margin-right: 10px; }
+}
+@media print {
+  .toolbar, .sidebar { display: none; }
+  .desk { display: block; padding: 0; }
+  .sheet { box-shadow: none; }
+}

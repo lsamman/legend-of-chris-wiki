@@ -1,0 +1,44 @@
+agent-007 | Agent 007 | characters | Parliament contact, partner in crime of Mr. Bean; hits fat vapes in the telephone booth (hand sanitizer & pumpkin spice latte nicotine); fanny pack of sanitizer & caffeinated gum; lost his torso in Constantinople but 'could be fine after a few anti-depressants'; Goober Gang.
+mr-bean | Mr. Bean | characters | Gold suit normal pants, round tall hat, brand new Kanye West Yeezys; briefed McQueen: take Constantinople from Barack Empire, restore Bernie Sanders; '#IaintnoSigma'; had coffee with Putin; Goober Gang.
+goober-gang | The Goober Gang | factions | McQueen, 007, Mr.Bean (roster printed in book lines 588-593). Last heard after fall of Constantinople. Also 'goober' used for DOD fear and Hank's crew 'the goobers where gone'.
+parliament | Parliament | factions | McQueen's contact source; pager told him hoard smoke detectors for parliament for 'special reasons'.
+england | England | locations | Glimmering lights, ads for free $10 Fortnite cards in the sky; 'a new level of Roman, a new empire for the ages'.
+smoke-and-vape-shop | The Smoke and Vape Shop | locations | Meeting place with telephone booth where 007 vapes.
+ecsm-airport | E.C.S.M Airport | locations | Departure of Tesla-sponsored motorcade.
+tesla-motorcade | The Tesla-Sponsored Motorcade | items | Ready for departure.
+the-pager | The Pager | items | Received from a stranger; smoke detectors. Also nukes hidden in bags of old pagers.
+barack-obama | Barack Obama | characters | Also 'Obamna'. Ruler of the Barack Empire holding Constantinople; holds the 7 chaos emeralds. (Note: in execution chapter, it's Putin at the center instead — continuity quirk.)
+barack-empire | The Barack Empire | factions | Holds Constantinople.
+bernie-sanders | Bernie Sanders | characters | Goal: restore his control over Constantinople.
+seven-chaos-emeralds | The 7 Chaos Emeralds | items | Held by Barack Obama.
+constantinople | Constantinople | locations | Held by Barack Empire; plan: nukes, break oil lines to flood city with oil, lure Obamna to center, 6.8 seconds to escape via theoretical wormhole; abandoned Walmarts on nadir side; target parks with dying grass, no electricity 'bc this place was mid'; fell at 14:74pm Unc standard time.
+fall-of-constantinople | The Fall of Constantinople | events | Lines 553-593.
+putin | Vladimir Putin | characters | Almost in the center; lecturing Mr. Bean that mental illness is a myth created by Mormon progressives; had coffee with them.
+abandoned-walmarts | The Abandoned Walmarts | locations | Nuke drop points on the nadir side; one guarded by local mafia; other now a Popeyes.
+local-mafia | The Local Mafia | factions | 'Hey sonny how dare you infringe on our territory!'; McQueen declined the request to be part of society.
+popeyes | Popeyes | locations | Former Walmart; McQueen's order: 'two number 9s, a number 9 large a number 6 with extra DIEP a number 7 two number 45's, one with cheese, and a large soda'.
+glock-19 | McQueen's Glock 19 | items | Used to demand his Popeyes order.
+8aller-jump-street | 8aller Jump Street | locations | Pickup point for Mr. Bean & 007.
+dababy | DaBaby | characters | Wormhole just north of his last known location; vaporized in suspended animation cell.
+unc-standard-time | Unc Standard Time | concepts | Constantinople fell at 14:74pm UST.
+the-wormhole | Wormholes | concepts | Constantinople escape wormhole; multiverse wormhole carrying iPhone 3G; Inav travel tunnels (Doritos & Mountain Dew ads, Xbox live COD clip comps, skrilla).
+hank-hill | Hank Hill | characters | Stood atop the twelve towers 'Damn son where'd you find those?'; propane empire with Los Polos Harmonicas; targeted by DOD in Kanye System; rescued by Jesse & White in crack van; meeting with Gus Fring; plan to weeze Kanye, broke in, propane watered down; later stuck in Dusty Depot, out of propane/oil; mysterious ape NFTs on bitcoin wallet; demands 15 gallons Prime US oil from Bing; golden SCAR; 'What in the ever loving propane yo?'.
+twelve-towers | The Twelve Towers | locations | Where Hank Hill stood.
+kanye-system | The Kanye System | locations | In Reformed Travis Scott Sector; DOD deployed there.
+los-polos-harmonicas | Los Polos Harmonicas Under System Gang | factions | Works with Hank's propane empire distributing propane and propane accessories.
+propane | Propane | items | Propane and propane accessories; Kanye's propane watered down; 'Ye the Gas'; 'What in the ever loving propane'.
+snoopy-mcspookintosh | Snoopy McSpookintosh | characters | In DOD custody at COD headquarters.
+jesse-pinkman | Jesse Pinkman | characters | 'Jesse pink-man'. Drives crack van with White; port-a-potty run to quick-check for Doritos, Mountain Dew and Zyns; portal port-a-potty to casino; 'yo'.
+walter-white | Walter White | characters | Mr. White. 'the wrath of Jesse and white'; dreams of Mountain Dew refinery & restaurant chain 'erger wings' in Dusty Depot; 'quick to the roulette table'; '67 ioann rizz in his eyes'.
+gus-fring | Gus Fring | characters | Hank has a meeting with him.
+crack-van | The Crack Van (RV of Time) | items | Drug van from Breaking Bad exits hyperspace; blue dust; 'the crack van'/'the bus'; later 'the rv of time', damaged, out of oil in Dusty Depot.
+blue-dust | The Blue Dust | items | Fell on the DOD.
+weezing-of-kanye | The Weezing of Kanye | events | Twitter account under 100 followers; plan to find and 'weeze' Kanye; broke into his house; propane watered down; 'This isn't over kanye'.
+kanye-west | Kanye West | characters | Ye. Propane brand 'Ye the gas', corner store in United Streets of Ohio, potato chips 2.85/gallon; super baller Prime; ChatGPT partner; Gotham, Prius of Destiny; rap battle vs Lil Jokez; 'I'm Ye the Gas, no watered-down trash'; 'Steve Jawbs?!'; diet dr pepper; heist; put gift card in Yeezy jacket; 'The fuck does that mean Kobe Bryant'; Yeezy reserve of oil; only comes out during the Super Bowl.
+chatgpt | ChatGPT | characters | Kanye's AI; 'anyone will buy your product for your are baller'; existential sarcasm module; gasps in XML; 808s and Apocalypses; speakers unfold like mecha wings; 'I code your whole verse in assembly line'; GitHub 'respiratory'; FaceTime laser; Igun; 'wojack ahh face' (book oddly gives 'Aight bet boss' to chat gpt in casino scene); worries about Elon.
+ye-the-gas | Ye the Gas | items | Kanye's propane brand; 'water gas trend'.
+corner-store-ohio | The Corner Store (Ohio) | locations | Not your run-of-the-mill pill producing medical facility; potato chips for 2.85 a gallon; best deal in the tri-state area; all the crips will buy gas there.
+united-streets-of-ohio | The United Streets of Ohio | locations | Situation worsening.
+prime | Prime Energy Drink | items | Kanye's 'super baller prime energy drink'. Also 'Prime US oil' (15 gallons).
+twitter | Twitter / X | items | Secret teaching; Hank's twitter account under 100 followers not verified; giant rotating Twitter 'X' at Club Shadowban; 'Twitter Bluebird Variant (with no limits)'.
+super-bowl | The Super Bowl | events | Kanye only comes out during it.

@@ -1,0 +1,418 @@
+{
+ "lebron-james": [
+  {
+   "src": "lebron-james-1.jpg",
+   "caption": "LeBron James, real-world basketball player",
+   "artist": "Erik Drost",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LeBron_James_(51959977144)_(cropped2).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/LeBron_James"
+  }
+ ],
+ "elon-musk": [
+  {
+   "src": "elon-musk-1.jpg",
+   "caption": "Elon Musk, real-world businessman",
+   "artist": "Gage Skidmore",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Elon_Musk_-_54820081119_(cropped).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Elon_Musk"
+  }
+ ],
+ "mark-zuckerberg": [
+  {
+   "src": "mark-zuckerberg-1.jpg",
+   "caption": "Mark Zuckerberg, real-world Meta CEO",
+   "artist": "The White House",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:F20250904AH-2824_(54778373111)_(3x4_cropped_on_Zuckerberg_following_the_rule_of_thirds).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Mark_Zuckerberg"
+  }
+ ],
+ "ron-desantis": [
+  {
+   "src": "ron-desantis-1.jpg",
+   "caption": "Ron DeSantis, real-world Governor of Florida",
+   "artist": "Government of Florida",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Ron_DeSantis_official_photo.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Ron_DeSantis"
+  }
+ ],
+ "trumpy-the-red": [
+  {
+   "src": "trumpy-the-red-1.jpg",
+   "caption": "Donald Trump, the real-world figure Trumpy the Red is based on",
+   "artist": "Daniel Torok",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Official_Presidential_Portrait_of_President_Donald_J._Trump_(2025).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Donald_Trump"
+  }
+ ],
+ "joeius-bidenias": [
+  {
+   "src": "joeius-bidenias-1.jpg",
+   "caption": "Joe Biden, the real-world figure Joeius Bidenias is based on",
+   "artist": "Adam Schultz",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Joe_Biden_presidential_portrait.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Joe_Biden"
+  }
+ ],
+ "dwayne-the-rock-johnson": [
+  {
+   "src": "dwayne-the-rock-johnson-1.jpg",
+   "caption": "Dwayne Johnson, who (despite the canon) exists",
+   "artist": "Harald Krichel",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Dwayne_Johnson-1764_(4x5_cropped_with_moderate_headroom).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Dwayne_Johnson"
+  }
+ ],
+ "bon-jovi": [
+  {
+   "src": "bon-jovi-1.jpg",
+   "caption": "Jon Bon Jovi, frontman of the real-world band Bon Jovi",
+   "artist": "Montclair Film",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:NEG_0062-2_(54119957209).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Jon_Bon_Jovi"
+  }
+ ],
+ "rfk": [
+  {
+   "src": "rfk-1.jpg",
+   "caption": "Robert F. Kennedy Jr., the real-world namesake of RFK",
+   "artist": "U.S. Department of Health and Human Services",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Robert_F._Kennedy_Jr.,_official_portrait_(2025)_(cropped_3-4)_(b).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Robert_F._Kennedy_Jr."
+  }
+ ],
+ "lil-uzi-vert": [
+  {
+   "src": "lil-uzi-vert-1.jpg",
+   "caption": "Lil Uzi Vert, real-world rapper",
+   "artist": "Icebox",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Lil_Uzi_Vert_(2018).png",
+   "wiki": "https://en.wikipedia.org/wiki/Lil_Uzi_Vert"
+  }
+ ],
+ "jeff-bezosi": [
+  {
+   "src": "jeff-bezosi-1.jpg",
+   "caption": "Jeff Bezos, the real-world figure Jeff Bezosi is based on",
+   "artist": "SECWAR",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:260202-D-PM193-2205_SECWAR_Arsenal_of_Freedom_Tour_-_Florida_(3x4_cropped_on_Bezos_and_rotated).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Jeff_Bezos"
+  }
+ ],
+ "barack-obama": [
+  {
+   "src": "barack-obama-1.jpg",
+   "caption": "Barack Obama, real-world 44th U.S. President",
+   "artist": "Official White House Photo by Pete Souza",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:President_Barack_Obama.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Barack_Obama"
+  }
+ ],
+ "bernie-sanders": [
+  {
+   "src": "bernie-sanders-1.jpg",
+   "caption": "Bernie Sanders, real-world U.S. Senator",
+   "artist": "Anderseidesvik",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bernie_Sanders_February_2026_(cropped).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Bernie_Sanders"
+  }
+ ],
+ "putin": [
+  {
+   "src": "putin-1.jpg",
+   "caption": "Vladimir Putin, real-world President of Russia",
+   "artist": "Пресс-служба Президента РФ",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D1%83%D1%82%D0%B8%D0%BD_(08-03-2024)_(cropped)_(higher_res)_2.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Vladimir_Putin"
+  }
+ ],
+ "dababy": [
+  {
+   "src": "dababy-1.jpg",
+   "caption": "DaBaby, real-world rapper (unvaporized)",
+   "artist": "MILLION DOLLAZ WORTH OF GAME",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:DaBaby_2026.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/DaBaby"
+  }
+ ],
+ "kanye-west": [
+  {
+   "src": "kanye-west-1.jpg",
+   "caption": "Kanye West (Ye), real-world rapper",
+   "artist": "David Shankbone",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Kanye_West_at_the_2009_Tribeca_Film_Festival_(crop_2).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Kanye_West"
+  }
+ ],
+ "litl-wayne": [
+  {
+   "src": "litl-wayne-1.jpg",
+   "caption": "Lil Wayne, the real-world rapper Litl Wayne is based on",
+   "artist": "Megan Elice Meadows",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Lil_Wayne_(23513397583).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Lil_Wayne"
+  }
+ ],
+ "steve-jobs": [
+  {
+   "src": "steve-jobs-1.jpg",
+   "caption": "Steve Jobs, real-world Apple co-founder",
+   "artist": "Matthew Yohe",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_Headshot_2010_(cropped_4).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Steve_Jobs"
+  }
+ ],
+ "steve-wozniak": [
+  {
+   "src": "steve-wozniak-1.jpg",
+   "caption": "Steve Wozniak, real-world Apple co-founder",
+   "artist": "Gage Skidmore",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Steve_Wozniak_by_Gage_Skidmore_3_(cropped).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Steve_Wozniak"
+  }
+ ],
+ "tim-apple": [
+  {
+   "src": "tim-apple-1.jpg",
+   "caption": "Tim Cook, the real-world “Tim Apple”",
+   "artist": "Dati Bendo / European Union",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Tim_Cook_in_New_York_City_-_2026_(cropped).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Tim_Cook"
+  }
+ ],
+ "dj-khaled": [
+  {
+   "src": "dj-khaled-1.jpg",
+   "caption": "DJ Khaled, real-world DJ and producer",
+   "artist": "Dapper Lou / Sony Music Entertainment",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:DJ_KHALED_Press_exclusive_(3x4_cropped).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/DJ_Khaled"
+  }
+ ],
+ "kobe-bryant": [
+  {
+   "src": "kobe-bryant-1.jpg",
+   "caption": "Kobe Bryant, real-world basketball legend",
+   "artist": "Keith Allison",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kobe_Bryant_Dec_2014.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Kobe_Bryant"
+  }
+ ],
+ "drake-batman": [
+  {
+   "src": "drake-batman-1.jpg",
+   "caption": "Drake, the real-world rapper behind Drake Batman",
+   "artist": "GabboT",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Drake_at_The_Carter_Effect_2017_(36818935200)_(cropped).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Drake_%28musician%29"
+  }
+ ],
+ "ninja": [
+  {
+   "src": "ninja-1.jpg",
+   "caption": "Tyler “Ninja” Blevins, real-world streamer",
+   "artist": "State Farm",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Krystalogy,_Jess,_Ninja,_and_Typical_Gamer_relaxing_in_the_State_Farm_Gamerhood_(52899874282)_(3x4_cropped_on_Ninja_and_rotated).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Ninja_%28gamer%29"
+  }
+ ],
+ "john-cena": [
+  {
+   "src": "john-cena-1.jpg",
+   "caption": "John Cena, real-world wrestler and actor",
+   "artist": "Gage Skidmore",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:John_Cena_by_Gage_Skidmore.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/John_Cena"
+  }
+ ],
+ "d-piddy": [
+  {
+   "src": "d-piddy-1.jpg",
+   "caption": "Sean Combs, the real-world music mogul the name resembles",
+   "artist": "Nicolas Richoffer",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Sean_Combs_Cannes_2012_(3x4_cropped_2).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Sean_Combs"
+  }
+ ],
+ "wemby-curry-bronny": [
+  {
+   "src": "wemby-curry-bronny-1.jpg",
+   "caption": "Victor Wembanyama (Wemby)",
+   "artist": "Frenchieinportland",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Victor_Wembanyama_San_Antonio_Spurs_2024.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Victor_Wembanyama"
+  },
+  {
+   "src": "wemby-curry-bronny-2.jpg",
+   "caption": "Stephen Curry",
+   "artist": "Clément Bardot",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Stephen_Curry,_Olympic_Games_2024_(cropped).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Stephen_Curry"
+  },
+  {
+   "src": "wemby-curry-bronny-3.jpg",
+   "caption": "Bronny James",
+   "artist": "Erik Drost",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bronny_James_Jr._(55095342116)_(cropped).jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Bronny_James"
+  }
+ ],
+ "newark": [
+  {
+   "src": "newark-1.jpg",
+   "caption": "Newark, New Jersey, birthplace of Chris",
+   "artist": "Famartin",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2025-09-12_12_24_59_Aerial_view_of_downtown_in_Newark,_Essex_County,_New_Jersey_from_an_aircraft_which_just_departed_from_Newark_Liberty_International_Airport.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Newark%2C_New_Jersey"
+  }
+ ],
+ "andromeda-galaxy": [
+  {
+   "src": "andromeda-galaxy-1.jpg",
+   "caption": "The real Andromeda Galaxy, before Frodo",
+   "artist": "Brody Wesner",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_2025.png",
+   "wiki": "https://en.wikipedia.org/wiki/Andromeda_Galaxy"
+  }
+ ],
+ "canada": [
+  {
+   "src": "canada-1.png",
+   "caption": "Canada, real-world country (not a Roman empire)",
+   "artist": "Original: George F. G. Stanley Modified by: The original uploader was Illegitimate Barrister at Wikimedia Commons. The current SVG encoding is a rewrite performed by MapGrid.",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Canada_(Pantone).svg",
+   "wiki": "https://en.wikipedia.org/wiki/Canada"
+  }
+ ],
+ "moscow": [
+  {
+   "src": "moscow-1.jpg",
+   "caption": "The real Moscow, which is in Russia, not Italy",
+   "artist": "U.S. Department of State",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Moscow"
+  }
+ ],
+ "constantinople": [
+  {
+   "src": "constantinople-1.jpg",
+   "caption": "Hagia Sophia in Istanbul, formerly Constantinople",
+   "artist": "Adli Wahid",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Hagia_Sophia_(228968325).jpeg",
+   "wiki": "https://en.wikipedia.org/wiki/Hagia_Sophia"
+  }
+ ],
+ "flint": [
+  {
+   "src": "flint-1.jpg",
+   "caption": "Flint, Michigan",
+   "artist": "WMrapids",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Flint,_Michigan.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Flint%2C_Michigan"
+  }
+ ],
+ "adirondack-park": [
+  {
+   "src": "adirondack-park-1.jpg",
+   "caption": "Adirondack Park, New York",
+   "artist": "Original uploader was Mwanner at en.wikipedia Later version(s) were uploaded by XcepticZP at en.wikipedia.",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Long_Pond_-_St_Regis.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Adirondack_Park"
+  }
+ ],
+ "vegas": [
+  {
+   "src": "vegas-1.jpg",
+   "caption": "The Las Vegas Strip",
+   "artist": "Mariordo (Mario Roberto Durán Ortiz)",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Las_Vegas_Strip_09_2017_4897.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Las_Vegas_Strip"
+  }
+ ],
+ "united-state-of-america": [
+  {
+   "src": "united-state-of-america-1.png",
+   "caption": "The real-world United States (plural)",
+   "artist": "Vector file created by Dbenbenn, Zscout370, Jacobolus, Indolences, and Technion.",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States_(DDD-F-416E_specifications).svg",
+   "wiki": "https://en.wikipedia.org/wiki/United_States"
+  }
+ ],
+ "united-streets-of-ohio": [
+  {
+   "src": "united-streets-of-ohio-1.png",
+   "caption": "Ohio, real-world U.S. state",
+   "artist": "John Eisenmann",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Ohio.svg",
+   "wiki": "https://en.wikipedia.org/wiki/Ohio"
+  }
+ ],
+ "o-block": [
+  {
+   "src": "o-block-1.jpg",
+   "caption": "The real O'Block (Parkway Gardens), Chicago",
+   "artist": "Boscophotos",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Image_Parkway_Gardens.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/O%27Block"
+  }
+ ],
+ "england": [
+  {
+   "src": "england-1.jpg",
+   "caption": "London, England",
+   "artist": "Ilya Grigorik",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:London_Skyline_(125508655).jpeg",
+   "wiki": "https://en.wikipedia.org/wiki/London"
+  }
+ ],
+ "parliament": [
+  {
+   "src": "parliament-1.jpg",
+   "caption": "The Palace of Westminster, home of the real UK Parliament",
+   "artist": "ThatsTheBoss",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Palace_of_Westminster_as_seen_from_Westminster_Bridge.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Palace_of_Westminster"
+  }
+ ]
+}

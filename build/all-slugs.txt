@@ -1,0 +1,302 @@
+chris | Chris | characters
+lebron-james | LeBron James | characters
+elon-musk | Elon Musk | characters
+mark-zuckerberg | Mark Zuckerberg | characters
+zarkmuckerberg | Zarkmuckerberg | characters
+elon-mush | Elon Mush | characters
+frodo | Frodo Baggins | characters
+samwise | Samwise | characters
+master-chef | Master Chef | items
+ron-desantis | Ron DeSantis | characters
+trumpy-the-red | Trumpy the Red | characters
+joeius-bidenias | Joeius Bidenias | characters
+julian | Julian | characters
+the-redditor | The Redditor | characters
+medea | Medea | characters
+jason | Jason | characters
+mic-q | Mic Q | characters
+dwayne-the-rock-johnson | Dwayne "The Rock" Johnson | characters
+harry | Harry (Zuckerberg's Cousin) | characters
+middle-aged-men | The Middle-Aged Men | factions
+tech-bros | The Tech Bros | factions
+baller-army | Baller Army of the United States of A America | factions
+department-of-defense | Department of Defense (DOD) | factions
+jeff-bezosi | Jeff Bezosi | characters
+the-ball | The Ball | concepts
+balling | Balling | concepts
+why-do-we-believe | Why Do We Believe What We Believe | concepts
+the-cycle | The Cycle of Chris (Origin Litany) | events
+social-media-teachings | The Secret Teachings of Social Media | concepts
+apple-podcasts | Apple Podcasts | items
+settings | Settings | items
+chalkboards | The Chalkboards of Earth | items
+truth-social | Truth Social | items
+myspace | MySpace | items
+multiverse | The Multiverse | locations
+cringe-universe | The Cringe Universe | locations
+america-universe | The America Universe | locations
+minor-miner-universe | The Minor Miner Universe | locations
+shadow-realm | The Shadow Realm | locations
+andromeda-galaxy | Andromeda Galaxy | locations
+newark | Newark | locations
+baller-army-attack | The Dabbing of the Haters | events
+great-oppression | The Great Oppression | events
+multiverse-civil-war | The Multiverse Civil War | events
+the-snap | Zuckerberg's Snap | events
+cooking-of-the-universe | The Cooking of the Universe | events
+great-famine | The Great Famine | events
+nfl-poisoning | NFL Poisoning | concepts
+the-merging | The Merging | events
+stabbing-of-chris | The Stabbing of Chris | events
+quest-73-taco-bells | The Quest for the 73 Taco Bell Locations | events
+war-for-byzantine-mexico | The War for Byzantine Mexico | events
+ethereal-green-dot | The Ethereal Green Dot | concepts
+donkey-kong-racing-duel | The Donkey Kong Racing Duel | events
+island-of-logic-and-retoric | Island of Logic and Retoric | locations
+byzantine-empire-of-mexico | Byzantine Empire of Mexico | locations
+canada | Canada (Roman) | locations
+soviet-union-of-north-korea | The Soviet Union of North Korea | locations
+democratic-republic-of-the-chinese | The Democratic Republic of the Chinese | locations
+medeas-tesseract | Medea's Tesseract Dimension Ship | items
+ha-women | "Ha Women" | concepts
+imdb | IMDb | items
+steve-from-minecraft | Steve from Minecraft | characters
+quagmire | Quagmire | characters
+osama-bin-bomin | Osama Bin Bom'in | characters
+mf-vroom | MF Vroom | characters
+lightning-mcqueen | Lightning McQueen | characters
+tyler-from-uber | Tyler from Uber | characters
+qxc | QXC | characters
+jinxy | Jinxy | characters
+george-constanta | George Constanta | characters
+projects-royal-family | The Projects Royal Family | factions
+the-projects | The Projects | locations
+i-38-west | I-38 West | locations
+moscow | Moscow (Italian City) | locations
+moscow-bombing | The Attack on Moscow | events
+mcdonalds-wine-brewing-contest | September 2002 McDonald's Wine Brewing Contest | events
+dq-mcdonalds-beef | The DQ–McDonald's MySpace Beef | events
+dairy-queen | DQ (Dairy Queen) | factions
+mcdonalds | McDonald's | factions
+myspace-relic-keepers | Keepers of the MySpace Relics | factions
+knights-of-4chan | Knights of 4chan | factions
+chick-fil-a-loyalists | Chick-fil-A Loyalists | factions
+toyota-corolla | The Toyota Corolla Question | concepts
+call-of-duty-lobbies | Call of Duty Lobbies | locations
+bon-jovi | Bon Jovi | characters
+rfk | RFK (Robert F. Kennedy Jr.) | characters
+plankton | Plankton | characters
+lost-society-of-ballers | The Lost Society of Ballers | factions
+lil-uzi-vert | Lil Uzi Vert | characters
+galactic-senate | The Galactic Senate | locations
+planet-patrick | Planet Patrick | locations
+uniontown-system | Uniontown System | locations
+siege-of-the-senate | The Siege of the Galactic Senate | events
+nuh-uh-debate | The Great Nuh Uh–Yuh Huh Debate | events
+jedi | The Jedi | factions
+lightsaber | Lightsaber | items
+red-bull | Red Bull | items
+g-fuel | G Fuel | items
+chai-town | Chai Town | locations
+chris-war-crimes | Chris's War Crimes & the Cloning | events
+the-endless-pit | The Pit With No End | locations
+all-knowing-overseers | The All-Knowing Overseers | factions
+housing-crash | The Housing Market Crash of 2007/2008 | events
+operation-desert-storm | Operation Desert Storm (Cartoon Network) | events
+reformed-travis-scott-sector | The Reformed Travis Scott Sector | locations
+nokia-i-4500 | Nokia I-4500 Flip Phone | items
+new-crips | The New Crips | factions
+dunder-mifflin | Dunder Mifflin (Galaxy) | locations
+paper-belt | The Paper Belt | locations
+the-sign | The Giant LED Sign | locations
+google-smart-guards | Google Smart Guards | factions
+file-cabinet | The Lobby File Cabinet | items
+bible-of-battle-passes | The Bible of Battle Passes | items
+vending-machine-labyrinth | The Vending Machine Labyrinth | locations
+cod-hq | Call of Duty HQ | locations
+openable-door | The OpenAble Door™ | items
+ioannus-paranukus | Ioannus Paranukus | characters
+xbox-live-dungeons | The Xbox Live Dungeons | locations
+chambers-360 | The 360 Chambers | locations
+john-cena | John Cena | characters
+larry-the-cucumber | Larry the Cucumber | characters
+21-jump-street | 21 Jump Street | locations
+protestant-universe | The Protestant Universe | locations
+mercedes-benz-system-cruiser | Mercedes Benz System Cruiser | items
+galaxy-gas | Galaxy Gas | items
+litl-wayne | Litl Wayne | characters
+litl-empire | The Litl Empire | factions
+metal-folding-chair | Plankton's Metal Folding Chair | items
+hantavirus-vaccine | Hantavirus Vaccine | items
+mountain-dew | Mountain Dew | items
+agent-007 | Agent 007 | characters
+mr-bean | Mr. Bean | characters
+goober-gang | The Goober Gang | factions
+parliament | Parliament | factions
+england | England | locations
+smoke-and-vape-shop | The Smoke and Vape Shop | locations
+ecsm-airport | E.C.S.M Airport | locations
+tesla-motorcade | The Tesla-Sponsored Motorcade | items
+the-pager | The Pager | items
+barack-obama | Barack Obama | characters
+barack-empire | The Barack Empire | factions
+bernie-sanders | Bernie Sanders | characters
+seven-chaos-emeralds | The 7 Chaos Emeralds | items
+constantinople | Constantinople | locations
+fall-of-constantinople | The Fall of Constantinople | events
+putin | Vladimir Putin | characters
+abandoned-walmarts | The Abandoned Walmarts | locations
+local-mafia | The Local Mafia | factions
+popeyes | Popeyes | locations
+glock-19 | McQueen's Glock 19 | items
+8aller-jump-street | 8aller Jump Street | locations
+dababy | DaBaby | characters
+unc-standard-time | Unc Standard Time | concepts
+the-wormhole | Wormholes | concepts
+hank-hill | Hank Hill | characters
+twelve-towers | The Twelve Towers | locations
+kanye-system | The Kanye System | locations
+los-polos-harmonicas | Los Polos Harmonicas Under System Gang | factions
+propane | Propane | items
+snoopy-mcspookintosh | Snoopy McSpookintosh | characters
+jesse-pinkman | Jesse Pinkman | characters
+walter-white | Walter White | characters
+gus-fring | Gus Fring | characters
+crack-van | The Crack Van (RV of Time) | items
+blue-dust | The Blue Dust | items
+weezing-of-kanye | The Weezing of Kanye | events
+kanye-west | Kanye West | characters
+chatgpt | ChatGPT | characters
+ye-the-gas | Ye the Gas | items
+corner-store-ohio | The Corner Store (Ohio) | locations
+united-streets-of-ohio | The United Streets of Ohio | locations
+prime | Prime Energy Drink | items
+twitter | Twitter / X | items
+super-bowl | The Super Bowl | events
+gotham-city | Gotham City | locations
+club-shadowban | Club Shadowban | locations
+ye-olde-bin | Ye Olde Bin | characters
+prius-of-destiny | The Prius of Destiny | items
+fs-martin-genius | FS Martin Genius | characters
+zuck-tears-usb | Zuck Tears USB | items
+drake-batman | Drake Batman | characters
+lil-jokez | Lil Jokez (The Joker) | characters
+laugh-exe | Laugh.exe | items
+808s-and-apocalypses | 808s and Apocalypses | items
+rap-battle-club-shadowban | The Battle of Club Shadowban | events
+bluetooth-gargoyles | Bluetooth-Enabled Gargoyles | items
+meme-portal | The Meme Portal | locations
+angry-pope | The Angry Pope (disguised as Tyler1) | characters
+flint | Flint | locations
+nether-dimension | The Nether Dimension | locations
+timeline-r | Timeline R | locations
+steve-jobs | Steve Jobs | characters
+iphone-3g | iPhone 3G | items
+siri | Siri (3G) | characters
+iphone-keynote | The iPhone 3G Keynote | events
+reality-42-b | Reality 42-B | locations
+shadow-filtered-theater | Shadow-Filtered Theater, Cupertino | locations
+universe-prime | Universe Prime | locations
+flip-phone-covenant | The Flip Phone Covenant | factions
+gods-router | God's Router | items
+sacred-apps | The Sacred Apps | items
+snapchat-ghost-protocol | Snapchat: Ghost Protocol Edition | items
+facebook-pre-cringe | Facebook (Pre-Cringe) | items
+inav | The Inav | items
+steve-wozniak | Steve Wozniak | characters
+department-of-awesomeness | Department of Awesomeness (DOA) | factions
+tim-apple | Tim Apple | characters
+young-sheldon | Young Sheldon | characters
+igun | The Igun | items
+ibeam | The Ibeam | items
+airtag | The AirTag | items
+facetime-laser | The Ultra Mega Uber Cool FaceTime Laser | items
+zyn | Zyn | items
+diet-dr-pepper | Diet Dr Pepper | items
+ipod-touch | The iPod Touch | items
+turbografx-16-sector | The TurboGrafx 16 Sector | locations
+5g | 5G | concepts
+one-more-thing | "One More Thing" | concepts
+vine | Vine | items
+dusty-depot | Dusty Depot | locations
+port-a-potty-portal | The Port-a-Potty Portal | locations
+quick-check | The Quick-Check | locations
+erger-wings | Erger Wings | concepts
+the-67-casino | The 6 7 Casino | locations
+microsoft-bing | Microsoft Bing | characters
+bings-son | Bing's Son | characters
+roulette-bet | The Great Roulette Bet | events
+nfts | NFTs (Mysterious Apes) | items
+stairway-to-heaven | The Stairway to Heaven | locations
+verizon-contract | The 3 Year Contract Plan from Verizon for Unlimited Talk and Text | items
+la-walmart | The Ruins of the LA Walmart | locations
+field-of-gambling | Field of Gambling | concepts
+golden-scar | The Golden SCAR | items
+sector-1-99 | Sector 1/99 (The Gambling Addiction Sector) | locations
+d-piddy | D. Piddy | characters
+vegas | Vegas | locations
+yuno-miles | Yuno Miles | characters
+gawk-ination-2039 | The Gawk-ination of 2039 | events
+verse-wide-tour | The Verse-Wide Tour | events
+kobe-bryant | Kobe Bryant | characters
+charlie-kirks | Charlie Kirks | factions
+police-kirks | Police Kirks | factions
+t1-phones | T1 Phones | items
+dj-khaled | DJ Khaled | characters
+casino-heist | The Casino Heist | events
+the-vault | The Vault | locations
+yeezy-reserve | The Yeezy Reserve | locations
+oil | Oil | items
+the-boys | The Boys (not the Amazon Prime show) | factions
+lobster | "Bring Out the Lobster!!" | concepts
+doritos | Doritos | items
+jeffrey-epstein-statue | The Casino Statues | items
+spamton | Spamton G. Spamton | characters
+grogu | Grogu | characters
+ton-618 | TON 618 | characters
+cyber-city | Cyber City | locations
+darkworld-state-university | Darkworld State University | locations
+alpha-mogger-beta | Alpha Mogger Beta | factions
+xp-candy | XP Candy | items
+kromer | Kromer | items
+peter-griffin-ringtone | Peter Griffin | characters
+windows-phone | MF Vroom's Windows Phone | items
+adirondack-park | Adirondack Park | locations
+united-state-of-america | The United State of America | locations
+projects-national-spaceport | The Projects National Spaceport | locations
+tung-tung-tung-sahur | Tung Tung Tung Sahur | characters
+son-s-sonionring | Son S. Sonionring | characters
+modded-colonial-musket | The Modded Colonial Musket | items
+honda-accord-2005 | Son's 2005 Honda Accord | items
+purple-juice | Solidified Purple Juice | items
+i-cant-put-down-the-cup | "I Can't Put Down the Cup" | items
+spaceport-chase | The Spaceport Breakout & O'Block Chase | events
+o-block | O'Block (O Block 2) | locations
+oblock-coup | The O'Block Coup | events
+european-union | The EU | factions
+pol-phi-doros | Pol Phi Doros | factions
+koolaid-college | Koolaid College | locations
+dpf-facility-69420 | DPF Facility 69420 | locations
+ton-robots | The TON Robots | factions
+ninja | Ninja (Tyler Blevins) | characters
+fortnite-island-wars | The Great Fortnite Island Wars | events
+fortnite | Fortnite | items
+the-prophecy | The Prophecy | concepts
+the-court | The Court | locations
+determination | [DETERMINATION] | concepts
+microsd-card | The 67GB MicroSD Card | items
+projects-national-archives | The Projects National Archives | locations
+chicken-hour | Chicken Hour | concepts
+wemby-curry-bronny | Wemby, Curry & Bronny | characters
+mogging | Mogging | concepts
+goober | Goober | concepts
+pog | Pog / Poggers / Pogchamp | concepts
+aight-bet | "Aight Bet" | concepts
+chapter-before-chapter-2 | Chris Origins | chapters
+chapter-2 | Chapter 2 | chapters
+chapter-triangle | Chapter Triangle | chapters
+chapter-the-fourth | Chapter the Fourth | chapters
+dunder-mifflan-chapter | Dunder Mifflan | chapters
+flashback-chapter | The Flashback Chapter | chapters
+chapter-maybe-seventh | Chapter the Maybe Seventh | chapters
+chapter-4-point-1 | Chapter 4+.1+.1… | chapters
