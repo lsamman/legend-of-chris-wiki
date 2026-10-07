@@ -245,7 +245,7 @@
       if (st === "walk") f.vx = 3;
     }
     c.save(); c.translate(x, y); c.scale(scale * (o.facing || 1), scale);
-    try { (f.def.draw || S.drawDummy)(c, f, fakeG); }
+    try { S.drawFighterBody(c, f, fakeG, "ui:" + f.def.id); }
     catch (e) { try { S.drawDummy(c, f, fakeG); } catch (e2) { /* ignore */ } }
     c.restore();
   }

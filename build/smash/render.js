@@ -205,7 +205,9 @@
   S.roundRect = roundRect;
 
   // ------------------------------------------------------------ fighter overlays
-  S.drawFighter = function (ctx, f, g, debug) {
+  // mode "full": draw the body (3D portrait if available, else 2D def.draw) plus overlays.
+  // mode "overlay": the body was already rendered by the 3D world pass — draw def.drawFx and overlays only.
+  S.drawFighter = function (ctx, f, g, debug, mode = "full") {
     if (f.out || f.state === "dead") return;
     ctx.save();
     let ox = 0;
@@ -220,9 +222,10 @@
     if (f.state === "spotdodge" || f.state === "roll" || f.state === "airdodge") ctx.globalAlpha = f.invuln > 0 ? 0.55 : 1;
     ctx.save();
     ctx.scale(f.facing, 1);
-    try { (f.def.draw || S.drawDummy)(ctx, f, g); } catch (e) { if (!f._drawErr) { console.error(e); f._drawErr = true; } S.drawDummy(ctx, f, g); }
+    if (mode === "overlay") { if (f.def.drawFx) { try { f.def.drawFx(ctx, f, g); } catch (e) { if (!f._fxErr) { console.error(e); f._fxErr = true; } } } }
+    else { try { S.drawFighterBody(ctx, f, g, "body:" + f.port); } catch (e) { if (!f._drawErr) { console.error(e); f._drawErr = true; } S.drawDummy(ctx, f, g); } }
     ctx.restore();
-    if (flash) { ctx.globalCompositeOperation = "lighter"; ctx.fillStyle = "rgba(255,255,255,0.18)"; ctx.fillRect(-f.w / 2, -f.h, f.w, f.h); ctx.globalCompositeOperation = "source-over"; }
+    if (flash && mode !== "overlay") { ctx.globalCompositeOperation = "lighter"; ctx.fillStyle = "rgba(255,255,255,0.18)"; ctx.fillRect(-f.w / 2, -f.h, f.w, f.h); ctx.globalCompositeOperation = "source-over"; }
     ctx.globalAlpha = 1;
     if (f.charging) { ctx.strokeStyle = `rgba(255,240,120,${0.3 + 0.3 * Math.sin(f.charging)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0, -f.h / 2, f.h * 0.62, 0, Math.PI * 2); ctx.stroke(); }
     if (f.armor) { ctx.strokeStyle = "rgba(255,190,40,.7)"; ctx.lineWidth = 3; ctx.strokeRect(-f.w / 2 - 3, -f.h - 3, f.w + 6, f.h + 6); }
@@ -254,6 +257,9 @@
     ctx.closePath(); ctx.fill();
   }
   S.star = star;
+
+  // Overridden by render3d.js; plain 2D otherwise.
+  S.drawFighterBody = function (c, f, g) { (f.def.draw || S.drawDummy)(c, f, g); };
 
   // A plain stand-in, also used if a fighter's draw() throws.
   S.drawDummy = function (ctx, f, g) {

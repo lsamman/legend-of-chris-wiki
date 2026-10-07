@@ -252,6 +252,76 @@
     posePatch(f, P) { P.armF = [-0.32, 0.5]; P.armB = [-0.45, 0.45]; P.lean = -0.25; },
   });
 
+  // ---- Chris in 3D: the cover dog, built on the shared humanoid with a custom dog head.
+  function chrisDogHead(T, K, g, r, spec, model) {
+    const fur = K.mat(CHRIS_FUR, { roughness: 0.75 }), furD = K.mat(CHRIS_FUR_D, { roughness: 0.8 }), inner = K.mat("#e7c095", { roughness: 0.8 });
+    model.M.skin = fur;
+    K.sphere(r, fur, { parent: g, s: [1.0, 1.0, 0.92] });                                                    // skull
+    K.sphere(r * 0.62, fur, { parent: g, p: [-r * 0.05, -r * 0.42, 0], s: [1.1, 0.9, 1.1], ol: 0.6 });       // cheeks / jowl
+    // long snout: upper muzzle + lower jaw, tapering to the big black nose
+    K.capsule(r * 0.4, r * 0.95, fur, { parent: g, p: [r * 0.95, -r * 0.16, 0], r: [0, 0, -Math.PI / 2 + 0.1], s: [0.92, 1, 0.9] });
+    K.capsule(r * 0.27, r * 0.7, furD, { parent: g, p: [r * 0.88, -r * 0.5, 0], r: [0, 0, -Math.PI / 2 + 0.05], s: [1, 1, 0.82], ol: 0.6 });
+    K.sphere(r * 0.38, K.mat("#121212", { roughness: 0.18 }), { parent: g, p: [r * 1.72, -r * 0.06, 0], s: [0.85, 0.8, 1.05], ol: 0.5 });
+    K.sphere(r * 0.07, K.basic("#000000"), { parent: g, p: [r * 1.98, -r * 0.12, r * 0.12], ol: 0 });       // nostrils
+    K.sphere(r * 0.07, K.basic("#000000"), { parent: g, p: [r * 1.98, -r * 0.12, -r * 0.12], ol: 0 });
+    // smug little smile along the muzzle
+    const smile = K.torus(r * 0.32, r * 0.035, K.mat("#4a2a14"), { parent: g, p: [r * 1.05, -r * 0.4, 0], r: [0, Math.PI / 2, 0], arc: Math.PI * 0.45, ol: 0 });
+    smile.rotation.z = -Math.PI / 2 - Math.PI * 0.12;
+    // tall rounded ears, tipping back
+    [-1, 1].forEach((z) => {
+      const ear = K.group({ parent: g, p: [-r * 0.12, r * 0.82, z * r * 0.42], r: [z * -0.18, 0, 0.28] });
+      K.sphere(r * 0.5, z > 0 ? fur : furD, { parent: ear, p: [0, r * 0.42, 0], s: [0.62, 1.35, 0.26], ol: 0.7 });
+      K.sphere(r * 0.3, inner, { parent: ear, p: [r * 0.08, r * 0.42, z * r * 0.07], s: [0.6, 1.3, 0.2], ol: 0 });
+    });
+    // very chill, half-lidded eyes and flat brows
+    K.eyes(model, g, r, { r: 0.19, iris: "#3a2412", gap: 0.42, y: 0.18, lids: 0.6, out: 0.84 }, furD);
+    K.brows(model, g, r, { color: "#6e4524", thick: 0.06, len: 0.3, tilt: -0.08, y: 0.42, gap: 0.42 });
+    // the halo (shown during God Ascension / Halo Flare)
+    model.halo = K.torus(r * 0.75, r * 0.07, K.mat("#ffd23a", { emissive: "#c99400", emissiveIntensity: 1.2, metalness: 0.4, roughness: 0.3 }), { parent: g, p: [0, r * 1.95, 0], r: [Math.PI / 2, 0, 0], ol: 0 });
+    model.haloGlow = K.glow(0xffd84a, r * 3.4, 0.8); model.haloGlow.position.set(0, r * 1.95, 0); g.add(model.haloGlow);
+  }
+
+  const chrisModel = {
+    build(T, K) {
+      const m = K.humanoid({
+        h: 66, w: 34, skin: CHRIS_FUR, bodyW: 24, headR: 13.5, belly: 0.25, chest: 1.0,
+        neck: { len: 5, r: 4.6, color: CHRIS_FUR },
+        head: { build: chrisDogHead },
+        top: { type: "sweater", color: "#a7abb2", cuff: "#979ba2" },
+        bottom: { type: "jeans", color: "#a9d3d0", cuffs: "#c4e4e1" },
+        shoes: { color: "#f3f1ec", sole: "#e9e3d6", accent: "#c8322b", laces: "#f7f7f7" },
+        hands: { color: CHRIS_FUR },
+      });
+      m.ball = K.basketball(7); m.armF.hand.add(m.ball); m.ball.position.set(1, -9, 0);
+      m.bigBall = K.basketball(21); m.bigBall.position.set(0, 22, 0); m.root.add(m.bigBall);
+      m.ballEyes = K.group({ parent: m.bigBall });
+      K.sphere(3.6, K.mat("#ffffff", { roughness: 0.3 }), { parent: m.ballEyes, p: [19, 4, 4] });
+      K.sphere(2, K.basic("#1b1b1b"), { parent: m.ballEyes, p: [21.6, 4, 4.4], ol: 0 });
+      K.collectMats(m);
+      return m;
+    },
+    update(m, f, g, P, opts) {
+      const ballForm = chrisBallForm(f);
+      m.inner.visible = !ballForm;
+      m.bigBall.visible = ballForm;
+      if (ballForm) {
+        m.yaw.rotation.y = K3().yawFor(f.facing); m.yawVal = m.yaw.rotation.y;
+        m.bigBall.rotation.z = -g.frame * 0.45;
+        m.ballEyes.rotation.z = g.frame * 0.45;   // he keeps looking forward while rolling
+        K3().applyFlash(m, f, g);
+        return;
+      }
+      K3().poseHumanoid(m, f, P, g, opts);
+      const hot = attacking(f, "uspecial") || (attacking(f, "usmash") && f.mf >= 8 && f.mf <= 20);
+      m.halo.visible = m.haloGlow.visible = hot;
+      const pockets = chrisPockets(f);
+      m.armF.hand.visible = m.armB.hand.visible = !pockets;
+      m.ball.visible = !pockets && !alive(f.data.ball);
+      m.ball.rotation.z = -g.frame * 0.08;
+    },
+  };
+  const K3 = () => S.K3;
+
   S.registerFighter({
     id: "chris", slug: "chris", name: "Chris", short: "Chris",
     tagline: "Baby. Baller. Corpse. Ball. God.",
@@ -339,6 +409,15 @@
           S.fx.ring(g, f.x, f.y, "#ffd84a"); S.fx.spark(g, f.x, f.y, "#ffcf6a", 6); g.shake = Math.max(g.shake, 5);
         },
       },
+    },
+    model: chrisModel,
+    posePatch(f, P) { if (chrisPockets(f)) chrisPocketLook.posePatch(f, P); },
+    drawFxBehind(ctx, f, g) { FRAME = g.frame; chrisLook.behind(ctx, f, null); },
+    drawFx(ctx, f, g) {
+      if (!chrisBallForm(f) || !f.move.aerial || f.grounded || f.mf <= 8) return;
+      const R = 21, cy = -R - 1;   // falling streaks above the ball
+      ctx.strokeStyle = "rgba(255,215,110,.55)"; ctx.lineWidth = 3; ctx.lineCap = "round";
+      for (let i = -1; i <= 1; i++) { const len = 26 + ((g.frame + i * 5) % 9) * 3; ctx.beginPath(); ctx.moveTo(i * 11, cy - R - 2); ctx.lineTo(i * 11, cy - R - 2 - len); ctx.stroke(); }
     },
     draw(ctx, f, g) {
       FRAME = g.frame;
