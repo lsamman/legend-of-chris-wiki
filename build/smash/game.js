@@ -664,7 +664,8 @@
     const dmgRaw = hb.dmg * mult * (A && A.buffs.dmgBoost ? 1.15 : 1);
     const dmg = Math.round(dmgRaw * 10) / 10;
 
-    // counters
+    // counters: projectiles are blocked (no free damage on a far-away shooter); melee hits get retaliated
+    if (T.counter && src && !hb.throw) { S.fx.spark(g, src.x, src.y, "#fff", 6); return false; }
     if (T.counter && !hb.throw && !hb.grab && A) {
       const C = T.counter.counterCfg || {};
       const cd = Math.max(C.min || 8, dmg * (C.mult || 1.3));
