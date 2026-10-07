@@ -105,9 +105,21 @@
     if (st.drawMid) { try { st.drawMid(c, g.stage, g, cam); } catch (e) { logOnce(st, e); } }
     if (st.drawPlatforms) { try { st.drawPlatforms(c, g.stage, g); } catch (e) { logOnce(st, e); S.drawPlatformsDefault(c, g); } }
     else S.drawPlatformsDefault(c, g);
-    for (const p of g.projectiles) if (p.behind) S.drawProjectile(c, p, g);
-    for (const f of g.fighters) S.drawFighter(c, f, g, S.debug);
-    for (const p of g.projectiles) if (!p.behind) S.drawProjectile(c, p, g);
+    const use3d = S.three && S.three.active;
+    const flat = (p) => !(use3d && p.model3d);
+    for (const p of g.projectiles) if (p.behind && flat(p)) S.drawProjectile(c, p, g);
+    if (use3d) {
+      drawShadows(c, g);
+      for (const f of g.fighters) if (f.def.drawFxBehind && !f.out && f.state !== "dead" && S.three.has(f.def)) {
+        c.save(); c.translate(f.x, f.y); c.scale(f.facing, 1);
+        try { f.def.drawFxBehind(c, f, g); } catch (e) { logOnce(f.def, e); }
+        c.restore();
+      }
+      const shk = g.shake ? [(g.frame % 2 ? 1 : -1) * g.shake * 0.6, (g.frame % 3 - 1) * g.shake * 0.4] : null;
+      try { S.three.renderWorld(c, g, cam, W, H, dpr, shk); } catch (e) { console.error(e); S.three.active = false; S.three.failed = true; }
+    }
+    for (const f of g.fighters) S.drawFighter(c, f, g, S.debug, use3d && S.three.has(f.def) ? "overlay" : "full");
+    for (const p of g.projectiles) if (!p.behind && flat(p)) S.drawProjectile(c, p, g);
     if (S.debug) { c.strokeStyle = "rgba(255,0,0,.6)"; c.lineWidth = 3; for (const p of g.projectiles) { c.beginPath(); c.arc(p.x, p.y, p.r, 0, Math.PI * 2); c.stroke(); } }
     S.drawParticles(c, g);
     if (st.drawFg) { try { st.drawFg(c, g.stage, g, cam); } catch (e) { logOnce(st, e); } }
@@ -125,6 +137,20 @@
       S.text(c, msg, W / 2, H / 2, 70 + 70 * k, "#ffe14a", "center", S.FONT_BIG, "900", "#000");
     }
     if (sc.paused) drawPause(c, W, H, sc);
+  }
+
+  // Soft contact shadows under 3D fighters (on the highest platform below them).
+  function drawShadows(c, g) {
+    for (const f of g.fighters) {
+      if (f.out || f.state === "dead") continue;
+      let best = null;
+      for (const P of g.platforms) if (f.x >= P.x1 && f.x <= P.x2 && P.y >= f.y - 2 && (!best || P.y < best.y)) best = P;
+      if (!best) continue;
+      const k = Math.max(0, 1 - (best.y - f.y) / 260);
+      if (k <= 0) continue;
+      c.fillStyle = `rgba(0,0,0,${0.32 * k})`;
+      c.beginPath(); c.ellipse(f.x, best.y + 1, f.w * (0.45 + 0.35 * k), 4 + 2 * k, 0, 0, Math.PI * 2); c.fill();
+    }
   }
 
   const logged = new WeakSet();
@@ -161,7 +187,7 @@
       c.save(); c.beginPath(); c.rect(x - slotW / 2 + 16, H - 94, 54, 82); c.clip();
       c.translate(x - slotW / 2 + 43, H - 18); c.scale(0.8, 0.8);
       const fake = Object.assign(Object.create(Object.getPrototypeOf(f)), f, { x: 0, y: 0, state: "idle", facing: 1, move: null, charging: 0, respawnPlat: false, invuln: 0, out: false, hitlag: 0, armor: false });
-      c.save(); try { (f.def.draw || S.drawDummy)(c, fake, g); } catch (e) { /* ignore in HUD */ } c.restore();
+      c.save(); try { S.drawFighterBody(c, fake, g, "hud:" + f.port); } catch (e) { /* ignore in HUD */ } c.restore();
       c.restore();
       // damage
       const dmg = Math.floor(f.damage);
@@ -248,6 +274,7 @@
     ctx = canvas.getContext("2d");
     resize(); addEventListener("resize", resize);
     S.input.attach(canvas);
+    if (S.three) S.three.init();
     ensureContent();
     const quick = S.quickConfig();
     if (quick) S.startMatch(quick);

@@ -245,7 +245,7 @@
       if (st === "walk") f.vx = 3;
     }
     c.save(); c.translate(x, y); c.scale(scale * (o.facing || 1), scale);
-    try { (f.def.draw || S.drawDummy)(c, f, fakeG); }
+    try { S.drawFighterBody(c, f, fakeG, "ui:" + f.def.id); }
     catch (e) { try { S.drawDummy(c, f, fakeG); } catch (e2) { /* ignore */ } }
     c.restore();
   }
@@ -576,14 +576,14 @@
         for (let yy = y + 10; yy < y + ph; yy += 12) for (let xx = x + 10 + ((yy / 12) % 2) * 6; xx < x + w; xx += 12) { c.beginPath(); c.arc(xx, yy, 2, 0, Math.PI * 2); c.fill(); }
         if (def) {
           const f = puppet(id, 0);
-          const sc2 = Math.min(ph / ((f ? f.h : 70) * 1.25), (w - 12) / 70);
+          const sc2 = Math.min(ph / ((S.visualHeight ? S.visualHeight(f) : f ? f.h : 70) * 1.15), (w - 12) / 70);
           const anim = hov || focused ? showOff(f, (t + id.length * 7) % 100000) : { state: "idle" };
           drawPuppet(c, f, x + w / 2 - 6 * sc2, y + 6 + ph - 6, sc2, Object.assign({ frame: t + id.length * 11 }, anim));
         } else {
           // random: cycling silhouettes + ?
           const ids = S.FIGHTER_ORDER; const rid = ids[Math.floor(t / 20) % ids.length];
           const f = puppet(rid, 0);
-          const sc2 = Math.min(ph / ((f ? f.h : 70) * 1.25), (w - 12) / 70);
+          const sc2 = Math.min(ph / ((S.visualHeight ? S.visualHeight(f) : f ? f.h : 70) * 1.15), (w - 12) / 70);
           c.globalAlpha = 0.25; drawPuppet(c, f, x + w / 2, y + 6 + ph - 6, sc2, { frame: t }); c.globalAlpha = 1;
           S.text(c, "?", x + w / 2, y + ph * 0.72, ph * 0.62, "#fff", "center", S.FONT_BIG, "900", C.ink);
         }
@@ -644,7 +644,7 @@
           c.fillStyle = def ? shadeHex(def.color || "#888", 0.7) : "#ddd"; c.fillRect(x + 10, by + 4, pwid, bh - 8);
           if (def) {
             const f = puppet(id, i);
-            const s2 = Math.min((bh - 14) / ((f ? f.h : 70) * 1.15), pwid / 60);
+            const s2 = Math.min((bh - 14) / ((S.visualHeight ? S.visualHeight(f) : f ? f.h : 70) * 1.08), pwid / 60);
             drawPuppet(c, f, x + 10 + pwid / 2, by + bh - 8, s2, { frame: t + i * 17 });
           } else S.text(c, "?", x + 10 + pwid / 2, by + bh / 2 + 22, 60, id === "random" ? "#9b59b6" : "#aaa", "center", S.FONT_BIG, "900");
           c.restore();

@@ -173,7 +173,7 @@
 
   // Chris is the dog from the MASTER FILE cover: tan fur, long snout, big black nose, grey sweater,
   // pale rolled-up jeans, red-and-white sneakers, and (when he can) his hands in his pockets.
-  const CHRIS_FUR = "#c8955c", CHRIS_FUR_D = "#a8743f";
+  const CHRIS_FUR = "#b07d55", CHRIS_FUR_D = "#93643f";
   function dogHead(ctx, r, f, hot) {
     // ear (behind the skull), tall and rounded, tipping back
     ctx.fillStyle = CHRIS_FUR_D;
@@ -251,6 +251,90 @@
     skin: "#a7abb2", armScale: 0.8,   // hands vanish into the pockets
     posePatch(f, P) { P.armF = [-0.32, 0.5]; P.armB = [-0.45, 0.45]; P.lean = -0.25; },
   });
+
+  // ---- Chris in 3D: the cover dog, built on the shared humanoid with a custom dog head.
+  // Chris = "Chill Guy", modelled after the cel-shaded reference: a soft boxy skull, a stubby muzzle capped by a huge
+  // black oval nose, tall upright ears, small half-lidded eyes on the front of the face, thin brows and a wide smile.
+  function chrisDogHead(T, K, g, r, spec, model) {
+    const fur = K.mat(CHRIS_FUR), furD = K.mat(CHRIS_FUR_D), inner = K.mat("#d9a676");
+    model.M.skin = fur;
+    // skull: a rounded box, a bit taller than wide, face plane toward +X
+    model.skull = K.superSphere(r * 0.86, r * 0.95, r * 0.8, 0.62, fur, { parent: g, p: [-r * 0.05, r * 0.08, 0], ol: 1.1 });
+    // muzzle: short and thick, from the lower front of the skull
+    K.capsule(r * 0.46, r * 0.75, fur, { parent: g, p: [r * 1.0, -r * 0.42, 0], r: [0, 0, -Math.PI / 2 + 0.04], s: [1.0, 1, 0.98], ol: 1 });
+    // the nose: a huge black oval disc capping the muzzle
+    K.sphere(r * 0.62, K.mat("#0d0d0d"), { parent: g, p: [r * 1.76, -r * 0.4, 0], r: [0, 0, 0.12], s: [0.42, 0.84, 1.0], ol: 0.8 });
+    // tall upright ears, slightly splayed, set back on the crown
+    [-1, 1].forEach((z) => {
+      const ear = K.group({ parent: g, p: [-r * 0.32, r * 0.9, z * r * 0.34], r: [z * -0.16, 0, 0.1] });
+      K.capsule(r * 0.24, r * 0.72, fur, { parent: ear, p: [0, r * 0.56, 0], s: [1, 1, 0.5], ol: 0.9 });
+      K.capsule(r * 0.12, r * 0.55, inner, { parent: ear, p: [r * 0.12, r * 0.56, z * r * 0.04], s: [0.6, 1, 0.4], ol: 0 });
+    });
+    // small, very chill eyes high on the face, thin straight brows
+    K.eyes(model, g, r, { r: 0.15, iris: "#3a2312", gap: 0.4, y: 0.48, lids: 0.42, out: 0.94 }, fur);
+    K.brows(model, g, r, { color: "#2a1a10", thick: 0.035, len: 0.26, tilt: -0.06, y: 0.7, gap: 0.4 });
+    // wide smile on each cheek, beside the muzzle
+    const ink = K.basic("#1a1009");
+    [-1, 1].forEach((z) => {   // from under the muzzle, dipping, then curling up onto the cheek
+      const pts = [[1.12, -0.86, 0.36], [0.86, -0.92, 0.55], [0.6, -0.78, 0.7], [0.46, -0.56, 0.74]].map(([x, y, w]) => new T.Vector3(x * r, y * r, z * w * r));
+      g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 20, r * 0.045, 6), ink));
+    });
+    // ribbed sweater collar (dark rib stripes like the reference)
+    const col = K.torus(r * 0.6, r * 0.11, K.mat("#b3b6bc", { map: ribTex(K) }), { parent: g, p: [-r * 0.1, -r * 0.88, 0], r: [Math.PI / 2, 0, 0], s: [1, 0.8, 1], ol: 0.7 });
+    col.rotation.z = 0;
+    // the halo (shown during God Ascension / Halo Flare)
+    model.halo = K.torus(r * 0.75, r * 0.07, K.mat("#ffd23a", { emissive: "#c99400", emissiveIntensity: 1.2 }), { parent: g, p: [-r * 0.2, r * 2.1, 0], r: [Math.PI / 2, 0, 0], ol: 0 });
+    model.haloGlow = K.glow(0xffd84a, r * 3.4, 0.8); model.haloGlow.position.set(-r * 0.2, r * 2.1, 0); g.add(model.haloGlow);
+  }
+  let ribT = null;
+  function ribTex(K) {   // vertical dark ribs for collar / cuffs
+    if (!ribT) ribT = K.tex(128, 16, (c, w, h) => { c.fillStyle = "#b3b6bc"; c.fillRect(0, 0, w, h); c.fillStyle = "#4a4d57"; for (let x = 0; x < w; x += 6) c.fillRect(x, 0, 1.6, h); });
+    return ribT;
+  }
+
+  const chrisModel = {
+    build(T, K) {
+      const m = K.humanoid({
+        h: 66, w: 34, skin: CHRIS_FUR, bodyW: 25, headR: 16.5, belly: 0.3, chest: 1.04, shoulders: 0.96, legBulk: 1.35, armBulk: 1.1, legScale: 0.8,
+        neck: { len: 1, r: 4.6, color: CHRIS_FUR },
+        head: { build: chrisDogHead },
+        top: { type: "sweater", color: "#aeb2b8", cuff: "#9a9ea5" },
+        bottom: { type: "jeans", color: "#8dbcae", cuffs: "#cfe5dc" },
+        shoes: { color: "#cf5d63", sole: "#eeeae4", laces: "#f4f1ea" },
+        hands: { color: CHRIS_FUR, style: "cartoon" },
+      });
+      // Converse-style white toe caps on the maroon sneakers
+      [m.legF, m.legB].forEach((L) => K.sphere(3.2, K.mat("#f1ece2", { roughness: 0.6 }), { parent: L.foot, p: [8.6, -1.3, 0], s: [1.05, 0.8, 1.25], ol: 0.5 }));
+      m.yawAmt = 1.0;   // turned further toward the camera, like the reference art
+      m.ball = K.basketball(7); m.armF.hand.add(m.ball); m.ball.position.set(1, -9, 0);
+      m.bigBall = K.basketball(21); m.bigBall.position.set(0, 22, 0); m.root.add(m.bigBall);
+      m.ballEyes = K.group({ parent: m.bigBall });
+      K.sphere(3.6, K.mat("#ffffff", { roughness: 0.3 }), { parent: m.ballEyes, p: [19, 4, 4] });
+      K.sphere(2, K.basic("#1b1b1b"), { parent: m.ballEyes, p: [21.6, 4, 4.4], ol: 0 });
+      K.collectMats(m);
+      return m;
+    },
+    update(m, f, g, P, opts) {
+      const ballForm = chrisBallForm(f);
+      m.inner.visible = !ballForm;
+      m.bigBall.visible = ballForm;
+      if (ballForm) {
+        m.yaw.rotation.y = K3().yawFor(f.facing); m.yawVal = m.yaw.rotation.y;
+        m.bigBall.rotation.z = -g.frame * 0.45;
+        m.ballEyes.rotation.z = g.frame * 0.45;   // he keeps looking forward while rolling
+        K3().applyFlash(m, f, g);
+        return;
+      }
+      K3().poseHumanoid(m, f, P, g, opts);
+      const hot = attacking(f, "uspecial") || (attacking(f, "usmash") && f.mf >= 8 && f.mf <= 20);
+      m.halo.visible = m.haloGlow.visible = hot;
+      const pockets = chrisPockets(f);
+      m.armF.hand.visible = m.armB.hand.visible = !pockets;
+      m.ball.visible = !pockets && !alive(f.data.ball);
+      m.ball.rotation.z = -g.frame * 0.08;
+    },
+  };
+  const K3 = () => S.K3;
 
   S.registerFighter({
     id: "chris", slug: "chris", name: "Chris", short: "Chris",
@@ -340,6 +424,15 @@
         },
       },
     },
+    model: chrisModel,
+    posePatch(f, P) { if (chrisPockets(f)) chrisPocketLook.posePatch(f, P); },
+    drawFxBehind(ctx, f, g) { FRAME = g.frame; chrisLook.behind(ctx, f, null); },
+    drawFx(ctx, f, g) {
+      if (!chrisBallForm(f) || !f.move.aerial || f.grounded || f.mf <= 8) return;
+      const R = 21, cy = -R - 1;   // falling streaks above the ball
+      ctx.strokeStyle = "rgba(255,215,110,.55)"; ctx.lineWidth = 3; ctx.lineCap = "round";
+      for (let i = -1; i <= 1; i++) { const len = 26 + ((g.frame + i * 5) % 9) * 3; ctx.beginPath(); ctx.moveTo(i * 11, cy - R - 2); ctx.lineTo(i * 11, cy - R - 2 - len); ctx.stroke(); }
+    },
     draw(ctx, f, g) {
       FRAME = g.frame;
       if (chrisBallForm(f)) { drawChrisBall(ctx, f, g); return; }
@@ -347,6 +440,104 @@
       chrisCuffs(ctx, f, R);
     },
   });
+
+  // ============================================================ 3D KIT (LeBron, RFK, Steve)
+  // A sculpted human head for K.humanoid (passed as spec.head.build), hair caps, arc-shaped face features,
+  // a couple of painted textures, and the 2D rig maths so def.drawFx effects line up with the 2D hitboxes.
+
+  // Where the 2D rig puts the shoulder / front hand (same maths as S.drawHumanoid, without drawing).
+  function rig2d(f, g, look) {
+    const P = S.pose(f, g);
+    if (look && look.posePatch) look.posePatch(f, P, g);
+    const h = f.h, armLen = h * 0.17 * ((look && look.armScale) || 1);
+    const hip = { x: P.lean * 3, y: -h * 0.43 + P.bob + P.crouch * h * 0.18 };
+    const sh = { x: hip.x + P.lean * 6, y: hip.y - h * 0.3 };
+    const armF = S.limb({ x: sh.x + 2, y: sh.y + 3 }, P.armF[0], P.armF[1], armLen, armLen);
+    return { P, hip, sh, armF };
+  }
+  // A torus arc through a chord of width o.w (× r) with sagitta o.sag (> 0 bows down like a smile, < 0 bows up),
+  // centred at (o.x, o.y, o.z) × r on the face (which looks along +X). Mouths, lips, moustaches, teeth, creases.
+  function faceArc(K, g, r, mat, o) {
+    const w = o.w * r, sag = Math.max(0.002 * r, Math.abs(o.sag) * r), up = o.sag < 0;
+    const R = (w * w / 4 + sag * sag) / (2 * sag), A = 2 * Math.asin(Math.min(1, w / (2 * R)));
+    const m = K.torus(R, o.t * r, mat, { parent: g, p: [o.x * r, o.y * r + (up ? -R : R), (o.z || 0) * r], r: [o.rx || 0, Math.PI / 2 + (o.ry || 0), 0], arc: A, ol: 0, rs: 8, ts: 14 });
+    m.rotation.z = (up ? Math.PI / 2 : -Math.PI / 2) - A / 2;
+    if (o.s) m.scale.set(o.s[0], o.s[1], o.s[2]);
+    return m;
+  }
+  // Hair cap: the top of a sphere slightly larger than the skull, tipped back by `tilt` (raises the front hairline).
+  function hairCap(K, g, r, mat, k, thL, tilt, o = {}) {
+    return K.sphere(r * k, mat, Object.assign({ parent: g, thL, r: [0, 0, tilt], s: [1.0, 1.06, 0.9], ol: 0.7 }, o));
+  }
+  // Canvas noise (stubble, terry cloth, denim): base colour + speckles; lines = [{ color, step, w, slope }].
+  function noiseTex(K, w, h, base, specks, lines) {
+    return K.tex(w, h, (c) => {
+      c.fillStyle = base; c.fillRect(0, 0, w, h);
+      let seed = 7; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);   // texture only: deterministic, not sim
+      (lines || []).forEach((L) => { c.strokeStyle = L.color; c.lineWidth = L.w || 1; for (let x = -h; x < w + h; x += L.step) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x + h * (L.slope || 0), h); c.stroke(); } });
+      (specks || []).forEach((sp) => { c.fillStyle = sp.color; for (let i = 0; i < sp.n; i++) c.fillRect(rnd() * w, rnd() * h, sp.size || 1, (sp.size || 1) * (sp.stretch || 1)); });
+    });
+  }
+  /* Sculpted head (looks along +X). o = { skin, skull: [sx, sy, sz], jawW, jawL, jawCorners, chin: { r, x, y, w, cleft },
+     cheeks (cheekbone size), nose: { x, y, tip, wing, w, bridge }, eyes (K.eyes opts), brows (K.brows opts),
+     lips: { color, w, sag, y, lower, teeth }, creases (nasolabial folds), ears }. Returns { skD }. */
+  function sculptHead(K, model, g, r, o) {
+    const sk = model.M.skin;
+    const skD = K.mat(S.shade(o.skin, -0.1), { roughness: 0.62 });
+    const sq = o.skull || [1, 1.05, 0.9];
+    model.skull = K.sphere(r, sk, { parent: g, p: [0, r * (o.skullY || 0), 0], s: sq, ol: 0.9 });
+    K.sphere(r * 0.84, sk, { parent: g, p: [-r * 0.2, r * 0.1, 0], s: [1, 1.04, sq[2] * 1.08], ol: 0.8 });     // back of the skull
+    const jw = o.jawW || 1, jl = o.jawL || 1;
+    K.sphere(r * (o.jawR || 0.7), sk, { parent: g, p: [r * (o.jawX || 0.3), -r * 0.42 * jl, 0], s: [1, 0.85 * jl, jw], ol: 0.7 });        // face / jaw mass
+    if (o.jawCorners) [-1, 1].forEach((z) => K.sphere(r * 0.3, sk, { parent: g, p: [r * 0.02, -r * 0.56 * jl, z * r * 0.48 * jw], s: [1.35, 0.85, 0.8], ol: 0 }));
+    const ch = o.chin || {};
+    K.sphere(r * (ch.r || 0.24), sk, { parent: g, p: [r * (ch.x || 0.76), -r * (ch.y || 0.74) * jl, 0], s: [0.9, 0.85, ch.w || 1.25], ol: 0 });
+    if (ch.cleft) K.capsule(r * 0.018, r * 0.1, skD, { parent: g, p: [r * ((ch.x || 0.76) + (ch.r || 0.24) * 0.88), -r * (ch.y || 0.74) * jl - r * 0.04, 0], ol: 0 });
+    const cb = o.cheeks != null ? o.cheeks : 0.25;
+    if (cb > 0) [-1, 1].forEach((z) => K.sphere(r * cb, sk, { parent: g, p: [r * 0.58, -r * 0.1, z * r * 0.44], s: [0.8, 0.62, 1], ol: 0 }));   // cheekbones
+    K.capsule(r * 0.1, r * 0.58, sk, { parent: g, p: [r * 0.84, r * 0.27, 0], r: [Math.PI / 2, 0, 0], ol: 0 });                     // brow ridge
+    // ears
+    [-1, 1].forEach((z) => {
+      const ear = K.sphere(r * 0.25 * (o.ears || 1), sk, { parent: g, p: [-r * 0.06, -r * 0.08, z * r * 0.86], r: [0, 0, 0.16], s: [0.62, 1.15, 0.36], ol: 0.5 });
+      K.sphere(r * 0.14 * (o.ears || 1), skD, { parent: ear, p: [r * 0.03, 0, z * r * 0.05], s: [0.8, 1, 0.5], ol: 0 });
+    });
+    // nose: bridge capsule from between the eyes to the tip, tip ball, nostril wings
+    const n = Object.assign({ x: 1.02, y: -0.2, tip: 0.13, wing: 0.1, w: 1, bridge: 0.085 }, o.nose || {});
+    const bx = r * 0.9, by = r * 0.16, tx = r * n.x, ty = r * n.y, len = Math.hypot(tx - bx, ty - by);
+    K.capsule(r * n.bridge, len * 0.8, sk, { parent: g, p: [(bx + tx) / 2, (by + ty) / 2, 0], r: [0, 0, Math.atan2(-(tx - bx), ty - by) + Math.PI], ol: 0.4 });
+    K.sphere(r * n.tip, sk, { parent: g, p: [tx, ty, 0], s: [1, 0.9, 1.05], ol: 0.45 });
+    [-1, 1].forEach((z) => K.sphere(r * n.wing, sk, { parent: g, p: [tx - r * 0.09, ty - r * 0.03, z * r * 0.1 * n.w], s: [1, 0.85, 0.9], ol: 0.35 }));
+    // eyes + brows (shared toolkit pieces)
+    K.eyes(model, g, r, Object.assign({ r: 0.165, iris: "#4a3020", gap: 0.37, y: 0.08, lids: 0.2, out: 0.86 }, o.eyes || {}), sk);
+    // the toolkit's glossy irises mirror the blue fill light and read grey-blue at ¾ view: matte them
+    model.eyes.forEach((e) => e.g.traverse((m) => { if (m.isMesh && m.geometry.type === "CircleGeometry" && m.material.isMeshStandardMaterial) m.material.roughness = 0.85; }));
+    K.brows(model, g, r, Object.assign({ color: "#2a1a10", thick: 0.07, len: 0.3, tilt: 0.04, y: 0.34, gap: 0.37 }, o.brows || {}));
+    // mouth: a dark line, a fuller lower lip, optional teeth
+    const L = Object.assign({ color: S.shade(o.skin, -0.22), w: 0.36, sag: 0.04, y: -0.45, x: 0.98, lower: 1 }, o.lips || {});
+    const lipM = K.mat(L.color, { roughness: 0.5 });
+    if (L.teeth) {
+      faceArc(K, g, r, K.mat("#f6f3ea", { roughness: 0.3 }), { x: L.x - 0.03, y: L.y - 0.015, w: L.w * 0.86, sag: L.sag * 0.9, t: 0.05, s: [1, 1.25, 1] });
+      faceArc(K, g, r, K.mat("#3a1512"), { x: L.x - 0.04, y: L.y - 0.07, w: L.w * 0.7, sag: L.sag * 0.6, t: 0.03 });
+    }
+    model.mouth = faceArc(K, g, r, K.mat(S.shade(L.color, -0.25), { roughness: 0.6 }), { x: L.x, y: L.y + (L.teeth ? 0.045 : 0), w: L.w, sag: L.sag, t: 0.026 });
+    if (L.lower) faceArc(K, g, r, lipM, { x: L.x - 0.03, y: L.y - 0.075 - (L.teeth ? 0.05 : 0), w: L.w * 0.62, sag: L.sag * 0.4, t: 0.05 * L.lower });
+    if (o.creases) [-1, 1].forEach((z) => faceArc(K, g, r, skD, { x: 0.86, y: -0.38, z: z * 0.27, w: 0.3, sag: z * 0.05, t: 0.022, ry: -z * 0.5, rx: Math.PI / 2 }));
+    return { skD };
+  }
+  // The toolkit's jersey puts a trim ring round each shoulder; the painted armholes read better without it.
+  function dropSleeveRings(m) {
+    [m.armF, m.armB].forEach((A) => A.sh.children.slice().forEach((o) => { if (o.isMesh && o.geometry.type === "TorusGeometry") A.sh.remove(o); }));
+  }
+  // A thin capsule from point a to point b (glasses arms, straps).
+  function rod(K, parent, mat, a, b, rad) {
+    const T = K.T, A = new T.Vector3(...a), B = new T.Vector3(...b), d = B.clone().sub(A), len = d.length();
+    const m = K.capsule(rad, Math.max(0.01, len - rad * 2), mat, { parent, ol: 0, seg: 6 });
+    m.position.copy(A).add(B).multiplyScalar(0.5);
+    m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), d.normalize());
+    return m;
+  }
+  // A white gripping hand needs props on a stable point: this marker sits in the fist (hand-local, -Y = along the forearm).
+  function fistPoint(K, model) { return K.group({ parent: model.armF.hand, p: [0.6 * model.s, -2.6 * model.s, 0] }); }
 
   // ============================================================ LEBRON JAMES
   // Heavy rushdown: fast, tall, armored charge, a dunk recovery and a counter.
@@ -379,6 +570,14 @@
     },
     prop(ctx, f, P, hand) { if (lbjBallOut(f)) ballInHand(ctx, hand, 8); },
     behind(ctx, f, P) {
+      if (attacking(f, "sspecial") && f.mf >= 6 && f.mf <= 24) {   // Chase-Down Charge: speed streaks trailing the armor
+        const k = f.mf > 22 ? 0.4 : 1;
+        ctx.strokeStyle = `rgba(217,199,255,${0.55 * k})`; ctx.lineWidth = 2.5; ctx.lineCap = "round";
+        for (let i = 0; i < 5; i++) {
+          const y = -f.h * (0.2 + i * 0.16), len = 22 + ((FRAME * 3 + i * 13) % 20);
+          ctx.beginPath(); ctx.moveTo(-f.w * 0.45, y); ctx.lineTo(-f.w * 0.45 - len, y); ctx.stroke();
+        }
+      }
       if (!attacking(f, "dspecial")) return;
       const m = f.move;
       if (f.mf >= m.counter[0] && f.mf <= m.counter[1]) {   // counter stance shimmer
@@ -386,6 +585,91 @@
         ctx.strokeStyle = `rgba(253,185,39,${a})`; ctx.lineWidth = 3;
         ctx.beginPath(); ctx.ellipse(0, -f.h * 0.5, f.w * 0.9, f.h * 0.62, 0, 0, TAU); ctx.stroke();
       }
+    },
+  };
+
+  // ---- LeBron in 3D: tall and broad, close crop + full trimmed beard, white headband, purple #23 road jersey,
+  // purple shorts with gold side panels, white crew socks, high-top signature sneakers, wristbands, the ball.
+  const LBJ_SKIN = "#70432a";
+  function lbjHead(T, K, g, r, spec, model) {
+    sculptHead(K, model, g, r, {
+      skin: LBJ_SKIN, skull: [1.0, 1.08, 0.9], jawW: 1.06, jawL: 1.06, jawCorners: true, chin: { r: 0.25, w: 1.35 }, cheeks: 0,
+      nose: { x: 1.0, y: -0.2, tip: 0.13, wing: 0.11, w: 1.35, bridge: 0.09 },
+      eyes: { r: 0.165, iris: "#3a2414", lids: 0.22, gap: 0.37, y: 0.07 },
+      brows: { color: "#140d09", thick: 0.06, len: 0.28, tilt: 0.06, y: 0.33 },
+      lips: { color: "#5a3322", w: 0.36, sag: 0.025, y: -0.5, x: 1.06, lower: 1.3 },
+    });
+    const hairM = K.mat("#16100c", { roughness: 0.97 });
+    // close crop with a crisp lined-up hairline
+    hairCap(K, g, r, hairM, 1.04, Math.PI * 0.4, 0.42);
+    hairCap(K, g, r, hairM, 1.03, Math.PI * 0.5, 1.2, { s: [1.0, 1.05, 0.98] });
+    [-1, 1].forEach((z) => K.sphere(r * 0.4, hairM, { parent: g, p: [-r * 0.12, r * 0.32, z * r * 0.74], s: [1.0, 0.6, 0.4], ol: 0.4 }));
+    // full, dense, trimmed beard: jaw shell, chin, sideburns, moustache (lips stay visible in front of it)
+    const bM = K.mat(0xffffff, { roughness: 1, map: noiseTex(K, 128, 64, "#1c140f", [{ color: "rgba(90,60,40,.5)", n: 700 }, { color: "rgba(0,0,0,.6)", n: 700 }]) });
+    K.sphere(r * 0.72, bM, { parent: g, p: [r * 0.3, -r * 0.45, 0], s: [1.0, 0.92, 1.08], th0: Math.PI * 0.42, thL: Math.PI * 0.58, ol: 0.5 });
+    K.sphere(r * 0.27, bM, { parent: g, p: [r * 0.74, -r * 0.82, 0], s: [0.95, 0.85, 1.35], ol: 0.5 });
+    [-1, 1].forEach((z) => {
+      K.sphere(r * 0.3, bM, { parent: g, p: [r * 0.2, -r * 0.06, z * r * 0.82], s: [0.55, 1.75, 0.3], r: [0, 0, -0.2], ol: 0.4 });   // sideburn → jaw
+      K.sphere(r * 0.26, bM, { parent: g, p: [r * 0.56, -r * 0.4, z * r * 0.42], s: [0.8, 0.62, 0.8], ol: 0 });                       // cheek line
+    });
+    faceArc(K, g, r, bM, { x: 1.03, y: -0.39, w: 0.44, sag: -0.08, t: 0.05 });   // moustache
+    // terry-cloth headband on the hairline
+    const terry = noiseTex(K, 128, 32, "#f7f7f5", [{ color: "rgba(0,0,0,.08)", n: 900, size: 1.5 }]);
+    K.torus(r * 0.99, r * 0.13, K.mat(0xffffff, { map: terry, roughness: 1 }), { parent: g, p: [-r * 0.02, r * 0.5, 0], r: [Math.PI / 2, 0.18, 0], s: [1.04, 0.95, 1.45], ol: 0.6, rs: 10, ts: 36 });
+  }
+  function lbjJerseyPaint(c, w, h, fx, bx) {
+    // white inner piping inside the gold neck and arm trim
+    c.strokeStyle = "#ffffff"; c.lineWidth = 2.5;
+    c.beginPath(); c.ellipse(fx, 0, w * 0.07 + 5, h * 0.16 + 5, 0, 0, Math.PI); c.stroke();
+    [0, 0.5, 1].forEach((u) => { c.beginPath(); c.ellipse(w * u, h * 0.05, w * 0.09 + 5, h * 0.24 + 5, 0, 0, TAU); c.stroke(); });
+    c.strokeStyle = LBJ_GOLD; c.lineWidth = 6; c.beginPath(); c.ellipse(bx, 0, w * 0.06, h * 0.08, 0, 0, Math.PI); c.stroke();
+    // numbers: gold with a white outline, front and back; name on the back
+    c.textAlign = "center"; c.textBaseline = "middle"; c.lineJoin = "round";
+    const num = (x, y, size) => { c.font = `900 ${size}px Arial Black, Arial`; c.lineWidth = 9; c.strokeStyle = "#ffffff"; c.strokeText("23", x, y); c.lineWidth = 4; c.strokeStyle = "#2c1050"; c.strokeText("23", x, y); c.fillStyle = LBJ_GOLD; c.fillText("23", x, y); };
+    num(fx, h * 0.5, h * 0.3); num(bx, h * 0.48, h * 0.34);
+    c.font = `900 ${h * 0.08}px Arial Black, Arial`; c.fillStyle = LBJ_GOLD; c.fillText("JAMES", bx, h * 0.24);
+    // side panels
+    c.fillStyle = "rgba(0,0,0,.12)"; [0, 0.5, 1].forEach((u) => c.fillRect(w * u - 6, h * 0.3, 12, h * 0.5));
+  }
+  const lbjModel = {
+    build(T, K) {
+      const m = K.humanoid({
+        h: 80, w: 38, skin: LBJ_SKIN, bodyW: 27, headR: 9.5, shoulders: 1.2, chest: 1.1, armBulk: 1.15, legBulk: 1.1, legScale: 1.1, armScale: 1.06,
+        neck: { len: 6, r: 5.0 },
+        head: { build: lbjHead },
+        top: { type: "jersey", color: LBJ_PURPLE, color2: LBJ_GOLD, trim: LBJ_GOLD, paint: lbjJerseyPaint },
+        bottom: { type: "shorts", color: LBJ_PURPLE, socks: "#ffffff" },
+        shoes: { color: "#24123c", sole: "#f4f4f4", accent: LBJ_GOLD, laces: "#ffffff" },
+      });
+      const s = m.s;
+      // shorts: purple with gold-and-white side panels and a gold hem
+      const shortsTex = K.tex(256, 128, (c, w, h) => {
+        c.fillStyle = LBJ_PURPLE; c.fillRect(0, 0, w, h);
+        [0, 0.5, 1].forEach((u) => { c.fillStyle = LBJ_GOLD; c.fillRect(w * u - 14, 0, 28, h); c.fillStyle = "#ffffff"; c.fillRect(w * u - 18, 0, 3, h); c.fillRect(w * u + 15, 0, 3, h); });
+        c.fillStyle = LBJ_GOLD; c.fillRect(0, h - 12, w, 12);
+      });
+      const shortsM = K.mat(0xffffff, { map: shortsTex, roughness: 0.7 });
+      [m.legF, m.legB].forEach((L) => {
+        L.hip.children.forEach((o) => { if (o.isMesh && o.geometry.type === "CylinderGeometry") o.material = shortsM; });
+        const sh = 1.12 * 4.0 * s;
+        // high-top collar and a gold heel tab
+        K.cyl(sh * 1.12, sh * 1.22, 5 * s, m.M.shoe, { parent: L.ankle, p: [0.2 * s, 0.8 * s, 0], ol: 0.6 });
+        K.cyl(sh * 1.24, sh * 1.24, 1.2 * s, K.mat(LBJ_GOLD, { roughness: 0.4 }), { parent: L.ankle, p: [0.2 * s, 3.1 * s, 0], ol: 0 });
+      });
+      // white wristbands
+      const band = K.mat(0xffffff, { map: noiseTex(K, 64, 16, "#f5f5f3", [{ color: "rgba(0,0,0,.08)", n: 200 }]), roughness: 1 });
+      [m.armF, m.armB].forEach((A) => K.cyl(3.2 * 1.18 * s * 1.2, 3.2 * 1.18 * s * 1.25, 3.4 * s, band, { parent: A.el, p: [0, -m.armL * 0.8, 0], ol: 0.5 }));
+      dropSleeveRings(m);
+      m.hipLift = 2 * m.h * 0.22 * 0.1;
+      m.ball = K.basketball(8); m.armF.hand.add(m.ball); m.ball.position.set(1.5, -10.5, 0);
+      K.collectMats(m);
+      return m;
+    },
+    update(m, f, g, P, opts) {
+      K3().poseHumanoid(m, f, P, g, opts);
+      m.hips.position.y += m.hipLift;
+      m.ball.visible = lbjBallOut(f);
+      m.ball.rotation.z = -g.frame * 0.05;
     },
   };
 
@@ -428,6 +712,12 @@
           f.data.pass = g.spawn({
             owner: f, x: f.x + f.facing * 30, y: f.y - f.h * 0.62, vx: f.facing * 14.5, vy: 0, gravity: 0.04,
             r: 10, dmg: 8, angle: 32, bkb: 35, kbg: 45, life: 42,
+            model3d(T, K, p) {
+              const o = K.group(); o.userData.ball = K.basketball(p.r); o.add(o.userData.ball);
+              const tr = K.glow(0xfdb927, 1, 0.75); tr.scale.set(46, 16, 1); tr.position.z = -6; o.add(tr); o.userData.trail = tr;
+              return o;
+            },
+            update3d(o, p) { o.userData.ball.rotation.z = -p.t * 0.35 * p.facing; o.userData.trail.position.x = -p.vx * 1.2; },
             draw(ctx, p) {
               ctx.fillStyle = "rgba(253,185,39,.28)";
               ctx.beginPath(); ctx.ellipse(p.x - p.vx * 1.2, p.y, 22, p.r * 0.8, 0, 0, TAU); ctx.fill();
@@ -484,6 +774,8 @@
         start(f) { f.vx *= 0.5; if (!f.grounded) f.vy = Math.min(f.vy, 1); },
       },
     },
+    model: lbjModel,
+    drawFxBehind(ctx, f, g) { FRAME = g.frame; lbjLook.behind(ctx, f, null); },
     draw(ctx, f, g) {
       FRAME = g.frame;
       const R = S.drawHumanoid(ctx, f, lbjLook, g);
@@ -643,6 +935,132 @@
     },
   };
 
+  // ---- RFK in 3D: lean and weathered, long strong jaw, thick swept-back salt-and-pepper hair, blue-grey eyes, a big grin,
+  // navy suit with lapels and a flag pin, white shirt, dark tie, black oxfords; a green lightsaber, syringe and energy can.
+  const RFK_SKIN = "#e0b08e";
+  function rfkHead(T, K, g, r, spec, model) {
+    sculptHead(K, model, g, r, {
+      skin: RFK_SKIN, skull: [0.98, 1.03, 0.84], skullY: 0.1, jawW: 0.92, jawL: 1.16, jawR: 0.64, jawX: 0.36, chin: { r: 0.19, w: 1.6, x: 0.78, y: 0.76 }, cheeks: 0.2,
+      nose: { x: 1.08, y: -0.17, tip: 0.105, wing: 0.08, w: 1.0, bridge: 0.09 },
+      eyes: { r: 0.15, iris: "#5f84a6", lids: 0.34, gap: 0.37, y: 0.07 },
+      brows: { color: "#4d4038", thick: 0.07, len: 0.31, tilt: -0.05, y: 0.33 },
+      lips: { color: "#b9776a", w: 0.42, sag: 0.045, y: -0.48, x: 1.0, teeth: true, lower: 0.9 },
+    });
+    // thick hair, combed straight back with volume on top; darker on top, silver at the temples
+    const hairTex = (base, light) => K.tex(128, 64, (c, w, h) => {
+      c.fillStyle = base; c.fillRect(0, 0, w, h);
+      for (let i = 0; i < 64; i++) { c.strokeStyle = i % 3 ? light : "rgba(0,0,0,.22)"; c.lineWidth = 1; const x = (i * 37) % w; c.beginPath(); c.moveTo(x, 0); c.bezierCurveTo(x + 3, h * 0.3, x - 3, h * 0.6, x + 1, h); c.stroke(); }
+    });
+    const hairM = K.mat(0xffffff, { map: hairTex("#6a5d53", "rgba(200,192,182,.45)"), roughness: 0.8 });
+    const silver = K.mat(0xffffff, { map: hairTex("#a59d94", "rgba(235,232,226,.6)"), roughness: 0.8 });
+    hairCap(K, g, r, hairM, 1.07, Math.PI * 0.42, 0.45);
+    hairCap(K, g, r, hairM, 1.05, Math.PI * 0.4, 1.0, { s: [1.0, 1.04, 0.97] });
+    K.sphere(r * 1.03, hairM, { parent: g, p: [0, r * 0.1, 0], thL: Math.PI * 0.3, r: [0, 0, 1.9], s: [0.98, 1.03, 0.86], ol: 0.6 });   // nape
+    [-1, 1].forEach((z) => K.sphere(r * 0.44, hairM, { parent: g, p: [-r * 0.42, -r * 0.08, z * r * 0.6], s: [1.1, 1.25, 0.6], r: [z * 0.5, 0, 0], ol: 0.5 }));   // behind the ears
+    K.sphere(r * 0.84 * 1.05, hairM, { parent: g, p: [-r * 0.2, r * 0.1, 0], thL: Math.PI * 0.47, r: [0, 0, 1.25], s: [1, 1.04, 0.84 * 1.1], ol: 0.6 });   // back of the head
+    K.sphere(r * 0.7, hairM, { parent: g, p: [r * 0.04, r * 0.8, 0], s: [1.42, 0.55, 1.08], r: [0, 0, 0.1], ol: 0.6 });   // swept volume on top
+    K.sphere(r * 0.4, hairM, { parent: g, p: [r * 0.6, r * 0.8, 0], s: [0.85, 0.6, 1.6], r: [0, 0, -0.3], ol: 0.6 });     // the front lift
+    [-1, 1].forEach((z) => K.sphere(r * 0.38, silver, { parent: g, p: [-r * 0.12, r * 0.24, z * r * 0.78], s: [1.5, 0.62, 0.36], r: [0, 0, 0.2], ol: 0.4 }));   // silver temples, combed back
+  }
+  // The saber is built along +Y from the grip point: pommel −5, emitter +8, blade 8 → 8 + L (the 2D drawSaber layout).
+  function rfkSaber(K, h) {
+    const L = h * SABER_LEN, sab = K.group();
+    const chrome = K.mat("#d4d8e0", { metalness: 0.85, roughness: 0.25 }), black = K.mat("#1d1f25", { roughness: 0.45, metalness: 0.4 });
+    K.cyl(1.6, 1.6, 9.5, chrome, { parent: sab, p: [0, 0.6, 0], ol: 0.4 });
+    for (let i = 0; i < 4; i++) K.cyl(1.85, 1.85, 0.9, black, { parent: sab, p: [0, -2.4 + i * 1.9, 0], ol: 0, seg: 14 });   // grip ridges
+    K.cyl(2.3, 1.7, 2.6, chrome, { parent: sab, p: [0, 7, 0], ol: 0.4 });                                                       // emitter shroud
+    K.cyl(1.9, 1.5, 1.6, black, { parent: sab, p: [0, -4.6, 0], ol: 0.3 });                                                      // pommel
+    K.box(1.2, 1.6, 0.8, K.mat("#d02a2a", { emissive: "#600000" }), { parent: sab, p: [0, 3.8, 1.7], ol: 0 });                  // activator
+    const blade = K.group({ parent: sab, p: [0, 8 + L / 2, 0] });
+    K.capsule(1.05, L - 1, K.basic("#f2fff4"), { parent: blade, ol: 0, seg: 10 });
+    K.capsule(2.2, L - 1.5, K.glowMat(0x3dff6e, 0.55), { parent: blade, ol: 0, seg: 12 });
+    K.capsule(3.8, L - 2, K.glowMat(0x22ff55, 0.2), { parent: blade, ol: 0, seg: 12 });
+    const gl = K.glow(0x36ff6a, 16, 0.7); gl.position.set(0, 8.5, 0); sab.add(gl);
+    const gl2 = K.glow(0x36ff6a, L * 1.1, 0.22); gl2.position.set(0, 8 + L / 2, 0); sab.add(gl2);
+    sab.userData.blade = blade;
+    return sab;
+  }
+  function syringe3d(K, sc) {
+    const o = K.group();   // along +X, needle at +X
+    const barrel = K.mat("#eef3f7", { transparent: true, opacity: 0.7, roughness: 0.15 });
+    K.cyl(2.5 * sc, 2.5 * sc, 13 * sc, barrel, { parent: o, r: [0, 0, -Math.PI / 2], ol: 0.4 });
+    K.cyl(1.9 * sc, 1.9 * sc, 8 * sc, K.mat("#66e05e", { emissive: "#1f6b1a", roughness: 0.3 }), { parent: o, p: [2 * sc, 0, 0], r: [0, 0, -Math.PI / 2], ol: 0 });
+    K.cyl(2.2 * sc, 1.2 * sc, 2 * sc, K.mat("#d8dde3", { roughness: 0.3 }), { parent: o, p: [7.4 * sc, 0, 0], r: [0, 0, -Math.PI / 2], ol: 0 });
+    K.cyl(0.32 * sc, 0.32 * sc, 7 * sc, K.mat("#b8c0c8", { metalness: 0.9, roughness: 0.2 }), { parent: o, p: [11.5 * sc, 0, 0], r: [0, 0, -Math.PI / 2], ol: 0, seg: 6 });
+    K.cyl(0.8 * sc, 0.8 * sc, 5 * sc, K.mat("#c9ced6"), { parent: o, p: [-8.5 * sc, 0, 0], r: [0, 0, -Math.PI / 2], ol: 0, seg: 8 });
+    K.cyl(2.8 * sc, 2.8 * sc, 0.8 * sc, K.mat("#c9ced6"), { parent: o, p: [-11 * sc, 0, 0], r: [0, 0, -Math.PI / 2], ol: 0.3 });
+    K.box(1 * sc, 6.5 * sc, 1.2 * sc, K.mat("#e9edf2"), { parent: o, p: [-6.5 * sc, 0, 0], ol: 0.3 });   // finger flange
+    return o;
+  }
+  function energyCan(K) {
+    const tex = K.tex(128, 64, (c, w, h) => {
+      for (let i = 0; i < 8; i++) for (let j = 0; j < 4; j++) { c.fillStyle = (i + j) % 2 ? "#2b4c9b" : "#c4cbd6"; c.fillRect(i * w / 8, j * h / 4, w / 8, h / 4); }
+      c.fillStyle = "#c4cbd6"; c.fillRect(w * 0.1, 0, w * 0.3, h); c.fillStyle = "#2b4c9b"; c.fillRect(w * 0.6, 0, w * 0.3, h);
+      c.fillStyle = "#ffd23a"; c.beginPath(); c.arc(w * 0.25, h * 0.5, h * 0.24, 0, TAU); c.fill();
+      c.fillStyle = "#e3343a"; c.beginPath(); c.arc(w * 0.25, h * 0.5, h * 0.17, 0, TAU); c.fill();
+    });
+    const o = K.group();
+    K.cyl(2.6, 2.6, 9, K.mat(0xffffff, { map: tex, metalness: 0.5, roughness: 0.35 }), { parent: o, ol: 0.4 });
+    K.cyl(2.2, 2.6, 0.9, K.mat("#d6dbe2", { metalness: 0.9, roughness: 0.2 }), { parent: o, p: [0, 4.9, 0], ol: 0 });
+    return o;
+  }
+  const rfkModel = {
+    build(T, K) {
+      const m = K.humanoid({
+        h: 74, w: 32, skin: RFK_SKIN, bodyW: 21.5, headR: 9.4, shoulders: 1.14, chest: 0.98, armBulk: 0.98, legBulk: 0.92, legScale: 1.08, armScale: 1.04,
+        neck: { len: 6.5, r: 3.7 },
+        head: { build: rfkHead },
+        top: { type: "suit", color: "#252b3d", shirt: "#f5f5f2", tie: "#4a1826", pin: true, pocketSquare: "#f4f4f2", cuff: "#f2f2ee" },
+        bottom: { type: "slacks", color: "#252b3d" },
+        shoes: { type: "dress", color: "#141414", sole: "#0b0b0b" },
+      });
+      const s = m.s;
+      // shirt collar points either side of the knot
+      const collarM = K.mat("#f7f7f4", { roughness: 0.6 });
+      [-1, 1].forEach((z) => K.extrude([[0, 0], [z * 3.2 * s, 0.6 * s], [z * 1.2 * s, -3.4 * s]], 0.6 * s, collarM, { parent: K.group({ parent: m.torso, p: [4.6 * s, m.torsoLen * 1.08, z * 0.6 * s], r: [0, Math.PI / 2, 0] }), r: [-0.5, 0, 0], ol: 0.35 }));
+      m.hipLift = 2 * m.h * 0.22 * 0.08;
+      m.torso.traverse((o) => { if (o.isMesh && o.geometry.type === "SphereGeometry" && o.material.color.getHexString() === "4a1826") o.scale.multiplyScalar(0.62); });   // smaller tie knot
+      m.fist = fistPoint(K, m);
+      m.saber = rfkSaber(K, m.h); m.root.add(m.saber);
+      m.syringe = syringe3d(K, 0.8); m.fist.add(m.syringe); m.syringe.position.set(1, 0, 0);
+      m.can = energyCan(K); m.fist.add(m.can); m.can.position.set(1.2, 0.5, 0); m.can.rotation.z = -Math.PI / 2 - 0.4;
+      m._v = new T.Vector3(); m._d = new T.Vector3(); m._up = new T.Vector3(0, 1, 0);
+      K.collectMats(m);
+      return m;
+    },
+    update(m, f, g, P, opts) {
+      const K = K3();
+      // 4 Red Bulls: the 2D arm angles put a 3D hand behind the ear; lift the can to the mouth instead
+      if (attacking(f, "dspecial")) { const v = kf(f.mf, [[0, 0.4, 0.4], [10, 1.45, 1.6], [40, 1.45, 1.68], [46, 0.6, 0.5]]); P.armF = [v[0], v[1]]; }
+      K.poseHumanoid(m, f, P, g, opts);
+      m.hips.position.y += m.hipLift;
+      // Saber Spin: a real twirl instead of the 2D squash
+      const spin = attacking(f, "uspecial") && f.mf >= 4 && f.mf <= 30;
+      const th = spin ? (f.mf - 4) * 0.8 : 0;
+      if (spin) { const base = K.yawFor(f.facing); m.yaw.rotation.y = base + th; m.yawVal = base + Math.atan2(Math.sin(th), Math.cos(th)); }
+      m.syringe.visible = P.hold === "syringe";
+      m.can.visible = P.hold === "can";
+      const sab = !P.hold || (P.hold !== "can" && P.hold !== "syringe" && P.hold !== "none");
+      m.saber.visible = sab;
+      if (!sab) return;
+      // grip in the fist; the blade lies in the screen plane at the 2D angle, so it covers the 2D hitboxes exactly
+      m.root.updateMatrixWorld(true);
+      m.fist.getWorldPosition(m._v); m.root.worldToLocal(m._v);
+      const a = P.armF[0] + P.armF[1] + (P.blade != null ? P.blade : 1.3) - (P.rot || 0);
+      m._d.set(f.facing * Math.sin(a) * Math.cos(th), -Math.cos(a), -f.facing * Math.sin(a) * Math.sin(th)).normalize();
+      m.saber.position.copy(m._v);
+      m.saber.quaternion.setFromUnitVectors(m._up, m._d);
+      m.saber.userData.blade.scale.x = m.saber.userData.blade.scale.z = 0.92 + 0.08 * Math.sin(g.frame * 0.9);   // hum
+    },
+  };
+  function rfkFx(ctx, f, g, R) {
+    if (attacking(f, "uspecial") && f.mf >= 4 && f.mf <= 30) {
+      ctx.save(); ctx.shadowColor = "#36ff6a"; ctx.shadowBlur = 12;
+      ctx.strokeStyle = "rgba(120,255,150,.6)"; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.ellipse(0, -f.h * 0.7, f.h * 0.95, 10, 0, 0, TAU); ctx.stroke(); ctx.restore();
+    } else saberTrail(ctx, f, R);
+  }
+
   S.registerFighter({
     id: "rfk", slug: "rfk", name: "RFK", short: "RFK",
     tagline: "Dark Knight. Last senator. Drinker of G Fuel. Licker of rain.",
@@ -679,6 +1097,8 @@
             owner: f, x: f.x + f.facing * 18, y: f.y - f.h * 0.78, vx: f.facing * 7.5, vy: -6.5, gravity: 0.38,
             r: 7, dmg: 3, angle: 45, bkb: 18, kbg: 25, life: 100,
             draw(ctx, p) { drawSyringe(ctx, p.x, p.y, Math.atan2(p.vy, p.vx), 1); },
+            model3d(T, K) { return syringe3d(K, 1); },
+            update3d(o, p) { o.rotation.z = -Math.atan2(p.vy, p.vx); },
             onHit(p, T, g) { poison(p.owner, T, g); },
           });
         },
@@ -733,13 +1153,12 @@
         ctx.save(); ctx.scale(Math.abs(c) < 0.2 ? (c < 0 ? -0.2 : 0.2) : c, 1);
       }
       const R = S.drawHumanoid(ctx, f, rfkLook, g);
-      if (spin) {
-        ctx.restore();
-        ctx.save(); ctx.shadowColor = "#36ff6a"; ctx.shadowBlur = 12;
-        ctx.strokeStyle = "rgba(120,255,150,.6)"; ctx.lineWidth = 4;
-        ctx.beginPath(); ctx.ellipse(0, -f.h * 0.7, f.h * 0.95, 10, 0, 0, TAU); ctx.stroke(); ctx.restore();
-      } else saberTrail(ctx, f, R);
+      if (spin) ctx.restore();
+      rfkFx(ctx, f, g, R);
     },
+    model: rfkModel,
+    drawFxBehind(ctx, f, g) { FRAME = g.frame; rfkLook.behind(ctx, f, null); },
+    drawFx(ctx, f, g) { FRAME = g.frame; rfkFx(ctx, f, g, rig2d(f, g, rfkLook)); },
   });
 
   // ============================================================ STEVE JOBS
@@ -747,6 +1166,13 @@
   function steveLaser(f, g) {
     g.spawn({
       owner: f, x: f.x + f.facing * 32, y: f.y - f.h * 0.68, vx: f.facing * 15, r: 6, dmg: 3, angle: 25, bkb: 8, kbg: 35, life: 42, solid: false,
+      model3d(T, K, p) {   // a glowing bolt: white core, cyan sheath, bright head
+        const o = K.group(), L = Math.abs(p.vx) * 1.5;
+        K.capsule(1.3, L, K.basic("#ffffff"), { parent: o, p: [-p.facing * L / 2, 0, 0], r: [0, 0, Math.PI / 2], ol: 0, seg: 8 });
+        K.capsule(3.2, L, K.glowMat(0x7fe9ff, 0.55), { parent: o, p: [-p.facing * L / 2, 0, 0], r: [0, 0, Math.PI / 2], ol: 0, seg: 10 });
+        o.add(K.glow(0x7fe9ff, 22, 0.9));
+        return o;
+      },
       draw(ctx, p) {
         ctx.save(); ctx.lineCap = "round";
         ctx.shadowColor = "#7fe9ff"; ctx.shadowBlur = 10;
@@ -776,6 +1202,24 @@
   function steveThing(f, g) {
     return g.spawn({
       owner: f, harmless: true, ground: true, x: f.x + f.facing * 30, y: f.y - 16, vx: f.facing * 1.5, vy: -2, gravity: 0.4, r: 9, life: 96,
+      model3d(T, K) {   // the keynote device: a glossy black cube, a countdown ring of lights, "…" above
+        const o = K.group(), body = K.group({ parent: o, r: [0.25, -0.5, 0] });
+        K.rbox(18, 18, 18, 3.5, K.mat("#121214", { roughness: 0.18, metalness: 0.3 }), { parent: body, ol: 0.7 });
+        const seam = K.basic("#e6e6e6");
+        K.box(0.7, 18.2, 0.4, seam, { parent: body, p: [0, 0, 9.05], ol: 0 }); K.box(18.2, 0.7, 0.4, seam, { parent: body, p: [0, 0, 9.05], ol: 0 });
+        o.add(K.glow(0xffffff, 56, 0.35));
+        o.userData.dots = [];
+        for (let i = 0; i < 16; i++) {
+          const a = Math.PI / 2 - (i / 16) * TAU;   // clockwise from the top, like the 2D ring
+          o.userData.dots.push(K.sphere(1.3, K.basic("#7fd8ff"), { parent: o, p: [Math.cos(a) * 15, Math.sin(a) * 15, 12], ol: 0, ws: 8, hs: 6 }));
+        }
+        for (let i = -1; i <= 1; i++) K.sphere(1.3, K.basic("#ffffff"), { parent: o, p: [i * 4, 17, 0], ol: 0, ws: 8, hs: 6 });
+        return o;
+      },
+      update3d(o, p, g) {
+        const k = p.life / 96, blink = p.life < 30 && (g.frame >> 2) % 2 === 0;
+        o.userData.dots.forEach((d, i) => { d.visible = i / 16 < k; d.material.color.set(blink ? "#ff5a48" : "#7fd8ff"); });
+      },
       update(p) { if (p.onGround) p.vx = 0; },
       onExpire(p, g) { if (p.y < g.stage.blast.bottom - 20) steveBoom(p.owner, g, p.x, p.y - 6); },
       draw(ctx, p, g) {
@@ -794,7 +1238,7 @@
       },
     });
   }
-  function drawInav(ctx, f) {
+  function drawInav(ctx, f, trailOnly) {
     const d = f.data.inav || { x: 0, y: -1 }, lx = d.x * f.facing;
     ctx.save(); ctx.translate(0, 5); ctx.rotate(clamp(lx * 0.3 + (d.y > 0 ? 0.15 * Math.sign(lx || 1) : 0), -0.45, 0.45));
     if (f.mf >= 8 && f.mf <= 38) {   // exhaust
@@ -803,6 +1247,7 @@
       ctx.strokeStyle = tr; ctx.lineWidth = 10; ctx.lineCap = "round";
       ctx.beginPath(); ctx.moveTo(0, 2); ctx.lineTo(-lx * 60, 2 - d.y * 60); ctx.stroke();
     }
+    if (trailOnly) { ctx.restore(); return; }
     ctx.shadowColor = "#6fd3ff"; ctx.shadowBlur = 16;
     ctx.fillStyle = "#e9edf2"; S.roundRect(ctx, -30, -4, 60, 9, 4.5); ctx.fill();
     ctx.shadowBlur = 0;
@@ -851,6 +1296,113 @@
     prop(ctx, f, P, hand) {
       if (P.hold === "igun") drawIgun(ctx, hand);
       else if (P.hold === "phone") drawPhone(ctx, hand, attacking(f, "sspecial") && f.mf >= 12 && f.mf <= 32);
+    },
+  };
+
+  // ---- Steve in 3D: slim, receding close-cropped greying hair, grey stubble beard, round rimless glasses,
+  // black mock turtleneck, faded blue 501s, grey running shoes; the Igun, the phone and the Inav board.
+  const SJ_SKIN = "#e6c2a2";
+  function steveHead(T, K, g, r, spec, model) {
+    sculptHead(K, model, g, r, {
+      skin: SJ_SKIN, skull: [0.98, 1.05, 0.84], skullY: 0.1, jawW: 0.86, jawL: 1.12, jawR: 0.62, jawX: 0.36, chin: { r: 0.2, w: 1.3, x: 0.76, y: 0.76 }, cheeks: 0,
+      nose: { x: 1.1, y: -0.17, tip: 0.105, wing: 0.08, w: 0.95, bridge: 0.085 },
+      eyes: { r: 0.15, iris: "#4b3526", lids: 0.3, gap: 0.37, y: 0.07 },
+      brows: { color: "#4f4740", thick: 0.055, len: 0.3, tilt: 0.0, y: 0.32 },
+      lips: { color: "#a87a6c", w: 0.34, sag: 0.02, y: -0.48, x: 1.02, lower: 0.9 },
+    });
+    // receding, close-cropped, greying: a short cap well back from the temples, darker at the sides
+    const hairM = K.mat(0xffffff, { roughness: 1, map: noiseTex(K, 128, 64, "#6c655e", [{ color: "rgba(30,26,22,.55)", n: 900 }, { color: "rgba(200,195,188,.5)", n: 600 }]) });
+    hairCap(K, g, r, hairM, 1.03, Math.PI * 0.4, 0.52, { p: [0, r * 0.1, 0], s: [1.06, 1.06, 0.87] });
+    K.sphere(r * 1.03, hairM, { parent: g, p: [0, r * 0.1, 0], thL: Math.PI * 0.3, r: [0, 0, 1.9], s: [0.98, 1.05, 0.86], ol: 0.6 });   // nape
+    [-1, 1].forEach((z) => K.sphere(r * 0.42, hairM, { parent: g, p: [-r * 0.34, r * 0.06, z * r * 0.56], s: [1.15, 1.1, 0.45], r: [z * 0.55, 0, 0], ol: 0.3 }));   // sides behind the ears
+    // short grey stubble over the jaw, chin and upper lip
+    const stub = K.mat(0xffffff, { roughness: 1, map: noiseTex(K, 256, 128, "#a28c7d", [{ color: "rgba(70,62,56,.45)", n: 5000 }, { color: "rgba(225,218,210,.35)", n: 2500 }]) });
+    K.sphere(r * 0.645, stub, { parent: g, p: [r * 0.36, -r * 0.47, 0], s: [1.0, 0.97, 0.88], th0: Math.PI * 0.44, thL: Math.PI * 0.56, ol: 0 });
+    K.sphere(r * 0.205, stub, { parent: g, p: [r * 0.77, -r * 0.85, 0], s: [0.92, 0.86, 1.32], ol: 0 });
+    [-1, 1].forEach((z) => K.sphere(r * 0.22, stub, { parent: g, p: [r * 0.1, -r * 0.12, z * r * 0.73], s: [0.6, 1.4, 0.32], r: [0, 0, -0.2], ol: 0 }));
+    faceArc(K, g, r, stub, { x: 1.03, y: -0.395, w: 0.36, sag: -0.05, t: 0.045 });   // moustache
+    // round rimless glasses: thin wire rims, faint blue lenses, a bridge and temple arms back to the ears
+    const wire = K.mat("#8a8f96", { metalness: 0.9, roughness: 0.25 }), lens = K.mat("#cfe6ff", { transparent: true, opacity: 0.22, roughness: 0.05, metalness: 0.2, depthWrite: false });
+    const ey = 0.07, gap = 0.37, rr = r * 0.21, out = r * 1.04;
+    [-1, 1].forEach((z) => {
+      const az = z * gap;
+      const ring = K.torus(rr, r * 0.026, wire, { parent: g, p: [Math.cos(az) * out, Math.sin(ey) * r + r * 0.02, Math.sin(az) * out], r: [0, Math.PI / 2 - az, 0], ol: 0, rs: 6, ts: 24 });
+      K.mesh(new T.CircleGeometry(rr, 20), lens, { parent: ring, ol: 0 });
+      rod(K, g, wire, [Math.cos(az) * out - r * 0.04, r * 0.1, Math.sin(az) * out + z * rr * 0.95], [-r * 0.02, r * 0.04, z * r * 0.84], r * 0.02);   // temple arm
+    });
+    K.capsule(r * 0.022, r * 0.14, wire, { parent: g, p: [out * 1.0, r * 0.12, 0], r: [Math.PI / 2, 0, 0], ol: 0, seg: 6 });
+  }
+  function igun3d(K) {
+    const o = K.group();   // along +X (the muzzle)
+    K.rbox(15, 7, 6, 2.6, K.mat("#f4f5f7", { roughness: 0.3 }), { parent: o, p: [4.5, 0, 0], ol: 0.5 });
+    K.cyl(1.6, 1.9, 5, K.mat("#a7adb6", { metalness: 0.85, roughness: 0.25 }), { parent: o, p: [13.5, 0, 0], r: [0, 0, -Math.PI / 2], ol: 0.4 });
+    K.box(6, 1.4, 0.4, K.basic("#7fe9ff"), { parent: o, p: [3.5, 1.4, 3.05], ol: 0 });
+    K.sphere(1.1, K.mat("#c9ced6", { metalness: 0.6, roughness: 0.3 }), { parent: o, p: [-0.5, -0.6, 3.0], s: [1, 1, 0.3], ol: 0 });
+    K.rbox(4, 7, 4.5, 1.6, K.mat("#e3e5e9", { roughness: 0.35 }), { parent: o, p: [0, -4.5, 0], r: [0, 0, 0.25], ol: 0.4 });   // grip
+    const gl = K.glow(0x7fe9ff, 9, 0.8); gl.position.set(16.5, 0, 0); o.add(gl); o.userData.glow = gl;
+    return o;
+  }
+  function phone3d(K) {
+    const o = K.group();   // long axis along -Y (along the forearm), screen facing +X
+    K.rbox(1.2, 12, 6, 1.0, K.mat("#1a1a1c", { metalness: 0.5, roughness: 0.3 }), { parent: o, ol: 0.4 });
+    o.userData.screen = K.box(0.2, 10.4, 4.6, K.basic("#3c4a5a"), { parent: o, p: [0.62, 0, 0], ol: 0 });
+    return o;
+  }
+  function inav3d(K) {
+    const o = K.group();
+    K.rbox(60, 7, 16, 3.4, K.mat("#eef1f5", { roughness: 0.3, metalness: 0.1 }), { parent: o, ol: 0.8 });
+    K.rbox(52, 1.6, 14, 0.7, K.mat("#b9c1cb", { metalness: 0.6, roughness: 0.3 }), { parent: o, p: [0, -3.8, 0], ol: 0 });
+    K.box(40, 1.2, 10, K.basic("#6fd3ff"), { parent: o, p: [0, -4.9, 0], ol: 0 });
+    K.rbox(11, 0.6, 5, 1.2, K.basic("#1c2430"), { parent: o, p: [18, 3.6, 0], ol: 0 });
+    [-1, 1].forEach((x) => K.cyl(4.5, 3.5, 2.2, K.mat("#2b3440", { metalness: 0.5 }), { parent: o, p: [x * 19, -5, 0], ol: 0 }));
+    const gl = K.glow(0x6fd3ff, 70, 0.55); gl.position.set(0, -6, 0); gl.scale.set(80, 26, 1); o.add(gl);
+    return o;
+  }
+  const steveModel = {
+    build(T, K) {
+      const m = K.humanoid({
+        h: 72, w: 32, skin: SJ_SKIN, bodyW: 19.5, headR: 9.2, shoulders: 1.0, chest: 0.95, armBulk: 0.9, legBulk: 0.88, legScale: 1.08, armScale: 1.04,
+        neck: { len: 6.5, r: 3.6, color: "#151515" },
+        head: { build: steveHead },
+        top: { type: "turtleneck", color: "#151515", cuff: "#121212", tucked: false },
+        bottom: { type: "jeans", color: "#4d6f9c" },
+        shoes: { color: "#9a9ea5", sole: "#f1f0ec", accent: "#6c727b", laces: "#c9ccd1" },
+      });
+      const s = m.s;
+      // mock-neck collar: a folded tube up the neck
+      const knit = K.mat(0xffffff, { roughness: 0.95, map: K.tex(64, 32, (c, w, h) => { c.fillStyle = "#151515"; c.fillRect(0, 0, w, h); c.strokeStyle = "rgba(255,255,255,.07)"; c.lineWidth = 1.5; for (let x = 0; x < w; x += 4) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x, h); c.stroke(); } }) });
+      K.cyl(4.6 * s, 5.4 * s, 5.2 * s, knit, { parent: m.neck, p: [0, 1.4 * s, 0], ol: 0.6 });
+      K.torus(4.7 * s, 0.9 * s, knit, { parent: m.neck, p: [0, 4.0 * s, 0], r: [Math.PI / 2, 0, 0], ol: 0 });
+      // denim: twill + fade on the jeans
+      const denim = noiseTex(K, 128, 128, "#ffffff", [{ color: "rgba(0,0,0,.12)", n: 2600 }, { color: "rgba(255,255,255,.5)", n: 1200 }], [{ color: "rgba(0,0,0,.08)", step: 4, w: 1.2, slope: 0.6 }]);
+      denim.wrapS = denim.wrapT = T.RepeatWrapping; denim.repeat.set(2, 2);
+      m.M.pants.map = denim; m.M.pants.color.set("#55789f"); m.M.pants.needsUpdate = true;
+      // the "N" on the running shoes
+      const nTex = K.tex(64, 64, (c) => { c.font = "900 50px Arial Black, Arial"; c.textAlign = "center"; c.textBaseline = "middle"; c.lineWidth = 7; c.strokeStyle = "#f4f4f4"; c.strokeText("N", 32, 34); c.fillStyle = "#40464f"; c.fillText("N", 32, 34); });
+      [m.legF, m.legB].forEach((L) => K.mesh(new T.PlaneGeometry(4.6 * s, 4.6 * s), K.basic(0xffffff, { map: nTex, transparent: true }), { parent: L.foot, p: [2.4 * s, -0.4 * s, 4.42 * s], r: [0, 0, -0.12], ol: 0 }));
+      m.hipLift = 2 * m.h * 0.22 * 0.08;
+      m.fist = fistPoint(K, m);
+      m.igun = igun3d(K); m.fist.add(m.igun); m.igun.position.set(4, 0.5, 0); m.igun.rotation.z = -Math.PI / 2;   // barrel along the forearm, grip in the fist
+      m.phone = phone3d(K); m.fist.add(m.phone); m.phone.position.set(4, -1.6, 0); m.phone.rotation.set(-0.6, 0, -Math.PI / 2);   // held up, screen toward the target
+      m.board = inav3d(K); m.yaw.add(m.board);
+      K.collectMats(m);
+      return m;
+    },
+    update(m, f, g, P, opts) {
+      K3().poseHumanoid(m, f, P, g, opts);
+      m.hips.position.y += m.hipLift;
+      m.igun.visible = P.hold === "igun";
+      m.igun.userData.glow.visible = attacking(f, "nspecial") && f.mf >= 6 && f.mf <= 10;
+      m.phone.visible = P.hold === "phone";
+      const lit = attacking(f, "sspecial") && f.mf >= 12 && f.mf <= 32;
+      m.phone.userData.screen.material.color.set(lit ? "#7dffa0" : "#3c4a5a");
+      const ride = attacking(f, "uspecial") && f.mf >= 3 && f.mf <= 42;
+      m.board.visible = ride;
+      if (ride) {
+        const d = f.data.inav || { x: 0, y: -1 }, lx = d.x * f.facing;
+        m.board.position.set(0, -5 + Math.sin(g.frame * 0.4) * 0.8, 0);
+        m.board.rotation.z = -clamp(lx * 0.3 + (d.y > 0 ? 0.15 * Math.sign(lx || 1) : 0), -0.45, 0.45);
+      }
     },
   };
 
@@ -934,34 +1486,45 @@
       const ride = attacking(f, "uspecial") && f.mf >= 3 && f.mf <= 42;
       if (ride) drawInav(ctx, f);
       const R = S.drawHumanoid(ctx, f, steveLook, g);
-      const hand = R.armF.end;
-      if (attacking(f, "sspecial")) {
-        const t = f.mf;
-        if (t >= 10 && t < 20) {   // charging
-          const k = (t - 10) / 10;
-          ctx.fillStyle = `rgba(125,255,160,${0.3 + 0.5 * k})`; circle(ctx, hand.x + 4, hand.y, 3 + k * 7); ctx.fill();
-        } else if (t >= 20 && t <= 32) {
-          const fade = t > 31 ? 0.4 : 1, w = 11 + Math.sin(FRAME * 1.3) * 3;
-          ctx.save(); ctx.globalAlpha = fade;
-          const grd = ctx.createLinearGradient(hand.x, 0, BEAM.x1 + 20, 0);
-          grd.addColorStop(0, "rgba(140,255,170,.95)"); grd.addColorStop(1, "rgba(60,220,120,.35)");
-          ctx.shadowColor = "#4dff88"; ctx.shadowBlur = 18;
-          ctx.fillStyle = grd; ctx.fillRect(hand.x, hand.y - w, BEAM.x1 + 20 - hand.x, w * 2);
-          ctx.shadowBlur = 0; ctx.fillStyle = "rgba(255,255,255,.9)"; ctx.fillRect(hand.x, hand.y - w * 0.3, BEAM.x1 + 16 - hand.x, w * 0.6);
-          ctx.restore();
-        }
-      } else if (attacking(f, "fsmash") && f.mf >= 16 && f.mf <= 21) {   // Ibeam
-        const k = 1 - (f.mf - 16) / 6;
-        ctx.save(); ctx.shadowColor = "#7fe9ff"; ctx.shadowBlur = 16;
-        ctx.fillStyle = `rgba(127,233,255,${0.75 * k})`; ctx.fillRect(hand.x, hand.y - 9, 96 - hand.x, 18);
-        ctx.fillStyle = `rgba(255,255,255,${k})`; ctx.fillRect(hand.x, hand.y - 3, 94 - hand.x, 6);
-        ctx.restore();
-      } else if (attacking(f, "nair") && f.mf >= 3 && f.mf <= 20) {   // Spotlight
-        const k = f.mf <= 6 ? 1 : 1 - (f.mf - 6) / 15;
-        const grd = ctx.createRadialGradient(0, -36, 4, 0, -36, 40);
-        grd.addColorStop(0, `rgba(255,255,255,${0.5 * k})`); grd.addColorStop(1, "rgba(255,255,255,0)");
-        ctx.fillStyle = grd; circle(ctx, 0, -36, 40); ctx.fill();
-      }
+      steveFx(ctx, f, R.armF.end);
     },
+    model: steveModel,
+    drawFxBehind(ctx, f, g) {
+      if (attacking(f, "uspecial") && f.mf >= 3 && f.mf <= 42) drawInav(ctx, f, true);
+      steveFx(ctx, f, null, "behind");
+    },
+    drawFx(ctx, f, g) { FRAME = g.frame; steveFx(ctx, f, rig2d(f, g, steveLook).armF.end, "front"); },
   });
+  // Charge glow + FaceTime beam, the Ibeam and the Spotlight (drawn over the body in 2D and 3D).
+  // layer: "front" (over the 3D body), "behind" (the Spotlight, so it doesn't wash the model out) or undefined (2D: all).
+  function steveFx(ctx, f, hand, layer) {
+    if (layer === "behind" ? !attacking(f, "nair") : layer === "front" && attacking(f, "nair")) return;
+    if (attacking(f, "sspecial")) {
+      const t = f.mf;
+      if (t >= 10 && t < 20) {   // charging
+        const k = (t - 10) / 10;
+        ctx.fillStyle = `rgba(125,255,160,${0.3 + 0.5 * k})`; circle(ctx, hand.x + 4, hand.y, 3 + k * 7); ctx.fill();
+      } else if (t >= 20 && t <= 32) {
+        const fade = t > 31 ? 0.4 : 1, w = 11 + Math.sin(FRAME * 1.3) * 3;
+        ctx.save(); ctx.globalAlpha = fade;
+        const grd = ctx.createLinearGradient(hand.x, 0, BEAM.x1 + 20, 0);
+        grd.addColorStop(0, "rgba(140,255,170,.95)"); grd.addColorStop(1, "rgba(60,220,120,.35)");
+        ctx.shadowColor = "#4dff88"; ctx.shadowBlur = 18;
+        ctx.fillStyle = grd; ctx.fillRect(hand.x, hand.y - w, BEAM.x1 + 20 - hand.x, w * 2);
+        ctx.shadowBlur = 0; ctx.fillStyle = "rgba(255,255,255,.9)"; ctx.fillRect(hand.x, hand.y - w * 0.3, BEAM.x1 + 16 - hand.x, w * 0.6);
+        ctx.restore();
+      }
+    } else if (attacking(f, "fsmash") && f.mf >= 16 && f.mf <= 21) {   // Ibeam
+      const k = 1 - (f.mf - 16) / 6;
+      ctx.save(); ctx.shadowColor = "#7fe9ff"; ctx.shadowBlur = 16;
+      ctx.fillStyle = `rgba(127,233,255,${0.75 * k})`; ctx.fillRect(hand.x, hand.y - 9, 96 - hand.x, 18);
+      ctx.fillStyle = `rgba(255,255,255,${k})`; ctx.fillRect(hand.x, hand.y - 3, 94 - hand.x, 6);
+      ctx.restore();
+    } else if (attacking(f, "nair") && f.mf >= 3 && f.mf <= 20) {   // Spotlight
+      const k = f.mf <= 6 ? 1 : 1 - (f.mf - 6) / 15;
+      const grd = ctx.createRadialGradient(0, -36, 4, 0, -36, 40);
+      grd.addColorStop(0, `rgba(255,255,255,${0.5 * k})`); grd.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grd; circle(ctx, 0, -36, 40); ctx.fill();
+    }
+  }
 })();
