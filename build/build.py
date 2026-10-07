@@ -750,7 +750,7 @@ def copy_smash():
     src, out = os.path.join(ROOT, "build", "smash"), os.path.join(SITE, "smash")
     shutil.rmtree(out, ignore_errors=True)
     os.makedirs(out)
-    for path in sorted(glob.glob(os.path.join(src, "*.js")) + glob.glob(os.path.join(src, "*.html"))):
+    for path in sorted(glob.glob(os.path.join(src, "*.js")) + glob.glob(os.path.join(src, "*.html")) + glob.glob(os.path.join(src, "*.txt"))):
         with open(path, encoding="utf-8") as f:
             text = f.read()
         if path.endswith(".html"):

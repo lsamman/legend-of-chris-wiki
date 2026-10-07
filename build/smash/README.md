@@ -12,6 +12,8 @@ Load order (see `smash.html`): `core.js` → `game.js` → `render.js` → `audi
 | core.js | namespace, registries, seeded RNG, keyboard/gamepad → virtual pads |
 | game.js | the deterministic sim: Fighter state machine, physics, moves/hitboxes, knockback, shields, grabs, ledges, projectiles, `S.Game` |
 | render.js | `S.drawHumanoid` rig + `S.pose`, fighter overlays, particles, default platform drawing |
+| render3d.js | 3D fighters: three.js world/portrait rendering and the modelling toolkit `S.K3` (`K.humanoid`, `K.poseHumanoid`, primitives, painted textures) |
+| three.module.min.js, three.core.min.js | three.js 0.184 (MIT, see three.LICENSE.txt), loaded as a module by smash.html |
 | engine.js | loop, camera, match scene, HUD, pause, boot, `?quick=` test URLs, `S.simulate` |
 | fighters-a.js / fighters-b.js | the roster (4 each) |
 | stages.js | the 5 stages |
@@ -76,6 +78,18 @@ when the fighter is airborne.
   start(f, g, pad), update(f, g, mf, pad), end(f, g), onHit(f, target, g, hb), onLand(f, g)
 }
 ```
+
+## 3D models
+Fighters are 3D when `def.model = { build(T, K) -> model, update?(model, f, g, P, opts) }` is set and WebGL works
+(`?flat=1` forces the 2D fallback). Most fighters use `K.humanoid(spec)` (see the spec comment in render3d.js) and the default
+update `K.poseHumanoid`, which reads the same `S.pose()` angles as the 2D rig, so move `pose` functions animate both.
+- The model faces +X, y up, origin at the feet; it is turned ¾ toward the camera (`K.yawFor`).
+- Props attach to `model.armF.hand` (local -Y runs along the forearm).
+- `def.posePatch(f, P, g)` tweaks the pose for both 2D and 3D.
+- Effects stay 2D: `def.drawFx` (over the body) and `def.drawFxBehind`, both in `def.draw` coordinates. `def.draw` remains the
+  full 2D fallback and is used when 3D is unavailable.
+- Projectiles can render in 3D with `model3d(T, K, p)` and `update3d(obj, p, g)`.
+- Reference: Chris in fighters-a.js.
 
 ## Projectiles: `g.spawn({...})`
 `owner, x, y, vx, vy, r, dmg, angle, bkb, kbg, life, gravity, bounces, bounce, pierce, facing, solid, ground, harmless,
