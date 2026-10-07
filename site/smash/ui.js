@@ -8,11 +8,12 @@
   const { clamp } = S;
   const sfx = (n) => { try { S.audio && S.audio[n] && S.audio[n](); } catch (e) { /* ignore */ } };
 
-  // ------------------------------------------------------------ palette (white-paper wiki look)
+  // ------------------------------------------------------------ palette (Dreamliner.web: dark Metro dashboard)
+  // ink = text, edge = borders, shadow = outlines behind big text, yellow = the accent (lime, kept as a name).
   const C = {
-    paper: "#fffdf4", line: "rgba(80,130,220,.16)", margin: "rgba(230,60,60,.35)",
-    ink: "#141414", sub: "#555", faint: "#8a8a8a", card: "#ffffff", shadow: "#141414",
-    yellow: "#ffd23f", link: "#1a5fd0", off: "#cfcfcf",
+    paper: "#0e1011", ink: "#f2f3f3", sub: "rgba(242,243,243,.62)", faint: "rgba(242,243,243,.4)",
+    card: "rgba(27,30,32,.92)", cardHi: "rgba(44,49,52,.96)", chip: "#2a2e31", shadow: "#000", edge: "rgba(255,255,255,.14)",
+    yellow: "#5fae1f", accentHi: "#7fd334", link: "#7fd334", off: "#3a3d40",
   };
   const DEVICE_OPTIONS = [["kbA", "pad0"], ["kbB", "pad1"], ["pad0"], ["pad1"], ["pad2"], ["pad3"], ["kbA"], ["kbB"]];
   const devLabel = (i) => DEVICE_OPTIONS[i].map((d) => (S.DEVICE_LABELS && S.DEVICE_LABELS[d]) || d).join(" + ");
@@ -142,25 +143,56 @@
   }
 
   // ------------------------------------------------------------ drawing helpers
+  // The Dreamliner.web backdrop: a dark sky, a city skyline with lit windows, and slow lime light waves.
+  let skyline = null, skyKey = "";
+  function buildSkyline(VW, VH) {
+    const cv = document.createElement("canvas"); cv.width = Math.ceil(VW); cv.height = Math.ceil(VH);
+    const x = cv.getContext("2d");
+    const sky = x.createLinearGradient(0, 0, 0, VH); sky.addColorStop(0, "#1a2026"); sky.addColorStop(0.65, "#101416"); sky.addColorStop(1, "#0b0d0e");
+    x.fillStyle = sky; x.fillRect(0, 0, VW, VH);
+    let seed = 1979; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (const [base, shade, hmul] of [[VH * 0.82, "#151a1d", 0.5], [VH * 0.9, "#111517", 0.62], [VH, "#0c0f10", 0.42]]) {
+      let bx = -20;
+      while (bx < VW + 20) {
+        const w = 40 + rnd() * 90, h = (0.18 + rnd() * 0.6) * VH * hmul, top = base - h;
+        x.fillStyle = shade; x.fillRect(bx, top, w, VH - top);
+        if (rnd() < 0.25) { x.fillRect(bx + w * 0.45, top - 30, 3, 30); }   // antenna
+        for (let wy = top + 10; wy < base - 8; wy += 11) for (let wx = bx + 6; wx < bx + w - 8; wx += 9) {
+          if (rnd() < 0.16) { x.fillStyle = rnd() < 0.85 ? "rgba(255,206,120,.55)" : "rgba(170,220,255,.5)"; x.fillRect(wx, wy, 4, 5); }
+        }
+        x.fillStyle = shade; bx += w + 4 + rnd() * 10;
+      }
+    }
+    return cv;
+  }
   function paperBg(c, VW, VH, t) {
-    c.fillStyle = C.paper; c.fillRect(0, 0, VW, VH);
-    c.strokeStyle = C.line; c.lineWidth = 1.5;
-    const off = (t * 0.15) % 34;
-    for (let y = 34 - off; y < VH; y += 34) { c.beginPath(); c.moveTo(0, y); c.lineTo(VW, y); c.stroke(); }
-    c.strokeStyle = C.margin; c.lineWidth = 2;
-    c.beginPath(); c.moveTo(64, 0); c.lineTo(64, VH); c.stroke();
+    if (!skyline || skyKey !== Math.round(VW) + "x" + Math.round(VH)) { skyKey = Math.round(VW) + "x" + Math.round(VH); skyline = buildSkyline(VW, VH); }
+    c.drawImage(skyline, 0, 0, VW, VH);
+    // lime light waves drifting over the skyline (the résumé site's aurora)
+    c.save(); c.lineWidth = 1.5;
+    for (let k = 0; k < 4; k++) {
+      c.strokeStyle = `rgba(127,211,52,${0.16 - k * 0.03})`;
+      c.beginPath();
+      for (let x = 0; x <= VW; x += 16) {
+        const y = VH * (0.6 + k * 0.035) + Math.sin(x * 0.004 + t * 0.008 * (k + 1) + k) * 34 + Math.sin(x * 0.011 - t * 0.005) * 12;
+        x ? c.lineTo(x, y) : c.moveTo(x, y);
+      }
+      c.stroke();
+    }
+    c.restore();
   }
   // neo-brutalist panel: solid offset shadow + thick ink border
   function panel(c, x, y, w, h, fill, opts = {}) {
-    const r = opts.r != null ? opts.r : 12, sh = opts.shadow != null ? opts.shadow : 5, lw = opts.lw || 3;
-    if (sh) { c.fillStyle = opts.shadowColor || C.shadow; S.roundRect(c, x + sh, y + sh, w, h, r); c.fill(); }
+    // Metro tiles: square-ish corners, a thin edge (thicker only when a colour marks selection), soft drop only
+    const r = Math.min(opts.r != null ? opts.r : 2, 3), sh = opts.shadow ? 1 : 0, lw = opts.lw && opts.lw > 3 ? opts.lw - 1 : 1;
+    if (sh) { c.fillStyle = "rgba(0,0,0,.35)"; S.roundRect(c, x + 3, y + 4, w, h, r); c.fill(); }
     c.fillStyle = fill; S.roundRect(c, x, y, w, h, r); c.fill();
-    if (lw) { c.lineWidth = lw; c.strokeStyle = opts.stroke || C.ink; S.roundRect(c, x, y, w, h, r); c.stroke(); }
+    if (lw) { c.lineWidth = lw; c.strokeStyle = opts.stroke || C.edge; S.roundRect(c, x, y, w, h, r); c.stroke(); }
   }
   function button(c, sc, id, x, y, w, h, label, opts = {}) {
     const hov = sc.hover === id || opts.focused;
     const lift = hov && !opts.disabled ? -2 : 0;
-    panel(c, x, y + lift, w, h, opts.disabled ? "#eee" : hov ? opts.hoverFill || C.yellow : opts.fill || C.card, { r: opts.r || 10, shadow: opts.disabled ? 2 : hov ? 6 : 4 });
+    panel(c, x, y + lift, w, h, opts.disabled ? "#1c1f21" : hov ? opts.hoverFill || C.yellow : opts.fill || C.card, { r: opts.r || 10, shadow: opts.disabled ? 2 : hov ? 6 : 4 });
     S.text(c, label, x + w / 2, y + lift + h / 2 + (opts.size || 18) * 0.36, opts.size || 18, opts.disabled ? "#999" : opts.color || C.ink, "center", opts.font || S.FONT_BIG, opts.weight || "900");
     sc.hit(id, x, y, w, h, opts.hit);
   }
@@ -197,10 +229,10 @@
   function portToken(c, x, y, port, label, scale = 1) {
     const col = S.PORT_COLORS[port];
     c.save(); c.translate(x, y); c.scale(scale, scale);
-    c.fillStyle = C.ink; c.beginPath(); c.arc(2, 2, 17, 0, Math.PI * 2); c.fill();
+    c.fillStyle = C.shadow; c.beginPath(); c.arc(2, 2, 17, 0, Math.PI * 2); c.fill();
     c.fillStyle = col; c.beginPath(); c.arc(0, 0, 17, 0, Math.PI * 2); c.fill();
-    c.lineWidth = 3; c.strokeStyle = C.ink; c.stroke();
-    S.text(c, label, 0, 6, 15, "#fff", "center", S.FONT_BIG, "900", C.ink);
+    c.lineWidth = 3; c.strokeStyle = C.edge; c.stroke();
+    S.text(c, label, 0, 6, 15, "#fff", "center", S.FONT_BIG, "900", C.shadow);
     c.restore();
   }
   function openWiki(slug) {
@@ -299,30 +331,26 @@
         this.begin(c, W, H);
         const { VW, VH, t } = this;
         paperBg(c, VW, VH, t);
-        // sun-burst behind the logo
-        c.save(); c.translate(VW / 2, VH * 0.27); c.rotate(t * 0.002);
-        for (let i = 0; i < 18; i++) {
-          c.rotate(Math.PI / 9); c.fillStyle = i % 2 ? "rgba(255,210,63,.28)" : "rgba(255,210,63,.12)";
-          c.beginPath(); c.moveTo(0, 0); c.lineTo(900, -80); c.lineTo(900, 80); c.closePath(); c.fill();
-        }
-        c.restore();
+        // a lime glow behind the logo instead of a sunburst
+        const glow = c.createRadialGradient(VW / 2, VH * 0.26, 0, VW / 2, VH * 0.26, VW * 0.45);
+        glow.addColorStop(0, "rgba(127,211,52,.16)"); glow.addColorStop(1, "rgba(127,211,52,0)");
+        c.fillStyle = glow; c.fillRect(0, 0, VW, VH);
         // layout (top → bottom): logo, tagline, prompt, controls panel, parade on the floor
         const big = Math.min(112, VW / 9.6);
         const panelY = VH - 64 - 92 - 136;               // controls panel sits above the parade
         const logoY = Math.max(70, (panelY - 30 - (big * 2.2 + 120)) / 2 + 40);
-        const wob = Math.sin(t * 0.04) * 0.012;
-        c.save(); c.translate(VW / 2, logoY); c.rotate(-0.035 + wob);
-        S.text(c, "THE LEGEND OF CHRIS:", 0, 0, 36, C.ink, "center", S.FONT_BIG, "900");
-        S.text(c, "SUPER SMASH", 6, big * 0.95 + 6, big, C.ink, "center", S.FONT_BIG, "900");
-        S.text(c, "SUPER SMASH", 0, big * 0.95, big, "#e8333a", "center", S.FONT_BIG, "900", C.ink);
-        S.text(c, "BALLERS", 6, big * 2.02 + 6, big * 1.08, C.ink, "center", S.FONT_BIG, "900");
-        S.text(c, "BALLERS", 0, big * 2.02, big * 1.08, C.yellow, "center", S.FONT_BIG, "900", C.ink);
+        c.save(); c.translate(VW / 2, logoY);   // flat and straight, Dreamliner.web style
+        S.text(c, "the legend of chris", 0, 0, 34, C.sub, "center", S.FONT_BIG, "300");
+        S.text(c, "SUPER SMASH", 5, big * 0.95 + 5, big * 1.08, "#000", "center", S.FONT_BIG, "900");
+        S.text(c, "SUPER SMASH", 0, big * 0.95, big * 1.08, C.ink, "center", S.FONT_BIG, "900");
+        S.text(c, "BALLERS", 5, big * 2.02 + 5, big * 1.18, "#000", "center", S.FONT_BIG, "900");
+        S.text(c, "BALLERS", 0, big * 2.02, big * 1.18, C.accentHi, "center", S.FONT_BIG, "900");
         c.restore();
-        S.text(c, "a platform fighter where everyone is a baller (allegedly)", VW / 2, logoY + big * 2.02 + 38, 19, C.sub, "center", S.FONT_COMIC, "bold");
+        S.text(c, "a platform fighter where everyone is a baller (allegedly)", VW / 2, logoY + big * 2.02 + 38, 19, C.sub, "center", S.FONT_COMIC, "500");
         // BETA stamp
         c.save(); c.translate(VW / 2 + big * 3.1, logoY + big * 1.55); c.rotate(-0.22);
-        panel(c, -52, -22, 104, 40, "#e8333a", { r: 8, shadow: 4 });
-        S.text(c, "BETA", 0, 10, 26, "#fff", "center", S.FONT_BIG, "900");
+        panel(c, -52, -22, 104, 40, C.yellow, { r: 0, shadow: 4 });
+        S.text(c, "BETA", 0, 10, 26, "#fff", "center", S.FONT_BIG, "800");
         c.restore();
         // press start (or, while a controller still needs setting up, a banner in its place)
         const blink = (Math.sin(t * 0.09) + 1) / 2;
@@ -342,7 +370,8 @@
         this.panelY = panelY;
         // ground + parade of fighters
         const gy = VH - 40;
-        c.strokeStyle = C.ink; c.lineWidth = 4; c.beginPath(); c.moveTo(0, gy); c.lineTo(VW, gy); c.stroke();
+        c.fillStyle = "#0a0c0d"; c.fillRect(0, gy, VW, VH - gy);   // street
+        c.strokeStyle = C.yellow; c.lineWidth = 2; c.beginPath(); c.moveTo(0, gy); c.lineTo(VW, gy); c.stroke();
         for (const p of parade) {
           const f = puppet(p.id, p.port); if (!f) continue;
           const ph = (t + p.jumpAt) % 260;
@@ -372,7 +401,7 @@
         S.text(c, "COMING SOON TO THE BETA", x + w / 2, y + 42, 28, C.ink, "center", S.FONT_BIG, "900");
         S.text(c, "fighters and stages from the lore that are still on the bench", x + w / 2, y + 66, 15, C.sub, "center", S.FONT_COMIC, "bold");
         const col = (list, cx, head) => {
-          S.text(c, head + " (" + list.length + ")", cx, y + 96, 16, "#e8333a", "left", S.FONT_BIG, "900");
+          S.text(c, head + " (" + list.length + ")", cx, y + 96, 16, C.accentHi, "left", S.FONT_BIG, "900");
           list.forEach((it, i) => {
             const yy = y + 104 + (i + 1) * lh - 8;
             S.text(c, it.name, cx, yy - lh * 0.36, Math.min(16, lh * 0.5), C.ink, "left", S.FONT, "bold");
@@ -398,7 +427,7 @@
           ]];
         }
         const w = Math.min(1180, VW - 60), h = 132, x = (VW - w) / 2, y = this.panelY;
-        panel(c, x, y, w, h, "rgba(255,255,255,.94)", { shadow: 5 });
+        panel(c, x, y, w, h, C.card, { shadow: 5 });
         const cols = [
           ["KEYBOARD + MOUSE P1", ["Move: W A S D   Jump: Space / H", "Attack: left click (or F)", "Special: right click (or G)", "Shield: Q   Grab: R"]],
           ["KEYBOARD P2", ["Move: Arrow keys", "Attack: ,   Special: .", "Jump: /  (Numpad 1/2/3/0)", "Shield: R-Shift"]],
@@ -408,12 +437,12 @@
         const cw = w / 4;
         cols.forEach(([head, lines], i) => {
           const cx = x + 18 + i * cw;
-          S.text(c, head, cx, y + 28, 15, i === 3 ? "#e8333a" : C.ink, "left", S.FONT_BIG, "900");
+          S.text(c, head, cx, y + 28, 15, i === 3 ? C.accentHi : C.ink, "left", S.FONT_BIG, "900");
           lines.forEach((ln, j) => {
             const s = fitText(c, ln, cw - 26, 14, S.FONT_COMIC);
-            S.text(c, ln, cx, y + 52 + j * 21, s, "#333", "left", S.FONT_COMIC, "bold");
+            S.text(c, ln, cx, y + 52 + j * 21, s, C.sub, "left", S.FONT_COMIC, "bold");
           });
-          if (i) { c.strokeStyle = "rgba(0,0,0,.15)"; c.lineWidth = 2; c.beginPath(); c.moveTo(x + i * cw, y + 14); c.lineTo(x + i * cw, y + h - 14); c.stroke(); }
+          if (i) { c.strokeStyle = "rgba(255,255,255,.08)"; c.lineWidth = 1; c.beginPath(); c.moveTo(x + i * cw, y + 14); c.lineTo(x + i * cw, y + h - 14); c.stroke(); }
         });
       },
     });
@@ -505,16 +534,16 @@
         S.text(c, "CONTROLLER SETUP", x + w / 2, y + 52, 34, C.ink, "center", S.FONT_BIG, "900");
         S.text(c, "Pad " + (index + 1) + " · " + ((inf && inf.kind) || "Gamepad"), x + w / 2, y + 80, 16, C.sub, "center", S.FONT_COMIC, "bold");
         if (phase === "done") {
-          S.text(c, "ALL SET!", x + w / 2, y + 190, 54, "#2a9d3a", "center", S.FONT_BIG, "900", C.ink);
+          S.text(c, "ALL SET!", x + w / 2, y + 190, 54, "#2a9d3a", "center", S.FONT_BIG, "900", C.shadow);
           S.text(c, "This controller's layout is saved on this device.", x + w / 2, y + 236, 18, C.sub, "center", S.FONT_COMIC, "bold");
         } else {
           const cur = SETUP_STEPS[step];
           // progress pips
           const pw = Math.min(26, (w - 80) / SETUP_STEPS.length);
           SETUP_STEPS.forEach((st, i) => {
-            c.fillStyle = i < step ? "#2a9d3a" : i === step ? C.yellow : "#ddd";
+            c.fillStyle = i < step ? "#2a9d3a" : i === step ? C.accentHi : "#2c3033";
             c.beginPath(); c.arc(x + w / 2 + (i - (SETUP_STEPS.length - 1) / 2) * pw, y + 108, 6, 0, Math.PI * 2); c.fill();
-            c.lineWidth = 2; c.strokeStyle = C.ink; c.stroke();
+            c.lineWidth = 2; c.strokeStyle = C.edge; c.stroke();
           });
           const pulse = 1 + Math.sin(t * 0.12) * 0.03;
           c.save(); c.translate(x + w / 2, y + 190); c.scale(pulse, pulse);
@@ -522,7 +551,7 @@
           c.restore();
           if (cur.hint) S.text(c, "usually " + cur.hint, x + w / 2, y + 226, 18, C.sub, "center", S.FONT_COMIC, "bold");
           S.text(c, phase === "release" ? "let go of everything…" : "listening…", x + w / 2, y + 262, 16, phase === "release" ? "#c97a00" : "#2a9d3a", "center", S.FONT_COMIC, "bold");
-          if (noteT > 0) { noteT--; S.text(c, note, x + w / 2, y + 292, 17, "#e8333a", "center", S.FONT_COMIC, "bold"); }
+          if (noteT > 0) { noteT--; S.text(c, note, x + w / 2, y + 292, 17, C.accentHi, "center", S.FONT_COMIC, "bold"); }
           if (cur.opt) button(c, this, "skip", x + w / 2 - 210, y + h - 76, 200, 48, "SKIP (Space)", { size: 16 });
           button(c, this, "cancel", x + w / 2 + (cur.opt ? 10 : -100), y + h - 76, 200, 48, "CANCEL (Esc)", { size: 16 });
         }
@@ -657,10 +686,10 @@
         // stocks
         const sw = 220, sx = VW - pad - sw;
         const sHov = this.hover === "stocks";
-        panel(c, sx, 12, sw, 44, sHov ? "#fff6cf" : C.card, { r: 10, shadow: 4 });
+        panel(c, sx, 12, sw, 44, sHov ? C.cardHi : C.card, { r: 10, shadow: 4 });
         S.text(c, "STOCKS", sx + 16, 41, 17, C.ink, "left", S.FONT_BIG, "900");
         S.text(c, "◀", sx + 112, 42, 20, C.ink, "center", S.FONT, "bold");
-        S.text(c, String(setup.stocks), sx + 150, 44, 28, "#e8333a", "center", S.FONT_BIG, "900");
+        S.text(c, String(setup.stocks), sx + 150, 44, 28, C.accentHi, "center", S.FONT_BIG, "900");
         S.text(c, "▶", sx + 188, 42, 20, C.ink, "center", S.FONT, "bold");
         this.stocksMid = sx + 150;
         this.hit("stocks", sx, 12, sw, 44);
@@ -711,19 +740,19 @@
         const rHov = this.hover === "ready";
         if (ok) {
           const pulse = (Math.sin(t * 0.12) + 1) / 2;
-          panel(c, pad, ry, VW - pad * 2, readyH, rHov ? "#ffe066" : C.yellow, { shadow: 5 + pulse * 2 });
+          panel(c, pad, ry, VW - pad * 2, readyH, rHov ? C.accentHi : C.yellow, { shadow: 5 + pulse * 2 });
           c.save(); S.roundRect(c, pad, ry, VW - pad * 2, readyH, 12); c.clip();
           c.fillStyle = "rgba(232,51,58,.9)";
           for (let x = -80 + (t * 2) % 80; x < VW; x += 80) { c.beginPath(); c.moveTo(x, ry + readyH); c.lineTo(x + 30, ry); c.lineTo(x + 50, ry); c.lineTo(x + 20, ry + readyH); c.fill(); }
           c.restore();
-          c.lineWidth = 3; c.strokeStyle = C.ink; S.roundRect(c, pad, ry, VW - pad * 2, readyH, 12); c.stroke();
-          S.text(c, "READY TO BALL!", VW / 2, ry + 36, 30, "#fff", "center", S.FONT_BIG, "900", C.ink);
+          c.lineWidth = 3; c.strokeStyle = C.edge; S.roundRect(c, pad, ry, VW - pad * 2, readyH, 12); c.stroke();
+          S.text(c, "READY TO BALL!", VW / 2, ry + 36, 30, "#fff", "center", S.FONT_BIG, "900", C.shadow);
           S.text(c, "Enter / Start / click", VW - pad - 18, ry + 33, 15, C.ink, "right", S.FONT_COMIC, "bold");
         } else {
           const shake = this.flash > 0 ? Math.sin(this.flash * 1.3) * 6 : 0;
-          panel(c, pad + shake, ry, VW - pad * 2, readyH, "#f1efe6", { shadow: 3 });
+          panel(c, pad + shake, ry, VW - pad * 2, readyH, "#1c1f21", { shadow: 3 });
           const need = portsOn() < 2 ? "Turn on at least 2 players (click a port's OFF / HUMAN / CPU button)" : "Every active player needs a fighter — pick one from the grid";
-          S.text(c, need, VW / 2 + shake, ry + 33, 18, this.flash > 0 ? "#e8333a" : C.sub, "center", S.FONT_COMIC, "bold");
+          S.text(c, need, VW / 2 + shake, ry + 33, 18, this.flash > 0 ? C.accentHi : C.sub, "center", S.FONT_COMIC, "bold");
         }
         this.hit("ready", pad, ry, VW - pad * 2, readyH);
         items.push({ id: "ready", x: pad, y: ry, w: VW - pad * 2, h: readyH });
@@ -747,7 +776,7 @@
         const lift = hov || focused ? -3 : 0;
         y += lift;
         const accent = def ? def.color || "#888" : "#9b59b6";
-        panel(c, x, y, w, h, C.card, { shadow: hov || focused ? 8 : 5, stroke: focused ? S.PORT_COLORS[curs[0].port] : C.ink, lw: focused ? 5 : 3 });
+        panel(c, x, y, w, h, C.card, { shadow: hov || focused ? 8 : 5, stroke: focused ? S.PORT_COLORS[curs[0].port] : C.edge, lw: focused ? 5 : 3 });
         // vertical budget: name + tagline lines + wiki link under the portrait
         const ns0 = Math.min(20, h * 0.11), tagSize = clamp(h * 0.068, 11, 14), ls = clamp(h * 0.065, 11, 13);
         let tagLines = 2, ph = h - 12 - (ns0 + 8 + tagLines * tagSize * 1.2 + ls + 12);
@@ -757,7 +786,7 @@
         grd.addColorStop(0, shadeHex(accent, 0.75)); grd.addColorStop(1, shadeHex(accent, 0.35));
         c.fillStyle = grd; c.fillRect(x, y, w, ph + 6);
         // halftone dots
-        c.fillStyle = "rgba(255,255,255,.18)";
+        c.fillStyle = "rgba(255,255,255,.05)";
         for (let yy = y + 10; yy < y + ph; yy += 12) for (let xx = x + 10 + ((yy / 12) % 2) * 6; xx < x + w; xx += 12) { c.beginPath(); c.arc(xx, yy, 2, 0, Math.PI * 2); c.fill(); }
         if (def) {
           const f = puppet(id, 0);
@@ -770,24 +799,24 @@
           const f = puppet(rid, 0);
           const sc2 = Math.min(ph / ((S.visualHeight ? S.visualHeight(f) : f ? f.h : 70) * 1.15), (w - 12) / 70);
           c.globalAlpha = 0.25; drawPuppet(c, f, x + w / 2, y + 6 + ph - 6, sc2, { frame: t }); c.globalAlpha = 1;
-          S.text(c, "?", x + w / 2, y + ph * 0.72, ph * 0.62, "#fff", "center", S.FONT_BIG, "900", C.ink);
+          S.text(c, "?", x + w / 2, y + ph * 0.72, ph * 0.62, "#fff", "center", S.FONT_BIG, "900", C.shadow);
         }
         c.restore();
-        c.lineWidth = 2; c.strokeStyle = C.ink; S.roundRect(c, x + 6, y + 6, w - 12, ph, 8); c.stroke();
+        c.lineWidth = 2; c.strokeStyle = C.edge; S.roundRect(c, x + 6, y + 6, w - 12, ph, 8); c.stroke();
         // text
         const name = def ? def.name : "RANDOM";
         const ns = fitText(c, name.toUpperCase(), w - 16, ns0, S.FONT_BIG, "900");
         S.text(c, name.toUpperCase(), x + w / 2, y + 6 + ph + 4 + ns0, ns, C.ink, "center", S.FONT_BIG, "900");
         const lines = wrap(c, def ? def.tagline || "" : "Let fate pick your baller.", w - 16, tagLines, tagSize, S.FONT_COMIC, "bold");
-        lines.forEach((ln, i) => S.text(c, ln, x + w / 2, y + 6 + ph + 6 + ns0 + tagSize * 1.2 * (i + 1), tagSize, "#444", "center", S.FONT_COMIC, "bold"));
+        lines.forEach((ln, i) => S.text(c, ln, x + w / 2, y + 6 + ph + 6 + ns0 + tagSize * 1.2 * (i + 1), tagSize, C.sub, "center", S.FONT_COMIC, "bold"));
         this.hit("card:" + id, x, y, w, h);
         if (def) {
           const ly = y + h - 8;
           const lh = this.hover === "wiki:" + id;
           c.font = `bold ${ls}px ${S.FONT}`;
           const lw = c.measureText("Read on the wiki ↗").width;
-          S.text(c, "Read on the wiki ↗", x + w / 2, ly, ls, lh ? "#e8333a" : C.link, "center", S.FONT, "bold");
-          if (lh) { c.fillStyle = "#e8333a"; c.fillRect(x + w / 2 - lw / 2, ly + 2, lw, 1.5); }
+          S.text(c, "Read on the wiki ↗", x + w / 2, ly, ls, lh ? C.accentHi : C.link, "center", S.FONT, "bold");
+          if (lh) { c.fillStyle = C.accentHi; c.fillRect(x + w / 2 - lw / 2, ly + 2, lw, 1.5); }
           this.hit("wiki:" + id, x + w / 2 - lw / 2 - 6, ly - ls - 3, lw + 12, ls + 8);
         }
         // port tokens of players who picked it
@@ -799,18 +828,18 @@
         const P = setup.ports[i], col = S.PORT_COLORS[i], t = this.t;
         const on = P.type !== "off";
         const isActive = i === active && (this.mouseActive || !setup.ports.some((p) => p.type === "human"));
-        panel(c, x, y, w, h, on ? C.card : "#ecebe4", { shadow: on ? 5 : 3, stroke: isActive ? col : C.ink, lw: isActive ? 5 : 3 });
+        panel(c, x, y, w, h, on ? C.card : "#15181a", { shadow: on ? 5 : 3, stroke: isActive ? col : C.edge, lw: isActive ? 5 : 3 });
         // header
-        c.save(); S.roundRect(c, x, y, w, 40, 12); c.clip();
-        c.fillStyle = on ? col : "#b9b9b9"; c.fillRect(x, y, w, 40); c.restore();
-        c.strokeStyle = C.ink; c.lineWidth = 3; c.beginPath(); c.moveTo(x, y + 40); c.lineTo(x + w, y + 40); c.stroke();
-        S.text(c, "P" + (i + 1), x + 14, y + 30, 24, "#fff", "left", S.FONT_BIG, "900", C.ink);
+        c.save(); S.roundRect(c, x, y, w, 40, 2); c.clip();
+        c.fillStyle = on ? col : "#2c3033"; c.fillRect(x, y, w, 40); c.restore();
+        c.strokeStyle = C.edge; c.lineWidth = 1; c.beginPath(); c.moveTo(x, y + 40); c.lineTo(x + w, y + 40); c.stroke();
+        S.text(c, "P" + (i + 1), x + 14, y + 30, 24, "#fff", "left", S.FONT_BIG, "900", C.shadow);
         // type toggle
         const tb = { x: x + w - 118, y: y + 6, w: 108, h: 28 };
         const typeLabel = P.type === "human" ? "HUMAN" : P.type === "cpu" ? "CPU" : "OFF";
         const tHov = this.hover === "type:" + i;
-        c.fillStyle = tHov ? C.yellow : "#fff"; S.roundRect(c, tb.x, tb.y, tb.w, tb.h, 8); c.fill();
-        c.lineWidth = 2.5; c.strokeStyle = C.ink; c.stroke();
+        c.fillStyle = tHov ? C.yellow : C.chip; S.roundRect(c, tb.x, tb.y, tb.w, tb.h, 8); c.fill();
+        c.lineWidth = 2.5; c.strokeStyle = C.edge; c.stroke();
         S.text(c, typeLabel + " ⟳", tb.x + tb.w / 2, tb.y + 20, 14, C.ink, "center", S.FONT_BIG, "900");
         this.hit("type:" + i, tb.x, tb.y, tb.w, tb.h);
         // body (slot)
@@ -826,20 +855,20 @@
           const pwid = Math.min(110, w * 0.38);
           // portrait well
           c.save(); S.roundRect(c, x + 10, by + 4, pwid, bh - 8, 8); c.clip();
-          c.fillStyle = def ? shadeHex(def.color || "#888", 0.7) : "#ddd"; c.fillRect(x + 10, by + 4, pwid, bh - 8);
+          c.fillStyle = def ? shadeHex(def.color || "#888", 0.7) : "#1c1f21"; c.fillRect(x + 10, by + 4, pwid, bh - 8);
           if (def) {
             const f = puppet(id, i);
             const s2 = Math.min((bh - 14) / ((S.visualHeight ? S.visualHeight(f) : f ? f.h : 70) * 1.08), pwid / 60);
             drawPuppet(c, f, x + 10 + pwid / 2, by + bh - 8, s2, { frame: t + i * 17 });
           } else S.text(c, "?", x + 10 + pwid / 2, by + bh / 2 + 22, 60, id === "random" ? "#9b59b6" : "#aaa", "center", S.FONT_BIG, "900");
           c.restore();
-          c.lineWidth = 2; c.strokeStyle = C.ink; S.roundRect(c, x + 10, by + 4, pwid, bh - 8, 8); c.stroke();
+          c.lineWidth = 2; c.strokeStyle = C.edge; S.roundRect(c, x + 10, by + 4, pwid, bh - 8, 8); c.stroke();
           const tx = x + 20 + pwid, tw = w - pwid - 30;
           const name = def ? def.name : id === "random" ? "Random" : P.type === "human" ? "Pick a baller!" : "Pick for CPU";
           const ns = fitText(c, name, tw, 20, S.FONT_BIG, "900");
           S.text(c, name, tx, by + 26, ns, def ? C.ink : "#888", "left", S.FONT_BIG, "900");
           const tag = def ? def.tagline || "" : id === "random" ? "Chosen when the match starts." : P.type === "human" ? "Move your cursor & press attack, or click a card." : "Click here, then a card.";
-          drawWrapped(c, wrap(c, tag, tw, 3, 13, S.FONT_COMIC, "bold"), tx, by + 46, 13, "#444", "left", S.FONT_COMIC, 16);
+          drawWrapped(c, wrap(c, tag, tw, 3, 13, S.FONT_COMIC, "bold"), tx, by + 46, 13, C.sub, "left", S.FONT_COMIC, 16);
           if (isActive || slotHov) {
             S.text(c, isActive ? "▼ next pick goes here" : "click: pick for this port", tx, by + bh - 6, 12, isActive ? col : "#777", "left", S.FONT, "bold");
           }
@@ -853,8 +882,8 @@
           const bw = (ow - 56) / 3;
           for (let lv = 1; lv <= 3; lv++) {
             const bx = ox + 56 + (lv - 1) * bw, sel = P.level === lv, hv = this.hover === "lvl:" + i + "." + lv;
-            c.fillStyle = sel ? col : hv ? C.yellow : "#fff"; S.roundRect(c, bx + 2, oy + 4, bw - 4, 28, 7); c.fill();
-            c.lineWidth = 2; c.strokeStyle = C.ink; c.stroke();
+            c.fillStyle = sel ? col : hv ? C.yellow : C.chip; S.roundRect(c, bx + 2, oy + 4, bw - 4, 28, 7); c.fill();
+            c.lineWidth = 2; c.strokeStyle = C.edge; c.stroke();
             const fs = fitText(c, LEVEL_NAMES[lv], bw - 10, 13, S.FONT_BIG, "900");
             S.text(c, LEVEL_NAMES[lv], bx + bw / 2, oy + 23, fs, sel ? "#fff" : C.ink, "center", S.FONT_BIG, "900");
             this.hit("lvl:" + i + "." + lv, bx, oy + 4, bw, 28);
@@ -862,8 +891,8 @@
           items.push({ id: "opt:" + i, x: ox, y: oy + 4, w: ow, h: 28 });
         } else if (P.type === "human") {
           const hv = this.hover === "opt:" + i;
-          c.fillStyle = hv ? C.yellow : "#fff"; S.roundRect(c, ox, oy + 4, ow, 28, 7); c.fill();
-          c.lineWidth = 2; c.strokeStyle = C.ink; c.stroke();
+          c.fillStyle = hv ? C.yellow : C.chip; S.roundRect(c, ox, oy + 4, ow, 28, 7); c.fill();
+          c.lineWidth = 2; c.strokeStyle = C.edge; c.stroke();
           const lab = "🎮 " + devLabel(P.dev) + "  ⟳";
           const fs = fitText(c, lab, ow - 12, 14, S.FONT, "bold");
           S.text(c, lab, ox + ow / 2, oy + 23, fs, C.ink, "center", S.FONT, "bold");
@@ -878,7 +907,7 @@
   }
 
   function shadeHex(hex, amt) {
-    // amt 0..1: mix toward white
+    // amt 0..1: mix toward the dark tile colour
     if (S.shade) { try { return mix(hex, amt); } catch (e) { /* fallthrough */ } }
     return mix(hex, amt);
   }
@@ -888,8 +917,9 @@
     const n = parseInt(h.slice(0, 6), 16);
     if (isNaN(n)) return "#ccc";
     const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
-    const m = (v) => Math.round(v + (255 - v) * amt);
-    return `rgb(${m(r)},${m(g)},${m(b)})`;
+    // gritty: mix toward the dark tile colour instead of white, so tints read as dark coloured tiles
+    const D = [21, 24, 26], m = (v, d) => Math.round(v + (d - v) * amt);
+    return `rgb(${m(r, D[0])},${m(g, D[1])},${m(b, D[2])})`;
   }
 
   // ------------------------------------------------------------ STAGE SELECT
@@ -978,8 +1008,8 @@
           c.font = `900 13px ${S.FONT_BIG}`;
           const w = c.measureText(label).width + 22;
           sx -= w;
-          c.fillStyle = S.PORT_COLORS[i]; S.roundRect(c, sx, 20, w, 28, 14); c.fill(); c.lineWidth = 2.5; c.strokeStyle = C.ink; c.stroke();
-          S.text(c, label, sx + w / 2, 39, 13, "#fff", "center", S.FONT_BIG, "900", C.ink);
+          c.fillStyle = S.PORT_COLORS[i]; S.roundRect(c, sx, 20, w, 28, 14); c.fill(); c.lineWidth = 2.5; c.strokeStyle = C.edge; c.stroke();
+          S.text(c, label, sx + w / 2, 39, 13, "#fff", "center", S.FONT_BIG, "900", C.shadow);
           sx -= 8;
         }
         S.text(c, setup.stocks + " stock" + (setup.stocks > 1 ? "s" : "") + " each", sx - 6, 40, 15, C.sub, "right", S.FONT_COMIC, "bold");
@@ -1010,34 +1040,34 @@
         const hov = this.hover === "stage:" + id || this.hover === "wiki:" + id;
         const on = hov || focused;
         const lift = on ? -3 : 0; y += lift;
-        panel(c, x, y, w, h, C.card, { shadow: on ? 8 : 5, stroke: focused ? "#e8333a" : C.ink, lw: focused ? 5 : 3 });
+        panel(c, x, y, w, h, C.card, { shadow: on ? 8 : 5, stroke: focused ? C.accentHi : C.edge, lw: focused ? 5 : 3 });
         const th = h * 0.68;
         c.save(); S.roundRect(c, x + 6, y + 6, w - 12, th, 8); c.clip();
         if (id === "random") {
           const ids = S.STAGE_ORDER, rid = ids[Math.floor(this.t / 30) % ids.length];
           if (rid) c.drawImage(stageThumb(rid, w - 12, th), x + 6, y + 6, w - 12, th);
           c.fillStyle = "rgba(20,20,20,.55)"; c.fillRect(x, y, w, th + 6);
-          S.text(c, "?", x + w / 2, y + 6 + th * 0.72, th * 0.7, C.yellow, "center", S.FONT_BIG, "900", C.ink);
+          S.text(c, "?", x + w / 2, y + 6 + th * 0.72, th * 0.7, C.yellow, "center", S.FONT_BIG, "900", C.shadow);
         } else {
           c.drawImage(stageThumb(id, w - 12, th), x + 6, y + 6, w - 12, th);
           if (on) { c.fillStyle = "rgba(255,255,255,.08)"; c.fillRect(x, y, w, th + 6); }
         }
         c.restore();
-        c.lineWidth = 2; c.strokeStyle = C.ink; S.roundRect(c, x + 6, y + 6, w - 12, th, 8); c.stroke();
+        c.lineWidth = 2; c.strokeStyle = C.edge; S.roundRect(c, x + 6, y + 6, w - 12, th, 8); c.stroke();
         const def = S.STAGES[id];
         const name = def ? def.name : "RANDOM STAGE";
         const ns = fitText(c, name.toUpperCase(), w - 20, 19, S.FONT_BIG, "900");
         S.text(c, name.toUpperCase(), x + 12, y + th + 12 + ns, ns, C.ink, "left", S.FONT_BIG, "900");
         const tag = def ? def.tagline || "" : "Can't decide? Neither can we.";
         const lines = wrap(c, tag, w - 24, 1, 13, S.FONT_COMIC, "bold");
-        S.text(c, lines[0] || "", x + 12, y + th + 12 + ns + 20, 13, "#444", "left", S.FONT_COMIC, "bold");
+        S.text(c, lines[0] || "", x + 12, y + th + 12 + ns + 20, 13, C.sub, "left", S.FONT_COMIC, "bold");
         this.hit("stage:" + id, x, y, w, h);
         if (def) {
           const lh = this.hover === "wiki:" + id;
           c.font = `bold 12px ${S.FONT}`; const lw = c.measureText("Read on the wiki ↗").width;
           const lx = x + w - 12 - lw, ly = y + h - 10;
-          S.text(c, "Read on the wiki ↗", lx, ly, 12, lh ? "#e8333a" : C.link, "left", S.FONT, "bold");
-          if (lh) { c.fillStyle = "#e8333a"; c.fillRect(lx, ly + 2, lw, 1.5); }
+          S.text(c, "Read on the wiki ↗", lx, ly, 12, lh ? C.accentHi : C.link, "left", S.FONT, "bold");
+          if (lh) { c.fillStyle = C.accentHi; c.fillRect(lx, ly + 2, lw, 1.5); }
           this.hit("wiki:" + id, lx - 6, ly - 15, lw + 12, 22);
         }
         if (focused) portToken(c, x + 22, y + 22, 0, "▶", 0.8);
@@ -1112,7 +1142,7 @@
           const fs = fitText(c, name, leftW - 40, 76, S.FONT_BIG, "900");
           c.save(); c.translate(VW * 0.26, VH * 0.2); c.rotate(-0.04);
           S.text(c, name, 5, 5, fs, C.ink, "center", S.FONT_BIG, "900");
-          S.text(c, name, 0, 0, fs, col, "center", S.FONT_BIG, "900", C.ink);
+          S.text(c, name, 0, 0, fs, col, "center", S.FONT_BIG, "900", C.shadow);
           c.restore();
           S.text(c, (W0.cpu ? "CPU" : "Player " + (W0.port + 1)) + " · " + W0.def.name, VW * 0.26, VH * 0.2 + 40, 20, C.sub, "center", S.FONT_COMIC, "bold");
         } else {
@@ -1121,14 +1151,14 @@
         }
         // table
         const tx = leftW + 10, tw = VW - tx - 30, ty = 70;
-        panel(c, tx, ty, tw, 70 + rows.length * 62, "#fff", { shadow: 6 });
+        panel(c, tx, ty, tw, 70 + rows.length * 62, C.card, { shadow: 6 });
         S.text(c, "RESULTS", tx + 20, ty + 40, 28, C.ink, "left", S.FONT_BIG, "900");
         const heads = ["KOs", "FALLS", "SDs", "DMG DEALT", "DMG TAKEN"];
         const colX = (k) => tx + tw * 0.44 + k * (tw * 0.56 - 20) / 5 + (tw * 0.56 - 20) / 10;
         heads.forEach((h, k) => { const fs = fitText(c, h, (tw * 0.56 - 20) / 5 - 6, 13, S.FONT_BIG, "900"); S.text(c, h, colX(k), ty + 40, fs, C.sub, "center", S.FONT_BIG, "900"); });
         rows.forEach((f, r) => {
           const y = ty + 60 + r * 62, pc = S.PORT_COLORS[f.port];
-          c.fillStyle = r % 2 ? "rgba(0,0,0,.035)" : "rgba(0,0,0,0)"; c.fillRect(tx + 6, y, tw - 12, 58);
+          c.fillStyle = r % 2 ? "rgba(255,255,255,.03)" : "rgba(0,0,0,0)"; c.fillRect(tx + 6, y, tw - 12, 58);
           c.fillStyle = pc; c.fillRect(tx + 6, y + 4, 8, 50);
           S.text(c, String(r + 1), tx + 34, y + 40, 28, r === 0 && W0 ? "#e8b100" : C.ink, "center", S.FONT_BIG, "900", r === 0 && W0 ? C.ink : null);
           // mini portrait
@@ -1139,7 +1169,7 @@
           const ns = fitText(c, nm, tw * 0.44 - 120, 18, S.FONT_BIG, "900");
           S.text(c, nm, tx + 112, y + 28, ns, C.ink, "left", S.FONT_BIG, "900");
           S.text(c, (f.cpu ? "CPU lv" + f.level : "P" + (f.port + 1)) + (f.out ? " · out" : " · " + f.stocks + " stock" + (f.stocks === 1 ? "" : "s") + " left"), tx + 112, y + 48, 13, pc, "left", S.FONT, "bold");
-          [f.kos, f.falls, f.sds, Math.round(f.dmgDealt) + "%", Math.round(f.dmgTaken) + "%"].forEach((v, k) => S.text(c, String(v), colX(k), y + 37, 22, k === 2 && f.sds ? "#e8333a" : C.ink, "center", S.FONT_BIG, "900"));
+          [f.kos, f.falls, f.sds, Math.round(f.dmgDealt) + "%", Math.round(f.dmgTaken) + "%"].forEach((v, k) => S.text(c, String(v), colX(k), y + 37, 22, k === 2 && f.sds ? C.accentHi : C.ink, "center", S.FONT_BIG, "900"));
         });
         // buttons
         const by = Math.min(VH - 80, ty + 70 + rows.length * 62 + 30), bw = (tw - 20) / 2;

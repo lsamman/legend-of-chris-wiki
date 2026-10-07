@@ -6,7 +6,7 @@
   "use strict";
   const S = (window.Smash = window.Smash || {});
   const KEY = "smash.muted";
-  const MASTER = 0.55, SFX = 0.9, MUSIC = 0.16;
+  const MASTER = 0.55, SFX = 0.9, MUSIC = 0.24;
 
   let ac = null, master = null, sfxBus = null, musBus = null, noiseBuf = null, comp = null;
   let muted = false;
@@ -149,27 +149,58 @@
     coin() { tone({ type: "square", f: 988, dur: 0.07, vol: 0.04, lp: 4000 }); tone({ type: "square", f: 1319, dur: 0.25, vol: 0.04, lp: 4000, delay: 0.07 }); },
   };
 
-  // ------------------------------------------------------------ music
-  // Each stage gets a small loop: drums + bass + soft chord pad + a sparse lead, in its own key and tempo.
+  // ------------------------------------------------------------ music: procedural breakcore
+  // Every song is generated live: an amen-style break (synthesized kick / snare / ghost / hat) that gets chopped,
+  // rearranged and rolled (32nd/64th snare rolls, dropouts, end-of-phrase fills), over a detuned reese bass with a
+  // moving filter, a sub, a dark pad and occasional rave stabs. Each stage has its own tempo, key and character.
   const SCALES = { minor: [0, 2, 3, 5, 7, 8, 10], major: [0, 2, 4, 5, 7, 9, 11], dorian: [0, 2, 3, 5, 7, 9, 10], phrygian: [0, 1, 3, 5, 7, 8, 10], mixo: [0, 2, 4, 5, 7, 9, 10] };
+  // chaos: how often the break gets chopped/rolled (0..1). half: half-time feel. bright: pad/stab filter. extra: flavour.
   const SONGS = {
-    // degrees are scale steps for chord roots (one per bar)
-    "the-court":                 { bpm: 96,  root: 45, scale: "minor",    prog: [0, 5, 3, 4], kick: "x...x..x..x.x...", snare: "....x.......x...", hat: "x.x.x.x.x.x.x.xx", lead: "square",   pad: "sawtooth", swing: 0.12 },
-    "shadow-realm":              { bpm: 66,  root: 38, scale: "phrygian", prog: [0, 1, 0, 6], kick: "x.......x.......", snare: "........x.......", hat: "..x...x...x...x.", lead: "sine",     pad: "sawtooth", swing: 0 },
-    "vending-machine-labyrinth": { bpm: 124, root: 40, scale: "dorian",   prog: [0, 3, 0, 4], kick: "x...x...x...x...", snare: "....x.......x..x", hat: "xxxxxxxxxxxxxxxx", lead: "square",   pad: "square",   swing: 0, arp: true },
-    "stairway-to-heaven":        { bpm: 80,  root: 48, scale: "major",    prog: [0, 6, 5, 4], kick: "x.......x.....x.", snare: "........x.......", hat: "x...x...x...x...", lead: "triangle", pad: "sine",     swing: 0, descend: true },
-    "the-67-casino":             { bpm: 118, root: 43, scale: "mixo",     prog: [0, 3, 4, 3], kick: "x..x..x.x..x..x.", snare: "....x.......x...", hat: "x.xxx.xxx.xxx.xx", lead: "triangle", pad: "square",   swing: 0.18, bells: true },
-    "menu":                      { bpm: 100, root: 41, scale: "major",    prog: [0, 4, 5, 3], kick: "x.......x.......", snare: "....x.......x...", hat: "x.x.x.x.x.x.x.x.", lead: "triangle", pad: "sine",     swing: 0.1 },
+    "menu":                      { bpm: 172, root: 41, scale: "dorian",   prog: [0, 5, 3, 4], chaos: 0.35, bright: 1400, extra: "pads" },
+    "the-court":                 { bpm: 178, root: 45, scale: "minor",    prog: [0, 5, 3, 6], chaos: 0.6,  bright: 2200, extra: "stabs" },
+    "shadow-realm":              { bpm: 160, root: 38, scale: "phrygian", prog: [0, 1, 0, 6], chaos: 0.45, bright: 700,  extra: "dark", half: true },
+    "vending-machine-labyrinth": { bpm: 186, root: 40, scale: "dorian",   prog: [0, 3, 0, 4], chaos: 0.75, bright: 2600, extra: "arp" },
+    "stairway-to-heaven":        { bpm: 174, root: 48, scale: "major",    prog: [0, 6, 5, 4], chaos: 0.3,  bright: 3000, extra: "liquid" },
+    "the-67-casino":             { bpm: 180, root: 43, scale: "mixo",     prog: [0, 3, 4, 3], chaos: 0.55, bright: 2400, extra: "bells" },
   };
   function songFor(id) {
     if (SONGS[id]) return SONGS[id];
-    // unknown ids get a stable variation of the menu song
     let h = 0; for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
     const keys = Object.keys(SONGS);
-    return Object.assign({}, SONGS[keys[h % keys.length]], { root: 38 + (h % 10) });
+    return Object.assign({}, SONGS[keys[h % keys.length]], { root: 38 + (h % 10), bpm: 168 + (h % 20) });
   }
   const mtof = (m) => 440 * Math.pow(2, (m - 69) / 12);
   function deg(song, d, oct) { const sc = SCALES[song.scale]; const n = sc.length; const o = Math.floor(d / n); return song.root + sc[((d % n) + n) % n] + 12 * (o + (oct || 0)); }
+
+  // --- drum voices (at = absolute AudioContext time) ---
+  const at2d = (at) => Math.max(0, at - ac.currentTime);
+  function kick(bus, at, v = 1) {
+    tone({ bus, type: "sine", f: 165, f2: 44, slide: 0.09, dur: 0.24, vol: 0.62 * v, delay: at2d(at) });
+    noise({ bus, f: 3500, q: 0.7, dur: 0.012, vol: 0.12 * v, delay: at2d(at) });                    // beater click
+  }
+  function snare(bus, at, v = 1, pitch = 1) {
+    noise({ bus, f: 1900 * pitch, q: 0.7, dur: 0.16, vol: 0.3 * v, delay: at2d(at) });
+    noise({ bus, f: 5200 * pitch, q: 0.9, filter: "highpass", dur: 0.09, vol: 0.12 * v, delay: at2d(at) });
+    tone({ bus, type: "triangle", f: 230 * pitch, f2: 170 * pitch, dur: 0.07, vol: 0.16 * v, delay: at2d(at) });
+  }
+  function hat(bus, at, v = 1, open) {
+    noise({ bus, f: 9000, q: 1.2, filter: "highpass", dur: open ? 0.12 : 0.03, vol: 0.06 * v, delay: at2d(at) });
+  }
+  // Reese: two detuned saws through a lowpass whose cutoff wobbles, plus a clean sine sub.
+  function reese(bus, at, dur, midi, vol, cut, wob) {
+    const t = Math.max(ac.currentTime, at), f = ac.createBiquadFilter(), g = ac.createGain();
+    f.type = "lowpass"; f.Q.value = 6; f.frequency.setValueAtTime(cut, t);
+    const lfo = ac.createOscillator(), lg = ac.createGain(); lfo.frequency.value = wob; lg.gain.value = cut * 0.7; lfo.connect(lg); lg.connect(f.frequency);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + 0.015); g.gain.setValueAtTime(vol, t + dur - 0.04); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    f.connect(g); g.connect(bus);
+    for (const det of [-22, 19]) { const o = ac.createOscillator(); o.type = "sawtooth"; o.frequency.value = mtof(midi); o.detune.value = det; o.connect(f); o.start(t); o.stop(t + dur + 0.02); }
+    lfo.start(t); lfo.stop(t + dur + 0.02);
+    const sub = ac.createOscillator(), sg = ac.createGain(); sub.type = "sine"; sub.frequency.value = mtof(midi - 12);
+    sg.gain.setValueAtTime(0.0001, t); sg.gain.linearRampToValueAtTime(vol * 1.6, t + 0.01); sg.gain.setValueAtTime(vol * 1.6, t + dur - 0.04); sg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    sub.connect(sg); sg.connect(bus); sub.start(t); sub.stop(t + dur + 0.02);
+  }
+  // The amen, roughly: two bars of 16ths. k kick · s snare · g ghost snare · . rest. Hats ride on top.
+  const AMEN = ["k.k.s..g.gk.s..g", "k.k.s..g.gk..s.g", "k.k.s..g.gk.s..g", "..kks..g.gk..s.g"];
 
   let seq = null;
   function startMusic(id) {
@@ -178,27 +209,65 @@
     wantMusic = id;
     const song = songFor(id);
     const bus = ac.createGain(); bus.gain.value = 0; bus.connect(musBus);
-    bus.gain.linearRampToValueAtTime(1, ac.currentTime + 1.5);
+    bus.gain.linearRampToValueAtTime(1, ac.currentTime + 0.8);
     const stepDur = 60 / song.bpm / 4;
-    const s = { id, song, bus, step: 0, next: ac.currentTime + 0.1, timer: null, rng: 1 };
+    const s = { id, song, bus, step: 0, next: ac.currentTime + 0.1, timer: null, rng: 7 + song.root, plan: null };
     const rnd = () => { s.rng = (s.rng * 16807) % 2147483647; return s.rng / 2147483647; };
+    // Per bar, decide how the break gets mangled: which 4-step slices play, and where rolls/dropouts go.
+    function planBar(barIdx) {
+      const base = AMEN[barIdx % 4], chaos = song.chaos, slices = [0, 1, 2, 3];
+      if (rnd() < chaos) { const a = Math.floor(rnd() * 4), b = Math.floor(rnd() * 4); slices[a] = b; }      // chop
+      if (rnd() < chaos * 0.6) slices[Math.floor(rnd() * 4)] = Math.floor(rnd() * 4);
+      const roll = rnd() < chaos * 0.7 ? 8 + Math.floor(rnd() * 3) * 2 : -1;                                     // a short roll mid-bar
+      const fill = barIdx % 4 === 3;                                                                             // phrase end: big fill
+      const drop = !fill && rnd() < chaos * 0.25 ? Math.floor(rnd() * 4) : -1;                                   // a dropped slice
+      return { steps: slices.map((k) => base.slice(k * 4, k * 4 + 4)).join(""), roll, fill, drop };
+    }
     function play(t, step) {
-      const bar = Math.floor(step / 16) % song.prog.length, i = step % 16;
-      const chord = song.prog[bar] - (song.descend ? Math.floor(step / 64) % 7 : 0);
-      const sw = i % 2 ? song.swing * stepDur : 0, at = t + sw;
-      const v = (o) => Object.assign({ bus }, o);
-      const sched = (fn, o) => { o.delay = Math.max(0, at - ac.currentTime); fn(v(o)); };
-      if (song.kick[i] === "x") sched(tone, { type: "sine", f: 130, f2: 42, slide: 0.12, dur: 0.22, vol: 0.55 });
-      if (song.snare[i] === "x") { sched(noise, { f: 1800, q: 0.8, dur: 0.14, vol: 0.22 }); sched(tone, { type: "triangle", f: 220, f2: 160, dur: 0.08, vol: 0.1 }); }
-      if (song.hat[i] === "x") sched(noise, { f: 8000, q: 1.5, filter: "highpass", dur: i % 4 === 2 ? 0.07 : 0.035, vol: 0.05 });
-      // bass on the beat (and the "and" of 3)
-      if (i % 4 === 0 || i === 10) sched(tone, { type: "triangle", f: mtof(deg(song, chord, -1)), dur: stepDur * (i === 10 ? 1.6 : 3.2), vol: 0.32, lp: 600 });
-      // pad: chord at the top of each bar
-      if (i === 0) for (const d of [0, 2, 4]) sched(tone, { type: song.pad, f: mtof(deg(song, chord + d, 1)), dur: stepDur * 15, att: 0.25, vol: 0.035, lp: 1100 });
-      // lead / arp
-      if (song.arp) { if (i % 2 === 0) sched(tone, { type: song.lead, f: mtof(deg(song, chord + [0, 2, 4, 7, 4, 2, 0, 4][(i / 2) % 8], 1)), dur: stepDur * 1.6, vol: 0.03, lp: 2800 }); }
-      else if ((i === 0 || i === 6 || i === 10 || i === 14) && rnd() < 0.6) sched(tone, { type: song.lead, f: mtof(deg(song, chord + [0, 2, 4, 6][Math.floor(rnd() * 4)], 2)), dur: stepDur * 2.5, vol: 0.035, lp: 3000 });
-      if (song.bells && i === 12 && bar === 3) for (const [k, d] of [[0, 4], [1, 7], [2, 9]]) sched(tone, { type: "sine", f: mtof(deg(song, d, 2)), dur: 0.5, vol: 0.04, delay: k * stepDur });
+      const barIdx = Math.floor(step / 16), i = step % 16;
+      if (i === 0 || !s.plan) s.plan = planBar(barIdx);
+      const P = s.plan, chordDeg = song.prog[barIdx % song.prog.length];
+      const halfStep = song.half ? 2 : 1;
+      // --- drums
+      if (!(P.drop >= 0 && Math.floor(i / 4) === P.drop)) {
+        if (P.fill && i >= 8) {
+          // accelerating snare roll into the next phrase: 16ths → 32nds → 64ths, rising in pitch
+          const div = i < 12 ? 2 : i < 14 ? 4 : 6;
+          for (let k = 0; k < div; k++) snare(bus, t + k * stepDur / div, 0.35 + (i - 8) / 10, 1 + (i - 8) * 0.05);
+          if (i === 8) kick(bus, t);
+        } else if (P.roll >= 0 && i >= P.roll && i < P.roll + 2) {
+          const div = rnd() < 0.5 ? 3 : 4;
+          for (let k = 0; k < div; k++) snare(bus, t + k * stepDur / div, 0.5 + k * 0.1, 1.15);
+        } else if (i % halfStep === 0) {
+          const hit = P.steps[i];
+          if (hit === "k") kick(bus, t);
+          else if (hit === "s") snare(bus, t, 1);
+          else if (hit === "g") snare(bus, t, 0.38, 1.05);
+        }
+        if (i % 2 === 0) hat(bus, t, i % 4 === 2 ? 1 : 0.6, i % 8 === 6 && rnd() < 0.3);
+      }
+      // --- reese bass: half-bar notes on the chord root, sometimes an octave jump or a passing note
+      if (i === 0 || i === 8) {
+        let m = deg(song, chordDeg, -1);
+        if (i === 8 && rnd() < 0.35) m = deg(song, chordDeg + (rnd() < 0.5 ? 4 : 2), -1);
+        if (rnd() < 0.15) m += 12;
+        reese(bus, t, stepDur * 8 - 0.01, m, song.extra === "dark" ? 0.11 : 0.085, song.extra === "dark" ? 420 : 650, song.bpm / 60 * (rnd() < 0.5 ? 1 : 2));
+      }
+      // --- pad: the chord, darkly filtered, once a bar
+      if (i === 0) for (const d of [0, 2, 4, 6]) tone({ bus, type: "sawtooth", f: mtof(deg(song, chordDeg + d, 0)), dur: stepDur * 16, att: 0.35, vol: song.extra === "liquid" || song.extra === "pads" ? 0.03 : 0.018, lp: song.bright, delay: at2d(t) });
+      // --- flavour
+      if (song.extra === "stabs" && (i === 3 || i === 11) && rnd() < 0.5)
+        for (const d of [0, 2, 4]) tone({ bus, type: "square", f: mtof(deg(song, chordDeg + d, 1)), dur: stepDur * 1.2, vol: 0.03, lp: song.bright, delay: at2d(t) });
+      if (song.extra === "arp" && i % 1 === 0 && rnd() < 0.7)
+        tone({ bus, type: "square", f: mtof(deg(song, chordDeg + [0, 2, 4, 7, 9, 7, 4, 2][i % 8], 1)), dur: stepDur * 0.8, vol: 0.022, lp: song.bright, delay: at2d(t) });
+      if (song.extra === "bells" && (i === 0 || i === 6 || i === 10) && rnd() < 0.6)
+        tone({ type: "sine", bus, f: mtof(deg(song, chordDeg + [0, 4, 7][Math.floor(rnd() * 3)], 2)), dur: 0.45, vol: 0.035, delay: at2d(t) });
+      if (song.extra === "liquid" && i % 4 === 2 && rnd() < 0.5)
+        tone({ type: "triangle", bus, f: mtof(deg(song, chordDeg + [4, 6, 7, 9][Math.floor(rnd() * 4)], 2)), dur: stepDur * 3, vol: 0.03, lp: 3500, delay: at2d(t) });
+      if (song.extra === "dark" && i === 0 && barIdx % 2 === 0)
+        noise({ bus, f: 400, f2: 80, q: 0.5, filter: "lowpass", dur: stepDur * 14, vol: 0.06, att: 0.4, delay: at2d(t) });
+      // glitch: an occasional stuttered blip, rapid-fire
+      if (rnd() < song.chaos * 0.05) for (let k = 0; k < 6; k++) tone({ bus, type: "square", f: mtof(deg(song, chordDeg + 7, 2)) * (1 + k * 0.08), dur: stepDur / 8, vol: 0.025, lp: 5000, delay: at2d(t + k * stepDur / 6) });
     }
     s.timer = setInterval(() => {
       try {
@@ -206,7 +275,7 @@
         if (s.next < ac.currentTime - 0.5) s.next = ac.currentTime + 0.05;   // tab was asleep
         while (s.next < ac.currentTime + 0.15) { play(s.next, s.step); s.next += stepDur; s.step++; }
       } catch (e) { /* never break the game over music */ }
-    }, 30);
+    }, 25);
     seq = s;
   }
   function stopMusic() {
@@ -309,6 +378,21 @@
     ensemble(t0, { at: T.final, dur: 2.6, notes: [36, 48, 55, 60, 64, 67, 72], vol: 0.1, att: 0.015, rel: 1.6, lp0: 1200, lp1: 4200, bright: 0.06, lp2: 1100, det: [-10, 0, 10], vib: 6 });
     ensemble(t0, { at: T.final, dur: 2.7, notes: [76, 79, 84], type: "triangle", vol: 0.04, att: 0.25, rel: 1.8, lp0: 3000, lp1: 6000, vib: 12 });
     for (let k = 0; k < 10; k++) timpani(t0, T.final + 0.9 + k * 0.07, 36, 0.06 + 0.02 * Math.min(k, 6));   // little roll into the ring-out
+    // breakcore under the orchestra: amen break from the impact, a roll into the title words, a last blast on the final chord
+    const sd = 60 / 176 / 4, bus = sfxBus;
+    for (let st = 0; t0 + T.impact + st * sd < t0 + T.words[0] - 0.02; st++) {
+      const tt = t0 + T.impact + st * sd, hit = AMEN[Math.floor(st / 16) % 4][st % 16];
+      if (hit === "k") kick(bus, tt, 0.8); else if (hit === "s") snare(bus, tt, 0.85); else if (hit === "g") snare(bus, tt, 0.3, 1.05);
+      if (st % 2 === 0) hat(bus, tt, 0.7);
+    }
+    for (let k = 0; k < 12; k++) snare(bus, t0 + T.words[0] - 0.5 + k * 0.04, 0.3 + k * 0.05, 1 + k * 0.03);       // roll into SUPER
+    T.words.forEach((at) => { kick(bus, t0 + at, 1); snare(bus, t0 + at + sd * 2, 0.9); });
+    for (let st = 0; st < 24; st++) {                                                                              // final blast, then out
+      const tt = t0 + T.final + st * sd, hit = AMEN[(st >> 4) % 4][st % 16];
+      if (hit === "k") kick(bus, tt, 0.9); else if (hit === "s") snare(bus, tt, 0.9); else if (hit === "g") snare(bus, tt, 0.35);
+      hat(bus, tt, 0.6);
+    }
+    reese(bus, t0 + T.final, sd * 24, 36, 0.09, 700, 4);
   }
 
   // ------------------------------------------------------------ public API (never throws)

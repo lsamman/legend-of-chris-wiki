@@ -26,12 +26,15 @@
     scene.add(hemi, key, fill, rim);
     return { hemi, key, fill, rim };
   }
+  // Gritty grade: less fill (deeper shadows), a harder key, and a strong lime-tinted rim that cuts fighters out of the
+  // background. Stages can still tint the sky/key colours via light3d; intensities are scaled to the gritty look.
   function applyStageLight(L, st) {
     const o = (st && st.light3d) || {};
-    L.hemi.color.set(o.sky != null ? o.sky : 0xfff4e6); L.hemi.groundColor.set(o.ground != null ? o.ground : 0x3d3550);
-    L.hemi.intensity = o.hemi != null ? o.hemi : 1.6;
-    L.key.color.set(o.key != null ? o.key : 0xffffff); L.key.intensity = o.keyI != null ? o.keyI : 2.4;
-    L.rim.color.set(o.rim != null ? o.rim : 0xffffff); L.rim.intensity = o.rimI != null ? o.rimI : 1.5;
+    L.hemi.color.set(o.sky != null ? o.sky : 0xd9e2ea); L.hemi.groundColor.set(o.ground != null ? o.ground : 0x15181b);
+    L.hemi.intensity = (o.hemi != null ? o.hemi : 1.6) * 0.62;
+    L.key.color.set(o.key != null ? o.key : 0xfff1dc); L.key.intensity = (o.keyI != null ? o.keyI : 2.4) * 1.15;
+    L.fill.intensity = 0.3;
+    L.rim.color.set(o.rim != null ? o.rim : 0xd2ffb0); L.rim.intensity = Math.max(2.6, (o.rimI != null ? o.rimI : 1.5) * 1.7);
   }
 
   S3.init = function () {
@@ -64,7 +67,7 @@
   K.mat = function (color, o = {}) {
     if (S3.toon && !o.pbr) {
       if (!toonRamp) {
-        toonRamp = new T.DataTexture(new Uint8Array([110, 110, 110, 255, 185, 185, 185, 255, 255, 255, 255, 255]), 3, 1, T.RGBAFormat);
+        toonRamp = new T.DataTexture(new Uint8Array([62, 62, 62, 255, 150, 150, 150, 255, 255, 255, 255, 255]), 3, 1, T.RGBAFormat);
         toonRamp.minFilter = toonRamp.magFilter = T.NearestFilter; toonRamp.needsUpdate = true;
       }
       const t = {};

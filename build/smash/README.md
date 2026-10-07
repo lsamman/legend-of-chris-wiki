@@ -134,3 +134,12 @@ Stage hazards spawn with `owner: null`.
 The beta's coming-soon list lives in `roadmap.js` and shows on the title screen. Ids are wiki slugs. When a fighter or stage
 ships, register it under the same id and delete its entry from `roadmap.js` in that same update (the title screen already
 hides entries whose id is registered, so nothing shows twice in between).
+
+## Look and sound (Dreamliner.web style)
+- Menus use the Dreamliner.web dark Metro palette (`C` in ui.js, `S.DW` in engine.js): near-black background, flat dark tiles with thin
+  edges, lime accent, Barlow / Barlow Condensed (`S.FONT`, `S.FONT_BIG`), and a night-city skyline with lime light waves (`paperBg`).
+- `S.grit(ctx, W, H, frame)` (engine.js) draws film grain, scanlines and a vignette over every scene; a scene can opt out with `noGrit: true`.
+- Matches get a colour grade in `renderMatch` (desaturate, cool multiply, green soft-light) under the HUD, and render3d.js lights fighters
+  harder (less fill, darker toon bands, a strong lime rim).
+- Music is procedural breakcore (audio.js `startMusic`): an amen-style break chopped and rolled per bar, a reese bass with a sub, a dark
+  pad and per-song flavour (`SONGS`: tempo, key, chaos, extra). The boot intro layers breaks under its orchestra.

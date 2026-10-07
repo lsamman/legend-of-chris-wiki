@@ -14,9 +14,46 @@
   S.view = { get W() { return W; }, get H() { return H; } };
 
   // ------------------------------------------------------------ fonts / text helpers (for UI too)
-  S.FONT = 'Arial, "Arimo", Helvetica, sans-serif';
-  S.FONT_BIG = '"Arial Black", "Arimo", Arial, sans-serif';
-  S.FONT_COMIC = '"Comic Sans MS", "Comic Neue", "Chalkboard SE", cursive';
+  // Dreamliner.web's type: Barlow for text, Barlow Condensed for headings (FONT_COMIC kept as a name for old call sites).
+  S.FONT = '"Barlow", "Segoe UI", Arial, sans-serif';
+  S.FONT_BIG = '"Barlow Condensed", "Arial Narrow", "Arial Black", sans-serif';
+  S.FONT_COMIC = '"Barlow", "Segoe UI", Arial, sans-serif';
+  // Dreamliner.web palette, shared by the menus and the HUD.
+  S.DW = { bg: "#0e1011", tile: "rgba(27,30,32,.9)", tileHi: "rgba(40,44,47,.94)", line: "rgba(255,255,255,.09)", text: "#f2f3f3",
+           muted: "rgba(242,243,243,.6)", faint: "rgba(242,243,243,.38)", accent: "#5fae1f", accentHi: "#7fd334", accentLo: "#3b7a14" };
+
+  // ------------------------------------------------------------ grit: grain, scanlines, vignette over every screen
+  let grainTiles = null;
+  function makeGrain() {
+    grainTiles = [];
+    for (let k = 0; k < 4; k++) {
+      const cv = document.createElement("canvas"); cv.width = cv.height = 192;
+      const x = cv.getContext("2d"), img = x.createImageData(192, 192), d = img.data;
+      for (let i = 0; i < d.length; i += 4) { const v = Math.random() * 255; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; }
+      x.putImageData(img, 0, 0); grainTiles.push(cv);
+    }
+  }
+  let vignette = null, vigKey = "";
+  S.grit = function (c, W, H, frame, amt = 1) {
+    if (!grainTiles) makeGrain();
+    c.save();
+    // grain: a different noise tile every couple of frames, at a random offset
+    c.globalAlpha = 0.06 * amt; c.globalCompositeOperation = "overlay";
+    const tile = grainTiles[(frame >> 1) % 4], ox = -((frame * 37) % 192), oy = -((frame * 71) % 192);
+    c.fillStyle = c.createPattern(tile, "repeat"); c.translate(ox, oy); c.fillRect(-ox, -oy, W, H); c.translate(-ox, -oy);
+    // scanlines
+    c.globalCompositeOperation = "source-over"; c.globalAlpha = 0.07 * amt; c.fillStyle = "#000";
+    for (let y = 0; y < H; y += 3) c.fillRect(0, y, W, 1);
+    // vignette (cached per size)
+    if (!vignette || vigKey !== W + "x" + H) {
+      vigKey = W + "x" + H; vignette = document.createElement("canvas"); vignette.width = W; vignette.height = H;
+      const v = vignette.getContext("2d"), gr = v.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.max(W, H) * 0.75);
+      gr.addColorStop(0, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(0,0,0,.6)"); v.fillStyle = gr; v.fillRect(0, 0, W, H);
+    }
+    c.globalAlpha = amt; c.drawImage(vignette, 0, 0, W, H);
+    c.restore();
+  };
+  let gritFrame = 0;
   S.text = function (c, str, x, y, size, color, align = "left", font = S.FONT, weight = "bold", outline) {
     c.font = `${weight} ${size}px ${font}`; c.textAlign = align; c.textBaseline = "alphabetic";
     if (outline) { c.lineWidth = Math.max(3, size / 6); c.strokeStyle = outline; c.lineJoin = "round"; c.strokeText(str, x, y); }
@@ -132,6 +169,12 @@
     S.drawParticles(c, g);
     if (st.drawFg) { try { st.drawFg(c, g.stage, g, cam); } catch (e) { logOnce(st, e); } }
     c.restore();
+    // gritty colour grade over the whole play field (stage and fighters), under the HUD
+    c.save();
+    c.globalCompositeOperation = "saturation"; c.globalAlpha = 0.4; c.fillStyle = "hsl(0,0%,50%)"; c.fillRect(0, 0, W, H);
+    c.globalCompositeOperation = "multiply"; c.globalAlpha = 0.45; c.fillStyle = "#7f8b92"; c.fillRect(0, 0, W, H);
+    c.globalCompositeOperation = "soft-light"; c.globalAlpha = 0.35; c.fillStyle = "#3d5a26"; c.fillRect(0, 0, W, H);
+    c.restore();
     offscreenBubbles(c, W, H, g, cam);
     drawHUD(c, W, H, g);
     if (sc.countdown > 0) {
@@ -189,7 +232,8 @@
       const col = S.PORT_COLORS[f.port];
       c.save();
       c.globalAlpha = f.out ? 0.35 : 0.92;
-      c.fillStyle = "rgba(10,10,14,.72)"; S.roundRect(c, x - slotW / 2 + 6, H - 96, slotW - 12, 86, 10); c.fill();
+      c.fillStyle = "rgba(27,30,32,.9)"; c.fillRect(x - slotW / 2 + 6, H - 96, slotW - 12, 86);   // Metro tile
+      c.strokeStyle = "rgba(255,255,255,.09)"; c.lineWidth = 1; c.strokeRect(x - slotW / 2 + 6.5, H - 95.5, slotW - 13, 85);
       c.fillStyle = col; c.fillRect(x - slotW / 2 + 6, H - 96, 8, 86);
       // portrait: a tiny version of the fighter
       c.save(); c.beginPath(); c.rect(x - slotW / 2 + 16, H - 94, 54, 82); c.clip();
@@ -274,6 +318,7 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
     if (S.scene) { try { S.scene.render(ctx, W, H); } catch (e) { console.error(e); S.lastError = e; } }
+    if (!(S.scene && S.scene.noGrit)) { try { S.grit(ctx, W, H, gritFrame++); } catch (e) { /* cosmetic */ } }
     drawToast(ctx, W);
     if (steps) S.input.mouse.clicked = false;   // keep a click for the next update on high-refresh screens
   }

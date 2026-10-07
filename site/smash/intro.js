@@ -6,7 +6,7 @@
   "use strict";
   const S = window.Smash;
   const T = (S.audio && S.audio.INTRO_TIMES) || { impact: 3.2, fanfare: [3.95, 4.3, 4.65], words: [5.3, 5.62, 5.94], final: 6.5, end: 9.2 };
-  const WORDS = [["SUPER", "#e8333a"], ["SMASH", "#e8333a"], ["BALLERS", "#ffd23f"]];
+  const WORDS = [["SUPER", "#f2f3f3"], ["SMASH", "#f2f3f3"], ["BALLERS", "#7fd334"]];
   const clamp01 = (v) => Math.max(0, Math.min(1, v));
   const easeOut = (u) => 1 - Math.pow(1 - clamp01(u), 3);
   const easeBack = (u) => { u = clamp01(u); const c = 2.2; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };
@@ -43,7 +43,7 @@
     for (let i = 0; i < 16; i++) {
       c.rotate(Math.PI / 8);
       const gr = c.createLinearGradient(0, 0, R * 6, 0);
-      gr.addColorStop(0, "rgba(255,220,120," + 0.35 * strength + ")"); gr.addColorStop(1, "rgba(255,220,120,0)");
+      gr.addColorStop(0, "rgba(190,240,140," + 0.28 * strength + ")"); gr.addColorStop(1, "rgba(190,240,140,0)");
       c.fillStyle = gr; c.beginPath(); c.moveTo(0, 0); c.lineTo(R * 6, -R * 0.35); c.lineTo(R * 6, R * 0.35); c.closePath(); c.fill();
     }
     c.restore();
@@ -97,7 +97,7 @@
         // background: black → deep night glow after the impact
         const bgA = clamp01((el - 1.2) / 2) * (el < T.impact ? 0.6 : 1);
         const bg = c.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * 0.75);
-        bg.addColorStop(0, `rgba(60,40,140,${0.85 * bgA})`); bg.addColorStop(0.5, `rgba(20,14,60,${0.8 * bgA})`); bg.addColorStop(1, "rgba(0,0,0,0)");
+        bg.addColorStop(0, `rgba(48,74,30,${0.85 * bgA})`); bg.addColorStop(0.5, `rgba(16,24,14,${0.8 * bgA})`); bg.addColorStop(1, "rgba(0,0,0,0)");
         c.fillStyle = bg; c.fillRect(0, 0, W, H);
         // screen shake on hits
         let shake = 0;
@@ -116,7 +116,7 @@
           let wx = cx - tot / 2; c.textAlign = "left";
           [...word].forEach((ch, i) => { c.fillText(ch, wx, H * 0.5); wx += ws[i] + gap; });
           c.textAlign = "center";
-          c.font = `bold ${Math.min(20, W / 45)}px ${S.FONT_COMIC}`; c.fillStyle = "#bbb";
+          c.font = `300 ${Math.min(22, W / 45)}px ${S.FONT_BIG}`; c.fillStyle = "#bbb";
           c.fillText("presents", cx, H * 0.5 + 40);
           c.globalAlpha = 1;
         }
