@@ -36,6 +36,56 @@ CHAPTER_PRINTED = {c[0]: c[1] for c in manifest.CHAPTERS}
 CHAPTER_SHORT = {c[0]: c[2] for c in manifest.CHAPTERS}
 
 
+def site_version():
+    """A fingerprint of everything the site is built from: it only changes when something does."""
+    import hashlib
+    h = hashlib.sha1()
+    files = (glob.glob(os.path.join(ROOT, "content", "**", "*"), recursive=True)
+             + glob.glob(os.path.join(ROOT, "build", "*.py")) + glob.glob(os.path.join(ROOT, "build", "*.css"))
+             + glob.glob(os.path.join(ROOT, "build", "*.js")) + [os.path.join(ROOT, "site", "assets", "chill-chris.png")])
+    for path in sorted(f for f in files if os.path.isfile(f)):
+        h.update(os.path.relpath(path, ROOT).encode())
+        with open(path, "rb") as f:
+            h.update(f.read())
+    return h.hexdigest()[:12]
+
+
+VERSION = site_version()
+
+
+def asset(name):
+    """Asset URL with the version on it, so browsers fetch the new file after each update."""
+    return f"assets/{name}?v={VERSION}"
+
+
+# Self-update, like the résumé site: if a newer version has been published, clear the
+# browser's caches and load the new one (at most once per version).
+SELF_UPDATE = """<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+(function () {
+  var SITE_VERSION = "%s";
+  if (!window.fetch) return;
+  fetch("version.json?t=" + Date.now(), { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.v || d.v === SITE_VERSION) return;
+      var key = "loc.reloaded." + d.v;
+      try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, "1"); } catch (e) {}
+      function go() {
+        var u = new URL(location.href);
+        u.searchParams.set("v", d.v);   // a new URL, so the browser fetches fresh HTML
+        location.replace(u.toString());
+      }
+      var clears = [];
+      if (window.caches && caches.keys) clears.push(caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); }));
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) clears.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }));
+      Promise.all(clears).catch(function () {}).then(go, go);
+    })
+    .catch(function () {});
+})();
+</script>"""
+
+
 # ----------------------------------------------------------------- load
 def load_entries():
     entries = {}
@@ -189,11 +239,12 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(doc_title)}</title>
 <meta name="description" content="{html.escape(description)}">
+{SELF_UPDATE % VERSION}
 <link rel="icon" href="assets/chill-chris.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="{asset("style.css")}">
 <script>try{{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 {head_extra}</head>
 <body{f' class="{body_class}"' if body_class else ""}>
@@ -219,8 +270,8 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js"></script>
-<script src="assets/wiki.js"></script>
+<script src="{asset("search-index.js")}"></script>
+<script src="{asset("wiki.js")}"></script>
 {scripts}</body>
 </html>
 """
@@ -533,7 +584,7 @@ def render_read(book_html):
 <script>window.LOC_CHAPTERS={chapters};</script>"""
     return page("Read the MASTER FILE", body, active="read",
                 description="The complete text of The Legend Of Chris, the MASTER FILE.",
-                scripts='<script type="module" src="assets/reader.js"></script>\n')
+                scripts=f'<script type="module" src="{asset("reader.js")}"></script>\n')
 
 
 QUILL = "https://cdn.jsdelivr.net/npm/quill@2.0.3/dist"
@@ -629,8 +680,8 @@ def render_write():
 <div id="toast" class="toast" role="status" hidden></div>
 <script>window.LOC_CHAPTERS={chapters};</script>"""
     head = (f'<meta name="robots" content="noindex">\n<link rel="stylesheet" href="{QUILL}/quill.snow.css">\n'
-            '<link rel="stylesheet" href="assets/editor.css">\n')
-    scripts = f'<script src="{QUILL}/quill.js" defer></script>\n<script type="module" src="assets/editor.js"></script>\n'
+            f'<link rel="stylesheet" href="{asset("editor.css")}">\n')
+    scripts = f'<script src="{QUILL}/quill.js" defer></script>\n<script type="module" src="{asset("editor.js")}"></script>\n'
     return page("Writing room", body, description="", page_no=0, head_extra=head, scripts=scripts,
                 sidebar=sidebar, body_class="writing")
 
@@ -649,7 +700,14 @@ def main():
     shutil.rmtree(img_out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "content", "images"), img_out)
     for name in ("style.css", "wiki.js", "editor.css", "book.js", "reader.js", "editor.js", "firebase-config.js"):
-        shutil.copy(os.path.join(ROOT, "build", name), os.path.join(SITE, "assets", name))
+        with open(os.path.join(ROOT, "build", name), encoding="utf-8") as f:
+            text = f.read()
+        if name.endswith(".js"):
+            text = re.sub(r'from "\./([\w-]+\.js)"', lambda m: f'from "./{m.group(1)}?v={VERSION}"', text)
+        with open(os.path.join(SITE, "assets", name), "w", encoding="utf-8") as f:
+            f.write(text)
+    with open(os.path.join(SITE, "version.json"), "w", encoding="utf-8") as f:
+        f.write(json.dumps({"v": VERSION}) + "\n")
 
     random.seed(1)
     articles = {}
