@@ -255,7 +255,7 @@ img { max-width: 100%; height: auto; }
 /* ---------- the MASTER FILE: reading page (and the editor, which uses the same look) ---------- */
 .read-title { margin-top: 0; }
 .read-cover { margin: 0 0 28px; }
-.read-cover img { display: block; width: 100%; height: auto; }   /* edge to edge across the page */
+.read-cover img { display: block; }
 .read-meta { display: flex; flex-wrap: wrap; column-gap: 6px; align-items: baseline; }
 .write-link { margin-left: auto; color: var(--ink-3) !important; text-decoration: none !important; padding: 0 4px; }
 .write-link:hover { color: var(--ink) !important; }
