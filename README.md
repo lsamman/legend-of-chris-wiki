@@ -30,6 +30,7 @@ git add -A && git commit -m "Update wiki" && git push
   - **Publish** puts the draft on the reading page. Every published version is kept under **More → Version history**, and any of them can be opened back into the draft.
   - **More → Import the original book** loads the original MASTER FILE text into the draft. The writing room offers this the first time, while the draft is empty.
   - If the writing room is open on two devices, a change on one appears on the other. If both changed at once, it asks which version to keep.
+  - **✎ Notes** (top bar) opens a private "Notes for later" drawer: a list of notes with a title and text, saved as you type to `book/notes` in Firestore and kept on the device too. Readers never see them. If notes say "Not synced", re-paste `firestore.rules` into the Firebase console (it gained a `book/notes` rule).
   - Pictures go in by link (the picture button), not by pasting files, so the book stays under Firebase's 1 MB-per-document limit.
 
 ### Writing room setup (once)

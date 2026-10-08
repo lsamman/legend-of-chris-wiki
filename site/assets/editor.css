@@ -131,3 +131,30 @@ body.writing:not(.signed-in) .outline-box { display: none; }
   .ql-toolbar.ql-snow .ql-formats { margin-right: 8px; }
   .page-wrap { padding-top: 28px; }
 }
+
+/* notes for later: a private drawer beside the page */
+.notes {
+  position: fixed; z-index: 20; top: calc(var(--bar-h) + 52px + env(safe-area-inset-top, 0px)); right: 0; bottom: 0;
+  width: min(380px, 100vw); display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 16px;
+  background: var(--paper); border-left: 1px solid var(--bar-edge); box-shadow: var(--shadow); overflow-y: auto;
+}
+.notes[hidden] { display: none; }
+.notes-head { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+.notes-head .muted { font-size: 12px; }
+.notes-hint { margin: 0; font-size: 13px; }
+.notes-list { list-style: none; margin: 0; padding: 0; max-height: 34vh; overflow-y: auto; border-top: 1px solid var(--rule); }
+.notes-list li { margin: 0; border-bottom: 1px solid var(--rule); }
+.notes-none { padding: 10px 0; }
+.note-item { display: grid; gap: 2px; width: 100%; text-align: left; padding: 8px 6px; font: inherit; font-size: 14px; border: 0; background: none; color: var(--ink); cursor: pointer; }
+.note-item:hover { background: var(--hi); }
+.note-item.on { background: var(--hi); box-shadow: inset 3px 0 0 var(--link); }
+.note-item span { font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.notes-edit { display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 220px; }
+.notes-edit input, .notes-edit textarea {
+  font: inherit; padding: 8px 10px; border: 1px solid var(--bar-edge); border-radius: 7px; background: var(--box); color: var(--ink); width: 100%;
+}
+.notes-edit input { font-weight: 700; }
+.notes-edit textarea { flex: 1; resize: none; font-size: 15px; line-height: 1.5; }
+.notes-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+@media (min-width: 1100px) { body.notes-open #editor { max-width: calc(100% - 20px); } }
+@media (max-width: 640px) { .notes { top: calc(var(--bar-h) + 52px); width: 100vw; } }
