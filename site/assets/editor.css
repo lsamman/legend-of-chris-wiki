@@ -158,3 +158,8 @@ body.writing:not(.signed-in) .outline-box { display: none; }
 .notes-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
 @media (min-width: 1100px) { body.notes-open #editor { max-width: calc(100% - 20px); } }
 @media (max-width: 640px) { .notes { top: calc(var(--bar-h) + 52px); width: 100vw; } }
+.publish-form .notify-check { display: flex; align-items: center; gap: 8px; font-weight: 700; margin: 4px 0 10px; cursor: pointer; }
+.publish-form .notify-check input { width: 18px; height: 18px; margin: 0; }
+.publish-form .notify-text { display: block; font-size: 14px; margin: 0 0 10px; }
+.publish-form .notify-text input { display: block; width: 100%; margin-top: 6px; box-sizing: border-box; }
+.publish-form .muted { font-size: 13px; margin: 0; }

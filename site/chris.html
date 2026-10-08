@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "dbf96f87816a";
+  var SITE_VERSION = "870ec0afb92d";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -23,18 +23,23 @@
       }
       var clears = [];
       if (window.caches && caches.keys) clears.push(caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); }));
-      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) clears.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }));
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) clears.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { var w = r.active || r.waiting || r.installing; return w && /notify-sw\.js/.test(w.scriptURL) ? r.update() : r.unregister(); })); }));
       Promise.all(clears).catch(function () {}).then(go, go);
     })
     .catch(function () {});
 })();
 </script>
 <link rel="icon" href="assets/chill-chris.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Legend Of Chris">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=dbf96f87816a">
-<link rel="stylesheet" href="assets/phone.css?v=dbf96f87816a">
+<link rel="stylesheet" href="assets/style.css?v=870ec0afb92d">
+<link rel="stylesheet" href="assets/phone.css?v=870ec0afb92d">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -107,8 +112,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=dbf96f87816a"></script>
-<script src="assets/wiki.js?v=dbf96f87816a"></script>
-<script src="assets/phone.js?v=dbf96f87816a"></script>
+<script src="assets/search-index.js?v=870ec0afb92d"></script>
+<script src="assets/wiki.js?v=870ec0afb92d"></script>
+<script src="assets/phone.js?v=870ec0afb92d"></script>
 </body>
 </html>

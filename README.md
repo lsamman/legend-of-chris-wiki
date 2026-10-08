@@ -42,6 +42,24 @@ git add -A && git commit -m "Update wiki" && git push
 
 The values in `firebase-config.js` are public by design. `firestore.rules` is what stops anyone else from writing.
 
+### New-chapter notifications
+
+Readers can tap **🔔 Notify me** on `read.html` to get a push notification when a new chapter comes out. On iPhone and iPad they first have to add the wiki to their Home Screen (Share → Add to Home Screen) and open it from there. That's an Apple rule for web notifications.
+
+When you press **Publish** in the writing room, the dialog has a **Send a notification to readers** checkbox. It's ticked automatically when the draft has a chapter heading (Heading 1) that the published version doesn't. The chapter name goes in the notification, and you can edit it. Untick the box to publish quietly.
+
+The notifications are sent by the **Send new-chapter notifications** GitHub Action (`.github/workflows/notify.yml`, code in `notify/`). It checks every 15 minutes, so a notification arrives anywhere from a few minutes to about half an hour after you publish. GitHub's schedule can run late. To send one right away, go to **Actions → Send new-chapter notifications → Run workflow**.
+
+Setup (once):
+
+1. Firebase console → ⚙️ **Project settings → Service accounts → Generate new private key**. This downloads a `.json` file. Keep it private.
+2. On GitHub, open the wiki repo → **Settings → Secrets and variables → Actions → New repository secret**. Name it `FIREBASE_SERVICE_ACCOUNT` and paste the **entire contents** of that `.json` file as the value. Then delete the downloaded file.
+3. Firestore → **Rules**: paste the new `firestore.rules`, put your user ID back in place of `PASTE-YOUR-USER-ID-HERE`, and press **Publish**. It adds the `subscribers` list and `book/announce`.
+
+Until the secret is set, the Action just logs "not configured" and stops. Expired subscriptions are removed automatically when sending.
+
+Optional: Firebase console → Project settings → **Cloud Messaging → Web Push certificates → Generate key pair**, then put the key in `vapidKey` in `build/firebase-config.js`. If you leave it empty, Firebase's built-in key is used, which works too. Changing it later means readers have to turn notifications on again.
+
 ### Testing locally with the Firebase emulators
 
 ```sh

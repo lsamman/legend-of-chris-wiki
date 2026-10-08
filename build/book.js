@@ -6,7 +6,7 @@ const SDK = "https://www.gstatic.com/firebasejs/12.19.0";
 
 // Local testing against the Firebase emulators: open the page with ?emulator on localhost.
 export const EMULATOR = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && new URLSearchParams(location.search).has("emulator");
-const config = EMULATOR ? { apiKey: "demo", projectId: "demo-loc", appId: "demo", authDomain: "localhost" } : firebaseConfig;
+const config = EMULATOR ? { apiKey: "demo", projectId: "demo-loc", appId: "demo", authDomain: "localhost", messagingSenderId: "0" } : firebaseConfig;
 export const CONFIGURED = Boolean(config.apiKey && config.projectId);
 
 let loaded;
@@ -21,9 +21,20 @@ export function firebase() {
       fs.connectFirestoreEmulator(db, "127.0.0.1", 8080);
       am.connectAuthEmulator(auth, "http://127.0.0.1:9099", { disableWarnings: true });
     }
-    return { db, fs, auth, am };
+    return { app, db, fs, auth, am };
   })();
   return loaded;
+}
+
+// Push notifications (Firebase Cloud Messaging), loaded only when a reader asks for them.
+let push;
+export function messaging() {
+  if (!push) push = (async () => {
+    const [{ app }, fm] = await Promise.all([firebase(), import(`${SDK}/firebase-messaging.js`)]);
+    if (!(await fm.isSupported())) return null;
+    return { fm, messaging: fm.getMessaging(app) };
+  })();
+  return push;
 }
 
 // ---------- sanitizing: only the formatting the editor can make survives ----------
