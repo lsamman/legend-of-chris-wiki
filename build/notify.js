@@ -14,9 +14,12 @@ const iOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform ==
 const homeScreen = navigator.standalone === true || matchMedia("(display-mode: standalone)").matches;
 const pushable = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
 
+let hide;
 function say(text) {
   msg.textContent = text;
   msg.hidden = !text;
+  clearTimeout(hide);
+  if (text && !/…$/.test(text)) hide = setTimeout(() => { msg.hidden = true; }, 10000);
 }
 function show(on) {
   btn.hidden = false;
