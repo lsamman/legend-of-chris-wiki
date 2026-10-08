@@ -684,6 +684,7 @@ def render_write():
     <span id="save-state" class="save-state" role="status">Saved</span>
     <span id="words" class="muted"></span>
     <span class="studio-spacer"></span>
+    <button id="notes-btn" class="btn" type="button" aria-expanded="false" aria-controls="notes">✎ Notes</button>
     <details class="studio-menu">
       <summary class="btn" aria-label="More">More ▾</summary>
       <div class="menu-pop">
@@ -730,6 +731,24 @@ def render_write():
     <button class="btn" type="button" id="empty-blank">Blank page</button>
   </div>
 </section>
+
+<aside id="notes" class="notes" aria-label="Notes for later" hidden>
+  <div class="notes-head">
+    <b>Notes for later</b>
+    <span id="notes-state" class="muted" role="status"></span>
+    <span class="studio-spacer"></span>
+    <button id="notes-new" class="btn primary" type="button">+ New note</button>
+    <button id="notes-close" class="btn" type="button" aria-label="Close notes">✕</button>
+  </div>
+  <p class="muted notes-hint">Private to you. Ideas, jokes, continuity fixes, things to write next. Saved as you type; never shown to readers.</p>
+  <ul id="notes-list" class="notes-list"></ul>
+  <div id="notes-edit" class="notes-edit" hidden>
+    <input id="notes-title" type="text" placeholder="Title" maxlength="120" aria-label="Note title">
+    <textarea id="notes-text" placeholder="Write a note…" aria-label="Note text"></textarea>
+    <div class="notes-row"><span id="notes-meta" class="muted"></span><span class="studio-spacer"></span>
+      <button id="notes-del" class="btn" type="button">Delete note</button></div>
+  </div>
+</aside>
 
 <dialog id="dlg" class="dlg"><form method="dialog">
   <h2 id="dlg-title"></h2><div id="dlg-body"></div>

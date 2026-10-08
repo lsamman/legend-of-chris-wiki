@@ -22,6 +22,11 @@ service cloud.firestore {
       }
     }
 
+    // Private notes for later (the Notes drawer in the writing room).
+    match /book/notes {
+      allow read, write: if isAuthor();
+    }
+
     // The private draft in the writing room.
     match /book/draft {
       allow read, write: if isAuthor();

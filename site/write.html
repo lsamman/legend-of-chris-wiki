@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "ac6aa347115e";
+  var SITE_VERSION = "dbf96f87816a";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -33,12 +33,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=ac6aa347115e">
-<link rel="stylesheet" href="assets/phone.css?v=ac6aa347115e">
+<link rel="stylesheet" href="assets/style.css?v=dbf96f87816a">
+<link rel="stylesheet" href="assets/phone.css?v=dbf96f87816a">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css">
-<link rel="stylesheet" href="assets/editor.css?v=ac6aa347115e">
+<link rel="stylesheet" href="assets/editor.css?v=dbf96f87816a">
 </head>
 <body class="writing">
 <header class="toolbar">
@@ -89,6 +89,7 @@
     <span id="save-state" class="save-state" role="status">Saved</span>
     <span id="words" class="muted"></span>
     <span class="studio-spacer"></span>
+    <button id="notes-btn" class="btn" type="button" aria-expanded="false" aria-controls="notes">✎ Notes</button>
     <details class="studio-menu">
       <summary class="btn" aria-label="More">More ▾</summary>
       <div class="menu-pop">
@@ -136,6 +137,24 @@
   </div>
 </section>
 
+<aside id="notes" class="notes" aria-label="Notes for later" hidden>
+  <div class="notes-head">
+    <b>Notes for later</b>
+    <span id="notes-state" class="muted" role="status"></span>
+    <span class="studio-spacer"></span>
+    <button id="notes-new" class="btn primary" type="button">+ New note</button>
+    <button id="notes-close" class="btn" type="button" aria-label="Close notes">✕</button>
+  </div>
+  <p class="muted notes-hint">Private to you. Ideas, jokes, continuity fixes, things to write next. Saved as you type; never shown to readers.</p>
+  <ul id="notes-list" class="notes-list"></ul>
+  <div id="notes-edit" class="notes-edit" hidden>
+    <input id="notes-title" type="text" placeholder="Title" maxlength="120" aria-label="Note title">
+    <textarea id="notes-text" placeholder="Write a note…" aria-label="Note text"></textarea>
+    <div class="notes-row"><span id="notes-meta" class="muted"></span><span class="studio-spacer"></span>
+      <button id="notes-del" class="btn" type="button">Delete note</button></div>
+  </div>
+</aside>
+
 <dialog id="dlg" class="dlg"><form method="dialog">
   <h2 id="dlg-title"></h2><div id="dlg-body"></div>
   <div class="dlg-row"><button class="btn" value="cancel">Cancel</button> <button class="btn primary" id="dlg-ok" value="ok">OK</button></div>
@@ -148,10 +167,10 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=ac6aa347115e"></script>
-<script src="assets/wiki.js?v=ac6aa347115e"></script>
-<script src="assets/phone.js?v=ac6aa347115e"></script>
+<script src="assets/search-index.js?v=dbf96f87816a"></script>
+<script src="assets/wiki.js?v=dbf96f87816a"></script>
+<script src="assets/phone.js?v=dbf96f87816a"></script>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js" defer></script>
-<script type="module" src="assets/editor.js?v=ac6aa347115e"></script>
+<script type="module" src="assets/editor.js?v=dbf96f87816a"></script>
 </body>
 </html>

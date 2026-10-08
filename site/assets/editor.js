@@ -1,6 +1,6 @@
 // The writing room: sign in, write in a Pages-style editor, autosave a private
 // draft, and publish it to the reading page (read.html).
-import { CONFIGURED, firebase, chapters, when } from "./book.js?v=ac6aa347115e";
+import { CONFIGURED, firebase, chapters, when } from "./book.js?v=dbf96f87816a";
 
 const $ = id => document.getElementById(id);
 const SESSION = Math.random().toString(36).slice(2);   // tells this tab's saves apart from other devices'
@@ -400,5 +400,173 @@ document.querySelectorAll(".menu-pop [data-act]").forEach(b => b.addEventListene
 }));
 $("empty-import").onclick = () => importBook();
 $("empty-blank").onclick = () => { $("empty").hidden = true; quill.focus(); };
+
+// ---------- notes for later ----------
+// A private scratchpad next to the book: a list of notes kept in one Firestore
+// document (book/notes). Each save merges with what's stored, newest edit of each
+// note wins, so two devices don't wipe each other. A copy also lives in this browser.
+const NOTES_KEY = "loc.writer.notes";
+let notes = [], gone = {}, noteId = null, notesTimer = null, notesDirty = false, notesBusy = false, notesLoaded = false;
+const notesRef = () => fs.doc(db, "book", "notes");
+
+function readLocalNotes() {
+  try { const s = JSON.parse(localStorage.getItem(NOTES_KEY) || "null"); return s && Array.isArray(s.items) ? s : { items: [], gone: {} }; }
+  catch { return { items: [], gone: {} }; }
+}
+function writeLocalNotes() {
+  try { localStorage.setItem(NOTES_KEY, JSON.stringify({ items: notes, gone })); } catch { /* storage full or blocked */ }
+}
+function mergeNotes(a, ag, b, bg) {   // newest edit of each note wins; deletions stick
+  const g = { ...ag, ...bg };
+  const map = new Map();
+  for (const n of [...a, ...b]) {
+    if (g[n.id] && g[n.id] >= n.t) continue;
+    const cur = map.get(n.id);
+    if (!cur || n.t > cur.t) map.set(n.id, n);
+  }
+  return [...map.values()].sort((x, y) => y.t - x.t);
+}
+function setNotesState(text) { $("notes-state").textContent = text; }
+
+function renderNotes() {
+  const ul = $("notes-list");
+  if (!notes.length) {
+    ul.innerHTML = '<li class="muted notes-none">No notes yet. Press “+ New note”.</li>';
+  } else {
+    ul.replaceChildren(...notes.map(n => {
+      const li = document.createElement("li");
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "note-item" + (n.id === noteId ? " on" : "");
+      const title = document.createElement("b");
+      title.textContent = n.title || firstLine(n.text) || "Untitled note";
+      const snip = document.createElement("span");
+      snip.textContent = (n.title ? firstLine(n.text) : restLines(n.text)).slice(0, 90);
+      b.append(title, snip);
+      b.onclick = () => openNote(n.id);
+      li.append(b);
+      return li;
+    }));
+  }
+  const n = notes.find(x => x.id === noteId);
+  $("notes-edit").hidden = !n;
+  if (n) $("notes-meta").textContent = "Edited " + new Date(n.t).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
+}
+const firstLine = s => (s || "").split("\n").find(l => l.trim()) || "";
+const restLines = s => (s || "").split("\n").filter(l => l.trim()).slice(1).join(" · ");
+
+function openNote(id) {
+  noteId = id;
+  const n = notes.find(x => x.id === id);
+  $("notes-title").value = n ? n.title : "";
+  $("notes-text").value = n ? n.text : "";
+  renderNotes();
+  if (n) $("notes-text").focus();
+}
+
+function noteEdited() {
+  const n = notes.find(x => x.id === noteId);
+  if (!n) return;
+  n.title = $("notes-title").value;
+  n.text = $("notes-text").value;
+  n.t = Date.now();
+  notes.sort((x, y) => y.t - x.t);
+  notesDirty = true;
+  writeLocalNotes();
+  setNotesState("Editing…");
+  clearTimeout(notesTimer);
+  notesTimer = setTimeout(saveNotes, 1200);
+  renderNotesListOnly();
+}
+function renderNotesListOnly() {   // keep the editor's cursor where it is while the list updates
+  const keep = noteId;
+  const edit = $("notes-edit").hidden;
+  renderNotes();
+  noteId = keep;
+  $("notes-edit").hidden = edit;
+}
+
+async function saveNotes() {
+  clearTimeout(notesTimer); notesTimer = null;
+  if (notesBusy || !notesDirty) return;
+  if (!navigator.onLine) { setNotesState("Offline: saved on this device"); return; }
+  notesBusy = true;
+  const sent = JSON.stringify([notes, gone]);
+  setNotesState("Saving…");
+  try {
+    let merged, mergedGone;
+    await fs.runTransaction(db, async t => {
+      const cur = await t.get(notesRef());
+      const d = cur.exists() ? cur.data() : {};
+      mergedGone = { ...(d.gone || {}), ...gone };
+      merged = mergeNotes(notes, gone, d.items || [], d.gone || {});
+      t.set(notesRef(), { items: merged, gone: mergedGone, updatedAt: fs.serverTimestamp() });
+    });
+    if (JSON.stringify([notes, gone]) === sent) {   // nothing typed meanwhile
+      notes = merged; gone = mergedGone; notesDirty = false;
+      if (!notes.find(x => x.id === noteId)) noteId = null;
+      writeLocalNotes(); renderNotes();
+    }
+    setNotesState(notesDirty ? "Editing…" : "Saved");
+  } catch (e) {
+    console.error(e);
+    setNotesState(e && e.code === "permission-denied" ? "Not synced: update firestore.rules (see README). Kept on this device." : "Couldn't sync: kept on this device");
+    notesTimer = setTimeout(saveNotes, 15000);
+  } finally {
+    notesBusy = false;
+    if (notesDirty && !notesTimer) notesTimer = setTimeout(saveNotes, 1200);
+  }
+}
+
+async function loadNotes() {
+  const local = readLocalNotes();
+  notes = local.items; gone = local.gone;
+  renderNotes();
+  try {
+    const snap = await fs.getDoc(notesRef());
+    const d = snap.exists() ? snap.data() : {};
+    notes = mergeNotes(notes, gone, d.items || [], d.gone || {});
+    gone = { ...(d.gone || {}), ...gone };
+    writeLocalNotes();
+    notesDirty = JSON.stringify(notes) !== JSON.stringify(d.items || []);
+    setNotesState("");
+    if (notesDirty) saveNotes();
+  } catch (e) {
+    console.warn(e);
+    setNotesState(e && e.code === "permission-denied" ? "Not synced: update firestore.rules (see README). Kept on this device." : "Offline: showing this device's notes");
+  }
+  notesLoaded = true;
+  renderNotes();
+}
+
+function toggleNotes(open) {
+  const panel = $("notes");
+  open = open === undefined ? panel.hidden : open;
+  panel.hidden = !open;
+  $("notes-btn").setAttribute("aria-expanded", String(open));
+  document.body.classList.toggle("notes-open", open);
+  if (open && !notesLoaded) loadNotes();
+}
+$("notes-btn").onclick = () => toggleNotes();
+$("notes-close").onclick = () => toggleNotes(false);
+$("notes-new").onclick = () => {
+  const n = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), title: "", text: "", t: Date.now() };
+  notes.unshift(n);
+  notesDirty = true;
+  writeLocalNotes();
+  openNote(n.id);
+  $("notes-title").focus();
+};
+$("notes-title").addEventListener("input", noteEdited);
+$("notes-text").addEventListener("input", noteEdited);
+$("notes-del").onclick = async () => {
+  const n = notes.find(x => x.id === noteId);
+  if (!n || !(await ask("Delete this note?", "“" + (n.title || firstLine(n.text) || "Untitled note") + "” will be removed from all your devices.", "Delete"))) return;
+  gone[n.id] = Date.now();
+  notes = notes.filter(x => x.id !== n.id);
+  noteId = null; notesDirty = true;
+  writeLocalNotes(); renderNotes(); saveNotes();
+};
+addEventListener("beforeunload", () => { if (notesDirty) saveNotes(); });
 
 start();
