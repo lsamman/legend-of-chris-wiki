@@ -1,0 +1,8 @@
+{
+  "name": "loc-notify",
+  "private": true,
+  "type": "module",
+  "description": "Sends new-chapter notifications for the Legend of Chris wiki.",
+  "scripts": { "send": "node send.mjs" },
+  "dependencies": { "firebase-admin": "^13.5.0" }
+}

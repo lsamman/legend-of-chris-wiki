@@ -31,5 +31,20 @@ service cloud.firestore {
     match /book/draft {
       allow read, write: if isAuthor();
     }
+
+    // The "new chapter" notification waiting to be sent (written when publishing).
+    match /book/announce {
+      allow read, write: if isAuthor();
+    }
+
+    // Readers who turned on notifications. Anyone can add or remove their own device,
+    // but nobody (except the author) can see the list.
+    match /subscribers/{token} {
+      allow create, update: if request.resource.data.keys().hasOnly(["token", "createdAt"])
+        && request.resource.data.token == token && token.size() < 4096
+        && request.resource.data.createdAt == request.time;
+      allow delete: if true;
+      allow read: if isAuthor();
+    }
   }
 }

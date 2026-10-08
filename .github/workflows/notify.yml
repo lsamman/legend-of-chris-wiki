@@ -1,0 +1,35 @@
+name: Send new-chapter notifications
+
+# Checks every 15 minutes whether a chapter was published with "Send a notification"
+# ticked, and if so notifies everyone who turned on notifications on read.html.
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notify
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: notify
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: notify/package-lock.json
+      - run: npm ci --no-audit --no-fund
+        working-directory: notify
+      - run: node send.mjs
+        working-directory: notify
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}

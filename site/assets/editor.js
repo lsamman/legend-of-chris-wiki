@@ -1,6 +1,6 @@
 // The writing room: sign in, write in a Pages-style editor, autosave a private
 // draft, and publish it to the reading page (read.html).
-import { CONFIGURED, firebase, chapters, when } from "./book.js?v=dbf96f87816a";
+import { CONFIGURED, firebase, chapters, when } from "./book.js?v=bc57e07b5d32";
 
 const $ = id => document.getElementById(id);
 const SESSION = Math.random().toString(36).slice(2);   // tells this tab's saves apart from other devices'
@@ -315,8 +315,45 @@ $("keep-mine").onclick = () => {
 };
 
 // ---------- publishing and versions ----------
+// Chapter headings (h1) in the draft that the published version doesn't have yet.
+function newChapters() {
+  const pub = new DOMParser().parseFromString(`<body>${publishedHtml || ""}</body>`, "text/html").body;
+  const before = new Set(chapters(pub, { assign: false }).filter(c => c.level === 1).map(c => c.text.toLowerCase()));
+  return chapters(quill.root, { assign: false }).filter(c => c.level === 1 && !before.has(c.text.toLowerCase()));
+}
+
+// The Publish dialog, with the option to notify readers who turned on notifications.
+function publishForm(fresh) {
+  const box = document.createElement("div");
+  box.className = "publish-form";
+  const p = Object.assign(document.createElement("p"), { textContent: "Readers will see this version on the wiki right away. Every published version is kept in Version history." });
+  const check = Object.assign(document.createElement("input"), { type: "checkbox", id: "notify-on", checked: fresh.length > 0 });
+  const label = document.createElement("label");
+  label.className = "notify-check";
+  label.append(check, " Send a notification to readers about a new chapter");
+  const text = Object.assign(document.createElement("input"), {
+    type: "text", id: "notify-text", className: "dlg-input", maxLength: 120,
+    value: fresh.length ? fresh.map(c => c.text).join(", ") : "",
+    placeholder: "Chapter name (shown in the notification)"
+  });
+  const wrap = document.createElement("label");
+  wrap.className = "notify-text";
+  wrap.append("Notification says: New chapter: ", text);
+  wrap.hidden = !check.checked;
+  check.onchange = () => { wrap.hidden = !check.checked; };
+  const hint = Object.assign(document.createElement("p"), {
+    className: "muted", textContent: fresh.length ? "This draft has a new chapter, so notifying readers is on." : "No new chapter heading in this draft."
+  });
+  box.append(p, label, wrap, hint);
+  return { box, check, text };
+}
+
 $("publish").onclick = async () => {
-  if (!(await ask("Publish this draft?", "Readers will see this version on the wiki right away. Every published version is kept in Version history.", "Publish"))) return;
+  const fresh = newChapters();
+  const form = publishForm(fresh);
+  if (!(await ask("Publish this draft?", form.box, "Publish"))) return;
+  const notify = form.check.checked;
+  const name = form.text.value.trim();
   await save();
   if (conflicted) { toast("Choose which version to keep first (the notice above the toolbar), then publish."); return; }
   if (edits !== savedEdits) { toast("Couldn't save the draft, so nothing was published. Try again in a moment."); return; }
@@ -324,11 +361,21 @@ $("publish").onclick = async () => {
   const batch = fs.writeBatch(db);
   batch.set(pubRef, version);
   batch.set(fs.doc(db, "book", "published", "history", new Date().toISOString()), version);
+  if (notify) {
+    const first = fresh.find(c => c.text === name) || fresh[0];
+    batch.set(fs.doc(db, "book", "announce"), {
+      title: name ? `New chapter: ${name}` : "New chapter of The Legend Of Chris",
+      body: "A new chapter of the MASTER FILE is out. Tap to read it.",
+      slug: first ? first.id : "",
+      at: fs.serverTimestamp(), sent: false
+    });
+  }
   try {
     await batch.commit();
     publishedHtml = version.html;
     refresh();
-    toast("Published. Readers can see it now.");
+    toast(notify ? "Published. Readers who turned on notifications will hear about it within about half an hour."
+                 : "Published. Readers can see it now.");
   } catch (e) {
     console.error(e);
     toast("Publishing failed: " + (e.message || e));

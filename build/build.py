@@ -83,7 +83,7 @@ SELF_UPDATE = """<meta http-equiv="Cache-Control" content="no-cache">
       }
       var clears = [];
       if (window.caches && caches.keys) clears.push(caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); }));
-      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) clears.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }));
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) clears.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { var w = r.active || r.waiting || r.installing; return w && /notify-sw\\.js/.test(w.scriptURL) ? r.update() : r.unregister(); })); }));
       Promise.all(clears).catch(function () {}).then(go, go);
     })
     .catch(function () {});
@@ -249,6 +249,11 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
 <meta name="description" content="{html.escape(description)}">
 {SELF_UPDATE % VERSION}
 <link rel="icon" href="assets/chill-chris.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Legend Of Chris">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
@@ -630,7 +635,11 @@ def render_book_html():
 def render_read(book_html):
     chapters = json.dumps([[s, p] for s, p, *_ in manifest.CHAPTERS], ensure_ascii=False)
     body = f"""
-<a class="write-btn" href="write.html" title="Sign in to the writing room (author only)">✎ Write</a>
+<div class="read-actions">
+  <button id="notify-btn" class="write-btn" type="button" aria-pressed="false" hidden>🔔 Notify me</button>
+  <a class="write-btn" href="write.html" title="Sign in to the writing room (author only)">✎ Write</a>
+  <p id="notify-msg" class="notify-msg" role="status" hidden></p>
+</div>
 <div class="chapter-title read-title" aria-hidden="true"><span>The</span> <span>Legend</span> <span>Of</span> <span>Chris</span></div>
 <h1 class="sr-title">The Legend Of Chris — the MASTER FILE</h1>
 <figure class="read-cover"><img src="assets/chill-chris.png" alt="Chris, the chill dog from the cover of the MASTER FILE" width="215" height="234"></figure>
@@ -642,7 +651,8 @@ def render_read(book_html):
 <script>window.LOC_CHAPTERS={chapters};</script>"""
     return page("Read the MASTER FILE", body, active="read",
                 description="The complete text of The Legend Of Chris, the MASTER FILE.",
-                scripts=f'<script type="module" src="{asset("reader.js")}"></script>\n')
+                scripts=f'<script type="module" src="{asset("reader.js")}"></script>\n'
+                        f'<script type="module" src="{asset("notify.js")}"></script>\n')
 
 
 QUILL = "https://cdn.jsdelivr.net/npm/quill@2.0.3/dist"
@@ -790,7 +800,7 @@ def main():
     img_out = os.path.join(SITE, "assets", "img")
     shutil.rmtree(img_out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "content", "images"), img_out)
-    for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "editor.js", "firebase-config.js"):
+    for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "editor.js", "notify.js", "firebase-config.js"):
         with open(os.path.join(ROOT, "build", name), encoding="utf-8") as f:
             text = f.read()
         if name.endswith(".js"):
@@ -801,6 +811,23 @@ def main():
     copy_smash()
     for png in glob.glob(os.path.join(ROOT, "build", "app-*.png")):   # app icons for the iPhone 3G
         shutil.copyfile(png, os.path.join(SITE, "assets", os.path.basename(png)))
+    for png in glob.glob(os.path.join(ROOT, "build", "icon-*.png")):  # Home Screen / notification icons
+        shutil.copyfile(png, os.path.join(SITE, "assets", os.path.basename(png)))
+    # The notification worker lives at the top of the site so it covers every page.
+    with open(os.path.join(ROOT, "build", "notify-sw.js"), encoding="utf-8") as f:
+        sw = f.read()
+    with open(os.path.join(SITE, "notify-sw.js"), "w", encoding="utf-8") as f:
+        f.write(sw)
+    with open(os.path.join(SITE, "manifest.webmanifest"), "w", encoding="utf-8") as f:
+        f.write(json.dumps({
+            "name": "The Legend Of Chris Wiki", "short_name": "Legend Of Chris",
+            "description": "The fan wiki for The Legend Of Chris, and the complete MASTER FILE.",
+            "start_url": "read.html", "scope": "./", "display": "standalone",
+            "background_color": "#ffffff", "theme_color": "#ffffff",
+            "icons": [{"src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
+                      {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png"},
+                      {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}],
+        }, indent=2) + "\n")
     with open(os.path.join(SITE, "version.json"), "w", encoding="utf-8") as f:
         f.write(json.dumps({"v": VERSION}) + "\n")
 

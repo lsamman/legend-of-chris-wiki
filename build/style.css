@@ -257,8 +257,16 @@ img { max-width: 100%; height: auto; }
 .read-cover { margin: 0 0 28px; }
 .read-cover img { display: block; width: 100%; height: auto; }   /* as wide as the page, like the cover */
 .read-meta { display: flex; flex-wrap: wrap; column-gap: 6px; align-items: baseline; }
+.read-actions {
+  position: absolute; top: 18px; right: 20px; z-index: 2; display: flex; flex-wrap: wrap; justify-content: flex-end;
+  gap: 8px; max-width: min(340px, calc(100% - 24px));
+}
+.notify-msg {
+  flex-basis: 100%; margin: 0; padding: 8px 10px; font-size: 13px; line-height: 1.4; color: var(--ink-2);
+  background: var(--paper); border: 1px solid var(--bar-edge); border-radius: 7px; box-shadow: 0 4px 14px rgba(0,0,0,.12);
+}
 .write-btn {
-  position: absolute; top: 18px; right: 20px; z-index: 2; font-size: 14px; font-weight: 700;
+  font: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
   padding: 6px 12px; border: 1px solid var(--bar-edge); border-radius: 7px; background: var(--paper);
   color: var(--ink) !important; text-decoration: none !important;
 }
@@ -266,7 +274,9 @@ img { max-width: 100%; height: auto; }
 .write-btn:visited { color: var(--ink) !important; }
 .feat-day { font-family: var(--sans); font-size: 13px; font-weight: 400; color: var(--ink-3); }
 @media (max-width: 960px) { .read-title { margin-top: 30px; } }
-@media (max-width: 640px) { .write-btn { top: 10px; right: 12px; } .read-title { margin-top: 34px; } }
+@media (max-width: 640px) { .read-actions { top: 10px; right: 12px; } .read-title { margin-top: 34px; } }
+.write-btn[aria-pressed="true"] { background: var(--hi); }
+.write-btn:disabled { opacity: .6; cursor: progress; }
 .book-toc { margin-bottom: 30px; }
 .read-chapter { font-weight: 700; margin: 26px 0 0; }
 .book { font: 16px/1.62 var(--sans); overflow-wrap: break-word; }
