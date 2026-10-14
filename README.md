@@ -37,7 +37,7 @@ To add or change events, edit `content/timeline.json` and rebuild:
 
 ### The "By group" view
 
-The third button on the Timeline follows the separate groups (the Moscow plotters, the New Crips, the Goober Gang, Kanye's gang, Hank's gang): a **Where everyone is now** card for each, then a chapter-by-chapter map showing what each group does, when members join or leave, and when groups combine (they then share one card). It comes from `content/groups.json` (see the notes at the top of that file). The build stops with a clear message if a link or event id in it doesn't exist.
+The third button on the Timeline follows the separate groups (the Reformed Crips, the New Crips, the Goober Gang, the Propane Dropouts, the Propane Gang), and the New Apple Employees when the last two combine: a **Where everyone is now** card for each, then a chapter-by-chapter map showing what each group does, when members join or leave, and when groups combine (they then share one card). It comes from `content/groups.json` (see the notes at the top of that file). The build stops with a clear message if a link or event id in it doesn't exist.
 
 The tracker only knows the chapters in `groups.json`. If the live published book has more chapters than that, the page shows "A newer chapter has been published. This tracker hasn't caught up with it yet."
 
