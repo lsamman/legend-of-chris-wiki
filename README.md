@@ -35,6 +35,14 @@ To add or change events, edit `content/timeline.json` and rebuild:
 - `when` (optional) is the in-universe time shown above the title, `quote` (optional) is `{"text": …, "by": …}`, and `article` is the wiki article it links to.
 - `text` uses the same `[[slug|label]]` links as the articles. The build lists any link that points nowhere.
 
+### The "By group" view
+
+The third button on the Timeline follows the separate groups (the Moscow plotters, the New Crips, the Goober Gang, Kanye's gang, Hank's gang): a **Where everyone is now** card for each, then a chapter-by-chapter map showing what each group does, when members join or leave, and when groups combine (they then share one card). It comes from `content/groups.json` (see the notes at the top of that file). The build stops with a clear message if a link or event id in it doesn't exist.
+
+The tracker only knows the chapters in `groups.json`. If the live published book has more chapters than that, the page shows "A newer chapter has been published. This tracker hasn't caught up with it yet."
+
+**After you publish a new chapter**, tell Claude. It updates `content/timeline.json` (the new events), `content/groups.json` (a cell for each group in the new chapter, each group's `now`, and `asOf`), and the wiki's chapter article.
+
 ## The MASTER FILE: reading page and writing room
 
 - **Read the MASTER FILE** (`read.html`, linked in the sidebar) shows the complete book. It starts with the original text built from `content/book.txt`, and switches to whatever was last published from the writing room as soon as Firebase answers. If someone has the page open when a new version is published, it updates without a reload.

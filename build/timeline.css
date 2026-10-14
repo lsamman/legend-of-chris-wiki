@@ -136,3 +136,91 @@
 @media print {
   .tl-controls, .tl-ruler { display: none !important; }
 }
+
+/* ---------- "By group": where everyone is now, then a chapter-by-chapter map ---------- */
+.tg { margin-top: 8px; }
+.tg h2, .tg-card { scroll-margin-top: calc(var(--tl-top, 49px) + 12px); }
+.sheet .tg h2 { margin-top: 30px; }
+.tg-asof { margin: 18px 0 10px; padding: 8px 12px; border: 1px solid var(--rule); background: var(--box); font-size: 14.5px; }
+.tg-banner { margin: 0 0 12px; padding: 8px 12px; border: 1px solid var(--ink); background: var(--hi); font-weight: 700; font-size: 14.5px; }
+.tg-now { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 14px; }
+.tg-card {
+  margin: 0; padding: 10px 14px 12px; background: var(--box); border: 1px solid var(--rule);
+  border-top: 5px solid; border-image: linear-gradient(90deg, var(--c1, var(--ink-3)) 50%, var(--c2, var(--c1, var(--ink-3))) 50%) 1;
+  font-size: 14.5px; line-height: 1.45;
+}
+.sheet .tg-card h3 { margin: 0 0 2px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.tg-dot {
+  flex: none; width: 12px; height: 12px; border-radius: 50%; display: inline-block;
+  background: linear-gradient(135deg, var(--c1, var(--ink-3)) 50%, var(--c2, var(--c1, var(--ink-3))) 50%);
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--rule);
+}
+.tg-members { margin: 0 0 8px !important; color: var(--ink-2); font-size: 13.5px; }
+.tg-card dl { margin: 0 0 8px; display: grid; grid-template-columns: 4.2em 1fr; gap: 3px 8px; }
+.tg-card dt { font-weight: 700; color: var(--ink-3); font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; padding-top: 2px; }
+.tg-card dd { margin: 0; }
+.sheet .tg-card .tg-last { margin: 0; font-size: 13px; color: var(--ink-3); }
+.tg-chris { border-image: none; border-top-color: var(--ink); }
+.tg-apart { margin: 14px 0 0 !important; padding: 8px 12px; border-left: 4px solid var(--ink); background: var(--box); font-size: 14.5px; }
+.tg-hint { font-size: 13.5px; margin: 0 0 8px !important; }
+
+.tg-scroll { overflow-x: auto; border: 1px solid var(--rule); padding: 8px 8px 8px 0; background: var(--paper); }
+.tg-scroll:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.tg-map {
+  display: grid; gap: 6px; align-items: stretch;
+  grid-template-columns: 168px repeat(var(--cols), minmax(205px, 1fr));
+  min-width: calc(168px + var(--cols) * 211px);
+}
+.tg-colhead {
+  position: sticky; top: 0; padding: 6px 8px; font-weight: 700; font-size: 13.5px; text-align: center;
+  background: var(--bar); border: 1px solid var(--bar-edge); color: var(--ink) !important;
+}
+.tg-colhead b { border: 2px solid var(--ink); border-radius: 4px; padding: 0 .3em; margin-right: 3px; font-size: .9em; }
+.tg-corner, .tg-rowhead { background: var(--paper); }
+.tg-rowhead {
+  position: sticky; left: 0; z-index: 2; display: flex; gap: 8px; align-items: flex-start; padding: 8px 8px 8px 10px;
+  font-size: 14px; line-height: 1.3; border-right: 1px solid var(--rule);
+}
+.tg-rowhead .tg-dot { margin-top: 3px; }
+.tg-rowhead b { display: block; }
+.tg-rowhead small { display: block; margin-top: 3px; color: var(--ink-3); font-size: 11.5px; line-height: 1.3; }
+.tg-cell {
+  margin: 0; padding: 8px 10px 9px; background: var(--box); border: 1px solid var(--rule);
+  border-top: 4px solid; border-image: linear-gradient(90deg, var(--c1) 50%, var(--c2) 50%) 1;
+  font-size: 13.5px; line-height: 1.4; list-style: none;
+}
+.tg-cell p { margin: 0 0 6px !important; }
+.sheet .tg-cell .tg-place, .tg-name { font-weight: 700; font-size: 14px; }
+.tg-merged { background: var(--hi); border-top-width: 6px; }
+.tg-empty { display: flex; align-items: center; justify-content: center; background: transparent; border: 1px dashed var(--rule); opacity: .8; }
+.tg-empty span { color: var(--ink-3); font-size: 18px; line-height: 1; }
+.tg-merged.tg-empty { background: transparent; }
+.tg-parts { list-style: none; padding: 0 !important; margin: 0 0 6px; }
+.tg-parts li { margin: 3px 0; padding-left: 14px; position: relative; font-size: 13px; }
+.tg-parts li::before { content: ""; position: absolute; left: 0; top: .5em; width: 8px; height: 8px; border-radius: 50%; background: var(--c1); }
+.sheet .tg-cell p.tg-move {
+  margin: 0 0 6px !important; padding: 3px 7px; border-left: 3px solid var(--ink); background: var(--paper); font-size: 12.5px;
+}
+.tg-move[data-kind="split"] { border-left-style: dashed; }
+.tg-move b { text-transform: uppercase; letter-spacing: .04em; font-size: 11.5px; margin-right: 3px; }
+.tg-move i { color: var(--ink-3); font-style: normal; white-space: nowrap; }
+.sheet .tg-cell .tg-evs { margin: 4px 0 0 !important; display: flex; flex-wrap: wrap; gap: 3px 10px; font-size: 12px; }
+.tg-evs a::before { content: "↳ "; color: var(--ink-3); }
+
+.tg-list { display: none; list-style: none; margin: 0; padding: 0 !important; }
+.tg-chap { margin: 0 0 18px; }
+.sheet .tg-chap h3 { margin: 0 0 8px; font-size: 19px; }
+.tg-chap h3 a { color: var(--ink) !important; }
+.tg-chap h3 b { border: 2px solid var(--ink); border-radius: 5px; padding: 0 .3em; margin-right: 4px; font-size: .85em; }
+.tg-chap ul { list-style: none; margin: 0; padding: 0 !important; display: grid; gap: 8px; }
+.tg-list .tg-cell p.tg-name { margin-bottom: 3px !important; }
+
+@media (max-width: 700px) {
+  .tg-scroll { display: none; }
+  .tg-list { display: block; }
+  .tg-now { grid-template-columns: 1fr; }
+  .tg-hint { display: none; }
+}
+@media print {
+  .tg-scroll { overflow: visible; }
+}

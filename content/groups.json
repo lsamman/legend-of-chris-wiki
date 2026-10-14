@@ -1,0 +1,176 @@
+{
+  "_readme": "The Timeline's 'By group' view (timeline.html?order=groups). Rows are ordered so groups that combine sit next to each other. 'cells' are keyed by chapter slug (told order); a missing chapter means the group isn't in it. 'merged' groups replace their parts from 'from' onwards (shown as one card spanning the rows). 'events' are ids from content/timeline.json. 'moves' are members joining or leaving, with the book line. Text uses [[slug|label]] links. After a new chapter is published: add a cell per group, set 'asOf', and update each 'now'. Then run python3 build/build.py.",
+  "asOf": {
+    "chapter": "chapter-4-point-1",
+    "line": 1255,
+    "note": "The book ends mid-mission, as the New Crips head for the palace."
+  },
+  "groups": [
+    {
+      "id": "moscow",
+      "name": "The Moscow plotters",
+      "members": "[[osama-bin-bomin|Osama Bin Bom'in]], [[steve-from-minecraft|Steve from Minecraft]], [[quagmire|Quagmire]]",
+      "cells": {
+        "chapter-2": {
+          "place": "The Projects, then Moscow",
+          "doing": "Plan the [[moscow-bombing|Attack on Moscow]] to make McDonald's shut up. [[lightning-mcqueen|Lightning McQueen]] is the bomber.",
+          "moves": [{"kind": "split", "text": "[[mf-vroom|MF Vroom]] is exiled to the COD lobbies", "line": 338}],
+          "events": ["steve-and-quagmire", "mf-vroom-exiled", "moscow-planned", "attack-on-moscow"]
+        },
+        "chapter-4-point-1": {
+          "place": "The Projects (O'Block 2)",
+          "doing": "Osama rules from the palace and sets [[ton-618|TON 618]] and his ambassador on the New Crips.",
+          "events": ["ton-618-wakes"]
+        }
+      },
+      "now": {
+        "place": "The Projects (O'Block 2), in the palace",
+        "doing": "Osama holds the Projects. TON 618 is awake and hunting the New Crips. Steve from Minecraft and Quagmire haven't been seen since Chapter 2.",
+        "last": {"line": 1207, "event": "ton-618-wakes"}
+      }
+    },
+    {
+      "id": "crips",
+      "name": "The New Crips",
+      "members": "[[rfk|RFK]], [[plankton|Plankton]], [[ioannus-paranukus|Ioannus Paranukus]], [[mf-vroom|MF Vroom]], [[son-s-sonionring|Son S. Sonionring]]",
+      "cells": {
+        "chapter-2": {
+          "place": "The Galactic Senate",
+          "doing": "RFK (alone) holds out against [[bon-jovi|Bon Jovi]] with 4 Red Bulls and a lightsaber.",
+          "events": ["siege-of-the-senate", "nuh-uh-debate"]
+        },
+        "chapter-triangle": {
+          "place": "Chai Town, then the road",
+          "doing": "RFK kills Bon Jovi and meets Plankton. They set out to recruit MF Vroom and restore him to power.",
+          "moves": [{"kind": "join", "text": "Plankton meets RFK: the New Crips are born", "line": 420}],
+          "events": ["bon-jovi-dies", "rfk-meets-plankton", "new-crips-quest"]
+        },
+        "chapter-the-fourth": {
+          "place": "Hyperspace, then Dunder Mifflan",
+          "doing": "A month in the System Cruiser, then past the Google Smart guards and behind the sign.",
+          "events": ["dunder-mifflan-reached"]
+        },
+        "dunder-mifflan-chapter": {
+          "place": "COD HQ",
+          "doing": "Down the vending machine Labyrinth into COD HQ. Ioannus joins, then the battle in the Xbox Live dungeons.",
+          "moves": [{"kind": "join", "text": "Ioannus Paranukus joins", "line": 665}],
+          "events": ["vending-machine-labyrinth", "ioannus-joins", "xbox-live-dungeons"]
+        },
+        "chapter-4-point-1": {
+          "place": "The 360 chambers, then the Projects",
+          "doing": "Find MF Vroom, escape COD HQ, land in the Projects, outrun the cops, learn the Prophecy, and set off for Facebook.",
+          "moves": [
+            {"kind": "join", "text": "MF Vroom is found in the 360 chambers", "line": 1083},
+            {"kind": "join", "text": "Son S. Sonionring shoots Tung Tung Tung Sahur and joins", "line": 1162}
+          ],
+          "events": ["mf-vroom-found", "spaceport-chase", "the-prophecy", "locate-facebook"]
+        }
+      },
+      "now": {
+        "place": "O'Block 2, in Son's 2005 Honda Accord, near the palace",
+        "doing": "Going for [[facebook-pre-cringe|Facebook (Pre-Cringe)]] in the palace at chicken hour, while TON 618 hunts them. Facebook is one piece of the Prophecy's phone.",
+        "last": {"line": 1243, "event": "locate-facebook"}
+      }
+    },
+    {
+      "id": "goober",
+      "name": "The Goober Gang",
+      "members": "[[lightning-mcqueen|Lightning McQueen]], [[agent-007|Agent 007]], [[mr-bean|Mr. Bean]]",
+      "cells": {
+        "chapter-2": {
+          "place": "Moscow",
+          "doing": "McQueen bombs Moscow, gets “blasted”, and moves in with [[george-constanta|George Constanta]].",
+          "events": ["attack-on-moscow"]
+        },
+        "chapter-triangle": {
+          "place": "England",
+          "doing": "McQueen meets Mr. Bean and 007. The mission: take Constantinople from the Barack Empire.",
+          "moves": [{"kind": "join", "text": "Mr. Bean and Agent 007 meet McQueen: the Goober Gang forms", "line": 483}],
+          "events": ["mcqueen-to-england", "goober-gang-forms"]
+        },
+        "chapter-the-fourth": {
+          "place": "Constantinople",
+          "doing": "Plant the nukes, flood the city with oil, escape through the wormhole. Constantinople falls at 14:74pm UST.",
+          "events": ["nukes-planted", "fall-of-constantinople"]
+        }
+      },
+      "now": {
+        "place": "Unknown: through the wormhole",
+        "doing": "Nobody has heard from the Goober Gang since Constantinople fell, in Chapter 4. “…for now.”",
+        "last": {"line": 580, "event": "fall-of-constantinople"}
+      }
+    },
+    {
+      "id": "ye",
+      "name": "Kanye, ChatGPT & Steve Jobs",
+      "members": "[[kanye-west|Kanye West]], [[chatgpt|ChatGPT]], [[steve-jobs|Steve Jobs]]",
+      "cells": {
+        "chapter-the-fourth": {
+          "place": "The United Streets of Ohio",
+          "doing": "Kanye and ChatGPT launch [[ye-the-gas|Ye the Gas]] at a corner store.",
+          "events": ["ye-the-gas"]
+        },
+        "dunder-mifflan-chapter": {
+          "place": "Gotham City",
+          "doing": "Meet FS Martin Genius and Drake Batman, win the rap battle at Club Shadowban. Steve Jobs arrives on a sideways iPhone 3G.",
+          "moves": [{"kind": "join", "text": "Steve Jobs arrives and joins Kanye and ChatGPT", "line": 742}],
+          "events": ["kanye-in-gotham", "drake-batman", "club-shadowban", "steve-jobs-arrives"]
+        },
+        "flashback-chapter": {
+          "place": "Gotham, then the Inav",
+          "doing": "Club Shadowban has been sent to the Shadow Realm. Steve calls the Inav, and sets course for the casino.",
+          "events": ["club-in-shadow-realm", "inav-lands"]
+        }
+      }
+    },
+    {
+      "id": "propane",
+      "name": "Hank Hill & the propane gang",
+      "members": "[[hank-hill|Hank Hill]], [[jesse-pinkman|Jesse Pinkman]], [[walter-white|Walter White]]",
+      "cells": {
+        "chapter-the-fourth": {
+          "place": "The Kanye system",
+          "doing": "The DOD corners Hank. The crack van rescues him. They weeze Kanye and find the propane is watered down.",
+          "events": ["twelve-towers", "crack-van", "weezing-of-kanye"]
+        },
+        "flashback-chapter": {
+          "place": "Dusty Depot, then the 6 7 Casino",
+          "doing": "Out of propane. Through the port-a-potty portal, bet on red, and take Bing's job guarding the Verizon contract.",
+          "events": ["out-of-propane", "roulette-bet", "microsoft-bing", "night-watch"]
+        }
+      }
+    }
+  ],
+  "merged": [
+    {
+      "id": "inav",
+      "name": "The Inav crew",
+      "groups": ["ye", "propane"],
+      "from": "chapter-maybe-seventh",
+      "members": "[[kanye-west|Kanye]], [[chatgpt|ChatGPT]], [[steve-jobs|Steve Jobs]], [[hank-hill|Hank]], [[jesse-pinkman|Jesse]], [[walter-white|Walter]]",
+      "cells": {
+        "chapter-maybe-seventh": {
+          "place": "The 6 7 Casino, then the TurboGrafx 16 Sector",
+          "doing": "Both gangs are after the Verizon contract. They meet in the vault hallway, find they want the same thing (defeating Chris), and open the vault together.",
+          "parts": [
+            {"group": "ye", "text": "Break in with the FaceTime laser and fight the Charlie Kirks."},
+            {"group": "propane", "text": "Wake up on guard duty, and face Kanye."}
+          ],
+          "moves": [{"kind": "join", "text": "The two gangs make peace and combine", "line": 985}],
+          "events": ["sector-1-99", "facetime-laser", "charlie-kirks", "two-gangs", "ibeam", "escape-to-turbografx"]
+        }
+      },
+      "now": {
+        "place": "The TurboGrafx 16 Sector, aboard the Inav",
+        "doing": "Holding the Verizon gift card. The plan: load a social app first, then roll the iPhone back to 3G right in Chris's face. That means dealing with Elon Mush too.",
+        "last": {"line": 1040, "event": "the-5g-problem"}
+      }
+    }
+  ],
+  "chris": {
+    "place": "The Reformed Travis Scott Sector (last trace)",
+    "doing": "Buying a McDouble from one of its planets and taking balling all for himself. Nobody has seen him since the 2007/2008 housing crash.",
+    "last": {"line": 440, "event": "chris-traced"}
+  },
+  "apart": "The New Crips and the Inav crew are both after Chris, but they haven't met. The Prophecy's phone needs the 3 year contract plan from Verizon (the Inav crew has it) and Facebook (Pre-Cringe) (the New Crips are going for it)."
+}

@@ -13,6 +13,7 @@
   var events = items.filter(function (li) { return li.classList.contains('tl-ev'); });
   var real = events.filter(function (li) { return li.id !== 'ev-to-be-continued'; });
   var smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var groupsEl = document.getElementById('tl-groups');   // the "By group" view (may not exist)
   var state = { order: 'happened', lanes: [] };
 
   function lanesOf(li) { return (li.getAttribute('data-lanes') || '').split(' ').filter(Boolean); }
@@ -24,13 +25,25 @@
   var saved = null;
   try { saved = localStorage.getItem('loc-tl-order'); } catch (e) {}
   var wanted = params.get('order') || saved;
-  if (wanted === 'told' || wanted === 'happened') state.order = wanted;
+  if (wanted === 'told' || wanted === 'happened' || (wanted === 'groups' && groupsEl)) state.order = wanted;
   var known = {};
   events.forEach(function (li) { lanesOf(li).forEach(function (l) { known[l] = 1; }); });
   state.lanes = (params.get('lanes') || '').split(',').filter(function (l) { return known[l]; });
 
   // ---- apply
   function apply(keepPlace) {
+    var isGroups = state.order === 'groups' && !!groupsEl;
+    var wasGroups = !!groupsEl && !groupsEl.hidden;
+    if (!isGroups && state.order === 'groups') state.order = 'happened';
+    if (groupsEl) groupsEl.hidden = !isGroups;
+    list.hidden = isGroups;
+    ruler.hidden = isGroups;
+    controls.querySelectorAll('.tl-only').forEach(function (el) { el.hidden = isGroups; });
+    controls.querySelectorAll('.tl-order button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-order') === state.order ? 'true' : 'false');
+    });
+    if (isGroups || wasGroups) keepPlace = false;   // a different page layout: start at the controls
+
     // Remember what's at the top of the screen, so switching order doesn't lose your place.
     var anchor = null, anchorTop = 0;
     if (keepPlace) {
@@ -42,6 +55,11 @@
       }
     }
 
+    if (isGroups) {
+      measure();
+      remember();
+      return;
+    }
     var told = state.order === 'told';
     var key = told ? 'data-told' : 'data-when', key2 = told ? 'data-when' : 'data-told';
     items.sort(function (a, b) {
@@ -108,11 +126,16 @@
     if (anchor && shown(anchor)) window.scrollBy(0, anchor.getBoundingClientRect().top - anchorTop);
     onScroll();
 
-    // Remember it, and put it in the address so the view can be shared.
+    remember();
+    if (wasGroups) controls.scrollIntoView();
+  }
+
+  // Remember the view, and put it in the address so it can be shared.
+  function remember() {
     try { localStorage.setItem('loc-tl-order', state.order); } catch (e) {}
     var p = new URLSearchParams(location.search);
-    if (state.order === 'told') p.set('order', 'told'); else p.delete('order');
-    if (want.length) p.set('lanes', want.join(',')); else p.delete('lanes');
+    if (state.order !== 'happened') p.set('order', state.order); else p.delete('order');
+    if (state.lanes.length && state.order !== 'groups') p.set('lanes', state.lanes.join(',')); else p.delete('lanes');
     var qs = p.toString();
     try { history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash); } catch (e) {}
   }
@@ -156,7 +179,14 @@
   function fromHash() {
     var id = decodeURIComponent(location.hash.slice(1));
     var li = id && document.getElementById(id);
+    if (li && groupsEl && groupsEl.contains(li) && /^grp-/.test(li.id)) {   // a card in the "By group" view
+      if (state.order !== 'groups') { state.order = 'groups'; apply(false); }
+      li.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+      flash(li);
+      return;
+    }
     if (li && li.parentNode === list) {
+      if (state.order === 'groups') { state.order = 'told'; apply(false); }   // an event link from the "By group" view
       if (li.classList.contains('tl-head') && li.getAttribute('data-kind') !== (state.order === 'told' ? 'chapter' : 'era')) {
         state.order = li.getAttribute('data-kind') === 'chapter' ? 'told' : 'happened';
         apply(false);
