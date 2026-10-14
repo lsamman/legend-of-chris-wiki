@@ -18,7 +18,7 @@ import manifest  # noqa: E402
 
 SITE = os.path.join(ROOT, "site")
 PHONE_PAGES = {"iphone-3g", "sacred-apps", "myspace", "twitter", "iphone-keynote"}   # articles with a "Turn on the iPhone 3G" button
-RESERVED = {"index", "all-pages", "search", "random", "read", "write", "playlist", "smash"}
+RESERVED = {"index", "all-pages", "search", "random", "read", "write", "playlist", "smash", "timeline"}
 PLAYLIST_URL = "https://music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
 PLAYLIST_EMBED = "https://embed.music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
 
@@ -37,6 +37,12 @@ _img_path = os.path.join(ROOT, "content", "images.json")
 IMAGES = json.load(open(_img_path, encoding="utf-8")) if os.path.exists(_img_path) else {}
 CHAPTER_PRINTED = {c[0]: c[1] for c in manifest.CHAPTERS}
 CHAPTER_SHORT = {c[0]: c[2] for c in manifest.CHAPTERS}
+_tl_path = os.path.join(ROOT, "content", "timeline.json")
+TIMELINE = json.load(open(_tl_path, encoding="utf-8")) if os.path.exists(_tl_path) else {"lanes": [], "eras": [], "events": []}
+TIMELINE_FOR = {}   # article slug -> its first event on the Timeline
+for _ev in TIMELINE["events"]:
+    if _ev.get("article"):
+        TIMELINE_FOR.setdefault(_ev["article"], _ev)
 
 
 def site_version():
@@ -218,6 +224,7 @@ def nav_html(active=None, sidebar=None):
     <ul>
       <li><a href="index.html">Main Page</a></li>
       <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the MASTER FILE</a></li>
+      <li><a href="timeline.html"{" aria-current=page" if active == "timeline" else ""}>The Timeline</a></li>
       <li><a href="playlist.html"{" aria-current=page" if active == "playlist" else ""}>The Official Playlist</a></li>
       <li><a href="smash/smash.html">Super Smash Ballers</a></li>
       <li><a href="#iphone-3g">The iPhone 3G</a></li>
@@ -356,7 +363,8 @@ def render_article(e, R, entries):
 
     # Chapter prev / next
     if slug in CHAPTER_ORDER:
-        parts.append(f'<p class="read-chapter"><a href="read.html#{slug}">Read this chapter in the MASTER FILE →</a></p>')
+        parts.append(f'<p class="read-chapter"><a href="read.html#{slug}">Read this chapter in the MASTER FILE →</a>'
+                     f' · <a href="timeline.html?order=told#ch-{slug}">See it on the Timeline →</a></p>')
         i = CHAPTER_ORDER.index(slug)
         prev_ = CHAPTER_ORDER[i - 1] if i > 0 else None
         next_ = CHAPTER_ORDER[i + 1] if i + 1 < len(CHAPTER_ORDER) else None
@@ -364,6 +372,10 @@ def render_article(e, R, entries):
                      + (f'<a href="{prev_}.html">← {html.escape(CHAPTER_SHORT[prev_])}</a>' if prev_ else "<span></span>")
                      + (f'<a href="{next_}.html">{html.escape(CHAPTER_SHORT[next_])} →</a>' if next_ else "<span></span>")
                      + "</div>")
+
+    ev = TIMELINE_FOR.get(slug)
+    if ev and cat != "chapters":
+        parts.append(f'<p class="read-chapter">On the Timeline: <a href="timeline.html#ev-{ev["id"]}">{R.inline(ev["title"])}</a> →</p>')
 
     apps = [a for a in (e.get("appearances") or []) if a in CHAPTER_ORDER]
     if apps and cat != "chapters":
@@ -458,6 +470,12 @@ def render_index(entries, R):
 <h2 class="home-h">The Canon</h2>
 <p class="muted">Eight chapters. The numbering is canon. Please do not ask about the numbering.</p>
 <ol class="canon">{chapters}</ol>
+
+<h2 class="home-h">The Timeline</h2>
+<div class="home-box playlist-box">
+  <p>{len(TIMELINE["events"])} events, from the first time Chris was a baby to chicken hour in O'Block 2. Put them in the order they happened, or the order the book tells them. It is not the same order.</p>
+  <p><a href="timeline.html">Open the Timeline →</a></p>
+</div>
 
 <h2 class="home-h">The Official Playlist</h2>
 <div class="home-box playlist-box">
@@ -556,6 +574,88 @@ def render_playlist():
 <p><a href="read.html">Read the MASTER FILE while you listen →</a></p>"""
     return page("The Official Playlist", body, active="playlist",
                 description="The official Legend Of Chris playlist on Apple Music.")
+
+
+# ----------------------------------------------------------------- the timeline
+def chapter_of_line(line):
+    for slug, _p, _s, first, last in manifest.CHAPTERS:
+        if first <= line <= last:
+            return slug
+    return manifest.CHAPTERS[-1][0]
+
+
+def render_timeline(entries, R):
+    """Every event in content/timeline.json on one page. The list is written in the order things
+    happened; timeline.js re-sorts it into the order the book tells them (by book line) and back."""
+    lanes = {l["id"]: l for l in TIMELINE["lanes"]}
+    eras = {x["id"]: x for x in TIMELINE["eras"]}
+    events = TIMELINE["events"]
+    for ev in events:
+        assert ev["era"] in eras and ev["lanes"] and all(l in lanes for l in ev["lanes"]), ev["id"]
+        assert ev.get("article", "") in entries or not ev.get("article"), (ev["id"], ev.get("article"))
+    R.current = "timeline"
+    items, seen = [], set()
+    for i, ev in enumerate(events):
+        if ev["era"] not in seen:   # each era's heading goes just before its first event
+            seen.add(ev["era"])
+            era = eras[ev["era"]]
+            items.append(f'<li class="tl-head" id="era-{era["id"]}" data-kind="era" data-when="{i - .5}" data-told="-1" '
+                         f'data-short="{html.escape(era["short"])}"><h2>{html.escape(era["name"])}</h2><p>{R.inline(era["blurb"])}</p></li>')
+        ch, ls, art = chapter_of_line(ev["line"]), ev["lanes"], ev.get("article")
+        tags = "".join(f'<span class="tl-tag" style="--c:var(--lane-{l})">{html.escape(lanes[l]["short"])}</span>' for l in ls)
+        head = (f'<span class="tl-dot" aria-hidden="true"></span>'
+                + (f'<span class="tl-era">{html.escape(eras[ev["era"]]["short"])}</span>' if ev["era"] != "main" else "")
+                + (f'<span class="tl-when">{R.inline(ev["when"])}</span>' if ev.get("when") else "")
+                + f'<span class="tl-name">{R.inline(ev["title"])}</span><span class="tl-tags">{tags}</span>')
+        body = f'<p>{R.inline(ev["text"])}</p>'
+        q = ev.get("quote")
+        if q:
+            body += (f'<figure class="tl-quote"><blockquote>“{R.inline(q["text"])}”</blockquote>'
+                     + (f'<figcaption>— {R.inline(q["by"])}</figcaption>' if q.get("by") else "") + "</figure>")
+        if ev.get("loop"):
+            body += '<p class="tl-loop-row"><button class="write-btn tl-loop" type="button">↻ Go round again</button> <span class="tl-loop-n muted" role="status"></span></p>'
+        body += (f'<p class="tl-src">Told in <a href="{ch}.html">{html.escape(CHAPTER_SHORT[ch])}</a>, line {ev["line"]}'
+                 f' · <a href="read.html#{ch}">Read it in the MASTER FILE</a>'
+                 + (f' · <a href="{art}.html">Article: {html.escape(entries[art]["title"])}</a>' if art else "")
+                 + f' · <a class="tl-permalink" href="#ev-{ev["id"]}">Link</a></p>')
+        items.append(f'<li class="tl-ev" id="ev-{ev["id"]}" data-when="{i}" data-told="{ev["line"]}" data-era="{ev["era"]}" '
+                     f'data-lanes="{" ".join(ls)}" style="--c1:var(--lane-{ls[0]});--c2:var(--lane-{ls[-1]})">'
+                     f'<details><summary>{head}</summary><div class="tl-body">{body}</div></details></li>')
+    last_line = manifest.CHAPTERS[-1][4]
+    items.append(f'<li class="tl-ev tl-end" id="ev-to-be-continued" data-when="{len(events)}" data-told="{last_line + 1}" data-era="main" data-lanes="">'
+                 '<p class="tl-name">To be continued…</p><p>The MASTER FILE ends here, mid-mission. New chapters go up on the '
+                 '<a href="read.html">reading page</a> first, and on the Timeline after that.</p></li>')
+    for n, (slug, printed, short, first, _last) in enumerate(manifest.CHAPTERS, 1):
+        items.append(f'<li class="tl-head" id="ch-{slug}" data-kind="chapter" data-when="-1" data-told="{first - .5}" data-num="{n}" data-short="{html.escape(short)}">'
+                     f'<h2><span class="tl-chn">{n}</span> <a href="{slug}.html">{html.escape(short)}</a></h2>'
+                     + (f'<p>{html.escape(printed)}</p>' if printed != short else "") + "</li>")
+    R.current = None
+
+    counts = {l: sum(1 for ev in events if l in ev["lanes"]) for l in lanes}
+    chips = "".join(f'<button class="tl-chip" type="button" data-lane="{l["id"]}" aria-pressed="false" style="--c:var(--lane-{l["id"]})">'
+                    f'<span class="tl-long">{html.escape(l["name"])}</span><span class="tl-short">{html.escape(l["short"])}</span> <b>{counts[l["id"]]}</b></button>' for l in TIMELINE["lanes"])
+    body = f"""
+<div class="chapter-title" aria-hidden="true"><span>The</span> <span>Timeline</span></div>
+<h1 class="sr-title">The Timeline</h1>
+<p class="crumbs">Every event in the MASTER FILE, in the order it happened or the order it was told · {len(events)} events</p>
+<p>The MASTER FILE is not told in order. It opens with the same origin story eight times, numbers its chapters 2, Triangle and “the fourth one the one after the one after the second one which is before the third one”, and keeps its biggest flashback in a chapter called “chapter that is after the last one but its all a flashback”. The Timeline puts it all back in order. Or not: you choose.</p>
+<div class="tl-controls" id="tl-controls" hidden>
+  <div class="tl-order" role="group" aria-label="Order">
+    <button type="button" data-order="happened" aria-pressed="true">As it happened</button><button type="button" data-order="told" aria-pressed="false">As told in the book</button>
+  </div>
+  <div class="tl-chips" role="group" aria-label="Storylines">{chips}</div>
+  <div class="tl-row"><span id="tl-count" class="muted" role="status"></span><span class="tl-row-btns">
+    <button class="write-btn" type="button" id="tl-all" hidden>Show every storyline</button>
+    <button class="write-btn" type="button" id="tl-open">Open all</button></span></div>
+</div>
+<nav class="tl-ruler" id="tl-ruler" aria-label="Jump to" hidden></nav>
+<ol class="tl" id="tl" data-order="happened">
+{chr(10).join(items)}
+</ol>"""
+    return page("The Timeline", body, active="timeline",
+                description="Every event in The Legend Of Chris, in the order it happened or the order it was told.",
+                head_extra=f'<link rel="stylesheet" href="{asset("timeline.css")}">\n',
+                scripts=f'<script src="{asset("timeline.js")}"></script>\n')
 
 
 # ----------------------------------------------------------------- the book
@@ -800,7 +900,8 @@ def main():
     img_out = os.path.join(SITE, "assets", "img")
     shutil.rmtree(img_out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "content", "images"), img_out)
-    for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "editor.js", "notify.js", "firebase-config.js"):
+    for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "editor.js", "notify.js", "firebase-config.js",
+                 "timeline.css", "timeline.js"):
         with open(os.path.join(ROOT, "build", name), encoding="utf-8") as f:
             text = f.read()
         if name.endswith(".js"):
@@ -863,6 +964,8 @@ def main():
         f.write(render_random(entries))
     with open(os.path.join(SITE, "playlist.html"), "w", encoding="utf-8") as f:
         f.write(render_playlist())
+    with open(os.path.join(SITE, "timeline.html"), "w", encoding="utf-8") as f:
+        f.write(render_timeline(entries, R))
     book_html = render_book_html()
     with open(os.path.join(SITE, "assets", "book-import.html"), "w", encoding="utf-8") as f:
         f.write(book_html + "\n")
