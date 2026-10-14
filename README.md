@@ -13,6 +13,7 @@ Live site: https://lsamman.github.io/legend-of-chris-wiki/
 - `build/fetch_images.py` re-fetches the photos.
 - `site/` is the generated website. GitHub Pages deploys it on every push to `main`.
 - `build/phone.js` and `build/phone.css` are the phone: the phone button in the toolbar (or `#iphone-3g` on any page) flies a sacred phone to the front of the screen with Will's real apps on it: MySpace v1.3.3, Twitter: Bluebird Variant, Snapchat: Ghost Protocol Edition, Facebook (Pre-Cringe), Apple Podcasts 2 and Settings (Full access), all on lsamman.github.io. A toggle switches between Steve Jobs's iPhone 3G (sideways, cracked) and the Nokia I-4500 flip phone (flips open, works with its keypad or the arrow keys and 1–9). The choice is saved in `loc.phone.model`. The wallpaper comes from the Settings app (`loc.phone.wallpaper`). App icons are `build/app-*.png`.
+- `site/timeline.html` is the Timeline (see below). Its events are in `content/timeline.json`; the page is drawn by `build/timeline.js` and `build/timeline.css`.
 - `site/read.html` is the complete book for readers. `site/write.html` is the author-only writing room. Both use `build/book.js`, `build/reader.js` and `build/editor.js`, and keep the text in Firebase (see below).
 
 ## Updating
@@ -21,6 +22,18 @@ Live site: https://lsamman.github.io/legend-of-chris-wiki/
 python3 build/build.py   # regenerate site/ after editing content
 git add -A && git commit -m "Update wiki" && git push
 ```
+
+## The Timeline
+
+`timeline.html` (in the sidebar as **The Timeline**) puts every event of the MASTER FILE on one page. It can be sorted two ways: **As it happened** (in-universe, from the Cycle of Chris to chicken hour in O'Block 2) and **As told in the book** (by chapter). Readers can pick which storylines to follow, open any event for the details, a quote, and links to its article and to the chapter in the MASTER FILE. The sorting and the storylines go into the address, so a view can be shared. Chapter articles link to their part of the Timeline, and event articles to their event.
+
+To add or change events, edit `content/timeline.json` and rebuild:
+
+- Events are listed **in the order they happened**. Put a new one where it belongs in the story's own time.
+- `line` is the line in `content/book.txt` where the book tells it. That is what puts it in the right place in **As told in the book** order and under the right chapter.
+- `era` is one of the `eras` at the top of the file. `lanes` are the storylines it belongs to (from `lanes`, first one sets the dot colour).
+- `when` (optional) is the in-universe time shown above the title, `quote` (optional) is `{"text": …, "by": …}`, and `article` is the wiki article it links to.
+- `text` uses the same `[[slug|label]]` links as the articles. The build lists any link that points nowhere.
 
 ## The MASTER FILE: reading page and writing room
 
