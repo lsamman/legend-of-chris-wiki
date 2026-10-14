@@ -39,6 +39,8 @@ CHAPTER_PRINTED = {c[0]: c[1] for c in manifest.CHAPTERS}
 CHAPTER_SHORT = {c[0]: c[2] for c in manifest.CHAPTERS}
 _tl_path = os.path.join(ROOT, "content", "timeline.json")
 TIMELINE = json.load(open(_tl_path, encoding="utf-8")) if os.path.exists(_tl_path) else {"lanes": [], "eras": [], "events": []}
+_gr_path = os.path.join(ROOT, "content", "groups.json")
+GROUPS = json.load(open(_gr_path, encoding="utf-8")) if os.path.exists(_gr_path) else None
 TIMELINE_FOR = {}   # article slug -> its first event on the Timeline
 for _ev in TIMELINE["events"]:
     if _ev.get("article"):
@@ -584,6 +586,172 @@ def chapter_of_line(line):
     return manifest.CHAPTERS[-1][0]
 
 
+
+def render_groups(entries, R):
+    """The Timeline's third view: what each group is doing in each chapter, when they combine, and where
+    everyone is as of the latest chapter content/groups.json covers. Returns (html, chapters covered)."""
+    G = GROUPS
+    events = {ev["id"]: ev for ev in TIMELINE["events"]}
+    lane_ids = {l["id"] for l in TIMELINE["lanes"]}
+    ch_short = {s: n for s, _p, n, _a, _b in manifest.CHAPTERS}
+    ch_num = {s: i for i, (s, *_r) in enumerate(manifest.CHAPTERS, 1)}
+    groups, merged = G["groups"], G.get("merged", [])
+    gid = {g["id"]: i for i, g in enumerate(groups)}
+
+    def need(ok, msg):
+        if not ok:
+            raise SystemExit(f"content/groups.json: {msg}")
+
+    def check_text(where, text):
+        for m in LINK_RE.finditer(text or ""):
+            need(m.group(1).strip().lower() in entries, f"{where}: [[{m.group(1)}]] is not an article")
+
+    def check_cell(where, c):
+        for k in ("place", "doing"):
+            check_text(where, c.get(k))
+        for mv in c.get("moves", []):
+            need(mv["kind"] in ("join", "split"), f"{where}: move kind must be join or split")
+            check_text(where, mv["text"])
+        for e in c.get("events", []):
+            need(e in events, f"{where}: unknown event id {e!r}")
+        for part in c.get("parts", []):
+            need(part["group"] in gid, f"{where}: unknown group {part['group']!r}")
+            check_text(where, part["text"])
+
+    need(G["asOf"]["chapter"] in ch_num, "asOf.chapter is not a chapter")
+    for g in groups:
+        need(g["id"] in lane_ids, f"group {g['id']!r} must match a storyline id in timeline.json (for its colour)")
+        check_text(g["id"], g["members"])
+        for ch, c in g["cells"].items():
+            need(ch in ch_num, f"{g['id']}: {ch!r} is not a chapter")
+            check_cell(f"{g['id']}/{ch}", c)
+        if "now" in g:
+            check_text(g["id"], g["now"]["place"] + g["now"]["doing"])
+    absorbed = {}
+    for m in merged:
+        rows = sorted(gid[x] for x in m["groups"])
+        need(rows == list(range(rows[0], rows[-1] + 1)), f"{m['id']}: merged groups must sit next to each other")
+        need(m["from"] in ch_num, f"{m['id']}: 'from' is not a chapter")
+        check_text(m["id"], m["members"])
+        for ch, c in m["cells"].items():
+            need(ch_num[ch] >= ch_num[m["from"]], f"{m['id']}/{ch}: before the groups combine")
+            check_cell(f"{m['id']}/{ch}", c)
+        for x in m["groups"]:
+            absorbed[x] = m
+            need(not any(ch_num[ch] >= ch_num[m["from"]] for ch in groups[gid[x]]["cells"]),
+                 f"{x}: has its own cell at or after it combines into {m['id']}")
+        check_text(m["id"], m["now"]["place"] + m["now"]["doing"])
+    for k in ("place", "doing"):
+        check_text("chris", G["chris"][k])
+
+    cols = sorted({ch for g in groups for ch in g["cells"]} | {ch for m in merged for ch in m["cells"]}, key=ch_num.get)
+    last_col = max(ch_num[c] for c in cols)
+    cols = [s for s, *_r in manifest.CHAPTERS if ch_num[s] <= last_col and (s in cols or any(
+        ch_num[s] >= ch_num[m["from"]] for m in merged))]
+    esc = html.escape
+
+    def dots(ids):
+        return f'--c1:var(--lane-{ids[0]});--c2:var(--lane-{ids[-1]})'
+
+    def ev_links(c):
+        return ('<p class="tg-evs">' + " ".join(f'<a href="#ev-{e}">{R.inline(events[e]["title"])}</a>' for e in c.get("events", [])) + "</p>") if c.get("events") else ""
+
+    def cell_html(c, ids):
+        out = f'<p class="tg-place">{R.inline(c["place"])}</p><p>{R.inline(c["doing"])}</p>'
+        if c.get("parts"):
+            out += '<ul class="tg-parts">' + "".join(
+                f'<li style="--c1:var(--lane-{p["group"]});--c2:var(--lane-{p["group"]})">{R.inline(p["text"])}</li>' for p in c["parts"]) + "</ul>"
+        for mv in c.get("moves", []):
+            out += (f'<p class="tg-move" data-kind="{mv["kind"]}"><b>{"Joins" if mv["kind"] == "join" else "Leaves"}</b> '
+                    f'{R.inline(mv["text"])} <i>line {mv["line"]}</i></p>')
+        return out + ev_links(c)
+
+    R.current = "timeline"
+    # ---- where everyone is now
+    cards = []
+    for g in groups:
+        if g["id"] in absorbed:
+            continue
+        cards.append((g["id"], [g["id"]], g["name"], g["members"], g["now"]))
+    for m in merged:
+        cards.append((m["id"], m["groups"], m["name"], m["members"], m["now"]))
+    now_html = ""
+    for cid, ids, name, members, now in cards:
+        last = now["last"]
+        lch = chapter_of_line(last["line"])
+        now_html += (f'<article class="tg-card" id="grp-{cid}" style="{dots(ids)}"><h3><span class="tg-dot" aria-hidden="true"></span>{esc(name)}</h3>'
+                     f'<p class="tg-members">{R.inline(members)}</p>'
+                     f'<dl><dt>Where</dt><dd>{R.inline(now["place"])}</dd><dt>Doing</dt><dd>{R.inline(now["doing"])}</dd></dl>'
+                     f'<p class="tg-last">Last seen in <a href="{lch}.html">{esc(ch_short[lch])}</a>, line {last["line"]}: '
+                     f'<a href="#ev-{last["event"]}">{R.inline(events[last["event"]]["title"])}</a></p></article>')
+    ch = G["chris"]
+    chl = chapter_of_line(ch["last"]["line"])
+    now_html += (f'<article class="tg-card tg-chris" id="grp-chris"><h3><span class="tg-dot" aria-hidden="true"></span>Chris</h3>'
+                 f'<p class="tg-members">The one they’re all after</p>'
+                 f'<dl><dt>Where</dt><dd>{R.inline(ch["place"])}</dd><dt>Doing</dt><dd>{R.inline(ch["doing"])}</dd></dl>'
+                 f'<p class="tg-last">Last traced in <a href="{chl}.html">{esc(ch_short[chl])}</a>, line {ch["last"]["line"]}: '
+                 f'<a href="#ev-{ch["last"]["event"]}">{R.inline(events[ch["last"]["event"]]["title"])}</a></p></article>')
+
+    # ---- the map: a row per group, a column per chapter; combined groups share one spanning card
+    grid = '<div class="tg-corner" style="grid-row:1;grid-column:1"></div>'
+    for ci, c in enumerate(cols):
+        grid += (f'<a class="tg-colhead" style="grid-row:1;grid-column:{ci + 2}" href="{c}.html"><b>{ch_num[c]}</b> {esc(ch_short[c])}</a>')
+    for ri, g in enumerate(groups):
+        grid += (f'<div class="tg-rowhead" style="grid-row:{ri + 2};grid-column:1;{dots([g["id"]])}"><span class="tg-dot" aria-hidden="true"></span>'
+                 f'<span><b>{esc(g["name"])}</b><small>{R.inline(g["members"])}</small></span></div>')
+    for ci, c in enumerate(cols):
+        done = set()
+        for ri, g in enumerate(groups):
+            m = absorbed.get(g["id"])
+            if m and ch_num[c] >= ch_num[m["from"]]:
+                if m["id"] in done:
+                    continue
+                done.add(m["id"])
+                rows = sorted(gid[x] for x in m["groups"])
+                cell = m["cells"].get(c)
+                pos = f'grid-row:{rows[0] + 2} / span {len(rows)};grid-column:{ci + 2};{dots(m["groups"])}'
+                if cell:
+                    grid += (f'<div class="tg-cell tg-merged" style="{pos}"><p class="tg-name">{esc(m["name"])}</p>{cell_html(cell, m["groups"])}</div>')
+                else:
+                    grid += f'<div class="tg-cell tg-empty tg-merged" style="{pos}"><span aria-label="Not in this chapter">—</span></div>'
+                continue
+            cell = g["cells"].get(c)
+            pos = f'grid-row:{ri + 2};grid-column:{ci + 2};{dots([g["id"]])}'
+            grid += (f'<div class="tg-cell" style="{pos}">{cell_html(cell, [g["id"]])}</div>' if cell
+                     else f'<div class="tg-cell tg-empty" style="{pos}"><span aria-label="Not in this chapter">—</span></div>')
+
+    # ---- the same thing as a list, for phones
+    lst = ""
+    for c in cols:
+        lis, done = "", set()
+        for g in groups:
+            m = absorbed.get(g["id"])
+            if m and ch_num[c] >= ch_num[m["from"]]:
+                if m["id"] in done or c not in m["cells"]:
+                    continue
+                done.add(m["id"])
+                lis += f'<li class="tg-cell tg-merged" style="{dots(m["groups"])}"><p class="tg-name">{esc(m["name"])}</p>{cell_html(m["cells"][c], m["groups"])}</li>'
+            elif c in g["cells"]:
+                lis += f'<li class="tg-cell" style="{dots([g["id"]])}"><p class="tg-name">{esc(g["name"])}</p>{cell_html(g["cells"][c], [g["id"]])}</li>'
+        lst += f'<li class="tg-chap"><h3><a href="{c}.html"><b>{ch_num[c]}</b> {esc(ch_short[c])}</a></h3><ul>{lis}</ul></li>'
+
+    asof = G["asOf"]
+    covered = ch_num[asof["chapter"]]
+    html_out = f"""<section class="tg" id="tl-groups" hidden>
+<p class="tg-asof" id="tg-asof" data-covers="{covered}">As of <a href="{asof["chapter"]}.html">{esc(ch_short[asof["chapter"]])}</a>, line {asof["line"]}: the latest chapter this tracker covers. {R.inline(asof.get("note", ""))}</p>
+<p class="tg-banner" id="tg-banner" role="status" hidden>A newer chapter has been published. This tracker hasn’t caught up with it yet.</p>
+<h2 id="grp-now">Where everyone is now</h2>
+<div class="tg-now">{now_html}</div>
+<p class="tg-apart"><b>Not combined yet.</b> {R.inline(G["apart"])}</p>
+<h2 id="grp-map">Chapter by chapter</h2>
+<p class="muted tg-hint">Each row is a group. When groups combine they share one card. Chapter 1 is the Cycle of Chris and has no groups.</p>
+<div class="tg-scroll" tabindex="0" role="region" aria-label="Chapter by chapter, scrolls sideways"><div class="tg-map" style="--cols:{len(cols)}">{grid}</div></div>
+<ol class="tg-list">{lst}</ol>
+</section>"""
+    R.current = None
+    return html_out
+
+
 def render_timeline(entries, R):
     """Every event in content/timeline.json on one page. The list is written in the order things
     happened; timeline.js re-sorts it into the order the book tells them (by book line) and back."""
@@ -631,31 +799,35 @@ def render_timeline(entries, R):
                      + (f'<p>{html.escape(printed)}</p>' if printed != short else "") + "</li>")
     R.current = None
 
+    groups_html = render_groups(entries, R) if GROUPS else ""
     counts = {l: sum(1 for ev in events if l in ev["lanes"]) for l in lanes}
     chips = "".join(f'<button class="tl-chip" type="button" data-lane="{l["id"]}" aria-pressed="false" style="--c:var(--lane-{l["id"]})">'
                     f'<span class="tl-long">{html.escape(l["name"])}</span><span class="tl-short">{html.escape(l["short"])}</span> <b>{counts[l["id"]]}</b></button>' for l in TIMELINE["lanes"])
     body = f"""
 <div class="chapter-title" aria-hidden="true"><span>The</span> <span>Timeline</span></div>
 <h1 class="sr-title">The Timeline</h1>
-<p class="crumbs">Every event in the MASTER FILE, in the order it happened or the order it was told · {len(events)} events</p>
-<p>The MASTER FILE is not told in order. It opens with the same origin story eight times, numbers its chapters 2, Triangle and “the fourth one the one after the one after the second one which is before the third one”, and keeps its biggest flashback in a chapter called “chapter that is after the last one but its all a flashback”. The Timeline puts it all back in order. Or not: you choose.</p>
+<p class="crumbs">Every event in the MASTER FILE: in the order it happened, the order it was told, or group by group · {len(events)} events</p>
+<p>The MASTER FILE is not told in order. It opens with the same origin story eight times, numbers its chapters 2, Triangle and “the fourth one the one after the one after the second one which is before the third one”, and keeps its biggest flashback in a chapter called “chapter that is after the last one but its all a flashback”. The Timeline puts it all back in order. Or not: you choose. You can also follow each group on its own, and see when they combine and where they are now.</p>
 <div class="tl-controls" id="tl-controls" hidden>
   <div class="tl-order" role="group" aria-label="Order">
-    <button type="button" data-order="happened" aria-pressed="true">As it happened</button><button type="button" data-order="told" aria-pressed="false">As told in the book</button>
+    <button type="button" data-order="happened" aria-pressed="true">As it happened</button><button type="button" data-order="told" aria-pressed="false">As told in the book</button>{'<button type="button" data-order="groups" aria-pressed="false">By group</button>' if groups_html else ""}
   </div>
-  <div class="tl-chips" role="group" aria-label="Storylines">{chips}</div>
-  <div class="tl-row"><span id="tl-count" class="muted" role="status"></span><span class="tl-row-btns">
+  <div class="tl-chips tl-only" role="group" aria-label="Storylines">{chips}</div>
+  <div class="tl-row tl-only"><span id="tl-count" class="muted" role="status"></span><span class="tl-row-btns">
     <button class="write-btn" type="button" id="tl-all" hidden>Show every storyline</button>
     <button class="write-btn" type="button" id="tl-open">Open all</button></span></div>
 </div>
 <nav class="tl-ruler" id="tl-ruler" aria-label="Jump to" hidden></nav>
+{groups_html}
 <ol class="tl" id="tl" data-order="happened">
 {chr(10).join(items)}
 </ol>"""
     return page("The Timeline", body, active="timeline",
                 description="Every event in The Legend Of Chris, in the order it happened or the order it was told.",
                 head_extra=f'<link rel="stylesheet" href="{asset("timeline.css")}">\n',
-                scripts=f'<script src="{asset("timeline.js")}"></script>\n')
+                scripts=f'<script src="{asset("timeline.js")}"></script>\n'
+                        + (f'<script>window.LOC_CHAPTERS={json.dumps([[s, p] for s, p, *_ in manifest.CHAPTERS], ensure_ascii=False)};</script>\n'
+                           f'<script type="module" src="{asset("timeline-live.js")}"></script>\n' if groups_html else ""))
 
 
 # ----------------------------------------------------------------- the book
@@ -901,7 +1073,7 @@ def main():
     shutil.rmtree(img_out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "content", "images"), img_out)
     for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "editor.js", "notify.js", "firebase-config.js",
-                 "timeline.css", "timeline.js"):
+                 "timeline.css", "timeline.js", "timeline-live.js"):
         with open(os.path.join(ROOT, "build", name), encoding="utf-8") as f:
             text = f.read()
         if name.endswith(".js"):
