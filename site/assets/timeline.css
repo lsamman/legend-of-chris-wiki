@@ -2,17 +2,17 @@
    colour-blind readers in both themes. Every dot also has its storyline's name next to it. */
 :root {
   --lane-cycle: #2a78d6; --lane-desantis: #eb6834; --lane-moscow: #1baf7a; --lane-crips: #eda100;
-  --lane-goober: #e87ba4; --lane-propane: #008300; --lane-ye: #6250d6; --lane-history: #8a8a8a;
+  --lane-goober: #e87ba4; --lane-propane: #008300; --lane-ye: #6250d6; --lane-history: #8a8a8a; --lane-woz: #0f9aa6;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --lane-cycle: #3987e5; --lane-desantis: #d95926; --lane-moscow: #199e70; --lane-crips: #c98500;
-    --lane-goober: #d55181; --lane-propane: #008300; --lane-ye: #9085e9; --lane-history: #8d8d93;
+    --lane-goober: #d55181; --lane-propane: #008300; --lane-ye: #9085e9; --lane-history: #8d8d93; --lane-woz: #2fb6c2;
   }
 }
 :root[data-theme="dark"] {
   --lane-cycle: #3987e5; --lane-desantis: #d95926; --lane-moscow: #199e70; --lane-crips: #c98500;
-  --lane-goober: #d55181; --lane-propane: #008300; --lane-ye: #9085e9; --lane-history: #8d8d93;
+  --lane-goober: #d55181; --lane-propane: #008300; --lane-ye: #9085e9; --lane-history: #8d8d93; --lane-woz: #2fb6c2;
 }
 
 /* ---------- controls ---------- */

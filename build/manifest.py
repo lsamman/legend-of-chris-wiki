@@ -9,8 +9,9 @@ CHAPTERS = [
     ("chapter-the-fourth", "Chapter the fourth one the one after the one after the second one which is before the third one", "Chapter the Fourth", 512, 627),
     ("dunder-mifflan-chapter", "Dunder Mifflan: A chapter that is not the first or second or third or the one that comes after the second one and the fourth one which is not the first one", "Dunder Mifflan", 628, 751),
     ("flashback-chapter", "chapter that is after the last one but its all a flashback", "The Flashback Chapter", 752, 900),
-    ("chapter-maybe-seventh", "chapter the maybe seventh one if you can still count idk tho", "Chapter the Maybe Seventh", 901, 1057),
-    ("chapter-4-point-1", "Chapter 4+.1+.1+.1+.1+.1+.1+.1+.1+.1+.1+idk bro figure it out", "Chapter 4+.1+.1…", 1058, 1256),
+    ("chapter-maybe-seventh", "chapter the maybe seventh one if you can still count idk tho", "Chapter the Maybe Seventh", 901, 1061),
+    ("chapter-4-point-1", "Chapter 4+.1+.1+.1+.1+.1+.1+.1+.1+.1+.1+idk bro figure it out", "Chapter 4+.1+.1…", 1062, 1439),
+    ("chapter-new-jersey", "Chaper Number New Jersey, the newest jersey, dare I say the most modern jersey I have seen yet, believe me I've seen alot of jerseys and none are as meta as this jersey", "Chapter Number New Jersey", 1440, 1442),
 ]
 
 E = [

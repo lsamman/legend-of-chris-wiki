@@ -10,13 +10,13 @@
    "Alma mater": "[[darkworld-state-university|Darkworld State University]]",
    "Known associates": "[[mf-vroom|MF Vroom]], [[grogu|Grogu]]",
    "Location": "Possibly [[cyber-city|Cyber City]]",
-   "First appearance": "[[chapter-4-point-1]] (voice only)"
+   "First appearance": "[[chapter-4-point-1]] (voice only; in person in the TurboGrafx 16 section)"
   },
   "quote": {
    "text": "Well its good that your out habibi, pop up to [CYBERR1!! C1TYY!!] When you get there chance",
    "by": "Spamton G. Spamton, [[chapter-4-point-1]]"
   },
-  "lead": "**Spamton G. Spamton** is a voice on the other end of [[mf-vroom|MF Vroom]]'s [[windows-phone|Windows phone]], and, by MF Vroom's own account, his “bestie” from his fraternity days at [[darkworld-state-university|Darkworld State University]]. He is one of very few characters in the canon to be introduced entirely over the phone, and the only one who speaks partly in [BRACKETS].\n\nSpamton calls during the hyperspace flight from [[dunder-mifflin|Dunder Mifflin]] to [[the-projects|the Projects]] in [[chapter-4-point-1]], requests a highly specific culinary favour, and hangs up. He has not been seen in person.",
+  "lead": "**Spamton G. Spamton** is a voice on the other end of [[mf-vroom|MF Vroom]]'s [[windows-phone|Windows phone]], and, by MF Vroom's own account, his “bestie” from his fraternity days at [[darkworld-state-university|Darkworld State University]]. He is one of very few characters in the canon to be introduced entirely over the phone, and the only one who speaks partly in [BRACKETS].\n\nSpamton calls during the hyperspace flight from [[dunder-mifflin|Dunder Mifflin]] to [[the-projects|the Projects]] in [[chapter-4-point-1]], requests a highly specific culinary favour, and hangs up. He is not seen in person until the end of the chapter, when he is the boss of [[the-border|the Border]]. See [[spamton-neo]].",
   "sections": [
    {
     "heading": "The phone call",
@@ -25,6 +25,10 @@
    {
     "heading": "Background",
     "body": "When RFK asks “Who was that-t?”, MF Vroom explains that Spamton was his frat brother in [[alpha-mogger-beta|Alpha Mogger Beta]] (“something that sounded like that”). Part of the frat's hazing was packaging [[xp-candy|XP candy]] for the higher-ups, which earned “so much [kromer]” (see [[kromer|Kromer]]). MF Vroom sums him up as “good guy”."
+   },
+   {
+    "heading": "In person: Spamton NEO",
+    "body": "In the October 2026 update, Spamton appears in person as [[spamton-neo|Spamton NEO]], the boss of [[the-border|the Border]]. After [[scott-the-woz|Scott]] defeats him, the base Spamton recovers, remembers only that he was calling [[mf-vroom|MF Vroom]] and was injected with “[flowers bloom in your heart]” by “A MYSTERIOUS FIGURE IN [cybr city!!111]”, and sells [[steve-jobs|Steve]] some [[kromer|Kromer]] before vanishing. See [[the-border-fight|The Border Fight]]."
    },
    {
     "heading": "Behind the scenes",
@@ -46,7 +50,9 @@
    "xp-candy",
    "cyber-city",
    "grogu",
-   "ton-618"
+   "ton-618",
+   "spamton-neo",
+   "the-border-fight"
   ]
  },
  {
@@ -97,7 +103,7 @@
   "sections": [
    {
     "heading": "Description",
-    "body": "Son introduces it while the gang drives toward [[o-block|O'Block]]:\n\n> “In the begining of the O’block 2 era, when It was being scaled to be a EU level nation, Osama Bin’ Bombin created monolithically sized defensive bio-robotic weapons robots.. the most infamous of which is.. the one in that facility, facility 69420, TON six eighteen. It stands for Terrible Offensive Nuhuh. Its the projects flagship defense like Israel’s iron dome but as one big robotic creature.. yall we might be screwed, Osama does not want us here”\n\nTON 618 has the following known features:\n- A faint blue glow, visible from far away.\n- A “giant robotic roar” that can be heard “from horizon to horizon”.\n- Footsteps that make the ground rumble.\n- A “large red electronic eye, maybe not a eye, more like a giant spotlight” that sweeps the buildings and roads."
+    "body": "Son introduces it while the gang drives toward [[o-block|O'Block]]:\n\n> “In the beginning of the O’block 2 era, when It was being scaled to be a EU level nation, Osama Bin’ Bombin created monolithically sized defensive bio-robotic weapons robots.. the most infamous of which is.. the one in that facility, facility 69420, TON six eighteen. It stands for Terrible Offensive Nuhuh. Its the projects flagship defense like Israel’s iron dome but as one big robotic creature.. yall we might be screwed, Osama does not want us here”\n\nTON 618 has the following known features:\n- A faint blue glow, visible from far away.\n- A “giant robotic roar” that can be heard “from horizon to horizon”.\n- Footsteps that make the ground rumble.\n- A “large red electronic eye, maybe not a eye, more like a giant spotlight” that sweeps the buildings and roads."
    },
    {
     "heading": "Activation",
@@ -256,6 +262,10 @@
   "lead": "**Kromer**, always written in brackets as **[kromer]**, is the currency [[alpha-mogger-beta|Alpha Mogger Beta]] earned from its [[xp-candy|XP candy]] operation:\n\n> “we made so much [kromer] from that man it was the high life”\n\nIt joins a canon economy that also runs on dollar-denominated [[fortnite|Fortnite]] cards and [[nfts|NFTs]].",
   "sections": [
    {
+    "heading": "Kromer in the TurboGrafx 16 universe",
+    "body": "A flying Kromer brick “freshly bought from Costco in bulk” hits [[scott-the-woz|Scott]] in [[the-border-fight|the Border Fight]]. At the end of the chapter, [[spamton|Spamton]] says “Heres some Kromer for the road boys”, and an Apple Cash alert on [[steve-jobs|Steve's]] phone reads 69,420 Kromer ($20 USD). When Steve looks up to thank the salesman, he is gone.\n\nThe exchange rate (about 3,471 Kromer to the dollar) is the canon's first published one."
+   },
+   {
     "heading": "Behind the scenes",
     "body": "- In *Deltarune*, Kromer is the currency of [[spamton|Spamton G. Spamton]], and it is written in brackets because that is how he talks. In the canon MF Vroom puts it in brackets as well, so it seems Spamton's style has rubbed off on him.\n- The exchange rate between kromer and [[the-projects|Projects]] money is unknown."
    }
@@ -266,7 +276,9 @@
   "related": [
    "spamton",
    "alpha-mogger-beta",
-   "xp-candy"
+   "xp-candy",
+   "spamton-neo",
+   "the-border-fight"
   ]
  },
  {
@@ -670,11 +682,15 @@
    },
    {
     "heading": "The chase",
-    "body": "The gang gets into [[honda-accord-2005|Son's 2005 Honda Accord]]. The Police Kirks then “transformed into police cars and crashed through the front of the building”. In the middle of the chase, [[rfk|RFK]] asks:\n\n> “How far i-is o block, is there road kill here I need raccon ******** for my next dish- *a road bump interrupted him* I-it is extremely important”\n\nSon replies, “man bruh we already running from the cops why you wanna cook up some new Kennedy food”. He then reaches into the glove box, which brings a machine gun out of the trunk. It fires [[purple-juice|solidified purple juice]] and pops every tire chasing them, while [[i-cant-put-down-the-cup|“I Can't Put Down the Cup”]] plays. After that it is “smooth sailing to O’block.”"
+    "body": "The gang gets into [[honda-accord-2005|Son's 2005 Honda Accord]]. The Police Kirks then “transformed into police cars and crashed through the front of the building”. In the middle of the chase, [[rfk|RFK]] asks:\n\n> “How far i-is o block, is there road kill here I need raccon testicles for my next dish- *a road bump interrupted him* I-it is extremely important”\n\nSon replies, “man bruh we already running from the cops why you wanna cook up some new Kennedy food”. He then reaches into the glove box, which brings a machine gun out of the trunk. It fires [[purple-juice|solidified purple juice]] and pops every tire chasing them, while [[i-cant-put-down-the-cup|“I Can't Put Down the Cup”]] plays. After that it is “smooth sailing to O’block.”"
    },
    {
     "heading": "Casualties",
     "body": "The body count is officially “going crazy”. No exact figure is given, so this is one of the few battles in the canon with no casualty number. Compare “over 10 casualties” in [[baller-army-attack|the Dabbing of the Haters]]."
+   },
+   {
+    "heading": "Behind the scenes",
+    "body": "- In the first edition of the MASTER FILE the roadkill part RFK wants was censored as “raccon ********”. The October 2026 update spells it out. It matches [[spamton|Spamton's]] request for the “[orb shaped objects]” of intergalactic roadkill in the same chapter, which explains the recipe."
    },
    {
     "heading": "Trivia",
@@ -1071,6 +1087,10 @@
     "body": "- **Verizon contract:** obtained in [[casino-heist|the Casino Heist]] and now inside Kanye's Yeezy jacket and then the [[inav|Inav]].\n- **Facebook (Pre-Cringe):** located in [[projects-national-archives|the Projects National Archives]] on [[microsd-card|a 67GB microSD card]]. This is why, the heroes believe, [[osama-bin-bomin|Osama]] has released the [[ton-robots|TONs]]: “If he knows our end goal already and he has connections with Chris.. That has to be why.”\n- **The phone:** most likely the [[iphone-3g|iPhone 3G]], which [[steve-jobs|Steve Jobs]] says is “the only phone capable of running” four of the apps. Steve also plans to “sync with the flip phone covenant, and then we start with the social media apps”.\n- **The other apps:** not yet located."
    },
    {
+    "heading": "Progress, October 2026",
+    "body": "The heroes now hold, or know where to find, more of the phone. [[snapchat-ghost-protocol|Snapchat: Ghost Protocol]] is at [[freddy-fazbears-pizza|Freddy Fazbear's Pizza]]; [[facebook-pre-cringe|Facebook (Pre-Cringe)]] is in the palace; the [[verizon-contract|Verizon contract]] is with the Apple Employees. The plan is also to fight “Elon musk, mush, and the sole nba player of the universe”. See [[5g]]."
+   },
+   {
     "heading": "Earlier versions",
     "body": "In [[chapter-triangle]], Plankton and RFK already describe a similar requirement. The only person able to battle Chris is “one who has met with the tech bros and has downloaded the sacred social media apps onto there nokia I-4500 flip phone... and 3 year contract plan from version for unlimited talk and text with there cutting edge 3g network.” The Prophecy brings the list up to date and drops the Nokia. Fans disagree about whether the [[nokia-i-4500|Nokia I-4500]] or the iPhone 3G is the true vessel."
    },
@@ -1097,7 +1117,8 @@
    "iphone-3g",
    "the-court",
    "determination",
-   "mf-vroom"
+   "mf-vroom",
+   "new-apple-employees"
   ]
  },
  {
@@ -1229,11 +1250,11 @@
    "Observed in": "[[the-projects|The Projects]]",
    "First mention": "[[chapter-4-point-1]]"
   },
-  "lead": "**Chicken hour** is a time of day in [[the-projects|the Projects]] during which guards are apparently not on the lookout. As the gang gets close to [[o-block|O'Block]], someone says:\n\n> “We’re almo7st there, its chicken hour so I doubt the guards will be looking out for us”\n\nWhat happens during chicken hour is never explained. Most fans assume it is a meal break. The timing matches the end of the chapter, “as the skies turned orange”.",
+  "lead": "**Chicken hour** is a time of day in [[the-projects|the Projects]] during which guards are apparently not on the lookout. As the gang gets close to [[o-block|O'Block]], someone says:\n\n> “We’re almost there, its chicken hour so I doubt the guards will be looking out for us”\n\nWhat happens during chicken hour is never explained. Most fans assume it is a meal break. The timing matches the end of the chapter, “as the skies turned orange”.",
   "sections": [
    {
     "heading": "Trivia",
-    "body": "- “almo7st” is a typo with a 7 in it, which fans have connected to the canon's 67 motif. This is a fan theory.\n- Earlier, [[lightning-mcqueen|Lightning McQueen]] holds up a [[popeyes|Popeyes]] in what may be an observance of chicken hour. This is a fan theory."
+    "body": "- In the first edition the line read “almo7st”, a typo with a 7 in it, which fans connected to the canon's 67 motif. The author fixed it in the October 2026 update. The theory is kept here for the record.\n- Earlier, [[lightning-mcqueen|Lightning McQueen]] holds up a [[popeyes|Popeyes]] in what may be an observance of chicken hour. This is a fan theory."
    }
   ],
   "appearances": [

@@ -835,7 +835,7 @@ def render_timeline(entries, R):
 # the stacked chapter title, which becomes a single heading).
 BOOK_BODY_START = {
     "chapter-before-chapter-2": 11, "chapter-2": 305, "chapter-triangle": 415, "chapter-the-fourth": 523,
-    "dunder-mifflan-chapter": 645, "flashback-chapter": 759, "chapter-maybe-seventh": 909, "chapter-4-point-1": 1065,
+    "dunder-mifflan-chapter": 645, "flashback-chapter": 759, "chapter-maybe-seventh": 909, "chapter-4-point-1": 1069, "chapter-new-jersey": 1443,
 }
 BOOK_SUBTITLES = {"chapter-before-chapter-2": "Chris Origins"}
 VERIZON = "“The 3 year contract plan from Verizon"
