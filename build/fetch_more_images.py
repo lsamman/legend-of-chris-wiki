@@ -27,6 +27,7 @@ WIDTH = 600
 
 F = lambda site, title: ("fandom", site, title)      # Fandom wiki page image
 C = lambda query: ("commons", query)                 # a Commons photo found by search
+FF = lambda site, query: ("fandomfile", site, query)   # a picture found by searching a Fandom wiki's files
 W = lambda title: ("wiki", title)                    # Wikipedia's lead image, if it is on Commons
 
 SPECS = {
@@ -219,6 +220,23 @@ SPECS.update({
 })
 
 SPECS.update({"propane": [C("propane tank barbecue grill cylinder")], "european-union": [C("Berlaymont building European Commission Brussels")], "myspace": [C("Myspace logo Tom")]})
+SW, DR = "scott-the-woz", "deltarune"
+SPECS.update({
+    "scott-the-woz": [F(SW, "Scott Wozniak"), F(SW, "Scott Wozniak (actor)")],
+    "jerry-attricks": [F(SW, "Jerry Attricks")],
+    "rex-mohs": [F(SW, "Rex Mohs")],
+    "jerry-jab": [F(SW, "Jeb Jab")],
+    "hector-andfriends": [F(SW, "Hector Andfriends")],
+    "throats-for-thought": [F(SW, "Throats for Thought")],
+    "officer-steelwool": [F(SW, "Steel Wool")],
+    "gex-enter-the-gecko": [F(SW, "Gex: Enter the Gecko")],
+    "dick-vitales-awesome-baby": [F(SW, 'Dick Vitale\'s "Awesome Baby" College Hoops')],
+    "madden-nfl-08-argument": [F(SW, "Madden NFL")],
+    "spamton": [F(DR, "Spamton"), FF(DR, "Spamton")],
+    "spamton-neo": [FF(DR, "Spamton NEO"), F(DR, "Spamton")],
+    "kromer": [FF(DR, "Kromer"), FF(DR, "Dark Dollar")],
+    "determination": [F(DR, "Determination")],
+})
 REDO = set("ton-618 microsoft-bing the-redditor yeezy-reserve paper-belt the-court ecsm-airport oil red-bull bluetooth-gargoyles gods-router snapchat-ghost-protocol the-pager propane myspace truth-social department-of-defense european-union los-polos-harmonicas tesla-roadsters-2028".split())
 
 
@@ -269,6 +287,21 @@ def from_fandom(site, title):
             "site": f"{site.capitalize()} Fandom wiki", "wiki": f"https://{site}.fandom.com/wiki/{urllib.parse.quote(name.replace(' ', '_'))}"}
 
 
+def from_fandom_file(site, query):
+    base = f"https://{site}.fandom.com/api.php"
+    d = get(base, action="query", generator="search", gsrsearch=query, gsrnamespace=6, gsrlimit=8, prop="imageinfo",
+            iiprop="url|mime|size", iiurlwidth=WIDTH, format="json")
+    pages = sorted((d.get("query") or {}).get("pages", {}).values(), key=lambda p: p.get("index", 99))
+    for p in pages:
+        info = (p.get("imageinfo") or [None])[0]
+        if info and info.get("mime") in ("image/png", "image/jpeg") and (info.get("width") or 0) >= 200:
+            name = p["title"].replace("File:", "")
+            return {"url": info.get("thumburl") or info["url"], "title": name.rsplit(".", 1)[0], "artist": f"{site} Fandom wiki contributors",
+                    "license": "Fandom wiki image; rights belong to its owners", "source": f"https://{site}.fandom.com/wiki/File:{urllib.parse.quote(name.replace(' ', '_'))}",
+                    "site": f"{site.capitalize()} Fandom wiki", "wiki": f"https://{site}.fandom.com/wiki/File:{urllib.parse.quote(name.replace(' ', '_'))}"}
+    return None
+
+
 def commons_info(page):
     info = (page.get("imageinfo") or [None])[0]
     if not info or info.get("mime") not in ("image/jpeg", "image/png"):
@@ -315,6 +348,8 @@ def find(spec):
     kind = spec[0]
     if kind == "fandom":
         return from_fandom(spec[1], spec[2])
+    if kind == "fandomfile":
+        return from_fandom_file(spec[1], spec[2])
     if kind == "commons":
         return from_commons(spec[1])
     return from_wiki(spec[1])

@@ -1,12 +1,12 @@
 // "Notify me of new chapters" on the reading page. Readers who turn it on get a push
 // notification when the author publishes a new chapter (sent by .github/workflows/notify.yml).
-import { CONFIGURED, firebase, messaging } from "./book.js?v=c80f7c800bbb";
-import { vapidKey } from "./firebase-config.js?v=c80f7c800bbb";
+import { CONFIGURED, firebase, messaging } from "./book.js?v=d9558a3072df";
+import { vapidKey } from "./firebase-config.js?v=d9558a3072df";
 
 const btn = document.getElementById("notify-btn");
 const msg = document.getElementById("notify-msg");
 const KEY = "loc.notify.token";
-const WORKER = "notify-sw.js?v=c80f7c800bbb";
+const WORKER = "notify-sw.js?v=d9558a3072df";
 
 const stored = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
 const remember = t => { try { t ? localStorage.setItem(KEY, t) : localStorage.removeItem(KEY); } catch (e) {} };

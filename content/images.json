@@ -1856,17 +1856,6 @@
    "site": "Wikimedia Commons"
   }
  ],
- "gex-enter-the-gecko": [
-  {
-   "src": "gex-enter-the-gecko-1.jpg",
-   "caption": "Gex (character)",
-   "artist": "gex Fandom wiki contributors",
-   "license": "Fandom wiki image; rights belong to its owners",
-   "source": "https://gex.fandom.com/wiki/Gex_%28character%29",
-   "wiki": "https://gex.fandom.com/wiki/Gex_%28character%29",
-   "site": "Gex Fandom wiki"
-  }
- ],
  "jedi": [
   {
    "src": "jedi-1.jpg",
@@ -1887,6 +1876,149 @@
    "source": "https://commons.wikimedia.org/wiki/File:European_Commission_headquarters,_The_Berlaymont_Building,_Brussels,_Belgium_(_Ank_Kumar,_Infosys_Limited_).jpg",
    "wiki": "https://commons.wikimedia.org/wiki/File:European_Commission_headquarters,_The_Berlaymont_Building,_Brussels,_Belgium_(_Ank_Kumar,_Infosys_Limited_).jpg",
    "site": "Wikimedia Commons"
+  }
+ ],
+ "gex-enter-the-gecko": [
+  {
+   "src": "gex-enter-the-gecko-1.jpg",
+   "caption": "Gex: Enter the Gecko",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Gex%3A_Enter_the_Gecko",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Gex%3A_Enter_the_Gecko",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "spamton": [
+  {
+   "src": "spamton-1.jpg",
+   "caption": "Spamton, from Deltarune",
+   "artist": "deltarune Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://deltarune.fandom.com/wiki/File:Spamton_exe.jpg",
+   "wiki": "https://deltarune.fandom.com/wiki/File:Spamton_exe.jpg",
+   "site": "Deltarune Fandom wiki"
+  }
+ ],
+ "spamton-neo": [
+  {
+   "src": "spamton-neo-1.jpg",
+   "caption": "Spamton NEO, from Deltarune",
+   "artist": "deltarune Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://deltarune.fandom.com/wiki/File:Spamton_NEO_battle.png",
+   "wiki": "https://deltarune.fandom.com/wiki/File:Spamton_NEO_battle.png",
+   "site": "Deltarune Fandom wiki"
+  }
+ ],
+ "scott-the-woz": [
+  {
+   "src": "scott-the-woz-1.jpg",
+   "caption": "Scott Wozniak",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Scott_Wozniak",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Scott_Wozniak",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "jerry-attricks": [
+  {
+   "src": "jerry-attricks-1.jpg",
+   "caption": "Jerry Attricks",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Jerry_Attricks",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Jerry_Attricks",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "rex-mohs": [
+  {
+   "src": "rex-mohs-1.jpg",
+   "caption": "Rex Mohs",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Rex_Mohs",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Rex_Mohs",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "jerry-jab": [
+  {
+   "src": "jerry-jab-1.jpg",
+   "caption": "Jeb Jab, the Scott the Woz character Jerry Jab seems to be based on",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Jeb_Jab",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Jeb_Jab",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "hector-andfriends": [
+  {
+   "src": "hector-andfriends-1.jpg",
+   "caption": "Hector Andfriends",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Hector_Andfriends",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Hector_Andfriends",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "throats-for-thought": [
+  {
+   "src": "throats-for-thought-1.jpg",
+   "caption": "Throats for Thought",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Throats_for_Thought",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Throats_for_Thought",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "officer-steelwool": [
+  {
+   "src": "officer-steelwool-1.jpg",
+   "caption": "Steel Wool, the Scott the Woz character Officer Steelwool seems to be based on",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Steel_Wool",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Steel_Wool",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "dick-vitales-awesome-baby": [
+  {
+   "src": "dick-vitales-awesome-baby-1.jpg",
+   "caption": "Dick Vitale's \"Awesome Baby\" College Hoops",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Dick_Vitale%27s_%22Awesome_Baby%22_College_Hoops",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Dick_Vitale%27s_%22Awesome_Baby%22_College_Hoops",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "madden-nfl-08-argument": [
+  {
+   "src": "madden-nfl-08-argument-1.png",
+   "caption": "Madden NFL, as covered by Scott the Woz",
+   "artist": "scott-the-woz Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://scott-the-woz.fandom.com/wiki/Madden_NFL",
+   "wiki": "https://scott-the-woz.fandom.com/wiki/Madden_NFL",
+   "site": "Scott-the-woz Fandom wiki"
+  }
+ ],
+ "determination": [
+  {
+   "src": "determination-1.png",
+   "caption": "DETERMINATION, from Undertale and Deltarune",
+   "artist": "deltarune Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://deltarune.fandom.com/wiki/Determination",
+   "wiki": "https://deltarune.fandom.com/wiki/Determination",
+   "site": "Deltarune Fandom wiki"
   }
  ]
 }
