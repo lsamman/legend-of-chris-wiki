@@ -339,8 +339,8 @@ def render_article(e, R, entries):
             artist = ph["artist"] if len(ph["artist"]) <= 60 else ph["artist"][:57].rstrip() + "…"
             img += (f'<figure class="ib-img"><a href="{html.escape(ph["wiki"])}" target="_blank" rel="noopener">'
                     f'<img src="assets/img/{ph["src"]}" alt="{html.escape(ph["caption"])}" loading="lazy"></a>'
-                    f'<figcaption>{html.escape(ph["caption"])}<span class="credit">Photo: {html.escape(artist)} · '
-                    f'{html.escape(ph["license"])} · <a href="{html.escape(ph["source"])}" target="_blank" rel="noopener">Wikimedia Commons</a></span>'
+                    f'<figcaption>{html.escape(ph["caption"])}<span class="credit">{"Image" if ph.get("site", "Commons").endswith("wiki") else "Photo"}: {html.escape(artist)} · '
+                    f'{html.escape(ph["license"])} · <a href="{html.escape(ph["source"])}" target="_blank" rel="noopener">{html.escape(ph.get("site", "Wikimedia Commons"))}</a></span>'
                     f'</figcaption></figure>')
         parts.append(f'<aside class="infobox"><div class="ib-title">{html.escape(e["title"])}</div>{img}'
                      f'<table>{rows}</table><div class="ib-cat">{CAT_NAME[cat]}</div></aside>')

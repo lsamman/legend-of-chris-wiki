@@ -1,6 +1,6 @@
 // The Timeline's "By group" view only knows the chapters content/groups.json covers. This watches the
 // published book and, if it has more chapters than that, says the tracker is behind.
-import { CONFIGURED, firebase, sanitize, chapters } from "./book.js?v=3f515b4eea91";
+import { CONFIGURED, firebase, sanitize, chapters } from "./book.js?v=c80f7c800bbb";
 
 const note = document.getElementById("tg-asof");
 const banner = document.getElementById("tg-banner");
