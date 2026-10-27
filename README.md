@@ -67,7 +67,9 @@ The values in `firebase-config.js` are public by design. `firestore.rules` is wh
 
 Readers can tap **🔔 Notify me** on `read.html` to get a push notification when a new chapter comes out. On iPhone and iPad they first have to add the wiki to their Home Screen (Share → Add to Home Screen) and open it from there. That's an Apple rule for web notifications.
 
-When you press **Publish** in the writing room, the dialog has a **Send a notification to readers** checkbox. It's ticked automatically when the draft has a chapter heading (Heading 1) that the published version doesn't. The chapter name goes in the notification, and you can edit it. Untick the box to publish quietly.
+When you press **Publish** in the writing room, the dialog has a **Send a notification to readers** checkbox. It's ticked automatically when the draft has a chapter heading (Heading 1) that the published version doesn't. The box under it names the chapter the notification opens. Untick the box to publish quietly.
+
+**What the notification says** is picked at random from the title + text combos in `notify/messages.json`, never the same one twice in a row. Edit that file to change or add combos (an empty `"body"` shows the title only). Tapping any of them opens the new chapter.
 
 The notifications are sent by the **Send new-chapter notifications** GitHub Action (`.github/workflows/notify.yml`, code in `notify/`). It checks every 15 minutes, so a notification arrives anywhere from a few minutes to about half an hour after you publish. GitHub's schedule can run late. To send one right away, go to **Actions → Send new-chapter notifications → Run workflow**.
 

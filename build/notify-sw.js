@@ -7,7 +7,7 @@ self.addEventListener("push", e => {
   try { payload = e.data ? e.data.json() : {}; } catch (err) {}
   const d = Object.assign({}, payload.notification, payload.data);
   e.waitUntil(self.registration.showNotification(d.title || "The Legend Of Chris", {
-    body: d.body || "A new chapter of the MASTER FILE is out.",
+    body: typeof d.body === "string" ? d.body : "A new chapter of the MASTER FILE is out.",   // "" means title only
     icon: new URL("assets/icon-192.png", self.registration.scope).href,
     badge: new URL("assets/icon-192.png", self.registration.scope).href,
     tag: d.tag || "loc-chapter",
