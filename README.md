@@ -14,6 +14,7 @@ Live site: https://lsamman.github.io/legend-of-chris-wiki/
 - `site/` is the generated website. GitHub Pages deploys it on every push to `main`.
 - `build/phone.js` and `build/phone.css` are the phone: the phone button in the toolbar (or `#iphone-3g` on any page) flies a sacred phone to the front of the screen with Will's real apps on it: MySpace v1.3.3, Twitter: Bluebird Variant, Snapchat: Ghost Protocol Edition, Facebook (Pre-Cringe), Apple Podcasts 2 and Settings (Full access), all on lsamman.github.io. A toggle switches between Steve Jobs's iPhone 3G (sideways, cracked) and the Nokia I-4500 flip phone (flips open, works with its keypad or the arrow keys and 1–9). The choice is saved in `loc.phone.model`. The wallpaper comes from the Settings app (`loc.phone.wallpaper`). App icons are `build/app-*.png`.
 - `site/timeline.html` is the Timeline (see below). Its events are in `content/timeline.json`; the page is drawn by `build/timeline.js` and `build/timeline.css`.
+- `site/maps.html` is the Maps page: the Multiverse, North America and Europe. The images and the list of articles each map covers are in `content/maps/` (`maps.json`); every listed article gets an "On the map" link.
 - `site/read.html` is the complete book for readers. `site/write.html` is the author-only writing room. Both use `build/book.js`, `build/reader.js` and `build/editor.js`, and keep the text in Firebase (see below).
 
 ## Updating
@@ -67,7 +68,9 @@ The values in `firebase-config.js` are public by design. `firestore.rules` is wh
 
 Readers can tap **🔔 Notify me** on `read.html` to get a push notification when a new chapter comes out. On iPhone and iPad they first have to add the wiki to their Home Screen (Share → Add to Home Screen) and open it from there. That's an Apple rule for web notifications.
 
-When you press **Publish** in the writing room, the dialog has a **Send a notification to readers** checkbox. It's ticked automatically when the draft has a chapter heading (Heading 1) that the published version doesn't. The chapter name goes in the notification, and you can edit it. Untick the box to publish quietly.
+When you press **Publish** in the writing room, the dialog has a **Send a notification to readers** checkbox. It's ticked automatically when the draft has a chapter heading (Heading 1) that the published version doesn't. The box under it names the chapter the notification opens. Untick the box to publish quietly.
+
+**What the notification says** is picked at random from the title + text combos in `notify/messages.json`, never the same one twice in a row. Edit that file to change or add combos (an empty `"body"` shows the title only). Tapping any of them opens the new chapter.
 
 The notifications are sent by the **Send new-chapter notifications** GitHub Action (`.github/workflows/notify.yml`, code in `notify/`). It checks every 15 minutes, so a notification arrives anywhere from a few minutes to about half an hour after you publish. GitHub's schedule can run late. To send one right away, go to **Actions → Send new-chapter notifications → Run workflow**.
 

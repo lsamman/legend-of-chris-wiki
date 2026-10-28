@@ -1,6 +1,6 @@
 // The writing room: sign in, write in a Pages-style editor, autosave a private
 // draft, and publish it to the reading page (read.html).
-import { CONFIGURED, firebase, chapters, when } from "./book.js?v=d9558a3072df";
+import { CONFIGURED, firebase, chapters, when } from "./book.js?v=657c13262e35";
 
 const $ = id => document.getElementById(id);
 const SESSION = Math.random().toString(36).slice(2);   // tells this tab's saves apart from other devices'
@@ -334,15 +334,16 @@ function publishForm(fresh) {
   const text = Object.assign(document.createElement("input"), {
     type: "text", id: "notify-text", className: "dlg-input", maxLength: 120,
     value: fresh.length ? fresh.map(c => c.text).join(", ") : "",
-    placeholder: "Chapter name (shown in the notification)"
+    placeholder: "Chapter name (the one the notification opens)"
   });
   const wrap = document.createElement("label");
   wrap.className = "notify-text";
-  wrap.append("Notification says: New chapter: ", text);
+  wrap.append("Notification opens: ", text);
   wrap.hidden = !check.checked;
   check.onchange = () => { wrap.hidden = !check.checked; };
   const hint = Object.assign(document.createElement("p"), {
-    className: "muted", textContent: fresh.length ? "This draft has a new chapter, so notifying readers is on." : "No new chapter heading in this draft."
+    className: "muted", textContent: (fresh.length ? "This draft has a new chapter, so notifying readers is on." : "No new chapter heading in this draft.")
+      + " The notification's words are picked at random from your list (notify/messages.json)."
   });
   box.append(p, label, wrap, hint);
   return { box, check, text };

@@ -339,3 +339,11 @@ img { max-width: 100%; height: auto; }
   .desk { display: block; padding: 0; }
   .sheet { box-shadow: none; }
 }
+
+/* ---------- maps ---------- */
+.map-jump { font-weight: 700; }
+.map-sec { margin-top: 30px; }
+.map-fig { margin: 12px 0 16px; }
+.map-fig img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); background: var(--box); }
+.map-fig figcaption { margin-top: 6px; font-size: 13.5px; color: var(--ink-3); }
+.sheet .map-sec h3 { font-size: 17px; margin: 14px 0 8px; }

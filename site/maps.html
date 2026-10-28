@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maps | The Legend Of Chris Wiki</title>
+<meta name="description" content="Maps of The Legend Of Chris: the multiverse, North America and Europe.">
+<meta http-equiv="Cache-Control" content="no-cache">
+<script>
+(function () {
+  var SITE_VERSION = "657c13262e35";
+  if (!window.fetch) return;
+  fetch("version.json?t=" + Date.now(), { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.v || d.v === SITE_VERSION) return;
+      var key = "loc.reloaded." + d.v;
+      try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, "1"); } catch (e) {}
+      function go() {
+        var u = new URL(location.href);
+        u.searchParams.set("v", d.v);   // a new URL, so the browser fetches fresh HTML
+        location.replace(u.toString());
+      }
+      var clears = [];
+      if (window.caches && caches.keys) clears.push(caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); }));
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) clears.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { var w = r.active || r.waiting || r.installing; return w && /notify-sw\.js/.test(w.scriptURL) ? r.update() : r.unregister(); })); }));
+      Promise.all(clears).catch(function () {}).then(go, go);
+    })
+    .catch(function () {});
+})();
+</script>
+<link rel="icon" href="assets/chill-chris.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Legend Of Chris">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=657c13262e35">
+<link rel="stylesheet" href="assets/phone.css?v=657c13262e35">
+<script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+    <a class="docname" href="index.html"><img src="assets/chill-chris.png" alt="" width="22" height="24"><span>The Legend Of Chris <b>MASTER FILE</b> <i>— Wiki</i></span></a>
+    <form class="search" action="all-pages.html" role="search" onsubmit="return false">
+      <input id="q" type="search" placeholder="Search the lore…" autocomplete="off" aria-label="Search the wiki">
+      <ul id="results" role="listbox" hidden></ul>
+    </form>
+    <button class="phone-btn" type="button" aria-label="Open the iPhone 3G" title="The iPhone 3G: MySpace and Twitter Bluebird"><svg viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="4" fill="currentColor"/><rect x="5" y="3.5" width="14.5" height="11" rx=".8" fill="#5aa9f0"/><circle cx="22.2" cy="9" r="1.3" fill="#888"/><path d="M15 4l-2 3.5 2.5 2-3 4" stroke="#fff" stroke-width=".7" fill="none"/></svg></button>
+    <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+<div class="desk">
+  
+<nav class="sidebar" aria-label="Wiki navigation">
+  <div class="side-box">
+    <div class="side-head">Navigation</div>
+    <ul>
+      <li><a href="index.html">Main Page</a></li>
+      <li><a href="read.html">Read the MASTER FILE</a></li>
+      <li><a href="timeline.html">The Timeline</a></li>
+      <li><a href="maps.html" aria-current=page>Maps</a></li>
+      <li><a href="playlist.html">The Official Playlist</a></li>
+      <li><a href="smash/smash.html">Super Smash Ballers</a></li>
+      <li><a href="#iphone-3g">The iPhone 3G</a></li>
+      <li><a href="all-pages.html">All pages (A–Z)</a></li>
+      <li><a href="random.html" class="random-link">Random page</a></li>
+    </ul>
+  </div>
+  <div class="side-box">
+    <div class="side-head">Categories</div>
+    <ul><li><a href="category-chapters.html">Chapters</a></li><li><a href="category-characters.html">Characters</a></li><li><a href="category-locations.html">Locations</a></li><li><a href="category-factions.html">Factions & Organizations</a></li><li><a href="category-items.html">Items & Technology</a></li><li><a href="category-events.html">Events</a></li><li><a href="category-concepts.html">Concepts & Lore</a></li></ul>
+  </div>
+  <div class="side-box">
+    <div class="side-head">The Canon</div>
+    <ol class="chap-list"><li><a href="chapter-before-chapter-2.html">Chris Origins</a></li><li><a href="chapter-2.html">Chapter 2</a></li><li><a href="chapter-triangle.html">Chapter Triangle</a></li><li><a href="chapter-the-fourth.html">Chapter the Fourth</a></li><li><a href="dunder-mifflan-chapter.html">Dunder Mifflan</a></li><li><a href="flashback-chapter.html">The Flashback Chapter</a></li><li><a href="chapter-maybe-seventh.html">Chapter the Maybe Seventh</a></li><li><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></li><li><a href="chapter-new-jersey.html">Chapter Number New Jersey</a></li></ol>
+  </div>
+  <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
+</nav>
+  <main class="sheet">
+    
+<div class="chapter-title" aria-hidden="true"><span>The</span> <span>Maps</span></div>
+<h1 class="sr-title">Maps</h1>
+<p class="crumbs">The world of the MASTER FILE, from O'Block 2 to the Shadow Realm · 3 maps</p>
+<p class="map-jump"><a href="#map-multiverse">The Multiverse</a> · <a href="#map-north-america">North America</a> · <a href="#map-europe">Europe</a></p>
+<section class="map-sec" id="map-multiverse"><h2>The Multiverse</h2><p>Every universe, galaxy, sector and system in the MASTER FILE, flattened onto one plane. What&#x27;s inside what follows the book; where things sit on the page is just layout, because the book gives no distances or directions.</p><figure class="map-fig"><a href="assets/maps/multiverse.png?v=657c13262e35" target="_blank" rel="noopener" title="Open full size"><img src="assets/maps/multiverse.png?v=657c13262e35" alt="The Legend Of Chris multiverse, flattened to one plane: the story&#x27;s universe with Earth in the New Jersey System, Dunder Mifflin, the Reformed Travis Scott Sector, the Uniontown System and Sector 1/99 with Gotham City; TurboGrafx 16 inside the Border; the Shadow Realm; and five other universes." loading="lazy"></a><figcaption>Tap or click the map to open it full size.</figcaption></figure><h3>On this map</h3><ul class="chips"><li><a href="andromeda-galaxy.html">Andromeda Galaxy</a></li><li><a href="dunder-mifflin.html">Dunder Mifflin (Galaxy)</a></li><li><a href="dusty-depot.html">Dusty Depot</a></li><li><a href="freddy-fazbears-pizza.html">Freddy Fazbear&#x27;s Pizza</a></li><li><a href="gotham-city.html">Gotham City</a></li><li><a href="planet-patrick.html">Planet Patrick</a></li><li><a href="reality-42-b.html">Reality 42-B</a></li><li><a href="scotts-house.html">Scott&#x27;s House</a></li><li><a href="sector-1-99.html">Sector 1/99 (The Gambling Addiction Sector)</a></li><li><a href="the-67-casino.html">The 6 7 Casino</a></li><li><a href="america-universe.html">The America Universe</a></li><li><a href="the-border.html">The Border</a></li><li><a href="cringe-universe.html">The Cringe Universe</a></li><li><a href="galactic-senate.html">The Galactic Senate</a></li><li><a href="kanye-system.html">The Kanye System</a></li><li><a href="minor-miner-universe.html">The Minor Miner Universe</a></li><li><a href="multiverse.html">The Multiverse</a></li><li><a href="nether-dimension.html">The Nether Dimension</a></li><li><a href="new-jersey-system.html">The New Jersey System</a></li><li><a href="paper-belt.html">The Paper Belt</a></li><li><a href="protestant-universe.html">The Protestant Universe</a></li><li><a href="reformed-travis-scott-sector.html">The Reformed Travis Scott Sector</a></li><li><a href="shadow-realm.html">The Shadow Realm</a></li><li><a href="turbografx-16-sector.html">The TurboGrafx 16 Sector</a></li><li><a href="twelve-towers.html">The Twelve Towers</a></li><li><a href="timeline-r.html">Timeline R</a></li><li><a href="uniontown-system.html">Uniontown System</a></li><li><a href="universe-prime.html">Universe Prime</a></li></ul></section><section class="map-sec" id="map-north-america"><h2>North America</h2><p>Earth&#x27;s North America, which is in the New Jersey System: Roman Canada, the United State of America and the Byzantine Empire of Mexico, with every North American place in the book.</p><figure class="map-fig"><a href="assets/maps/north-america.png?v=657c13262e35" target="_blank" rel="noopener" title="Open full size"><img src="assets/maps/north-america.png?v=657c13262e35" alt="Map of North America in the Legend of Chris: Roman Canada, the United State of America and the Byzantine Empire of Mexico, with the United Streets of Ohio, Newark, O&#x27;Block 2 in Camden, Adirondack Park, Flint, Cupertino, the LA Walmart ruins and Vegas." loading="lazy"></a><figcaption>Tap or click the map to open it full size.</figcaption></figure><h3>On this map</h3><ul class="chips"><li><a href="adirondack-park.html">Adirondack Park</a></li><li><a href="byzantine-empire-of-mexico.html">Byzantine Empire of Mexico</a></li><li><a href="canada.html">Canada (Roman)</a></li><li><a href="flint.html">Flint</a></li><li><a href="i-38-west.html">I-38 West</a></li><li><a href="newark.html">Newark</a></li><li><a href="o-block.html">O&#x27;Block (O Block 2)</a></li><li><a href="shadow-filtered-theater.html">Shadow-Filtered Theater, Cupertino</a></li><li><a href="corner-store-ohio.html">The Corner Store (Ohio)</a></li><li><a href="the-projects.html">The Projects</a></li><li><a href="projects-national-spaceport.html">The Projects National Spaceport</a></li><li><a href="la-walmart.html">The Ruins of the LA Walmart</a></li><li><a href="united-state-of-america.html">The United State of America</a></li><li><a href="united-streets-of-ohio.html">The United Streets of Ohio</a></li><li><a href="vegas.html">Vegas</a></li></ul></section><section class="map-sec" id="map-europe"><h2>Europe</h2><p>Earth&#x27;s Europe on real borders: Roman England, the Soviet Union, the EU, Moscow (the Italian city), Constantinople, and the routes McQueen and the Goober Gang took.</p><figure class="map-fig"><a href="assets/maps/europe.png?v=657c13262e35" target="_blank" rel="noopener" title="Open full size"><img src="assets/maps/europe.png?v=657c13262e35" alt="Map of Europe in the Legend of Chris on real borders: Roman England, the Soviet Union, the EU, Italy and Eastern Rome, with Moscow, London and Constantinople and the routes of McQueen and the Goober Gang." loading="lazy"></a><figcaption>Tap or click the map to open it full size.</figcaption></figure><h3>On this map</h3><ul class="chips"><li><a href="8aller-jump-street.html">8aller Jump Street</a></li><li><a href="constantinople.html">Constantinople</a></li><li><a href="ecsm-airport.html">E.C.S.M Airport</a></li><li><a href="england.html">England</a></li><li><a href="moscow.html">Moscow (Italian City)</a></li><li><a href="parliament.html">Parliament</a></li><li><a href="popeyes.html">Popeyes</a></li><li><a href="abandoned-walmarts.html">The Abandoned Walmarts</a></li><li><a href="moscow-bombing.html">The Attack on Moscow</a></li><li><a href="barack-empire.html">The Barack Empire</a></li><li><a href="european-union.html">The EU</a></li><li><a href="fall-of-constantinople.html">The Fall of Constantinople</a></li><li><a href="smoke-and-vape-shop.html">The Smoke and Vape Shop</a></li></ul></section>
+    <footer class="sheet-foot">
+      <span>The Legend Of Chris Wiki — a fan wiki. Lore is canon. Spelling is canon. Nothing is canon.</span>
+      <span class="pgnum" aria-hidden="true">6</span>
+    </footer>
+  </main>
+</div>
+<script src="assets/search-index.js?v=657c13262e35"></script>
+<script src="assets/wiki.js?v=657c13262e35"></script>
+<script src="assets/phone.js?v=657c13262e35"></script>
+</body>
+</html>
