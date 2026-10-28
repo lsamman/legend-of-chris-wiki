@@ -18,7 +18,7 @@ import manifest  # noqa: E402
 
 SITE = os.path.join(ROOT, "site")
 PHONE_PAGES = {"iphone-3g", "sacred-apps", "myspace", "twitter", "iphone-keynote"}   # articles with a "Turn on the iPhone 3G" button
-RESERVED = {"index", "all-pages", "search", "random", "read", "write", "playlist", "smash", "timeline"}
+RESERVED = {"index", "all-pages", "search", "random", "read", "write", "playlist", "smash", "timeline", "maps"}
 PLAYLIST_URL = "https://music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
 PLAYLIST_EMBED = "https://embed.music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
 
@@ -41,6 +41,12 @@ _tl_path = os.path.join(ROOT, "content", "timeline.json")
 TIMELINE = json.load(open(_tl_path, encoding="utf-8")) if os.path.exists(_tl_path) else {"lanes": [], "eras": [], "events": []}
 _gr_path = os.path.join(ROOT, "content", "groups.json")
 GROUPS = json.load(open(_gr_path, encoding="utf-8")) if os.path.exists(_gr_path) else None
+_maps_path = os.path.join(ROOT, "content", "maps", "maps.json")
+MAPS = json.load(open(_maps_path, encoding="utf-8"))["maps"] if os.path.exists(_maps_path) else []
+MAPS_FOR = {}   # article slug -> the maps it appears on
+for _m in MAPS:
+    for _slug in _m["places"]:
+        MAPS_FOR.setdefault(_slug, []).append(_m)
 TIMELINE_FOR = {}   # article slug -> its first event on the Timeline
 for _ev in TIMELINE["events"]:
     if _ev.get("article"):
@@ -227,6 +233,7 @@ def nav_html(active=None, sidebar=None):
       <li><a href="index.html">Main Page</a></li>
       <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the MASTER FILE</a></li>
       <li><a href="timeline.html"{" aria-current=page" if active == "timeline" else ""}>The Timeline</a></li>
+      <li><a href="maps.html"{" aria-current=page" if active == "maps" else ""}>Maps</a></li>
       <li><a href="playlist.html"{" aria-current=page" if active == "playlist" else ""}>The Official Playlist</a></li>
       <li><a href="smash/smash.html">Super Smash Ballers</a></li>
       <li><a href="#iphone-3g">The iPhone 3G</a></li>
@@ -378,6 +385,11 @@ def render_article(e, R, entries):
     ev = TIMELINE_FOR.get(slug)
     if ev and cat != "chapters":
         parts.append(f'<p class="read-chapter">On the Timeline: <a href="timeline.html#ev-{ev["id"]}">{R.inline(ev["title"])}</a> →</p>')
+
+    on_maps = MAPS_FOR.get(slug, [])
+    if on_maps:
+        parts.append('<p class="read-chapter">On the map: ' + ", ".join(
+            f'<a href="maps.html#map-{m["id"]}">{html.escape(m["title"])}</a>' for m in on_maps) + " →</p>")
 
     apps = [a for a in (e.get("appearances") or []) if a in CHAPTER_ORDER]
     if apps and cat != "chapters":
@@ -752,6 +764,32 @@ def render_groups(entries, R):
     return html_out
 
 
+def render_maps(entries):
+    """The Maps page: every map in content/maps/maps.json, each with links to the articles it shows."""
+    for m in MAPS:
+        missing = [p for p in m["places"] if p not in entries]
+        assert not missing, (m["id"], missing)
+    jump = " · ".join(f'<a href="#map-{m["id"]}">{html.escape(m["title"])}</a>' for m in MAPS)
+    figs = ""
+    for m in MAPS:
+        src = f'assets/maps/{m["file"]}?v={VERSION}'
+        chips = "".join(f'<li><a href="{p}.html">{html.escape(entries[p]["title"])}</a></li>'
+                        for p in sorted(m["places"], key=lambda p: entries[p]["title"].lower().lstrip("\"“ ")))
+        figs += (f'<section class="map-sec" id="map-{m["id"]}"><h2>{html.escape(m["title"])}</h2>'
+                 f'<p>{html.escape(m["blurb"])}</p>'
+                 f'<figure class="map-fig"><a href="{src}" target="_blank" rel="noopener" title="Open full size">'
+                 f'<img src="{src}" alt="{html.escape(m["alt"])}" loading="lazy"></a>'
+                 f'<figcaption>Tap or click the map to open it full size.</figcaption></figure>'
+                 f'<h3>On this map</h3><ul class="chips">{chips}</ul></section>')
+    body = f"""
+<div class="chapter-title" aria-hidden="true"><span>The</span> <span>Maps</span></div>
+<h1 class="sr-title">Maps</h1>
+<p class="crumbs">The world of the MASTER FILE, from O'Block 2 to the Shadow Realm · {len(MAPS)} maps</p>
+<p class="map-jump">{jump}</p>
+{figs}"""
+    return page("Maps", body, active="maps", description="Maps of The Legend Of Chris: the multiverse, North America and Europe.")
+
+
 def render_timeline(entries, R):
     """Every event in content/timeline.json on one page. The list is written in the order things
     happened; timeline.js re-sorts it into the order the book tells them (by book line) and back."""
@@ -1072,6 +1110,11 @@ def main():
     img_out = os.path.join(SITE, "assets", "img")
     shutil.rmtree(img_out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "content", "images"), img_out)
+    maps_out = os.path.join(SITE, "assets", "maps")
+    shutil.rmtree(maps_out, ignore_errors=True)
+    os.makedirs(maps_out)
+    for m in MAPS:
+        shutil.copyfile(os.path.join(ROOT, "content", "maps", m["file"]), os.path.join(maps_out, m["file"]))
     for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "editor.js", "notify.js", "firebase-config.js",
                  "timeline.css", "timeline.js", "timeline-live.js"):
         with open(os.path.join(ROOT, "build", name), encoding="utf-8") as f:
@@ -1138,6 +1181,8 @@ def main():
         f.write(render_playlist())
     with open(os.path.join(SITE, "timeline.html"), "w", encoding="utf-8") as f:
         f.write(render_timeline(entries, R))
+    with open(os.path.join(SITE, "maps.html"), "w", encoding="utf-8") as f:
+        f.write(render_maps(entries))
     book_html = render_book_html()
     with open(os.path.join(SITE, "assets", "book-import.html"), "w", encoding="utf-8") as f:
         f.write(book_html + "\n")

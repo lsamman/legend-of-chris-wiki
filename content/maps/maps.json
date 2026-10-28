@@ -1,0 +1,29 @@
+{
+  "_readme": "The Maps page (maps.html). Each map's image is in this folder. 'places' are the articles that get an 'On the map' link to it. The pictures are drawn by scripts kept outside the repo; to change a map, ask Claude to redraw it.",
+  "maps": [
+    {
+      "id": "multiverse",
+      "title": "The Multiverse",
+      "file": "multiverse.png",
+      "alt": "The Legend Of Chris multiverse, flattened to one plane: the story's universe with Earth in the New Jersey System, Dunder Mifflin, the Reformed Travis Scott Sector, the Uniontown System and Sector 1/99 with Gotham City; TurboGrafx 16 inside the Border; the Shadow Realm; and five other universes.",
+      "blurb": "Every universe, galaxy, sector and system in the MASTER FILE, flattened onto one plane. What's inside what follows the book; where things sit on the page is just layout, because the book gives no distances or directions.",
+      "places": ["multiverse", "cringe-universe", "america-universe", "minor-miner-universe", "protestant-universe", "universe-prime", "reality-42-b", "timeline-r", "nether-dimension", "shadow-realm", "andromeda-galaxy", "dunder-mifflin", "paper-belt", "reformed-travis-scott-sector", "kanye-system", "twelve-towers", "uniontown-system", "planet-patrick", "galactic-senate", "sector-1-99", "the-67-casino", "dusty-depot", "gotham-city", "turbografx-16-sector", "the-border", "new-jersey-system", "freddy-fazbears-pizza", "scotts-house"]
+    },
+    {
+      "id": "north-america",
+      "title": "North America",
+      "file": "north-america.png",
+      "alt": "Map of North America in the Legend of Chris: Roman Canada, the United State of America and the Byzantine Empire of Mexico, with the United Streets of Ohio, Newark, O'Block 2 in Camden, Adirondack Park, Flint, Cupertino, the LA Walmart ruins and Vegas.",
+      "blurb": "Earth's North America, which is in the New Jersey System: Roman Canada, the United State of America and the Byzantine Empire of Mexico, with every North American place in the book.",
+      "places": ["canada", "byzantine-empire-of-mexico", "united-state-of-america", "united-streets-of-ohio", "corner-store-ohio", "newark", "flint", "adirondack-park", "la-walmart", "vegas", "shadow-filtered-theater", "the-projects", "o-block", "projects-national-spaceport", "i-38-west"]
+    },
+    {
+      "id": "europe",
+      "title": "Europe",
+      "file": "europe.png",
+      "alt": "Map of Europe in the Legend of Chris on real borders: Roman England, the Soviet Union, the EU, Italy and Eastern Rome, with Moscow, London and Constantinople and the routes of McQueen and the Goober Gang.",
+      "blurb": "Earth's Europe on real borders: Roman England, the Soviet Union, the EU, Moscow (the Italian city), Constantinople, and the routes McQueen and the Goober Gang took.",
+      "places": ["england", "parliament", "smoke-and-vape-shop", "ecsm-airport", "moscow", "moscow-bombing", "constantinople", "fall-of-constantinople", "barack-empire", "european-union", "abandoned-walmarts", "popeyes", "8aller-jump-street"]
+    }
+  ]
+}

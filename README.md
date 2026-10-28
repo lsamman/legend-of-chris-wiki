@@ -14,6 +14,7 @@ Live site: https://lsamman.github.io/legend-of-chris-wiki/
 - `site/` is the generated website. GitHub Pages deploys it on every push to `main`.
 - `build/phone.js` and `build/phone.css` are the phone: the phone button in the toolbar (or `#iphone-3g` on any page) flies a sacred phone to the front of the screen with Will's real apps on it: MySpace v1.3.3, Twitter: Bluebird Variant, Snapchat: Ghost Protocol Edition, Facebook (Pre-Cringe), Apple Podcasts 2 and Settings (Full access), all on lsamman.github.io. A toggle switches between Steve Jobs's iPhone 3G (sideways, cracked) and the Nokia I-4500 flip phone (flips open, works with its keypad or the arrow keys and 1–9). The choice is saved in `loc.phone.model`. The wallpaper comes from the Settings app (`loc.phone.wallpaper`). App icons are `build/app-*.png`.
 - `site/timeline.html` is the Timeline (see below). Its events are in `content/timeline.json`; the page is drawn by `build/timeline.js` and `build/timeline.css`.
+- `site/maps.html` is the Maps page: the Multiverse, North America and Europe. The images and the list of articles each map covers are in `content/maps/` (`maps.json`); every listed article gets an "On the map" link.
 - `site/read.html` is the complete book for readers. `site/write.html` is the author-only writing room. Both use `build/book.js`, `build/reader.js` and `build/editor.js`, and keep the text in Firebase (see below).
 
 ## Updating
