@@ -256,6 +256,6 @@ img { max-width: 100%; height: auto; }
 .textbox .s-bx-b { color: #1f3cff; } .textbox .s-bx-y { color: #ffe600; }
 .story-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
 .story-toc a { display: inline-block; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; font-size: 14px; background: var(--panel2); }
-.logo-img { width: 30px; height: 30px; flex: none; object-fit: contain; }
+.logo-img { width: 30px; height: 30px; flex: none; object-fit: fill; }
 .hero-mark .logo-img { width: 84px; height: 84px; }
 .story h2::before { content: none !important; }

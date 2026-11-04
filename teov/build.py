@@ -165,7 +165,7 @@ def page(entries, title, body, *, active=None, description="", head_extra="", sc
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(doc_title)}</title>
 <meta name="description" content="{html.escape(description)}">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <script>try{{var t=localStorage.getItem('teov-theme');if(t)document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 <link rel="stylesheet" href="assets/style.css?v={ver}">
 {head_extra}</head>
