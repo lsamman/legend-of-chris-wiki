@@ -385,7 +385,7 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
       <input id="q" type="search" placeholder="Search the lore…" autocomplete="off" aria-label="Search the wiki">
       <ul id="results" role="listbox" hidden></ul>
     </form>
-    <a class="teov-btn" href="epic-of-vinny/index.html" title="The Epic of Vinny Wiki: a spin-off story"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#55555e"/><path d="M7 9h8l5 15 5-15h8L24 33h-8z" fill="#ffcf5c"/></svg><span>The Epic of Vinny</span></a>
+    <a class="teov-btn" href="epic-of-vinny/index.html" title="The Epic of Vinny Wiki: a spin-off story"><img src="epic-of-vinny/assets/logo.png" alt="" width="22" height="22"><span>The Epic of Vinny</span></a>
     <button class="phone-btn" type="button" aria-label="Open the iPhone 3G" title="The iPhone 3G: MySpace and Twitter Bluebird"><svg viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="4" fill="currentColor"/><rect x="5" y="3.5" width="14.5" height="11" rx=".8" fill="#5aa9f0"/><circle cx="22.2" cy="9" r="1.3" fill="#888"/><path d="M15 4l-2 3.5 2.5 2-3 4" stroke="#fff" stroke-width=".7" fill="none"/></svg></button>
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
