@@ -351,30 +351,37 @@ def render_all(entries, ver):
     return page(entries, "All pages", body, active="all-pages", description="Every article on the wiki.", ver=ver)
 
 
+def story_runs(runs):
+    """Styled runs from content/story.json -> HTML; the class names are the PDF's fonts and colours."""
+    return "".join(f'<span class="s-{k}">{html.escape(t)}</span>' if k else html.escape(t) for k, t in runs)
+
+
 def render_read(entries, R, story, ver):
-    """The full text of the story, with the in-story text boxes, from content/story.json."""
+    """The full text of the story, coloured and set like the PDF, from content/story.json."""
     R.current = "read"
-    out, toc = "", ""
+    out, toc, face = "", "", 0
     for ch in story["chapters"]:
         a = entries.get(ch["slug"])
-        head = html.escape(ch["heading"])
-        toc += f'<li><a href="#{ch["slug"]}">{head}</a></li>'
-        out += f'<h2 id="{ch["slug"]}">{head}</h2>'
+        toc += f'<li><a href="#{ch["slug"]}">{html.escape(ch["heading"])}</a></li>'
+        out += f'<h2 id="{ch["slug"]}">{story_runs(ch["hruns"])}</h2>'
         if a:
-            out += f'<p class="story-note muted"><a href="{ch["slug"]}.html">Wiki article: {html.escape(a["title"])}</a></p>'
+            out += f'<p class="story-note"><a href="{ch["slug"]}.html">Wiki article: {html.escape(a["title"])}</a></p>'
         for b in ch["blocks"]:
-            t = html.escape(b["text"]).replace("⟦", "<b>").replace("⟧", "</b>")
+            t = story_runs(b["runs"])
             if b["k"] == "quote":
                 out += f'<p class="epigraph">{t}</p>'
             elif b["k"] == "box":
-                out += f'<figure class="textbox"><blockquote><p>{t}</p></blockquote></figure>'
+                face += 1      # Gaster speaks in every text box of the PDF, with his green face
+                out += (f'<figure class="textbox gaster"><img src="assets/gaster-{face}.png" alt="Gaster" width="44" height="62">'
+                        f'<blockquote><p>{t}</p></blockquote></figure>')
             else:
                 out += f"<p>{t}</p>"
     R.current = None
-    body = (f'<h1 class="title">{html.escape(story["title"])}</h1><p class="crumbs">{html.escape(story["byline"])} · the full text so far</p>'
-            '<p class="story-note muted">Typed up from the PDF of the story, with its game-style text boxes. The story is unfinished and this page grows with it. '
-            'One word in the first text box is partly starred out.</p>'
-            f'<ul class="story-toc">{toc}</ul><div class="story">{out}</div>')
+    body = (f'<h1 class="title">Read the story</h1><p class="crumbs">{html.escape(story["byline"])} · the full text so far, coloured and set like the PDF</p>'
+            '<p class="story-note muted">Typed up from the PDF, with its colours and fonts: Comic Sans for the narration, Arial for Claude\'s lines. '
+            'The in-story text boxes are rebuilt as text. One word in the first one is partly starred out. The story is unfinished and this page grows with it.</p>'
+            f'<ul class="story-toc">{toc}</ul>'
+            f'<div class="story"><p class="story-title"><span class="s-gb">[The Epic of Vinny]</span></p><p class="story-by">{html.escape(story["byline"])}</p>{out}</div>')
     return page(entries, "Read the story", body, active="read", description="The full text of The Epic of Vinny by brennan oleary.", ver=ver)
 
 

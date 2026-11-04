@@ -229,15 +229,33 @@ img { max-width: 100%; height: auto; }
 }
 @media print { .top, .side { display: none; } .shell { display: block; padding: 0; } .sheet { box-shadow: none; border: 0; } }
 
-/* ---------- the full text ---------- */
-.story { max-width: 46em; }
-.story h2 { scroll-margin-top: 70px; }
-.story p { margin: 0 0 1em; font-size: 17px; line-height: 1.7; overflow-wrap: anywhere; }
-.story .epigraph { font-style: italic; border-left: 4px solid var(--accent); margin: 0 0 1.2em; padding: 4px 0 4px 14px; color: var(--ink2); }
-.story .textbox { margin: 6px 0 1.3em; }
+/* ---------- the full text: a white page, set like the PDF (Comic Sans; Claude's lines in Arial) ---------- */
+.story { max-width: 46em; background: #fff; color: #000; padding: 22px 26px 12px; border-radius: 6px; border: 1px solid var(--rule); font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", "Chalkboard SE", cursive, sans-serif; }
+.story h2 { scroll-margin-top: 70px; margin: 1.3em 0 .5em; padding: 0; border: 0; font-size: 26px; line-height: 1.25; font-weight: 400; color: #000; }
+.story p { margin: 0 0 1em; font-size: 16px; line-height: 1.65; overflow-wrap: anywhere; color: #000; }
+.story a, .story a:visited { color: #0000ff; }
+.story .story-title { text-align: center; margin: 0; font-size: 30px; }
+.story .story-by { text-align: center; margin: 0 0 8px; font-size: 18px; }
+.story .story-note { font-size: 13px; }
+.story .epigraph { margin: 0 0 1.2em; }
+.story .textbox { margin: 6px 0 1.3em; font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", cursive, sans-serif; }
 .story .textbox p { margin: 0; font-size: 16px; color: #fff; }
+.story .textbox { display: flex; align-items: center; gap: 14px; padding: 10px 16px; }
+.story .textbox img { flex: none; width: 44px; height: auto; image-rendering: pixelated; }
+.story .textbox blockquote { margin: 0; }
+.story .textbox blockquote::before { content: none; }
+.story .textbox p::before { content: "* "; }
+.s-gb, .s-gr, .s-gk, .s-go, .s-gO { font-family: "EB Garamond", Garamond, "Palatino Linotype", Georgia, serif; font-weight: 600; }
+.s-gb { color: #0000ff; } .s-gr { color: #ff0000; } .s-gk { color: #0f0f0f; } .s-go { color: #ff9900; } .s-gO { color: #ff5600; }
+.story p .s-gb { font-size: .95em; }
+.s-pf { font-family: "Playfair Display", Georgia, serif; font-weight: 600; color: #0000ff; }
+.s-cl { font-family: Arial, "Liberation Sans", Helvetica, sans-serif; }
+.s-red { color: #ff0000; } .s-b { font-weight: 700; } .s-i { font-style: italic; } .s-bi { font-weight: 700; font-style: italic; }
+.s-wh, .s-ye { background: #000; } .s-wh { color: #fff; } .s-ye { color: #ffff00; }
+.s-bp, .s-bo { font-family: Georgia, serif; font-weight: 700; font-style: italic; } .s-bp { color: #ff40c0; } .s-bo { color: #ff9900; }
+.textbox .s-bx-b { color: #1f3cff; } .textbox .s-bx-y { color: #ffe600; }
 .story-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
 .story-toc a { display: inline-block; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 12px; font-size: 14px; background: var(--panel2); }
-.story-note { font-size: 13.5px; }
 .logo-img { width: 30px; height: 30px; flex: none; object-fit: contain; }
 .hero-mark .logo-img { width: 84px; height: 84px; }
+.story h2::before { content: none !important; }
