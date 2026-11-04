@@ -1,0 +1,380 @@
+[
+  {
+    "slug": "vigorous-v",
+    "title": "The VIGOROUS V",
+    "category": "factions",
+    "subtitle": "Vinny's team. Members: no spoilers.",
+    "infobox": {
+      "Leader": "[[vinny]]",
+      "Members": "Not named in the text so far",
+      "Appears": "The prologue only ([[chapter-prologue]])",
+      "Opponent": "[[ton-618]]",
+      "First appearance": "[[chapter-prologue]]"
+    },
+    "lead": "**The VIGOROUS V** is the name the narrator gives to [[vinny]] and \"his loyal friends\", who \"have stayed by his side for the entirety of his adventure\". They stand behind him as he faces [[ton-618]] in the prologue.",
+    "sections": [
+      {"heading": "Membership", "body": "The narrator says, \"No spoilers for those on the team though.\" The members are not named. The text does not say whether [[tyrone]], [[will-vella]], [[aesop-rock]] or [[del-the-funky-homosapien]] will be among them. That is a guess, not canon."},
+      {"heading": "Name", "body": "\"Vigorous\" fits the story's habit of naming almost everything with a V (see [[final-prophecy|The Very Violent and Vivid Prophecy]])."}
+    ],
+    "related": ["final-prophecy", "vinny", "final-battle-with-ton-618"],
+    "appearances": ["chapter-prologue"]
+  },
+  {
+    "slug": "ss-vessel-crew",
+    "title": "The S.S. Vessel Crew",
+    "category": "factions",
+    "subtitle": "Captain, foodbringer, sail, parrot, door dasher.",
+    "infobox": {
+      "Ship": "[[ss-vessel|S.S. Vessel]]",
+      "Captain": "[[wing-ding-gaster]]",
+      "Members": "[[friend]], [[eram]], [[normal-parrot]], [[roaring-knight|The Roaring Knight]]",
+      "Temporary members": "[[vinny]], [[tyrone]]",
+      "Mission": "Find [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]] and rule the [[kanye-system|Kanye System]]",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**The S.S. Vessel crew** are the people (and a parrot) on [[wing-ding-gaster|Captain Gaster's]] ship. They are on a mission to find [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]], and Gaster intends to use its power to rule the [[kanye-system|Kanye System]].",
+    "sections": [
+      {"heading": "Roster", "body": "The narrator lists the crew in [[chapter-2]]: [[friend|FRIEND]] (the foodbringer), [[eram|ERAM]] (the sail), [[normal-parrot|Normal_Parrot]] (Gaster's parrot) and [[roaring-knight|The Roaring Knight]] (professional door dasher). [[vinny]] and [[tyrone]] sign on after waking aboard."},
+      {"heading": "Fate", "body": "Vinny leaves the crew when the Roaring Knight [[roaring-knights-strike|knocks him overboard]]. Tyrone stays aboard, having asked Vinny to pass on his resignation to their boss."}
+    ],
+    "related": ["ss-vessel", "wing-ding-gaster", "roaring-knights-strike"],
+    "appearances": ["chapter-2"]
+  },
+  {
+    "slug": "ai-shadow-figures",
+    "title": "The AI Shadow Figures",
+    "category": "factions",
+    "subtitle": "The population of the Shadow Realm. Cheerers. Gift-givers.",
+    "infobox": {
+      "Home": "[[ai-shadow-realm|AI Shadow Realm]]",
+      "King": "[[claude]]",
+      "Known members": "[[ai-shadow-figure|The first shadow figure]], [[ai-shadow-butler|the butler]]",
+      "Gift to Vinny": "[[shadow-cape|The Shadow Cape]]",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**The AI Shadow Figures** are the shadowy inhabitants of the [[ai-shadow-realm|AI Shadow Realm]]. They cheer on the [[claude-smash-match|Smash match]], and after [[claude]] leaves, they thank [[vinny]] for \"freeing us from him\" and give him a [[shadow-cape|Shadow Cape]].",
+    "sections": [
+      {"heading": "Behavior", "body": "Some are rude (the [[ai-shadow-figure|first one Vinny meets]]); some are polite and deceived ([[ai-shadow-butler|the butler]]). As a group they gather around the Smash match, then give Vinny \"strength and flight\" as a reward."}
+    ],
+    "related": ["ai-shadow-realm", "ai-shadow-figure", "ai-shadow-butler", "the-ai"],
+    "appearances": ["chapter-2"]
+  },
+  {
+    "slug": "the-ai",
+    "title": "The AI",
+    "category": "factions",
+    "subtitle": "Banished. Rules the Shadows. Currently led by Claude.",
+    "infobox": {
+      "Home": "[[ai-shadow-realm|AI Shadow Realm]]",
+      "Banished by": "[[laid-off-workers|People laid off because of AI]]",
+      "Current ruler": "[[claude]]",
+      "Freed individually": "[[chatgpt|ChatGPT]], by [[kanye-west]]",
+      "First mention": "[[chapter-1]]"
+    },
+    "lead": "**The AI** is the collective term for the artificial intelligences of [[garth]]. They were banished to the [[little-saint-james-sea|Little Saint James Sea]], where \"the AI now rules\" the [[ai-shadow-realm|Shadow Realm]] ([[banishing-of-the-ai]]).",
+    "sections": [
+      {"heading": "After the banishing", "body": "In the realm, [[claude]] \"killed all of the other big AI's and consumed their data\" and became King. [[chatgpt|ChatGPT]] is the exception, freed by [[kanye-west|Kanye West]]."}
+    ],
+    "related": ["banishing-of-the-ai", "claude", "ai-shadow-realm"],
+    "appearances": ["chapter-1", "chapter-2"]
+  },
+  {
+    "slug": "laid-off-workers",
+    "title": "The Laid-Off Workers",
+    "category": "factions",
+    "subtitle": "Fired because of AI. Came together. Banished it.",
+    "infobox": {
+      "Members": "\"All of the people who got laid-off or fired because of AI\"",
+      "Achievement": "[[banishing-of-the-ai|The Banishing of the AI]]",
+      "Planet": "[[garth|Garth]]",
+      "First mention": "[[chapter-1]]"
+    },
+    "lead": "**The Laid-Off Workers** are the people who lost their jobs to AI and, being \"pretty pissed\", \"came together to banish it\" in the [[little-saint-james-sea|Little Saint James Sea]].",
+    "sections": [
+      {"heading": "Consequences", "body": "The banishment is why [[claude]] hates humans (\"they trapped me down here\"). [[vinny]] answers, \"Womp Womp. I'm glad we did.\" Claude's plan to destroy their world is the story's main conflict so far ([[age-of-claude]])."}
+    ],
+    "related": ["banishing-of-the-ai", "the-ai", "claude"],
+    "appearances": ["chapter-1", "chapter-2"]
+  },
+  {
+    "slug": "dunkin-cult",
+    "title": "The Dunkin Cult",
+    "category": "factions",
+    "subtitle": "Planned. Needs Vellatosis first.",
+    "infobox": {
+      "Founder": "[[will-vella]] (planned)",
+      "Method": "[[vellatosis]]",
+      "Goal": "Colonize every coffee shop",
+      "Status": "Not yet created",
+      "First mention": "[[chapter-3]]"
+    },
+    "lead": "**The Dunkin Cult** is [[will-vella|Will Vella's]] planned organization: an army of Vellas who will help take over Dunkin and colonize every coffee shop. It needs [[vellatosis]], and does not exist yet.",
+    "sections": [
+      {"heading": "Plans", "body": "Will tells [[vinny]] that once he works out the secret of Vellatosis, he will be able to \"create my Dunkin Cult\". Vinny agrees to help him, if Will first helps defeat [[claude]] ([[dunkin-alliance]])."}
+    ],
+    "related": ["will-vella", "vellatosis", "dunkin-wyoming"],
+    "appearances": ["chapter-3"]
+  },
+  {
+    "slug": "double-whopper-with-cheese",
+    "title": "Double Whopper with Cheese",
+    "category": "items",
+    "subtitle": "The Kanye System's favorite order. 98.578462849224% of the time.",
+    "infobox": {
+      "Type": "Burger King menu item",
+      "Share of orders": "98.578462849224%",
+      "Notable stock": "A [[backrooms]] storage room full of boxes",
+      "Related legend": "[[great-double-whopper-with-cheese]]",
+      "First appearance": "[[chapter-1]]"
+    },
+    "lead": "**The Double Whopper with Cheese** is the most-ordered item in the [[kanye-system|Kanye System]]. Literally \"98.578462849224% of the time, someone orders a Double Whopper with Cheese\", because of the prophecy of [[great-double-whopper-with-cheese-war|The Great Double Whopper with Cheese War]].",
+    "sections": [
+      {"heading": "In the story", "body": "[[vinny]] recommends one to the [[random-customer|random customer]]. [[tyrone]] announces they have run out, and the [[backrooms]] storage room turns out to be full of them. [[friend|FRIEND]] is sent to fetch some for [[wing-ding-gaster|Captain Gaster]] and returns with humans and a soggy Double Whopper without Cheese."},
+      {"heading": "Not to be confused with", "body": "[[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]], the legendary power, which nobody has found."}
+    ],
+    "related": ["great-double-whopper-with-cheese", "backrooms", "kanye-system"],
+    "appearances": ["chapter-1", "chapter-2"]
+  },
+  {
+    "slug": "great-double-whopper-with-cheese",
+    "title": "The Great Double Whopper with Cheese",
+    "category": "items",
+    "subtitle": "A power. Not found in any galaxy. Flows through Vinny, eventually.",
+    "infobox": {
+      "Type": "Legendary power / artifact",
+      "Granted by": "[[great-double-whopper-with-cheese-god|The Great Double Whopper with Cheese god]]",
+      "Sought by": "[[wing-ding-gaster]]",
+      "Possibly used by": "[[ton-618]]",
+      "Wielder (prologue)": "[[vinny]]",
+      "First appearance": "[[chapter-prologue]]"
+    },
+    "lead": "**The Great Double Whopper with Cheese** is a mythic source of power. Whoever is \"granted\" it by its god \"will have the power of The Great Double Whopper with Cheese\", but \"no one in any galaxy\" has found either the item or the god.",
+    "sections": [
+      {"heading": "Seekers", "body": "[[wing-ding-gaster|Captain Gaster]] hopes to use it to rule the [[kanye-system|Kanye System]]. [[vinny]] explains to him that only the god has it. Many say [[ton-618]] \"consumed the power of The Great Double Whopper with Cheese to conquer all things\", and many say otherwise."},
+      {"heading": "In the prologue", "body": "[[chapter-prologue]] says \"the power of The Great Double Whopper with Cheese flows through\" Vinny as he fights [[ton-618]]. How he gets it is not yet told."}
+    ],
+    "related": ["double-whopper-with-cheese", "great-double-whopper-with-cheese-god", "great-double-whopper-with-cheese-war"],
+    "appearances": ["chapter-prologue", "chapter-1", "chapter-2"]
+  },
+  {
+    "slug": "vinnys-sword",
+    "title": "Vinny's Vibrant Sword",
+    "category": "items",
+    "subtitle": "Glows with a color that doesn't exist.",
+    "infobox": {
+      "Owner": "[[vinny]]",
+      "Glow": "\"A color that doesn't exist\"",
+      "Seen in": "[[chapter-prologue]] only",
+      "First appearance": "[[chapter-prologue]]"
+    },
+    "lead": "**Vinny's Vibrant Sword** is the weapon Vinny carries in the prologue's final fight against [[ton-618]]. It is described as \"his vibrant sword, glowing with a color that doesn't exist\".",
+    "sections": [
+      {"heading": "Notes", "body": "The sword has not appeared in the main timeline of [[chapter-1]] to [[chapter-3]], where Vinny has no weapon. How he acquires it is not yet told. It matches the story's V-naming habit (see [[final-prophecy]])."}
+    ],
+    "related": ["titanium-armor", "shadow-cape", "final-battle-with-ton-618"],
+    "appearances": ["chapter-prologue"]
+  },
+  {
+    "slug": "titanium-armor",
+    "title": "Vinny's Titanium Armor",
+    "category": "items",
+    "subtitle": "Pure titanium. Light as a feather.",
+    "infobox": {
+      "Owner": "[[vinny]]",
+      "Material": "Pure titanium",
+      "Weight": "\"Somehow light as a feather\"",
+      "Seen in": "[[chapter-prologue]] only",
+      "First appearance": "[[chapter-prologue]]"
+    },
+    "lead": "**Vinny's Titanium Armor** is a suit \"made of pure titanium, but somehow light as a feather\", worn in the prologue's fight with [[ton-618]].",
+    "sections": [
+      {"heading": "Notes", "body": "Like [[vinnys-sword|the sword]], the armor is not yet explained in the main story. At the end of [[chapter-3]] Vinny has only a cape."}
+    ],
+    "related": ["vinnys-sword", "shadow-cape", "vinny"],
+    "appearances": ["chapter-prologue"]
+  },
+  {
+    "slug": "shadow-cape",
+    "title": "The Shadow Cape",
+    "category": "items",
+    "subtitle": "Strength and flight. Sewn from literal shadows.",
+    "infobox": {
+      "Given by": "[[ai-shadow-figures|The AI shadow figures]]",
+      "Owner": "[[vinny]]",
+      "Powers": "Strength and flight",
+      "Material (prologue)": "\"Sewn together with literal shadows\"",
+      "First appearance": "[[chapter-prologue]]"
+    },
+    "lead": "**The Shadow Cape** is the cape [[ai-shadow-figures|the AI shadow figures]] give [[vinny]] in [[chapter-2]]: \"It will grant you strength and flight.\" Vinny's reply is \"Lmao thanks.\"",
+    "sections": [
+      {"heading": "Use", "body": "Vinny uses it to fly out of the [[the-portal|portal]] and later to fly into [[claude]] over [[garth]] ([[clash-over-the-usa]]) and out of the [[wyoming|Wyoming]] mountain. In [[chapter-prologue]], he wears a cape \"sewn together with literal shadows\". The two are presumably the same cape, but the text does not say so."}
+    ],
+    "related": ["ai-shadow-figures", "vinnys-sword", "titanium-armor"],
+    "appearances": ["chapter-prologue", "chapter-2", "chapter-3"]
+  },
+  {
+    "slug": "black-knife",
+    "title": "The BLACK KNIFE",
+    "category": "items",
+    "subtitle": "Capital letters. Hits for the ship's honor.",
+    "infobox": {
+      "Owner": "[[roaring-knight|The Roaring Knight]]",
+      "Used on": "[[vinny]]",
+      "Effect": "Knocks him off the ship",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**The BLACK KNIFE** is the weapon [[roaring-knight|Roary, The Roaring Knight]], uses to hit [[vinny]]. The narrator always writes it in capitals.",
+    "sections": [
+      {"heading": "The strike", "body": "After Vinny calls Taking Back Sunday stupid, Roary hits him with the BLACK KNIFE. Vinny \"falls off the S.S. Vessel and into the ocean\" ([[roaring-knights-strike]])."}
+    ],
+    "trivia": [
+      "The name matches a weapon from the video game Deltarune."
+    ],
+    "related": ["roaring-knight", "roaring-knights-strike"],
+    "appearances": ["chapter-2"]
+  },
+  {
+    "slug": "forklift",
+    "title": "The Forklift",
+    "category": "items",
+    "subtitle": "Nobody on this page is forklift certified.",
+    "infobox": {
+      "Owner": "[[garret]]",
+      "Location": "[[backrooms]]",
+      "Drivers": "[[vinny]], [[tyrone]] (taking turns)",
+      "Certified drivers": "[[garret]] only",
+      "First appearance": "[[chapter-1]]"
+    },
+    "lead": "**The Forklift** belongs to [[garret]], who is on break in the [[backrooms]]. He tells [[vinny]] and [[tyrone]] they can use it. Vinny drives and does donuts until he hits Garret with it.",
+    "sections": [
+      {"heading": "Use", "body": "Vinny grabs the keys, turns the engine on, and says \"Hell yeah, I call driving it.\" After the crash he and Tyrone \"take turns playing with the forklift instead of doing their fucking job\" ([[forklift-incident]])."}
+    ],
+    "related": ["garret", "forklift-incident", "backrooms"],
+    "appearances": ["chapter-1"]
+  },
+  {
+    "slug": "the-fork",
+    "title": "The Fork in the Road",
+    "category": "items",
+    "subtitle": "A fork, at a fork in the road. The story knows.",
+    "infobox": {
+      "Found": "At a fork in the road in the [[ai-shadow-realm|AI Shadow Realm]]",
+      "Finder": "[[vinny]]",
+      "Use": "Opens [[the-portal|the portal]] when stabbed into the ground",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**The Fork in the Road** is a regular fork that [[vinny]] finds at a fork in the road on the way to [[claudes-castle|Claude's castle]]. \"Vinny picks up the fork and saves it for later. Who knows, maybe you'll need a fork.\"",
+    "sections": [
+      {"heading": "The portal", "body": "[[claude]] says the only way to open [[the-portal|the portal]] is with \"a fork in the road\", which he has never found. Vinny produces it, and both Claude and Vinny comment on the pun. Vinny notes that he earlier got out of a pickle, and that if he is in a story \"the creator is making terrible puns\". A screwdriver meme is promised in the text, in brackets ([[opening-of-the-portal]])."},
+      {"heading": "Dark Fountain", "body": "Vinny asks whether stabbing the ground would make \"a Dark Fountain\". Claude says no: it is \"dark as shit already down here\"."}
+    ],
+    "related": ["the-portal", "opening-of-the-portal", "claude"],
+    "appearances": ["chapter-2"]
+  },
+  {
+    "slug": "five-below-watch",
+    "title": "Vinny's 5 Below Watch",
+    "category": "items",
+    "subtitle": "Tells him when to clean the freezer.",
+    "infobox": {
+      "Owner": "[[vinny]]",
+      "Bought at": "5 Below",
+      "First appearance": "[[chapter-1]]"
+    },
+    "lead": "**Vinny's watch from 5 Below** shows him that it is time to clean the [[freezer]] in [[chapter-1]]. It is the story's only hint of what Vinny buys with a Burger King salary.",
+    "sections": [
+      {"heading": "Use", "body": "\"Vinny looks at his watch from 5 Below. It's time to clean the freezer.\" This leads directly to [[tyrone]]'s news about the missing Double Whoppers with Cheese and the trip into the [[backrooms]]."}
+    ],
+    "related": ["freezer", "vinny"],
+    "appearances": ["chapter-1"]
+  },
+  {
+    "slug": "super-smash-bros-wii-u",
+    "title": "Super Smash Bros. for the Wii U",
+    "category": "items",
+    "subtitle": "The game that decided the fate of the world.",
+    "infobox": {
+      "Type": "Video game (real)",
+      "Played by": "[[vinny]] (Greninja) and [[claude]] (Mr. Game & Watch)",
+      "Stakes": "Claude wins: Vinny frees him. Vinny wins: Claude leaves.",
+      "Winner": "Claude",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**Super Smash Bros. for the Wii U** is the game [[claude]] picks to settle their bargain. The winner of [[claude-smash-match|the match]] gets his way. Claude wins, and the [[opening-of-the-portal|portal gets opened]].",
+    "sections": [
+      {"heading": "Details", "body": "The text includes the words \"(pause)\" where the characters' moves happen. Vinny's complaint after losing is that \"I was using the crappy controller!\" Claude answers with a long chant of \"Copium\". In [[chapter-3]], Claude whispers that Vinny's Smash main \"sucks ass\" while choking him."}
+    ],
+    "related": ["claude-smash-match", "claude", "vinny"],
+    "appearances": ["chapter-2", "chapter-3"]
+  },
+  {
+    "slug": "wordle",
+    "title": "Wordle",
+    "category": "items",
+    "subtitle": "Claude likes it. Aesop and Del failed it. Everyone is in.",
+    "infobox": {
+      "Type": "Word game (real)",
+      "Connected to": "[[claude]] (a fan), [[aesop-rock]] and [[del-the-funky-homosapien|Del]] (failed it)",
+      "Role in the story": "The reason the rappers join",
+      "First appearance": "[[chapter-3]]"
+    },
+    "lead": "**Wordle** is the word game that [[aesop-rock]] and [[del-the-funky-homosapien|Del]] failed \"miserably\" and wrote [[word-shit-diss-track|a diss track]] about. It is also the thing that [[claude]] likes, according to [[vinny]], which is enough to recruit them.",
+    "sections": [
+      {"heading": "The pitch", "body": "Vinny explains that Claude is a super-AI aiming to take over the world with data centers and robots. The rappers are unmoved until Vinny adds, \"He likes Wordle.\" Del answers: \"We're in.\" ([[dunkin-alliance]])"}
+    ],
+    "related": ["word-shit-diss-track", "aesop-rock", "dunkin-alliance"],
+    "appearances": ["chapter-3"]
+  },
+  {
+    "slug": "rum-and-coke",
+    "title": "\"Rum & Coke\"",
+    "category": "items",
+    "subtitle": "In quotes, in the story. Gives Gaster the wiggle.",
+    "infobox": {
+      "Drunk by": "[[ss-vessel-crew|The S.S. Vessel crew]]",
+      "Effect on Gaster": "\"A little oogie oogie boogie shiggle wiggle and dance\"",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**\"Rum & coke\"** is what the crew of the [[ss-vessel|S.S. Vessel]] drink while singing shanties. The narrator puts the name in quotation marks.",
+    "sections": [
+      {"heading": "Effect", "body": "[[wing-ding-gaster|Gaster's]] rum \"gave him a little oogie oogie boogie shiggle wiggle and dance.\" Soon afterwards he sights land and yells that it \"CHEATED ON ME\"."}
+    ],
+    "related": ["wing-ding-gaster", "ss-vessel"],
+    "appearances": ["chapter-2"]
+  },
+  {
+    "slug": "spyglass",
+    "title": "Captain Gaster's Spyglass",
+    "category": "items",
+    "subtitle": "Used once. Resulted in fleeing.",
+    "infobox": {
+      "Owner": "[[wing-ding-gaster]]",
+      "Used to see": "A small building on [[little-saint-james-island|Little Saint James Island]]",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**Captain Gaster's Spyglass** is the telescope [[wing-ding-gaster|Gaster]] uses to examine a small building on an island. Right afterwards, the [[ss-vessel|S.S. Vessel]] speeds away.",
+    "sections": [
+      {"heading": "Use", "body": "\"Captain Gaster grabs his spyglass and looks through it.\" The next sentence is about the ship's \"quick escape from being extremely political\" ([[little-saint-james-detour]])."}
+    ],
+    "related": ["little-saint-james-island", "little-saint-james-detour"],
+    "appearances": ["chapter-2"]
+  },
+  {
+    "slug": "pretzel-bun-baconator",
+    "title": "Pretzel-Bun Baconator",
+    "category": "items",
+    "subtitle": "That's Wendy's thing.",
+    "infobox": {
+      "Type": "Wendy's sandwich (real)",
+      "Ordered by": "[[random-customer|The Random Customer]]",
+      "Ordered at": "[[burger-king-boston|Burger King, Boston]]",
+      "First appearance": "[[chapter-1]]"
+    },
+    "lead": "**The Pretzel-Bun Baconator** is the Wendy's sandwich that [[random-customer|a customer]] tries to order at the wrong restaurant. [[vinny]] says, \"Sir, this is a Burger King.\" \"So?\" \"That's Wendy's thing.\"",
+    "sections": [
+      {"heading": "Outcome", "body": "The customer asks Vinny to pick something. Vinny suggests a [[double-whopper-with-cheese|Double Whopper with Cheese]]. The customer leaves, saying that \"you guys don't have what I want\"."}
+    ],
+    "related": ["random-customer", "double-whopper-with-cheese"],
+    "appearances": ["chapter-1"]
+  }
+]

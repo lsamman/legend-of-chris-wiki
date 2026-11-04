@@ -44,6 +44,20 @@ The tracker only knows the chapters in `groups.json`. If the live published book
 
 **After you publish a new chapter**, tell Claude. It updates `content/timeline.json` (the new events), `content/groups.json` (a cell for each group in the new chapter, each group's `now`, and `asOf`), and the wiki's chapter article.
 
+## The Epic of Vinny Wiki (spin-off)
+
+*The Epic of Vinny* (by brennan oleary) is a spin-off set on planet Garth in the Kanye System, in 1995 and 1996. It has its own wiki at `site/epic-of-vinny/` (https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/), with its own look, search, categories and timeline. It is separate from the Legend Of Chris wiki but deployed with it.
+
+- **Where things are.** Articles are in `teov/content/*.json`, the look is in `teov/assets/`, and `teov/build.py` writes the site. `python3 build/build.py` runs it automatically after the main build.
+- **Links between the two wikis.**
+  - A button in the Legend Of Chris toolbar ("The Epic of Vinny"), a sidebar link and a box on the main page take readers to the spin-off.
+  - The spin-off has a "← Legend Of Chris" button on every page.
+  - `TEOV_LINKS` in `build/build.py` adds an "In the spin-off" line to the Legend Of Chris articles it relates to.
+  - A spin-off article lists its Legend Of Chris counterparts in its `loc` field.
+  - In text, `[[loc:slug|label]]` links to a Legend Of Chris article (in the spin-off), and `[[teov:slug|label]]` links to a spin-off article (in the Legend Of Chris timeline).
+- **Timeline and maps.** The spin-off's events are in the Legend Of Chris Timeline as the "Epic of Vinny" storyline (events with `"spinoff": true` in `content/timeline.json`; they sit after the eight chapters in "As told in the book"). The Maps page has a map of Garth, and the Multiverse map shows Garth in the Kanye System. Garth is not Earth: Earth is in the New Jersey System.
+- **After a new chapter.** Tell Claude. It adds the chapter, updates the articles it touches, adds new characters, places and events, and adds the new events to `teov/content/` and to the Legend Of Chris timeline. The wiki does not include the story's full text, only summaries and short quotes.
+
 ## The MASTER FILE: reading page and writing room
 
 - **Read the MASTER FILE** (`read.html`, linked in the sidebar) shows the complete book. It starts with the original text built from `content/book.txt`, and switches to whatever was last published from the writing room as soon as Firebase answers. If someone has the page open when a new version is published, it updates without a reload.

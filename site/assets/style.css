@@ -347,3 +347,17 @@ img { max-width: 100%; height: auto; }
 .map-fig img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); background: var(--box); }
 .map-fig figcaption { margin-top: 6px; font-size: 13.5px; color: var(--ink-3); }
 .sheet .map-sec h3 { font-size: 17px; margin: 14px 0 8px; }
+
+/* ---------- the spin-off: The Epic of Vinny ---------- */
+.teov-btn {
+  flex: none; display: flex; align-items: center; gap: 7px; padding: 4px 11px 4px 5px; font-size: 13.5px; font-weight: 700;
+  border: 1px solid var(--bar-edge); border-radius: 7px; background: var(--paper); color: var(--ink) !important; text-decoration: none !important; white-space: nowrap;
+}
+.teov-btn svg { width: 24px; height: 24px; flex: none; }
+.teov-btn:hover { background: var(--hi); }
+.teov-side { font-weight: 700; }
+.teov-link { border-bottom: 1px dotted #7c3aed; }
+.teov-box { border-color: #5b21b6 !important; border-left-width: 6px !important; }
+.teov-cta { display: inline-block; font-weight: 700; padding: 7px 14px; border-radius: 7px; background: #5b21b6; color: #fff !important; text-decoration: none !important; }
+.teov-cta:hover { background: #4c1d95; }
+@media (max-width: 960px) { .teov-btn span { display: none; } .teov-btn { padding: 4px 5px; } }
