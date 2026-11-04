@@ -357,7 +357,7 @@ img { max-width: 100%; height: auto; }
 .teov-btn:hover { background: var(--hi); }
 .teov-side { font-weight: 700; }
 .teov-link { border-bottom: 1px dotted #7c3aed; }
-.teov-box { border-color: #5b21b6 !important; border-left-width: 6px !important; }
-.teov-cta { display: inline-block; font-weight: 700; padding: 7px 14px; border-radius: 7px; background: #5b21b6; color: #fff !important; text-decoration: none !important; }
+.teov-box { border-color: #55555e !important; border-left-width: 6px !important; }
+.teov-cta { display: inline-block; font-weight: 700; padding: 7px 14px; border-radius: 7px; background: #55555e; color: #fff !important; text-decoration: none !important; }
 .teov-cta:hover { background: #4c1d95; }
 @media (max-width: 960px) { .teov-btn span { display: none; } .teov-btn { padding: 4px 5px; } }

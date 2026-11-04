@@ -23,7 +23,7 @@ OUT = os.path.join(ROOT, "site", "epic-of-vinny")
 LOC_MAP_IMAGES = os.path.join(ROOT, "content", "maps")
 
 SITE_NAME = "The Epic of Vinny Wiki"
-RESERVED = {"index", "all-pages", "timeline", "random"}
+RESERVED = {"index", "all-pages", "timeline", "random", "read"}
 CATEGORIES = [
     ("chapters", "Chapters", "The story so far: a prologue and three chapters."),
     ("characters", "Characters", "A Burger King cashier, a pirate captain, an AI king and a Bagel Man."),
@@ -52,7 +52,7 @@ def load_loc():
 def load_entries():
     entries = {}
     for path in sorted(glob.glob(os.path.join(CONTENT, "*.json"))):
-        if os.path.basename(path) == "maps.json":      # the list of maps, not articles
+        if os.path.basename(path) in ("maps.json", "story.json"):      # the list of maps, not articles
             continue
         with open(path, encoding="utf-8") as f:
             for e in json.load(f):
@@ -125,8 +125,12 @@ def plain(text, n=160):
 
 
 # ----------------------------------------------------------------- layout
-LOGO = ('<svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#5b21b6"/>'
-        '<path d="M7 9h8l5 15 5-15h8L24 33h-8z" fill="#ffcf5c"/></svg>')
+# The logo is a cut-out portrait with no background, if teov/assets/logo.png exists; otherwise a plain grey V.
+if os.path.exists(os.path.join(ASSETS, "logo.png")):
+    LOGO = '<img class="logo-img" src="assets/logo.png" alt="" width="30" height="30">'
+else:
+    LOGO = ('<svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#55555e"/>'
+            '<path d="M7 9h8l5 15 5-15h8L24 33h-8z" fill="#ffd26a"/></svg>')
 
 
 def nav_html(entries, active=None):
@@ -140,6 +144,7 @@ def nav_html(entries, active=None):
     <div class="box-head">Navigation</div>
     <ul>
       <li><a href="index.html"{" aria-current=page" if active == "index" else ""}>Main Page</a></li>
+      <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the story</a></li>
       <li><a href="timeline.html"{" aria-current=page" if active == "timeline" else ""}>Timeline</a></li>
       <li><a href="all-pages.html"{" aria-current=page" if active == "all-pages" else ""}>All pages (A–Z)</a></li>
       <li><a href="random.html" class="random-link">Random page</a></li>
@@ -293,7 +298,7 @@ def render_index(entries, R, ver):
   <h1 class="hero-title">The Epic of Vinny</h1>
   <p class="hero-by">by brennan oleary</p>
   <p class="hero-meta">Planet <a href="garth.html">Garth</a> · <a href="kanye-system.html">The Kanye System</a> · 1995 to 1996</p>
-  <p class="hero-btns"><a class="btn primary" href="chapter-1.html">Start at Chapter 1</a> <a class="btn" href="timeline.html">Timeline</a> <a class="btn gold" href="../index.html">← Legend Of Chris Wiki</a></p>
+  <p class="hero-btns"><a class="btn primary" href="read.html">Read the story</a> <a class="btn" href="chapter-1.html">Chapter 1</a> <a class="btn" href="timeline.html">Timeline</a> <a class="btn gold" href="../index.html">← Legend Of Chris Wiki</a></p>
 </section>
 <p class="drop">Welcome to <b>{SITE_NAME}</b>, the free encyclopedia about <i>The Epic of Vinny</i>: the story of Vinny B. James, a Boston Burger King cashier who ends up in the backrooms, on a pirate ship and in a kingdom of banished AI, all on one Fourth of July. We currently document <b>{len(entries)}</b> articles from a prologue and three chapters. <b>The story is still being written.</b></p>
 <div class="stat"><b>98.578462849224%</b><span>of the time, someone in the Kanye System orders a Double Whopper with Cheese.</span></div>
@@ -344,6 +349,33 @@ def render_all(entries, ver):
         for e in sorted(groups[k], key=lambda e: re.sub(r"^[^a-z0-9]+", "", e["title"].lower()))) + "</ul>" for k in keys)
     body = f'<h1 class="title">All pages</h1><p class="crumbs">{len(entries)} articles, alphabetically.</p><div class="jump">{jump}</div>{blocks}'
     return page(entries, "All pages", body, active="all-pages", description="Every article on the wiki.", ver=ver)
+
+
+def render_read(entries, R, story, ver):
+    """The full text of the story, with the in-story text boxes, from content/story.json."""
+    R.current = "read"
+    out, toc = "", ""
+    for ch in story["chapters"]:
+        a = entries.get(ch["slug"])
+        head = html.escape(ch["heading"])
+        toc += f'<li><a href="#{ch["slug"]}">{head}</a></li>'
+        out += f'<h2 id="{ch["slug"]}">{head}</h2>'
+        if a:
+            out += f'<p class="story-note muted"><a href="{ch["slug"]}.html">Wiki article: {html.escape(a["title"])}</a></p>'
+        for b in ch["blocks"]:
+            t = html.escape(b["text"]).replace("⟦", "<b>").replace("⟧", "</b>")
+            if b["k"] == "quote":
+                out += f'<p class="epigraph">{t}</p>'
+            elif b["k"] == "box":
+                out += f'<figure class="textbox"><blockquote><p>{t}</p></blockquote></figure>'
+            else:
+                out += f"<p>{t}</p>"
+    R.current = None
+    body = (f'<h1 class="title">{html.escape(story["title"])}</h1><p class="crumbs">{html.escape(story["byline"])} · the full text so far</p>'
+            '<p class="story-note muted">Typed up from the PDF of the story, with its game-style text boxes. The story is unfinished and this page grows with it. '
+            'One word in the first text box is partly starred out.</p>'
+            f'<ul class="story-toc">{toc}</ul><div class="story">{out}</div>')
+    return page(entries, "Read the story", body, active="read", description="The full text of The Epic of Vinny by brennan oleary.", ver=ver)
 
 
 def render_random(entries, ver):
@@ -415,10 +447,11 @@ def main():
     if os.path.exists(garth_png):
         shutil.copyfile(garth_png, os.path.join(OUT, "assets", "garth-map.png"))
 
+    story = json.load(open(os.path.join(CONTENT, "story.json"), encoding="utf-8"))
     R = Renderer(entries, loc)
     bodies = {s: render_article(e, R, entries, loc, maps, ver) for s, e in entries.items()}
     pages = {"index": render_index(entries, R, ver), "all-pages": render_all(entries, ver),
-             "random": render_random(entries, ver), "timeline": render_timeline(entries, R, ver)}
+             "random": render_random(entries, ver), "read": render_read(entries, R, story, ver), "timeline": render_timeline(entries, R, ver)}
     for c, n, d in CATEGORIES:
         pages[f"category-{c}"] = render_category(entries, c, n, d, ver)
     if R.errors:

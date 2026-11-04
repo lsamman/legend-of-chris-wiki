@@ -50,7 +50,7 @@ for _m in MAPS:
             MAPS_FOR.setdefault(_slug, []).append(_m)
 TEOV_ENTRIES = {}   # The Epic of Vinny wiki (a spin-off, built by teov/build.py): slug -> article
 for _p in sorted(glob.glob(os.path.join(ROOT, "teov", "content", "*.json"))):
-    if os.path.basename(_p) != "maps.json":
+    if os.path.basename(_p) not in ("maps.json", "story.json"):
         for _e in json.load(open(_p, encoding="utf-8")):
             TEOV_ENTRIES[_e["slug"]] = _e
 # Legend Of Chris article -> [(Epic of Vinny article, what the spin-off says about it)]
@@ -156,6 +156,73 @@ def load_entries():
         e.setdefault("category", "concepts")
         if e["category"] not in CAT_NAME:
             e["category"] = "concepts"
+    return import_spinoff(entries)
+
+
+
+def import_spinoff(entries):
+    """The Epic of Vinny is canon in the LOC universe: its articles also appear here, each pointing at its full page on the spin-off wiki."""
+    chapters = {s for s, e in TEOV_ENTRIES.items() if e["category"] == "chapters"}
+    hub = "the-epic-of-vinny"
+    assert hub not in entries and hub not in TEOV_ENTRIES, hub
+
+    def conv(text):
+        def sub(m):
+            t, label = m.group(1).strip(), m.group(2)
+            if t.startswith("loc:"):
+                t = t[4:]
+            elif t in chapters:
+                t = "teov:" + t
+                label = label or TEOV_ENTRIES[t[5:]]["title"]
+            elif t in TEOV_ENTRIES and t in entries and not TEOV_ENTRIES[t].get("_imported"):
+                label = label or TEOV_ENTRIES[t]["title"]     # a name both wikis share: link the LOC article
+            return f"[[{t}|{label}]]" if label else f"[[{t}]]"
+        return LINK_RE.sub(sub, text or "")
+
+    imported = []
+    for slug, te in TEOV_ENTRIES.items():
+        if te["category"] == "chapters":
+            continue
+        apps = [a for a in te.get("appearances", []) if a in chapters]
+        told = ", ".join(f"[[teov:{a}|{TEOV_ENTRIES[a]['title']}]]" for a in sorted(set(apps)))
+        if slug in entries:                                   # same name in both wikis: add a section to the LOC article
+            e = entries[slug]
+            if e.get("stub"):
+                continue
+            body = conv(te["lead"]) + f"\n\n[[teov:{slug}|Read the full article on The Epic of Vinny Wiki]]."
+            e.setdefault("sections", []).append({"heading": "In The Epic of Vinny", "body": body})
+            continue
+        e = {"slug": slug, "title": te["title"], "category": te["category"], "subtitle": conv(te.get("subtitle")), "lead": conv(te["lead"]),
+             "infobox": {k: conv(v) for k, v in (te.get("infobox") or {}).items()}, "_imported": True,
+             "sections": [dict(h, body=conv(h["body"])) for h in te.get("sections", [])]}
+        e["infobox"]["Series"] = f"[[{hub}|The Epic of Vinny]] (spin-off)"
+        if told:
+            e["infobox"]["Told in"] = told
+        if te.get("quote"):
+            e["quote"] = {"text": te["quote"]["text"], "by": conv(te["quote"].get("by"))}
+        if te.get("trivia"):
+            e["sections"].append({"heading": "Trivia", "body": "\n".join("- " + conv(t) for t in te["trivia"])})
+        e["sections"].append({"heading": "On the spin-off wiki", "body":
+            f"This article is canon in the Legend Of Chris universe. It comes from the spin-off [[{hub}|The Epic of Vinny]]. "
+            f"[[teov:{slug}|Read the full article on The Epic of Vinny Wiki]]."})
+        e["related"] = [r for r in te.get("related", []) if r not in chapters and r in TEOV_ENTRIES] + [l["slug"] for l in te.get("loc", [])]
+        entries[slug] = e
+        imported.append(slug)
+        TEOV_ENTRIES[slug]["_imported"] = True
+    by_cat = {}
+    for s in imported:
+        by_cat.setdefault(entries[s]["category"], []).append(s)
+    lists = "\n\n".join(f"### {CAT_NAME[c]}\n" + ", ".join(f"[[{s}]]" for s in sorted(v, key=lambda x: entries[x]["title"].lower()))
+                         for c, v in by_cat.items())
+    chs = "\n".join(f"- [[teov:{c}|{TEOV_ENTRIES[c]['title']}]]: {TEOV_ENTRIES[c]['subtitle']}" for c in TEOV_ENTRIES if c in chapters)
+    entries[hub] = {"slug": hub, "title": "The Epic of Vinny", "category": "concepts",
+        "subtitle": "A spin-off set on Garth, in the Kanye System, 1995 to 1996.",
+        "infobox": {"Author": "brennan oleary", "Setting": "[[teov:garth|Garth]], [[kanye-system|The Kanye System]]", "Years": "1995 to 1996",
+                    "Status": "Unfinished (a prologue and three chapters)", "Full wiki": "[[teov:index|The Epic of Vinny Wiki]]"},
+        "lead": "**The Epic of Vinny** is a spin-off story by brennan oleary, set from 1995 to 1996 on the planet [[teov:garth|Garth]] in the [[kanye-system|Kanye System]]. "
+                "It follows [[vinny]], a Boston Burger King cashier. It is canon in the Legend Of Chris universe, so its characters, places and events have articles here too.\n\n"
+                "The full story text, a dedicated timeline and every article live on [[teov:index|The Epic of Vinny Wiki]]. You can [[teov:read|read the story there]].",
+        "sections": [{"heading": "Chapters", "body": chs}, {"heading": "Articles from the spin-off", "body": lists}]}
     return entries
 
 
@@ -182,6 +249,8 @@ class Renderer:
             slug = m.group(1).strip().lower()
             if slug.startswith("teov:"):      # a page of The Epic of Vinny wiki
                 t = slug[5:]
+                if t in ("index", "read", "timeline"):     # the spin-off wiki's own pages
+                    return f'<a class="teov-link" href="epic-of-vinny/{t}.html">{m.group(2) or t}</a>'
                 if t not in TEOV_ENTRIES:
                     self.redlinks.add(slug)
                     return f'<span class="redlink">{m.group(2) or t}</span>'
@@ -316,7 +385,7 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
       <input id="q" type="search" placeholder="Search the lore…" autocomplete="off" aria-label="Search the wiki">
       <ul id="results" role="listbox" hidden></ul>
     </form>
-    <a class="teov-btn" href="epic-of-vinny/index.html" title="The Epic of Vinny Wiki: a spin-off story"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#5b21b6"/><path d="M7 9h8l5 15 5-15h8L24 33h-8z" fill="#ffcf5c"/></svg><span>The Epic of Vinny</span></a>
+    <a class="teov-btn" href="epic-of-vinny/index.html" title="The Epic of Vinny Wiki: a spin-off story"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#55555e"/><path d="M7 9h8l5 15 5-15h8L24 33h-8z" fill="#ffcf5c"/></svg><span>The Epic of Vinny</span></a>
     <button class="phone-btn" type="button" aria-label="Open the iPhone 3G" title="The iPhone 3G: MySpace and Twitter Bluebird"><svg viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="4" fill="currentColor"/><rect x="5" y="3.5" width="14.5" height="11" rx=".8" fill="#5aa9f0"/><circle cx="22.2" cy="9" r="1.3" fill="#888"/><path d="M15 4l-2 3.5 2.5 2-3 4" stroke="#fff" stroke-width=".7" fill="none"/></svg></button>
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>

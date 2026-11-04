@@ -106,3 +106,9 @@ python3 -m http.server 8000 -d site                      # then open http://loca
 ```
 
 With `?emulator` on localhost the pages talk to the emulators instead of the real project. Put the emulator user's ID into `firestore.rules` while testing.
+
+### The Epic of Vinny: full text, theme and canon import
+- `teov/content/story.json` holds the full story text (chapters of paragraphs, quotes and the game-style text boxes) and renders `epic-of-vinny/read.html`. Add new chapters there.
+- The EOV wiki is grey with a white light mode (toggle in the top bar) and set in Comic Sans.
+- Its non-chapter articles are imported into the Legend Of Chris wiki at build time (`import_spinoff` in `build/build.py`) as canon, each linking to its full page; the hub article is `the-epic-of-vinny`.
+- To use a custom logo, put a background-free `logo.png` in `teov/assets/`.
