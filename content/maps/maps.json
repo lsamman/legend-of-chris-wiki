@@ -7,7 +7,7 @@
       "file": "multiverse.png",
       "alt": "The Legend Of Chris multiverse, flattened to one plane: the story's universe with Earth in the New Jersey System, Dunder Mifflin, the Reformed Travis Scott Sector, the Uniontown System and Sector 1/99 with Gotham City; TurboGrafx 16 inside the Border; the Shadow Realm; and five other universes.",
       "blurb": "Every universe, galaxy, sector and system in the MASTER FILE, flattened onto one plane. What's inside what follows the book; where things sit on the page is just layout, because the book gives no distances or directions.",
-      "places": ["multiverse", "cringe-universe", "america-universe", "minor-miner-universe", "protestant-universe", "universe-prime", "reality-42-b", "timeline-r", "nether-dimension", "shadow-realm", "andromeda-galaxy", "dunder-mifflin", "paper-belt", "reformed-travis-scott-sector", "kanye-system", "twelve-towers", "uniontown-system", "planet-patrick", "galactic-senate", "sector-1-99", "the-67-casino", "dusty-depot", "gotham-city", "turbografx-16-sector", "the-border", "new-jersey-system", "freddy-fazbears-pizza", "scotts-house"]
+      "places": ["multiverse", "cringe-universe", "america-universe", "minor-miner-universe", "protestant-universe", "universe-prime", "reality-42-b", "timeline-r", "nether-dimension", "shadow-realm", "andromeda-galaxy", "dunder-mifflin", "paper-belt", "reformed-travis-scott-sector", "kanye-system", "twelve-towers", "uniontown-system", "planet-patrick", "galactic-senate", "sector-1-99", "the-67-casino", "dusty-depot", "gotham-city", "turbografx-16-sector", "the-border", "new-jersey-system", "freddy-fazbears-pizza", "scotts-house", "teov:garth", "teov:ai-shadow-realm"]
     },
     {
       "id": "north-america",
@@ -24,6 +24,14 @@
       "alt": "Map of Europe in the Legend of Chris on real borders: Roman England, the Soviet Union, the EU, Italy and Eastern Rome, with Moscow, London and Constantinople and the routes of McQueen and the Goober Gang.",
       "blurb": "Earth's Europe on real borders: Roman England, the Soviet Union, the EU, Moscow (the Italian city), Constantinople, and the routes McQueen and the Goober Gang took.",
       "places": ["england", "parliament", "smoke-and-vape-shop", "ecsm-airport", "moscow", "moscow-bombing", "constantinople", "fall-of-constantinople", "barack-empire", "european-union", "abandoned-walmarts", "popeyes", "8aller-jump-street"]
+    },
+    {
+      "id": "garth",
+      "title": "Garth: The Epic of Vinny",
+      "file": "garth.png",
+      "alt": "Map of the United States on the planet Garth from The Epic of Vinny: Boston, Wyoming highlighted, and the Little Saint James Sea in the Caribbean with the AI Shadow Realm beneath it.",
+      "blurb": "The United States on planet Garth, in the Kanye System, from the spin-off The Epic of Vinny (1995 to 1996). Garth is not Earth: Earth is in the New Jersey System. The story only places Boston, Wyoming and the Little Saint James Sea, so the rest of the map assumes Garth's geography matches the real world's.",
+      "places": ["kanye-system", "teov:garth", "teov:boston", "teov:burger-king-boston", "teov:wyoming", "teov:dunkin-wyoming", "teov:little-saint-james-sea", "teov:little-saint-james-island", "teov:ai-shadow-realm", "teov:united-states-of-america", "teov:ss-vessel"]
     }
   ]
 }

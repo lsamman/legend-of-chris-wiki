@@ -46,7 +46,30 @@ MAPS = json.load(open(_maps_path, encoding="utf-8"))["maps"] if os.path.exists(_
 MAPS_FOR = {}   # article slug -> the maps it appears on
 for _m in MAPS:
     for _slug in _m["places"]:
-        MAPS_FOR.setdefault(_slug, []).append(_m)
+        if not _slug.startswith("teov:"):
+            MAPS_FOR.setdefault(_slug, []).append(_m)
+TEOV_ENTRIES = {}   # The Epic of Vinny wiki (a spin-off, built by teov/build.py): slug -> article
+for _p in sorted(glob.glob(os.path.join(ROOT, "teov", "content", "*.json"))):
+    if os.path.basename(_p) not in ("maps.json", "story.json"):
+        for _e in json.load(open(_p, encoding="utf-8")):
+            TEOV_ENTRIES[_e["slug"]] = _e
+# Legend Of Chris article -> [(Epic of Vinny article, what the spin-off says about it)]
+TEOV_LINKS = {
+    "kanye-system": [("garth", "planet Garth, in this system, is where the spin-off is set (1995 to 1996).")],
+    "ton-618": [("ton-618", "TON 618 is a god-like giant that conquered the Kanye System, and Vinny's final opponent.")],
+    "shadow-realm": [("ai-shadow-realm", "a Shadow Realm of banished AI, ruled by Claude, lies under the Little Saint James Sea.")],
+    "kanye-west": [("kanye-west", "Claude says a human named Kanye West once released ChatGPT from the AI Shadow Realm.")],
+    "chatgpt": [("chatgpt", "ChatGPT was released from the AI Shadow Realm by Kanye West, according to Claude.")],
+    "determination": [("determination", "Vinny is filled with DETERMINATION before his final fight.")],
+    "aight-bet": [("aight-bet", "Vinny agrees to everything dangerous with \"Aight, bet.\"")],
+    "nuh-uh-debate": [("nuh-uh-yuh-huh", "Vinny and Tyrone trade five rounds of \"Nuh uh\" and \"Yuh huh\".")],
+    "the-prophecy": [("final-prophecy", "the Very Violent and Vivid Prophecy opens the story.")],
+    "multiverse": [("garth", "a spin-off set on planet Garth, in the Kanye System.")],
+    "united-state-of-america": [("united-states-of-america", "Garth has its own United States of America, where Vinny lives.")],
+}
+for _slug, _links in TEOV_LINKS.items():
+    for _t, _ in _links:
+        assert _t in TEOV_ENTRIES, ("TEOV_LINKS", _slug, _t)
 TIMELINE_FOR = {}   # article slug -> its first event on the Timeline
 for _ev in TIMELINE["events"]:
     if _ev.get("article"):
@@ -133,6 +156,73 @@ def load_entries():
         e.setdefault("category", "concepts")
         if e["category"] not in CAT_NAME:
             e["category"] = "concepts"
+    return import_spinoff(entries)
+
+
+
+def import_spinoff(entries):
+    """The Epic of Vinny is canon in the LOC universe: its articles also appear here, each pointing at its full page on the spin-off wiki."""
+    chapters = {s for s, e in TEOV_ENTRIES.items() if e["category"] == "chapters"}
+    hub = "the-epic-of-vinny"
+    assert hub not in entries and hub not in TEOV_ENTRIES, hub
+
+    def conv(text):
+        def sub(m):
+            t, label = m.group(1).strip(), m.group(2)
+            if t.startswith("loc:"):
+                t = t[4:]
+            elif t in chapters:
+                t = "teov:" + t
+                label = label or TEOV_ENTRIES[t[5:]]["title"]
+            elif t in TEOV_ENTRIES and t in entries and not TEOV_ENTRIES[t].get("_imported"):
+                label = label or TEOV_ENTRIES[t]["title"]     # a name both wikis share: link the LOC article
+            return f"[[{t}|{label}]]" if label else f"[[{t}]]"
+        return LINK_RE.sub(sub, text or "")
+
+    imported = []
+    for slug, te in TEOV_ENTRIES.items():
+        if te["category"] == "chapters":
+            continue
+        apps = [a for a in te.get("appearances", []) if a in chapters]
+        told = ", ".join(f"[[teov:{a}|{TEOV_ENTRIES[a]['title']}]]" for a in sorted(set(apps)))
+        if slug in entries:                                   # same name in both wikis: add a section to the LOC article
+            e = entries[slug]
+            if e.get("stub"):
+                continue
+            body = conv(te["lead"]) + f"\n\n[[teov:{slug}|Read the full article on The Epic of Vinny Wiki]]."
+            e.setdefault("sections", []).append({"heading": "In The Epic of Vinny", "body": body})
+            continue
+        e = {"slug": slug, "title": te["title"], "category": te["category"], "subtitle": conv(te.get("subtitle")), "lead": conv(te["lead"]),
+             "infobox": {k: conv(v) for k, v in (te.get("infobox") or {}).items()}, "_imported": True,
+             "sections": [dict(h, body=conv(h["body"])) for h in te.get("sections", [])]}
+        e["infobox"]["Series"] = f"[[{hub}|The Epic of Vinny]] (spin-off)"
+        if told:
+            e["infobox"]["Told in"] = told
+        if te.get("quote"):
+            e["quote"] = {"text": te["quote"]["text"], "by": conv(te["quote"].get("by"))}
+        if te.get("trivia"):
+            e["sections"].append({"heading": "Trivia", "body": "\n".join("- " + conv(t) for t in te["trivia"])})
+        e["sections"].append({"heading": "On the spin-off wiki", "body":
+            f"This article is canon in the Legend Of Chris universe. It comes from the spin-off [[{hub}|The Epic of Vinny]]. "
+            f"[[teov:{slug}|Read the full article on The Epic of Vinny Wiki]]."})
+        e["related"] = [r for r in te.get("related", []) if r not in chapters and r in TEOV_ENTRIES] + [l["slug"] for l in te.get("loc", [])]
+        entries[slug] = e
+        imported.append(slug)
+        TEOV_ENTRIES[slug]["_imported"] = True
+    by_cat = {}
+    for s in imported:
+        by_cat.setdefault(entries[s]["category"], []).append(s)
+    lists = "\n\n".join(f"### {CAT_NAME[c]}\n" + ", ".join(f"[[{s}]]" for s in sorted(v, key=lambda x: entries[x]["title"].lower()))
+                         for c, v in by_cat.items())
+    chs = "\n".join(f"- [[teov:{c}|{TEOV_ENTRIES[c]['title']}]]: {TEOV_ENTRIES[c]['subtitle']}" for c in TEOV_ENTRIES if c in chapters)
+    entries[hub] = {"slug": hub, "title": "The Epic of Vinny", "category": "concepts",
+        "subtitle": "A spin-off set on Garth, in the Kanye System, 1995 to 1996.",
+        "infobox": {"Author": "brennan oleary", "Setting": "[[teov:garth|Garth]], [[kanye-system|The Kanye System]]", "Years": "1995 to 1996",
+                    "Status": "Unfinished (a prologue and three chapters)", "Full wiki": "[[teov:index|The Epic of Vinny Wiki]]"},
+        "lead": "**The Epic of Vinny** is a spin-off story by brennan oleary, set from 1995 to 1996 on the planet [[teov:garth|Garth]] in the [[kanye-system|Kanye System]]. "
+                "It follows [[vinny]], a Boston Burger King cashier. It is canon in the Legend Of Chris universe, so its characters, places and events have articles here too.\n\n"
+                "The full story text, a dedicated timeline and every article live on [[teov:index|The Epic of Vinny Wiki]]. You can [[teov:read|read the story there]].",
+        "sections": [{"heading": "Chapters", "body": chs}, {"heading": "Articles from the spin-off", "body": lists}]}
     return entries
 
 
@@ -157,6 +247,14 @@ class Renderer:
 
         def link(m):
             slug = m.group(1).strip().lower()
+            if slug.startswith("teov:"):      # a page of The Epic of Vinny wiki
+                t = slug[5:]
+                if t in ("index", "read", "timeline"):     # the spin-off wiki's own pages
+                    return f'<a class="teov-link" href="epic-of-vinny/{t}.html">{m.group(2) or t}</a>'
+                if t not in TEOV_ENTRIES:
+                    self.redlinks.add(slug)
+                    return f'<span class="redlink">{m.group(2) or t}</span>'
+                return f'<a class="teov-link" href="epic-of-vinny/{t}.html">{m.group(2) or html.escape(TEOV_ENTRIES[t]["title"])}</a>'
             label = m.group(2) or self.title_of(slug)
             if slug in self.entries:
                 if self.current and slug != self.current:
@@ -234,6 +332,7 @@ def nav_html(active=None, sidebar=None):
       <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the MASTER FILE</a></li>
       <li><a href="timeline.html"{" aria-current=page" if active == "timeline" else ""}>The Timeline</a></li>
       <li><a href="maps.html"{" aria-current=page" if active == "maps" else ""}>Maps</a></li>
+      <li><a href="epic-of-vinny/index.html" class="teov-side">The Epic of Vinny ↗</a></li>
       <li><a href="playlist.html"{" aria-current=page" if active == "playlist" else ""}>The Official Playlist</a></li>
       <li><a href="smash/smash.html">Super Smash Ballers</a></li>
       <li><a href="#iphone-3g">The iPhone 3G</a></li>
@@ -286,6 +385,7 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
       <input id="q" type="search" placeholder="Search the lore…" autocomplete="off" aria-label="Search the wiki">
       <ul id="results" role="listbox" hidden></ul>
     </form>
+    <a class="teov-btn" href="epic-of-vinny/index.html" title="The Epic of Vinny Wiki: a spin-off story"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#55555e"/><path d="M7 9h8l5 15 5-15h8L24 33h-8z" fill="#ffcf5c"/></svg><span>The Epic of Vinny</span></a>
     <button class="phone-btn" type="button" aria-label="Open the iPhone 3G" title="The iPhone 3G: MySpace and Twitter Bluebird"><svg viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="4" fill="currentColor"/><rect x="5" y="3.5" width="14.5" height="11" rx=".8" fill="#5aa9f0"/><circle cx="22.2" cy="9" r="1.3" fill="#888"/><path d="M15 4l-2 3.5 2.5 2-3 4" stroke="#fff" stroke-width=".7" fill="none"/></svg></button>
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
@@ -391,6 +491,10 @@ def render_article(e, R, entries):
         parts.append('<p class="read-chapter">On the map: ' + ", ".join(
             f'<a href="maps.html#map-{m["id"]}">{html.escape(m["title"])}</a>' for m in on_maps) + " →</p>")
 
+    for t, note in TEOV_LINKS.get(slug, []):
+        parts.append(f'<p class="read-chapter">In the spin-off <i>The Epic of Vinny</i>: '
+                     f'<a class="teov-link" href="epic-of-vinny/{t}.html">{html.escape(TEOV_ENTRIES[t]["title"])}</a>, {html.escape(note)} →</p>')
+
     apps = [a for a in (e.get("appearances") or []) if a in CHAPTER_ORDER]
     if apps and cat != "chapters":
         apps = sorted(set(apps), key=CHAPTER_ORDER.index)
@@ -485,9 +589,15 @@ def render_index(entries, R):
 <p class="muted">Eight chapters. The numbering is canon. Please do not ask about the numbering.</p>
 <ol class="canon">{chapters}</ol>
 
+<h2 class="home-h">A spin-off: The Epic of Vinny</h2>
+<div class="home-box teov-box">
+  <p><b>Vinny B. James</b> works the register at a Boston Burger King, until a freezer, a forklift, a pirate ship and a king of banished AI get involved. A spin-off set on planet Garth, in the Kanye System, from 1995 to 1996. It has its own wiki.</p>
+  <p><a class="teov-cta" href="epic-of-vinny/index.html">Open The Epic of Vinny Wiki →</a></p>
+</div>
+
 <h2 class="home-h">The Timeline</h2>
 <div class="home-box playlist-box">
-  <p>{len(TIMELINE["events"])} events, from the first time Chris was a baby to chicken hour in O'Block 2. Put them in the order they happened, or the order the book tells them. It is not the same order.</p>
+  <p>{sum(1 for ev in TIMELINE["events"] if not ev.get("spinoff"))} events, from the first time Chris was a baby to chicken hour in O'Block 2. Put them in the order they happened, or the order the book tells them. It is not the same order.</p>
   <p><a href="timeline.html">Open the Timeline →</a></p>
 </div>
 
@@ -767,14 +877,16 @@ def render_groups(entries, R):
 def render_maps(entries):
     """The Maps page: every map in content/maps/maps.json, each with links to the articles it shows."""
     for m in MAPS:
-        missing = [p for p in m["places"] if p not in entries]
+        missing = [p for p in m["places"] if (p[5:] not in TEOV_ENTRIES if p.startswith("teov:") else p not in entries)]
         assert not missing, (m["id"], missing)
     jump = " · ".join(f'<a href="#map-{m["id"]}">{html.escape(m["title"])}</a>' for m in MAPS)
     figs = ""
     for m in MAPS:
         src = f'assets/maps/{m["file"]}?v={VERSION}'
-        chips = "".join(f'<li><a href="{p}.html">{html.escape(entries[p]["title"])}</a></li>'
-                        for p in sorted(m["places"], key=lambda p: entries[p]["title"].lower().lstrip("\"“ ")))
+        def _title(p):
+            return TEOV_ENTRIES[p[5:]]["title"] if p.startswith("teov:") else entries[p]["title"]
+        chips = "".join(f'<li><a href="{"epic-of-vinny/" + p[5:] if p.startswith("teov:") else p}.html">{html.escape(_title(p))}</a></li>'
+                        for p in sorted(m["places"], key=lambda p: _title(p).lower().lstrip("\"“ ")))
         figs += (f'<section class="map-sec" id="map-{m["id"]}"><h2>{html.escape(m["title"])}</h2>'
                  f'<p>{html.escape(m["blurb"])}</p>'
                  f'<figure class="map-fig"><a href="{src}" target="_blank" rel="noopener" title="Open full size">'
@@ -787,7 +899,7 @@ def render_maps(entries):
 <p class="crumbs">The world of the MASTER FILE, from O'Block 2 to the Shadow Realm · {len(MAPS)} maps</p>
 <p class="map-jump">{jump}</p>
 {figs}"""
-    return page("Maps", body, active="maps", description="Maps of The Legend Of Chris: the multiverse, North America and Europe.")
+    return page("Maps", body, active="maps", description="Maps of The Legend Of Chris: the multiverse, North America, Europe, and Garth from The Epic of Vinny.")
 
 
 def render_timeline(entries, R):
@@ -799,15 +911,19 @@ def render_timeline(entries, R):
     for ev in events:
         assert ev["era"] in eras and ev["lanes"] and all(l in lanes for l in ev["lanes"]), ev["id"]
         assert ev.get("article", "") in entries or not ev.get("article"), (ev["id"], ev.get("article"))
+        assert not ev.get("spinoff") or ev.get("teov") in TEOV_ENTRIES, (ev["id"], ev.get("teov"))
     R.current = "timeline"
-    items, seen = [], set()
+    items, seen, spin_n = [], set(), 0
     for i, ev in enumerate(events):
         if ev["era"] not in seen:   # each era's heading goes just before its first event
             seen.add(ev["era"])
             era = eras[ev["era"]]
             items.append(f'<li class="tl-head" id="era-{era["id"]}" data-kind="era" data-when="{i - .5}" data-told="-1" '
                          f'data-short="{html.escape(era["short"])}"><h2>{html.escape(era["name"])}</h2><p>{R.inline(era["blurb"])}</p></li>')
-        ch, ls, art = chapter_of_line(ev["line"]), ev["lanes"], ev.get("article")
+        spin = ev.get("spinoff")       # an event of the spin-off The Epic of Vinny: it has no line in the MASTER FILE
+        ch, ls, art = (None if spin else chapter_of_line(ev["line"])), ev["lanes"], ev.get("article")
+        if spin:
+            spin_n += 1
         tags = "".join(f'<span class="tl-tag" style="--c:var(--lane-{l})">{html.escape(lanes[l]["short"])}</span>' for l in ls)
         head = (f'<span class="tl-dot" aria-hidden="true"></span>'
                 + (f'<span class="tl-era">{html.escape(eras[ev["era"]]["short"])}</span>' if ev["era"] != "main" else "")
@@ -820,21 +936,33 @@ def render_timeline(entries, R):
                      + (f'<figcaption>— {R.inline(q["by"])}</figcaption>' if q.get("by") else "") + "</figure>")
         if ev.get("loop"):
             body += '<p class="tl-loop-row"><button class="write-btn tl-loop" type="button">↻ Go round again</button> <span class="tl-loop-n muted" role="status"></span></p>'
-        body += (f'<p class="tl-src">Told in <a href="{ch}.html">{html.escape(CHAPTER_SHORT[ch])}</a>, line {ev["line"]}'
-                 f' · <a href="read.html#{ch}">Read it in the MASTER FILE</a>'
-                 + (f' · <a href="{art}.html">Article: {html.escape(entries[art]["title"])}</a>' if art else "")
-                 + f' · <a class="tl-permalink" href="#ev-{ev["id"]}">Link</a></p>')
-        items.append(f'<li class="tl-ev" id="ev-{ev["id"]}" data-when="{i}" data-told="{ev["line"]}" data-era="{ev["era"]}" '
+        if spin:
+            te = TEOV_ENTRIES[ev["teov"]]
+            tch = next(a for a in te.get("appearances", []) if a in TEOV_ENTRIES)
+            body += (f'<p class="tl-src">Told in <a href="epic-of-vinny/{tch}.html">The Epic of Vinny, {html.escape(TEOV_ENTRIES[tch]["title"])}</a>'
+                     f' · <a href="epic-of-vinny/{ev["teov"]}.html">Article: {html.escape(te["title"])}</a>'
+                     f' · <a class="tl-permalink" href="#ev-{ev["id"]}">Link</a></p>')
+        else:
+            body += (f'<p class="tl-src">Told in <a href="{ch}.html">{html.escape(CHAPTER_SHORT[ch])}</a>, line {ev["line"]}'
+                     f' · <a href="read.html#{ch}">Read it in the MASTER FILE</a>'
+                     + (f' · <a href="{art}.html">Article: {html.escape(entries[art]["title"])}</a>' if art else "")
+                     + f' · <a class="tl-permalink" href="#ev-{ev["id"]}">Link</a></p>')
+        told = 5000 + spin_n if spin else ev["line"]
+        items.append(f'<li class="tl-ev" id="ev-{ev["id"]}" data-when="{i}" data-told="{told}" data-era="{ev["era"]}" '
                      f'data-lanes="{" ".join(ls)}" style="--c1:var(--lane-{ls[0]});--c2:var(--lane-{ls[-1]})">'
                      f'<details><summary>{head}</summary><div class="tl-body">{body}</div></details></li>')
     last_line = manifest.CHAPTERS[-1][4]
-    items.append(f'<li class="tl-ev tl-end" id="ev-to-be-continued" data-when="{len(events)}" data-told="{last_line + 1}" data-era="main" data-lanes="">'
+    items.append(f'<li class="tl-ev tl-end" id="ev-to-be-continued" data-when="{len(events)}" data-told="1000000" data-era="main" data-lanes="">'
                  '<p class="tl-name">To be continued…</p><p>The MASTER FILE ends here, mid-mission. New chapters go up on the '
                  '<a href="read.html">reading page</a> first, and on the Timeline after that.</p></li>')
     for n, (slug, printed, short, first, _last) in enumerate(manifest.CHAPTERS, 1):
         items.append(f'<li class="tl-head" id="ch-{slug}" data-kind="chapter" data-when="-1" data-told="{first - .5}" data-num="{n}" data-short="{html.escape(short)}">'
                      f'<h2><span class="tl-chn">{n}</span> <a href="{slug}.html">{html.escape(short)}</a></h2>'
                      + (f'<p>{html.escape(printed)}</p>' if printed != short else "") + "</li>")
+    if spin_n:   # "As told in the book": the spin-off's events come after the eight chapters
+        items.append('<li class="tl-head" id="ch-teov" data-kind="chapter" data-when="-1" data-told="4999.5" data-num="" data-short="Spin-off">'
+                     '<h2><span class="tl-chn">★</span> <a class="teov-link" href="epic-of-vinny/index.html">The Epic of Vinny</a></h2>'
+                     '<p>A spin-off set on planet Garth, in the Kanye System, in 1995 and 1996. These events are told in its own story, not in the MASTER FILE.</p></li>')
     R.current = None
 
     groups_html = render_groups(entries, R) if GROUPS else ""
@@ -844,8 +972,8 @@ def render_timeline(entries, R):
     body = f"""
 <div class="chapter-title" aria-hidden="true"><span>The</span> <span>Timeline</span></div>
 <h1 class="sr-title">The Timeline</h1>
-<p class="crumbs">Every event in the MASTER FILE: in the order it happened, the order it was told, or group by group · {len(events)} events</p>
-<p>The MASTER FILE is not told in order. It opens with the same origin story eight times, numbers its chapters 2, Triangle and “the fourth one the one after the one after the second one which is before the third one”, and keeps its biggest flashback in a chapter called “chapter that is after the last one but its all a flashback”. The Timeline puts it all back in order. Or not: you choose. You can also follow each group on its own, and see when they combine and where they are now.</p>
+<p class="crumbs">Every event in the MASTER FILE: in the order it happened, the order it was told, or group by group · {len(events) - spin_n} events, plus {spin_n} from the spin-off <a class="teov-link" href="epic-of-vinny/index.html">The Epic of Vinny</a></p>
+<p>The MASTER FILE is not told in order. It opens with the same origin story eight times, numbers its chapters 2, Triangle and “the fourth one the one after the one after the second one which is before the third one”, and keeps its biggest flashback in a chapter called “chapter that is after the last one but its all a flashback”. The Timeline puts it all back in order. Or not: you choose. You can also follow each group on its own, and see when they combine and where they are now. Events from the spin-off <a class="teov-link" href="epic-of-vinny/index.html">The Epic of Vinny</a> are in their own storyline, and you can filter them in or out.</p>
 <div class="tl-controls" id="tl-controls" hidden>
   <div class="tl-order" role="group" aria-label="Order">
     <button type="button" data-order="happened" aria-pressed="true">As it happened</button><button type="button" data-order="told" aria-pressed="false">As told in the book</button>{'<button type="button" data-order="groups" aria-pressed="false">By group</button>' if groups_html else ""}
@@ -1210,6 +1338,8 @@ def main():
 
     stubs = [s for s, e in entries.items() if e.get("stub")]
     print(f"built {len(entries)} articles + {len(CATEGORIES)} categories; stubs={len(stubs)}; redlinks={sorted(R.redlinks)}")
+    import subprocess   # The Epic of Vinny Wiki (site/epic-of-vinny/) has its own generator
+    subprocess.run([sys.executable, os.path.join(ROOT, "teov", "build.py")], check=True)
     if stubs:
         print("stubs:", ", ".join(stubs))
 

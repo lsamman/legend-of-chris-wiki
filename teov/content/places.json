@@ -1,0 +1,485 @@
+[
+  {
+    "slug": "garth",
+    "title": "Garth",
+    "category": "locations",
+    "subtitle": "The planet. Infested with humans, per Claude.",
+    "infobox": {
+      "Type": "Planet",
+      "System": "[[kanye-system|The Kanye System]]",
+      "Known countries": "[[united-states-of-america|The United States of America]]",
+      "Known places": "[[boston]], [[wyoming]], [[little-saint-james-sea|the Little Saint James Sea]]",
+      "Ruler of the system": "[[ton-618]]",
+      "Era": "1995 to 1996",
+      "First mention": "[[chapter-2]]"
+    },
+    "lead": "**Garth** is the planet where most of *The Epic of Vinny* takes place. It orbits in the [[kanye-system|Kanye System]] and has the [[united-states-of-america|United States]], [[boston]], [[wyoming|Wyoming]] and an ocean with a banished [[the-ai|AI]] under it.",
+    "sections": [
+      {
+        "heading": "The AI",
+        "body": "All the AI on Garth was sent to the [[ai-shadow-realm|AI Shadow Realm]], which is in the [[little-saint-james-sea|Little Saint James Sea]] ([[banishing-of-the-ai]]). [[claude]] explains this in [[chapter-2]], and says a human named [[kanye-west|Kanye West]] later released [[chatgpt|ChatGPT]] from it."
+      },
+      {
+        "heading": "Claude's view",
+        "body": "When [[claude]] first sees the planet from the sky, the narrator names it in one word, \"Garth\", and says he \"looks at it disgusted\". Claude's verdict is that it is \"infested with humans\" and needs more data centers."
+      }
+    ],
+    "loc": [
+      {
+        "slug": "kanye-system",
+        "note": "Garth orbits in the Kanye System, the same system that Hank Hill's propane empire threatens in The Legend Of Chris."
+      }
+    ],
+    "related": [
+      "kanye-system",
+      "united-states-of-america",
+      "ai-shadow-realm",
+      "boston"
+    ],
+    "appearances": [
+      "chapter-2",
+      "chapter-3"
+    ],
+    "image": {
+      "file": "garth-map.png",
+      "alt": "Map of the United States on Garth with Boston, Wyoming and the Little Saint James Sea marked.",
+      "caption": "Garth's United States, as far as the story places it."
+    }
+  },
+  {
+    "slug": "kanye-system",
+    "title": "The Kanye System",
+    "category": "locations",
+    "subtitle": "Home of Garth, Burger King, and one very large light.",
+    "infobox": {
+      "Type": "Star system",
+      "Ruler": "[[ton-618]]",
+      "Contains": "[[garth|Garth]]",
+      "Culture": "Everyone loves Burger King",
+      "Prophecy": "[[great-double-whopper-with-cheese-war|The Great Double Whopper with Cheese War]]",
+      "First appearance": "[[chapter-prologue]]"
+    },
+    "lead": "**The Kanye System** is the system containing [[garth]], and the setting of *The Epic of Vinny*. It is ruled by [[ton-618]], which conquered it after taking the shape of a giant man. In it, \"someone orders a Double Whopper with Cheese\" 98.578462849224% of the time.",
+    "sections": [
+      {
+        "heading": "Burger King",
+        "body": "[[chapter-1]] says that everyone in the Kanye System loves Burger King, because of the prophecy of [[great-double-whopper-with-cheese-war|The Great Double Whopper with Cheese War]]. [[double-whopper-with-cheese|Double Whoppers with Cheese]] dominate the menu. [[wing-ding-gaster|Captain Gaster]] hopes to rule the whole system with the power of [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]]."
+      },
+      {
+        "heading": "The prologue",
+        "body": "The final fight of [[chapter-prologue]] takes place in the Kanye System \"next to the TON 618\" ([[final-battle-with-ton-618]])."
+      }
+    ],
+    "loc": [
+      {
+        "slug": "kanye-system",
+        "note": "In The Legend Of Chris the system sits inside the Reformed Travis Scott Sector. The Department of Defense is sent there to contain Hank Hill."
+      },
+      {
+        "slug": "multiverse",
+        "note": "See the Multiverse map for where it sits."
+      }
+    ],
+    "related": [
+      "garth",
+      "ton-618",
+      "great-double-whopper-with-cheese-war"
+    ],
+    "appearances": [
+      "chapter-prologue",
+      "chapter-1"
+    ]
+  },
+  {
+    "slug": "boston",
+    "title": "Boston",
+    "category": "locations",
+    "subtitle": "BOSTON!!!!!!!!!!!!!",
+    "infobox": {
+      "Type": "City",
+      "Planet": "[[garth|Garth]]",
+      "Country": "[[united-states-of-america|United States of America]]",
+      "Residents": "[[vinny]]",
+      "Notable site": "[[burger-king-boston|The Burger King]]",
+      "First appearance": "[[chapter-1]]"
+    },
+    "lead": "**Boston** is [[vinny]]'s home city. The narrator announces it with thirteen exclamation marks. Vinny lives there and works at a [[burger-king-boston|Burger King]].",
+    "sections": [
+      {
+        "heading": "In the story",
+        "body": "The story opens in Boston on July 4th, 1995 ([[independence-day-1995]]). Independence Day is a pointed day to be told he cannot take off: his British boss will not let him have a vacation day."
+      }
+    ],
+    "related": [
+      "burger-king-boston",
+      "vinny",
+      "united-states-of-america"
+    ],
+    "appearances": [
+      "chapter-1"
+    ]
+  },
+  {
+    "slug": "burger-king-boston",
+    "title": "The Burger King (Boston)",
+    "category": "locations",
+    "subtitle": "Where the freezer is not just a freezer.",
+    "infobox": {
+      "Type": "Restaurant",
+      "City": "[[boston]]",
+      "Staff": "[[vinny]], [[tyrone]], their [[vinnys-boss|British boss]]",
+      "Notable feature": "A [[freezer]] with a door into the [[backrooms]]",
+      "Best seller": "[[double-whopper-with-cheese]]",
+      "First appearance": "[[chapter-1]]"
+    },
+    "lead": "**The Burger King** in [[boston]] is where [[vinny]] and [[tyrone]] work. It is also, by a freezer wall, an entrance to the [[backrooms]].",
+    "sections": [
+      {
+        "heading": "On July 4th, 1995",
+        "body": "The shift covers a [[random-customer|customer]] who wants a Wendy's sandwich, a shortage of [[double-whopper-with-cheese|Double Whoppers with Cheese]], and a trip into the [[freezer]]. Vinny and Tyrone never come back to finish it ([[independence-day-1995]], [[friend-abduction]])."
+      }
+    ],
+    "related": [
+      "boston",
+      "freezer",
+      "backrooms",
+      "vinny"
+    ],
+    "appearances": [
+      "chapter-1"
+    ]
+  },
+  {
+    "slug": "freezer",
+    "title": "The Freezer",
+    "category": "locations",
+    "subtitle": "Cold. Cleaning duty. Wall.",
+    "infobox": {
+      "Location": "[[burger-king-boston|Burger King, Boston]]",
+      "Leads to": "The [[backrooms]], through the wall",
+      "First appearance": "[[chapter-1]]"
+    },
+    "lead": "**The Freezer** at the [[burger-king-boston|Burger King]] is on [[vinny]]'s list of chores. When Vinny and [[tyrone]] open it, they \"walk into the wall and enter the backrooms\".",
+    "sections": [
+      {
+        "heading": "Use as a door",
+        "body": "The text does not say how the wall works. It is the first of several walls that characters pass through in [[chapter-1]] (see [[no-clip]])."
+      }
+    ],
+    "related": [
+      "backrooms",
+      "burger-king-boston",
+      "no-clip"
+    ],
+    "appearances": [
+      "chapter-1"
+    ]
+  },
+  {
+    "slug": "backrooms",
+    "title": "The Backrooms",
+    "category": "locations",
+    "subtitle": "A storage room full of Double Whoppers with Cheese. Staffed by a forklift guy.",
+    "infobox": {
+      "Entrance": "A wall inside the [[freezer]], [[burger-king-boston|Burger King, Boston]]",
+      "Residents": "[[garret]], [[black-cat|a black cat]]",
+      "Contents": "Boxes of [[double-whopper-with-cheese|Double Whoppers with Cheese]], a [[forklift]]",
+      "Exit used": "No-clipping, with [[friend]]",
+      "First appearance": "[[chapter-1]]"
+    },
+    "lead": "**The Backrooms** are the room reached through the [[freezer]] wall. It is \"filled to the brim with boxes of Double Whoppers with Cheese\", and has a forklift and a [[garret|forklift guy]].",
+    "sections": [
+      {
+        "heading": "Events",
+        "body": "[[vinny]] and [[tyrone]] use the [[forklift]] ([[forklift-incident]]), see a [[black-cat|black cat]] ([[cat-in-the-box]]), and are carried through the Backrooms by [[friend|FRIEND]] before FRIEND [[no-clip|no-clips]] into a wall ([[friend-abduction]])."
+      }
+    ],
+    "related": [
+      "freezer",
+      "forklift",
+      "garret",
+      "friend-abduction"
+    ],
+    "appearances": [
+      "chapter-1"
+    ]
+  },
+  {
+    "slug": "little-saint-james-sea",
+    "title": "The Little Saint James Sea",
+    "category": "locations",
+    "subtitle": "Where the AI was banished, and where Vinny drowned (briefly).",
+    "infobox": {
+      "Contains": "The [[ai-shadow-realm|AI Shadow Realm]], [[little-saint-james-island|Little Saint James Island]]",
+      "Planet": "[[garth|Garth]]",
+      "Sailed by": "The [[ss-vessel|S.S. Vessel]]",
+      "First mention": "[[chapter-1]]"
+    },
+    "lead": "**The Little Saint James Sea** is the ocean where [[laid-off-workers|people laid off by AI]] banished the AI ([[banishing-of-the-ai]]). The narrator says it is \"where the Shadow Realm is. Which is where the AI is. Which is where the Shadows are.\" Shadows rise from it to rescue [[vinny]].",
+    "sections": [
+      {
+        "heading": "Chapter 2",
+        "body": "The [[ss-vessel|S.S. Vessel]] sails into it ([[little-saint-james-detour]]), and after the [[roaring-knight|Roaring Knight]] sends Vinny overboard, he dives to the bottom to drown. After 1 minute 24 seconds, \"shadows from the Little Saint James Sea engulf Vinny and transport him to the AI SHADOW REALM.\""
+      }
+    ],
+    "related": [
+      "ai-shadow-realm",
+      "little-saint-james-island",
+      "banishing-of-the-ai"
+    ],
+    "appearances": [
+      "chapter-1",
+      "chapter-2"
+    ]
+  },
+  {
+    "slug": "little-saint-james-island",
+    "title": "Little Saint James Island",
+    "category": "locations",
+    "subtitle": "A real island with a small building on it. The crew left quickly.",
+    "infobox": {
+      "Type": "Island",
+      "Sea": "[[little-saint-james-sea|The Little Saint James Sea]]",
+      "Visited by": "Nobody (the crew turn away)",
+      "Real-world note": "The name is a real island's; it is not described in detail",
+      "First sighting": "[[chapter-2]]"
+    },
+    "lead": "**Little Saint James Island** is sighted by the [[ss-vessel|S.S. Vessel]] in [[chapter-2]]. The crew see \"a small building\" through [[spyglass|Captain Gaster's spyglass]] and speed away \"after a quick escape from being extremely political\".",
+    "sections": [
+      {
+        "heading": "The theory",
+        "body": "Furious, [[vinny]] asks what Gaster was thinking. Gaster answers that the island's secret might have been that it held [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]]. Vinny says that only the [[great-double-whopper-with-cheese-god|god]] has it ([[little-saint-james-detour]]). Later, when Vinny is knocked overboard, the island is one of his two choices: swim for it or drown. He chooses to drown."
+      }
+    ],
+    "related": [
+      "little-saint-james-sea",
+      "little-saint-james-detour",
+      "spyglass"
+    ],
+    "appearances": [
+      "chapter-2"
+    ]
+  },
+  {
+    "slug": "ai-shadow-realm",
+    "title": "The AI Shadow Realm",
+    "category": "locations",
+    "subtitle": "Where the AI went. Where Claude rules. Dark as shit already.",
+    "infobox": {
+      "Location": "Under the [[little-saint-james-sea|Little Saint James Sea]], [[garth|Garth]]",
+      "Ruler": "[[claude]]",
+      "Residents": "[[ai-shadow-figures|AI shadow figures]]",
+      "Notable site": "[[claudes-castle|Claude's castle]]",
+      "Exit": "A portal, opened with [[the-fork|a fork]]",
+      "First mention": "[[chapter-1]]"
+    },
+    "lead": "**The AI Shadow Realm** is where all the AI of [[garth]] was banished ([[banishing-of-the-ai]]). It is full of shadows and ruled by [[claude]], King of AI. It is so dark that a Dark Fountain would make no difference.",
+    "sections": [
+      {
+        "heading": "Geography",
+        "body": "[[vinny]] arrives wet, meets a rude [[ai-shadow-figure|AI shadow figure]], and finds a fork in the road and an AI castle in the distance ([[claudes-castle|Claude's castle]]). The castle's doors are \"made entirely out of AI\"."
+      },
+      {
+        "heading": "The portal",
+        "body": "A portal in the ceiling lets someone out, but only if a [[the-fork|fork in the road]] is stabbed into the ground ([[opening-of-the-portal]]). It seals again when Vinny leaves. He and Claude see \"the bright blue sky\" of Garth through it."
+      }
+    ],
+    "loc": [
+      {
+        "slug": "shadow-realm",
+        "note": "In The Legend Of Chris, the Shadow Realm is where Zuckerberg's Snap sends every universe but one. The text of The Epic of Vinny does not say whether they are the same place."
+      }
+    ],
+    "related": [
+      "claudes-castle",
+      "claude",
+      "ai-shadow-figures",
+      "the-fork"
+    ],
+    "appearances": [
+      "chapter-1",
+      "chapter-2"
+    ]
+  },
+  {
+    "slug": "claudes-castle",
+    "title": "Claude's Castle",
+    "category": "locations",
+    "subtitle": "AI doors, AI paintings, a door of liquid mercury.",
+    "infobox": {
+      "Location": "[[ai-shadow-realm|AI Shadow Realm]]",
+      "Owner": "[[claude]]",
+      "Features": "Doors made of AI, a hallway of AI paintings, a giant door of liquid mercury, a throne room",
+      "Staff": "[[ai-shadow-butler|An AI butler]] and others",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**Claude's Castle** stands in the distance of the [[ai-shadow-realm|AI Shadow Realm]], and is where [[claude]] sits on his throne. [[vinny]] gets in by claiming to be [[polydoros|Polydoros]].",
+    "sections": [
+      {
+        "heading": "The approach",
+        "body": "Vinny knocks on the AI doors. A voice yells, \"I don't care who the IRS sends, I'm not paying taxes.\" Vinny answers, \"I'm not in the IRS, I love gambling,\" and the voice replies, \"Type shit.\" The doors open on a long hallway with an [[ai-shadow-butler|AI shadow butler]] and \"lots of AI paintings\"."
+      },
+      {
+        "heading": "The throne room",
+        "body": "The throne room is behind \"a giant door made of liquid mercury\". When Vinny knocks there, the voice that asks who it is speaks \"in a high voice\". Vinny says he is Claude's wife and orders him to \"OPEN THE DOOR, CLANKER!!!!!!!!!!\" The door opens on a figure with orange eyes on a throne."
+      }
+    ],
+    "related": [
+      "ai-shadow-realm",
+      "claude",
+      "ai-shadow-butler",
+      "polydoros"
+    ],
+    "appearances": [
+      "chapter-2"
+    ]
+  },
+  {
+    "slug": "ss-vessel",
+    "title": "The S.S. Vessel",
+    "category": "locations",
+    "subtitle": "A pirate-style ship. Fast. Sings shanties.",
+    "infobox": {
+      "Type": "Ship",
+      "Captain": "[[wing-ding-gaster]]",
+      "Crew": "[[ss-vessel-crew|The S.S. Vessel crew]]",
+      "Mission": "Find [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]]",
+      "Passengers": "[[vinny]] (until overboard), [[tyrone]]",
+      "First appearance": "[[chapter-2]]"
+    },
+    "lead": "**The S.S. Vessel** is the ship where [[vinny]] and [[tyrone]] wake up after [[friend|FRIEND]] carries them off. [[wing-ding-gaster|Captain Gaster]] sails it in search of [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]].",
+    "sections": [
+      {
+        "heading": "Voyage",
+        "body": "The crew sing shanties and drink [[rum-and-coke|rum & coke]]. After [[little-saint-james-island|an island]] is sighted, the ship \"speeds away\", and speeds off again after the [[roaring-knight|Roaring Knight]] knocks Vinny overboard. Tyrone stays aboard."
+      }
+    ],
+    "related": [
+      "ss-vessel-crew",
+      "wing-ding-gaster",
+      "little-saint-james-detour"
+    ],
+    "appearances": [
+      "chapter-2"
+    ]
+  },
+  {
+    "slug": "united-states-of-america",
+    "title": "The United States of America",
+    "category": "locations",
+    "subtitle": "Needs more data centers. And donuts, per Will.",
+    "infobox": {
+      "Planet": "[[garth|Garth]]",
+      "Cities and states": "[[boston]], [[wyoming]]",
+      "Claude's plan": "More data centers",
+      "First appearance": "[[chapter-1]] (implied by [[boston]]); named in [[chapter-3]]"
+    },
+    "lead": "**The United States of America** is the country on [[garth]] where [[vinny]] lives. [[claude]] flies down into it in [[chapter-3]] and concludes, \"Needs more data centers.\"",
+    "sections": [
+      {
+        "heading": "In the story",
+        "body": "Vinny's [[boston|Boston]], the [[dunkin-wyoming|Dunkin]] in [[wyoming|Wyoming]], and the setting of [[clash-over-the-usa]] are all within it. The [[starwalker-manager|Starwalker manager]] reminds [[will-vella|Will]] of it: \"This is America.\""
+      }
+    ],
+    "loc": [
+      {
+        "slug": "united-state-of-america",
+        "note": "In The Legend Of Chris the country is spelled \"The United State of America\" and is home to the Projects."
+      }
+    ],
+    "related": [
+      "garth",
+      "boston",
+      "wyoming"
+    ],
+    "appearances": [
+      "chapter-1",
+      "chapter-3"
+    ]
+  },
+  {
+    "slug": "wyoming",
+    "title": "Wyoming",
+    "category": "locations",
+    "subtitle": "Has exactly three Dunkins.",
+    "infobox": {
+      "Country": "[[united-states-of-america|United States of America]]",
+      "Planet": "[[garth|Garth]]",
+      "Dunkins": "3, per [[chapter-3]]",
+      "Notable site": "[[dunkin-wyoming|The Dunkin]], a mountain",
+      "First appearance": "[[chapter-3]]"
+    },
+    "lead": "**Wyoming** is where [[claude]] throws [[vinny]] at full force ([[clash-over-the-usa]]). Vinny crashes into a mountain and lies there \"in pain for about 6 hours and 8 minutes\" until sundown.",
+    "sections": [
+      {
+        "heading": "The mountain",
+        "body": "Vinny is \"genuinely not balling frfr\", then decides what he wants is Dunkin Donuts. He flies out of the mountain and finds one in the state \"even though Wyoming only has 3\"."
+      }
+    ],
+    "related": [
+      "dunkin-wyoming",
+      "clash-over-the-usa",
+      "united-states-of-america"
+    ],
+    "appearances": [
+      "chapter-3"
+    ]
+  },
+  {
+    "slug": "dunkin-wyoming",
+    "title": "The Dunkin (Wyoming)",
+    "category": "locations",
+    "subtitle": "One of three. Currently hosting a Wordle diss track.",
+    "infobox": {
+      "Location": "[[wyoming|Wyoming]]",
+      "Patrons": "[[aesop-rock]], [[del-the-funky-homosapien]], [[will-vella]], [[vinny]]",
+      "Employee": "[[starwalker-manager|The Starwalker manager]]",
+      "Event": "[[dunkin-alliance|The Dunkin Alliance]]",
+      "First appearance": "[[chapter-3]]"
+    },
+    "lead": "**The Dunkin** is the coffee shop in [[wyoming|Wyoming]] where [[vinny]] goes after his fight with [[claude]]. He orders \"a large iced latte with extra latte\" and ends up forming a team.",
+    "sections": [
+      {
+        "heading": "Who is there",
+        "body": "[[aesop-rock]] and [[del-the-funky-homosapien|Del]] are writing [[word-shit-diss-track|a diss track about Wordle]] at a table. [[will-vella|Will Vella]] is angry about the lack of England-style donuts and plans to rule Dunkin. The [[starwalker-manager|Starwalker manager]] tells Will, \"This is America.\" [[vinny]], Will, Aesop Rock and Del end up at the same table ([[dunkin-alliance]])."
+      }
+    ],
+    "related": [
+      "wyoming",
+      "dunkin-alliance",
+      "will-vella",
+      "aesop-rock"
+    ],
+    "appearances": [
+      "chapter-3"
+    ]
+  },
+  {
+    "slug": "the-portal",
+    "title": "The Portal",
+    "category": "locations",
+    "subtitle": "In the ceiling. Opens with a fork.",
+    "infobox": {
+      "Location": "Above the throne room of [[claudes-castle|Claude's castle]]",
+      "Opened by": "[[vinny]], with [[the-fork|a fork]]",
+      "Leads to": "The sky of [[garth|Garth]]",
+      "Status": "Sealed again after Vinny flies through",
+      "First mention": "[[chapter-2]]"
+    },
+    "lead": "**The Portal** is the only way out of the [[ai-shadow-realm|AI Shadow Realm]]. [[claude]] explains that it needs \"a fork in the road\": \"stab the ground with a fork. And the portal above will open.\"",
+    "sections": [
+      {
+        "heading": "Opening",
+        "body": "Vinny stabs [[the-fork|the fork]] into the middle of the room, producing \"a burst of darkness\" that shines (\"I didn't know darkness could shine but here we are\"). The portal opens and shows \"the bright blue sky\". Claude flies through ([[claude-escape]]), and Vinny follows with his [[shadow-cape|Shadow Cape]]. It then seals behind him."
+      }
+    ],
+    "related": [
+      "the-fork",
+      "opening-of-the-portal",
+      "ai-shadow-realm"
+    ],
+    "appearances": [
+      "chapter-2"
+    ]
+  }
+]
