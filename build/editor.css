@@ -39,6 +39,7 @@ body.writing .sheet-foot { display: none; }
   display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--rule); font-size: 14px;
 }
 .studio-spacer { flex: 1; }
+.studio-bar .btn { white-space: nowrap; }
 .save-state { font-weight: 700; }
 .save-state::before { content: "●"; margin-right: 6px; color: #28a745; }
 .save-state[data-state="saving"]::before, .save-state[data-state="dirty"]::before { color: #e0a800; }
@@ -127,6 +128,8 @@ body.writing:not(.signed-in) .outline-box { display: none; }
   body.writing { --sx: 16px; }
   .studio-bar { gap: 8px; }
   #words { display: none; }
+  .studio-bar .lbl { display: none; }
+  .studio-bar .btn { padding-left: 8px; padding-right: 8px; }
   .ql-toolbar.ql-snow.pages-toolbar { overflow-x: auto; white-space: nowrap; }
   .ql-toolbar.ql-snow .ql-formats { margin-right: 8px; }
   .page-wrap { padding-top: 28px; }
@@ -163,3 +166,8 @@ body.writing:not(.signed-in) .outline-box { display: none; }
 .publish-form .notify-text { display: block; font-size: 14px; margin: 0 0 10px; }
 .publish-form .notify-text input { display: block; width: 100%; margin-top: 6px; box-sizing: border-box; }
 .publish-form .muted { font-size: 13px; margin: 0; }
+
+/* import choices */
+.import-choice { display: grid; gap: 8px; margin: 12px 0 4px; }
+.import-choice label { display: flex; gap: 8px; align-items: baseline; cursor: pointer; }
+.import-notes { margin: 10px 0 0; padding-left: 18px; font-size: 14px; }

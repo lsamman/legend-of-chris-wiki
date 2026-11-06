@@ -1,6 +1,7 @@
 // The writing room: sign in, write in a Pages-style editor, autosave a private
 // draft, and publish it to the reading page (read.html).
 import { CONFIGURED, firebase, chapters, when } from "./book.js";
+import { deltaToDocx, importFile, IMPORT_ACCEPT } from "./docx.js";
 
 const $ = id => document.getElementById(id);
 const SESSION = Math.random().toString(36).slice(2);   // tells this tab's saves apart from other devices'
@@ -448,6 +449,55 @@ document.querySelectorAll(".menu-pop [data-act]").forEach(b => b.addEventListene
 }));
 $("empty-import").onclick = () => importBook();
 $("empty-blank").onclick = () => { $("empty").hidden = true; quill.focus(); };
+
+// ---------- Word export and file import ----------
+function download(blob, name) {
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: name });
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+$("export-btn").onclick = () => {
+  if (quill.getLength() <= 1) { toast("The draft is empty, so there's nothing to export."); return; }
+  try {
+    download(deltaToDocx(quill.getContents().ops), "The Legend of Chris.docx");
+    toast("Exported to Word. Bold, italics, colours, fonts, sizes, headings, lists and alignment came with it.");
+  } catch (e) { console.error(e); toast("Couldn't export: " + (e.message || e)); }
+};
+$("import-file").accept = IMPORT_ACCEPT;
+$("import-btn").onclick = () => $("import-file").click();
+$("import-file").onchange = async ev => {
+  const file = ev.target.files[0];
+  ev.target.value = "";
+  if (!file) return;
+  let res;
+  try { res = await importFile(file); }
+  catch (e) { console.error(e); ask("Couldn't import that file", e.message || String(e), ""); return; }
+  const empty = quill.getLength() <= 1;
+  const box = document.createElement("div");
+  box.append(Object.assign(document.createElement("p"), { textContent: `“${file.name}”: ${res.words.toLocaleString()} words.` }));
+  const choice = document.createElement("div");
+  choice.className = "import-choice";
+  const opts = [["replace", "Replace my whole draft (you can undo it with ↶)"], ["end", "Add it to the end of my draft"], ["cursor", "Insert it where my cursor is"]];
+  const radios = opts.map(([v, text], i) => {
+    const r = Object.assign(document.createElement("input"), { type: "radio", name: "import-mode", value: v, checked: i === (empty ? 0 : 1) });
+    const l = document.createElement("label"); l.append(r, text); choice.append(l);
+    return r;
+  });
+  box.append(choice);
+  if (res.notes.length) box.append(Object.assign(document.createElement("ul"), { className: "import-notes", innerHTML: res.notes.map(n => `<li>${n.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</li>`).join("") }));
+  if (!(await ask("Import this file?", box, "Import"))) return;
+  const mode = radios.find(r => r.checked).value;
+  const Delta = window.Quill.import("delta");
+  const incoming = res.html != null ? quill.clipboard.convert({ html: res.html }) : new Delta(res.ops);
+  if (mode === "replace") quill.setContents(incoming, "user");
+  else {
+    const at = mode === "end" ? quill.getLength() - 1 : (quill.getSelection() || { index: quill.getLength() - 1 }).index;
+    quill.updateContents(new Delta().retain(at).concat(incoming), "user");
+  }
+  $("empty").hidden = true;
+  refresh();
+  toast("Imported. It's in your draft and saved as you go; readers won't see it until you publish.");
+};
 
 // ---------- notes for later ----------
 // A private scratchpad next to the book: a list of notes kept in one Firestore

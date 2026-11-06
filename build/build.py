@@ -1132,6 +1132,9 @@ def render_write():
     <span id="save-state" class="save-state" role="status">Saved</span>
     <span id="words" class="muted"></span>
     <span class="studio-spacer"></span>
+    <button id="import-btn" class="btn" type="button" title="Import a Word (.docx), Pages, HTML, Markdown or text file" aria-label="Import a file">⇪<span class="lbl"> Import</span></button>
+    <button id="export-btn" class="btn" type="button" title="Download the draft as a Word document, keeping bold, fonts, sizes and spacing" aria-label="Export to Word">⇩<span class="lbl"> Export to Word</span></button>
+    <input id="import-file" type="file" accept=".docx,.doc,.pages,.txt,.text,.md,.html,.htm" hidden>
     <button id="notes-btn" class="btn" type="button" aria-expanded="false" aria-controls="notes">✎ Notes</button>
     <details class="studio-menu">
       <summary class="btn" aria-label="More">More ▾</summary>
@@ -1243,7 +1246,7 @@ def main():
     os.makedirs(maps_out)
     for m in MAPS:
         shutil.copyfile(os.path.join(ROOT, "content", "maps", m["file"]), os.path.join(maps_out, m["file"]))
-    for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "editor.js", "notify.js", "firebase-config.js",
+    for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "docx.js", "editor.js", "notify.js", "firebase-config.js",
                  "timeline.css", "timeline.js", "timeline-live.js"):
         with open(os.path.join(ROOT, "build", name), encoding="utf-8") as f:
             text = f.read()
