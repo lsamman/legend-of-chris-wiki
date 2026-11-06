@@ -112,3 +112,8 @@ With `?emulator` on localhost the pages talk to the emulators instead of the rea
 - The EOV wiki is grey with a white light mode (toggle in the top bar) and set in Comic Sans.
 - Its non-chapter articles are imported into the Legend Of Chris wiki at build time (`import_spinoff` in `build/build.py`) as canon, each linking to its full page; the hub article is `the-epic-of-vinny`.
 - To use a custom logo, put a background-free `logo.png` in `teov/assets/`.
+
+### Word export and file import (writing room)
+- **Export to Word** (writing room, top bar) downloads the draft as a `.docx`: bold, italic, underline, strikethrough, colours, highlights, Arial/Comic Sans, text sizes, headings (real Word heading styles), numbered and bulleted lists (numbering restarts), alignment, indents, quotes, links, and the editor's paragraph spacing and line height. Pictures become links (they're only ever linked in the editor).
+- **Import** reads `.docx`, `.pages`, `.txt`, `.md` and `.html`, then asks whether to replace the draft, add to the end, or insert at the cursor (all undoable with ↶). A `.docx` keeps bold, italics, underline, colours, highlights, Comic Sans, sizes, headings, lists, alignment and links. A `.pages` file brings only its text (Pages keeps formatting out of a browser's reach); export from Pages as Word for full formatting. Old `.doc` and `.rtf` files need a "Save as .docx" first.
+- All of it runs in the browser (`build/docx.js`), with no libraries. The editor can't store custom paragraph spacing, so imported spacing becomes the editor's standard spacing.

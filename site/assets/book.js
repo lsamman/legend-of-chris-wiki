@@ -1,6 +1,6 @@
 // Shared by the reading page (reader.js) and the writing room (editor.js):
 // Firebase loading, a small HTML sanitizer, and chapter headings + contents.
-import { firebaseConfig } from "./firebase-config.js?v=a9eb19440174";
+import { firebaseConfig } from "./firebase-config.js?v=94c9e57d2dcd";
 
 const SDK = "https://www.gstatic.com/firebasejs/12.19.0";
 
