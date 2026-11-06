@@ -46,7 +46,7 @@ The tracker only knows the chapters in `groups.json`. If the live published book
 
 ## The Epic of Vinny Wiki (spin-off)
 
-*The Epic of Vinny* (by brennan oleary) is a spin-off set on planet Garth in the Kanye System, in 1995 and 1996. It has its own wiki at `site/epic-of-vinny/` (https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/), with its own look, search, categories and timeline. It is separate from the Legend Of Chris wiki but deployed with it.
+*The Epic of Vinny* (by Pacman2810) is a spin-off set on planet Garth in the Kanye System, in 1995 and 1996. It has its own wiki at `site/epic-of-vinny/` (https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/), with its own look, search, categories and timeline. It is separate from the Legend Of Chris wiki but deployed with it.
 
 - **Where things are.** Articles are in `teov/content/*.json`, the look is in `teov/assets/`, and `teov/build.py` writes the site. `python3 build/build.py` runs it automatically after the main build.
 - **Links between the two wikis.**
