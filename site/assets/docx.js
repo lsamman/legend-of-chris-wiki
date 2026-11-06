@@ -59,7 +59,7 @@ export async function unzip(buf) {     // -> Map name -> () => Promise<Uint8Arra
 const esc = s => String(s).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const SIZE_PT = { small: 9, large: 18, huge: 30 };           // what the editor shows: 16px body, 0.75em / 1.5em / 2.5em
 const HEAD = { 1: { pt: 32, before: 1080, after: 390 }, 2: { pt: 20, before: 0, after: 330 }, 3: { pt: 14, before: 330, after: 120 } };
-const FONT = { comic: "Comic Sans MS" };
+const FONT = { comic: "Comic Sans MS", arial: "Arial" };
 
 function hex(c) {
   if (!c) return null;
@@ -144,7 +144,7 @@ export function deltaToDocx(ops, title = "The Legend of Chris") {
     `<w:pPr><w:keepNext/><w:spacing w:before="${HEAD[n].before}" w:after="${HEAD[n].after}" w:line="${n === 1 ? 259 : 276}" w:lineRule="auto"/><w:outlineLvl w:val="${n - 1}"/></w:pPr>` +
     `<w:rPr><w:b/><w:bCs/><w:sz w:val="${HEAD[n].pt * 2}"/><w:szCs w:val="${HEAD[n].pt * 2}"/></w:rPr></w:style>`;
   const styles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles ${NS}>` +
-    '<w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:eastAsia="Arial" w:cs="Arial"/><w:sz w:val="24"/><w:szCs w:val="24"/><w:lang w:val="en-US"/></w:rPr></w:rPrDefault>' +
+    '<w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Comic Sans MS" w:hAnsi="Comic Sans MS" w:eastAsia="Comic Sans MS" w:cs="Comic Sans MS"/><w:sz w:val="24"/><w:szCs w:val="24"/><w:lang w:val="en-US"/></w:rPr></w:rPrDefault>' +
     '<w:pPrDefault><w:pPr><w:spacing w:after="210" w:line="389" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>' +
     '<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style>' +
     hstyle(1) + hstyle(2) + hstyle(3) +
@@ -243,7 +243,7 @@ export function deltaToHtmlBody(ops) {
     if (a.color) st.push(`color:${escH(a.color)}`);
     if (a.background) st.push(`background-color:${escH(a.background)}`);
     if (a.size && SIZE_EM[a.size]) st.push(`font-size:${SIZE_EM[a.size]}`);
-    if (a.font === "comic") st.push(`font-family:'Comic Sans MS','Comic Neue','Chalkboard SE',cursive`);
+    if (a.font === "arial") st.push(`font-family:Arial,'Liberation Sans',Helvetica,sans-serif`);
     let t = escH(r.text);
     if (st.length) t = `<span style="${st.join(";")}">${t}</span>`;
     if (a.bold) t = `<strong>${t}</strong>`;
@@ -278,8 +278,8 @@ export function deltaToHtmlBody(ops) {
   closeTo(0);
   return html;
 }
-// The page as the wiki shows it: Arial 16px, 1.62 line height, 14px between paragraphs.
-const PAGE_CSS = `body{font:16px/1.62 Arial,"Liberation Sans",Helvetica,sans-serif;color:#111;max-width:46em;margin:40px auto;padding:0 20px}
+// The page as the wiki shows it: Comic Sans 16px, 1.62 line height, 14px between paragraphs.
+const PAGE_CSS = `body{font:16px/1.62 "Comic Sans MS","Comic Neue","Chalkboard SE","Comic Sans",cursive;color:#111;max-width:46em;margin:40px auto;padding:0 20px}
 h1{font-size:clamp(32px,5.4vw,60px);line-height:1.08;margin:72px 0 26px}h1:first-child{margin-top:0}h2{font-size:26px;margin:0 0 22px}h3{font-size:19px;margin:22px 0 8px}
 p{margin:0 0 14px}blockquote{margin:0 0 14px;padding:2px 0 2px 16px;border-left:3px solid #999;color:#555}blockquote p{margin:0}img{display:block;max-width:100%;margin:8px auto}a{color:#0b57d0}
 @media print{body{margin:0;max-width:none;padding:0}h1{page-break-after:avoid;margin-top:0}h2,h3{page-break-after:avoid}p{orphans:3;widows:3}}`;
@@ -306,7 +306,7 @@ export function deltaToRtf(ops) {
     const runs = ln.runs.map(r => {
       if (r.image) return rtfText(`[Picture: ${r.image}]`);
       const a = r.attrs; let f = "";
-      if (a.font === "comic") f += "\\f1";
+      if (a.font === "arial") f += "\\f1";
       if (a.bold || hs) f += "\\b";
       if (a.italic) f += "\\i";
       if (a.underline) f += "\\ul";
@@ -321,7 +321,7 @@ export function deltaToRtf(ops) {
     return `${p} ${lead}${runs}\\par`;
   }).join("\n");
   const ct = colors.map(h => `\\red${parseInt(h.slice(0, 2), 16)}\\green${parseInt(h.slice(2, 4), 16)}\\blue${parseInt(h.slice(4), 16)};`).join("");
-  return `{\\rtf1\\ansi\\ansicpg1252\\deff0\n{\\fonttbl{\\f0\\fswiss\\fcharset0 Arial;}{\\f1\\fscript\\fcharset0 Comic Sans MS;}}\n{\\colortbl;${ct}}\n${body}\n}`;
+  return `{\\rtf1\\ansi\\ansicpg1252\\deff0\n{\\fonttbl{\\f0\\fscript\\fcharset0 Comic Sans MS;}{\\f1\\fswiss\\fcharset0 Arial;}}\n{\\colortbl;${ct}}\n${body}\n}`;
 }
 
 // PDF: the browser's own "Save as PDF" in the print dialog, from a page styled like the wiki.
@@ -494,7 +494,7 @@ async function docxToOps(buf) {
           if (r.p.strike) a.strike = true;
           if (r.p.color && r.p.color !== "#000000" && !r.link && !pa.head && !(pa.quote && r.p.color === "#555555")) a.color = r.p.color;
           if (r.p.background) a.background = r.p.background;
-          if (r.p.font && /comic/i.test(r.p.font)) a.font = "comic";
+          if (r.p.font && /^arial$/i.test(r.p.font.trim())) a.font = "arial";
           const s = pa.head ? null : sizeOf(r.p.pt); if (s) a.size = s;
           if (r.link) a.link = r.link;
           ops.push(Object.keys(a).length ? { insert: t, attributes: a } : { insert: t });
