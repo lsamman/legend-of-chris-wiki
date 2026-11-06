@@ -1,7 +1,7 @@
 // The writing room: sign in, write in a Pages-style editor, autosave a private
 // draft, and publish it to the reading page (read.html).
-import { CONFIGURED, firebase, chapters, when } from "./book.js?v=151bc143aa3d";
-import { deltaToDocx, importFile, IMPORT_ACCEPT } from "./docx.js?v=151bc143aa3d";
+import { CONFIGURED, firebase, chapters, when } from "./book.js?v=ed1bf5c2ea18";
+import { EXPORTS, printAsPdf, importFile, IMPORT_ACCEPT } from "./docx.js?v=ed1bf5c2ea18";
 
 const $ = id => document.getElementById(id);
 const SESSION = Math.random().toString(36).slice(2);   // tells this tab's saves apart from other devices'
@@ -456,13 +456,20 @@ function download(blob, name) {
   document.body.append(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
 }
-$("export-btn").onclick = () => {
-  if (quill.getLength() <= 1) { toast("The draft is empty, so there's nothing to export."); return; }
-  try {
-    download(deltaToDocx(quill.getContents().ops), "The Legend of Chris.docx");
-    toast("Exported to Word. Bold, italics, colours, fonts, sizes, headings, lists and alignment came with it.");
-  } catch (e) { console.error(e); toast("Couldn't export: " + (e.message || e)); }
-};
+for (const f of EXPORTS) {
+  const b = Object.assign(document.createElement("button"), { type: "button", textContent: f.label });
+  b.onclick = async () => {
+    $("export-menu").open = false;
+    if (quill.getLength() <= 1) { toast("The draft is empty, so there's nothing to export."); return; }
+    const ops = quill.getContents().ops;
+    try {
+      if (f.id === "pdf") { toast("In the print window, choose “Save as PDF” as the printer."); await printAsPdf(ops); return; }
+      download(f.make(ops), "The Legend of Chris." + f.ext);
+      toast("Exported as ." + f.ext + (f.id === "docx" || f.id === "rtf" ? ". Bold, italics, colours, fonts, sizes, headings, lists and alignment came with it." : "."));
+    } catch (e) { console.error(e); toast("Couldn't export: " + (e.message || e)); }
+  };
+  $("export-pop").append(b);
+}
 $("import-file").accept = IMPORT_ACCEPT;
 $("import-btn").onclick = () => $("import-file").click();
 $("import-file").onchange = async ev => {

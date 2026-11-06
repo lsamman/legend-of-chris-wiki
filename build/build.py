@@ -1133,7 +1133,10 @@ def render_write():
     <span id="words" class="muted"></span>
     <span class="studio-spacer"></span>
     <button id="import-btn" class="btn" type="button" title="Import a Word (.docx), Pages, HTML, Markdown or text file" aria-label="Import a file">⇪<span class="lbl"> Import</span></button>
-    <button id="export-btn" class="btn" type="button" title="Download the draft as a Word document, keeping bold, fonts, sizes and spacing" aria-label="Export to Word">⇩<span class="lbl"> Export to Word</span></button>
+    <details class="studio-menu export-menu" id="export-menu">
+      <summary class="btn" title="Download the draft as Word, PDF, Rich Text, a web page, Markdown or plain text" aria-label="Export">⇩<span class="lbl"> Export</span> ▾</summary>
+      <div class="menu-pop" id="export-pop"></div>
+    </details>
     <input id="import-file" type="file" accept=".docx,.doc,.pages,.txt,.text,.md,.html,.htm" hidden>
     <button id="notes-btn" class="btn" type="button" aria-expanded="false" aria-controls="notes">✎ Notes</button>
     <details class="studio-menu">
