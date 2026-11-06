@@ -1160,7 +1160,7 @@ def render_write():
     </span>
     <span class="ql-formats">
       <select class="ql-header" title="Paragraph style"><option value="1">Chapter title</option><option value="2">Heading</option><option value="3">Subheading</option><option selected>Body</option></select>
-      <select class="ql-font" title="Font"><option selected>Arial</option><option value="comic">Comic Sans</option></select>
+      <select class="ql-font" title="Font"><option selected>Comic Sans</option><option value="arial">Arial</option></select>
       <select class="ql-size" title="Size"><option value="small"></option><option selected></option><option value="large"></option><option value="huge"></option></select>
     </span>
     <span class="ql-formats">

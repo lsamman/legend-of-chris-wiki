@@ -80,13 +80,13 @@ body.writing .sheet-foot { display: none; }
 .ql-snow .ql-picker.ql-header [data-value="3"]::before { content: "Subheading" !important; }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before { font-size: 1.6em; font-weight: 700; }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before { font-size: 1.3em; font-weight: 700; }
-.ql-snow .ql-picker.ql-font .ql-picker-label::before, .ql-snow .ql-picker.ql-font .ql-picker-item::before { content: "Arial"; font-family: var(--sans); }
-.ql-snow .ql-picker.ql-font [data-value="comic"]::before { content: "Comic Sans" !important; font-family: var(--comic); }
+.ql-snow .ql-picker.ql-font .ql-picker-label::before, .ql-snow .ql-picker.ql-font .ql-picker-item::before { content: "Comic Sans"; font-family: var(--comic); }
+.ql-snow .ql-picker.ql-font [data-value="arial"]::before { content: "Arial" !important; font-family: var(--sans); }
 
 /* the page itself */
 .page-wrap { padding-top: 56px; }
 .ql-container.ql-snow { border: 0; font: inherit; }
-#editor .ql-editor { padding: 0; min-height: 70vh; font: 16px/1.62 var(--sans); color: var(--ink); overflow: visible; }
+#editor .ql-editor { padding: 0; min-height: 70vh; font: 16px/1.62 var(--comic); color: var(--ink); overflow: visible; }
 #editor .ql-editor.ql-blank::before { left: 0; right: 0; color: var(--ink-3); font-style: italic; }
 #editor .ql-editor h1 { font-size: clamp(32px, 5.4vw, 60px); line-height: 1.08; margin: 72px 0 26px; }
 #editor .ql-editor > h1:first-child { margin-top: 0; }

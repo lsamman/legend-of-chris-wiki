@@ -122,7 +122,7 @@ function makeQuill() {
   const Quill = window.Quill;
   const Delta = Quill.import("delta");
   const Font = Quill.import("formats/font");
-  Font.whitelist = ["comic"];
+  Font.whitelist = ["comic", "arial"];
   Quill.register(Font, true);
   quill = new Quill("#editor", {
     theme: "snow",

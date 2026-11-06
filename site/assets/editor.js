@@ -1,7 +1,7 @@
 // The writing room: sign in, write in a Pages-style editor, autosave a private
 // draft, and publish it to the reading page (read.html).
-import { CONFIGURED, firebase, chapters, when } from "./book.js?v=ed1bf5c2ea18";
-import { EXPORTS, printAsPdf, importFile, IMPORT_ACCEPT } from "./docx.js?v=ed1bf5c2ea18";
+import { CONFIGURED, firebase, chapters, when } from "./book.js?v=4de8621ca6c2";
+import { EXPORTS, printAsPdf, importFile, IMPORT_ACCEPT } from "./docx.js?v=4de8621ca6c2";
 
 const $ = id => document.getElementById(id);
 const SESSION = Math.random().toString(36).slice(2);   // tells this tab's saves apart from other devices'
@@ -122,7 +122,7 @@ function makeQuill() {
   const Quill = window.Quill;
   const Delta = Quill.import("delta");
   const Font = Quill.import("formats/font");
-  Font.whitelist = ["comic"];
+  Font.whitelist = ["comic", "arial"];
   Quill.register(Font, true);
   quill = new Quill("#editor", {
     theme: "snow",
