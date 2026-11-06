@@ -172,6 +172,183 @@ export function deltaToDocx(ops, title = "The Legend of Chris") {
   ]);
 }
 
+
+// ---------------------------------------------------------------- export: other formats
+function toLines(ops) {
+  const lines = []; let runs = [];
+  for (const op of ops) {
+    const a = op.attributes || {};
+    if (typeof op.insert === "string") {
+      const parts = op.insert.split("\n");
+      parts.forEach((t, i) => { if (t) runs.push({ text: t, attrs: a }); if (i < parts.length - 1) { lines.push({ runs, attrs: a }); runs = []; } });
+    } else if (op.insert && op.insert.image) runs.push({ image: op.insert.image, text: "", attrs: a });
+  }
+  if (runs.length) lines.push({ runs, attrs: {} });
+  return lines;
+}
+const plainOf = ln => ln.runs.map(r => r.image ? `[Picture: ${r.image}]` : r.text).join("");
+
+export function deltaToText(ops) {
+  const n = [0, 0, 0, 0, 0, 0, 0, 0, 0]; let prev = null;
+  return toLines(ops).map(ln => {
+    const A = ln.attrs, pad = "    ".repeat(A.indent || 0);
+    if (A.list) {
+      const l = A.indent || 0; n.fill(0, l + 1);
+      if (A.list === "ordered") { n[l]++; prev = "o"; return `${pad}${n[l]}. ${plainOf(ln)}`; }
+      prev = "b"; return `${pad}• ${plainOf(ln)}`;
+    }
+    n.fill(0); prev = null;
+    return (A.blockquote ? "    " : pad) + plainOf(ln);
+  }).join("\n") + "\n";
+}
+
+export function deltaToMarkdown(ops) {
+  const n = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const run = r => {
+    if (r.image) return `![](${r.image})`;
+    const a = r.attrs;
+    let t = r.text.replace(/([\\`*_{}\[\]<>#|])/g, "\\$1");
+    const lead = /^\s*/.exec(t)[0], trail = /\s*$/.exec(t)[0], core = t.trim();
+    if (!core) return t;
+    let m = core;
+    if (a.bold) m = `**${m}**`;
+    if (a.italic) m = `*${m}*`;
+    if (a.strike) m = `~~${m}~~`;
+    if (a.underline && !a.link) m = `<u>${m}</u>`;
+    if (a.link) m = `[${m}](${a.link})`;
+    return lead + m + trail;
+  };
+  const out = []; let prevList = false;
+  for (const ln of toLines(ops)) {
+    const A = ln.attrs, text = ln.runs.map(run).join("");
+    let line;
+    if (A.header) { line = `${"#".repeat(A.header)} ${ln.runs.map(r => r.text).join("")}`; n.fill(0); }
+    else if (A.list) {
+      const l = A.indent || 0; n.fill(0, l + 1);
+      line = "  ".repeat(l) + (A.list === "ordered" ? `${++n[l]}. ` : "- ") + text;
+    } else { n.fill(0); line = (A.blockquote ? "> " : "") + text; }
+    const isList = !!A.list;
+    if (out.length && !(isList && prevList)) out.push("");
+    out.push(line); prevList = isList;
+  }
+  return out.join("\n").replace(/\n{3,}/g, "\n\n") + "\n";
+}
+
+const escH = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const SIZE_EM = { small: ".75em", large: "1.5em", huge: "2.5em" };
+export function deltaToHtmlBody(ops) {
+  const run = r => {
+    if (r.image) return `<img src="${escH(r.image)}" alt="">`;
+    const a = r.attrs, st = [];
+    if (a.color) st.push(`color:${escH(a.color)}`);
+    if (a.background) st.push(`background-color:${escH(a.background)}`);
+    if (a.size && SIZE_EM[a.size]) st.push(`font-size:${SIZE_EM[a.size]}`);
+    if (a.font === "comic") st.push(`font-family:'Comic Sans MS','Comic Neue','Chalkboard SE',cursive`);
+    let t = escH(r.text);
+    if (st.length) t = `<span style="${st.join(";")}">${t}</span>`;
+    if (a.bold) t = `<strong>${t}</strong>`;
+    if (a.italic) t = `<em>${t}</em>`;
+    if (a.underline) t = `<u>${t}</u>`;
+    if (a.strike) t = `<s>${t}</s>`;
+    if (a.link) t = `<a href="${escH(a.link)}">${t}</a>`;
+    return t;
+  };
+  let html = "", stack = [];                       // open lists: "ul" | "ol"
+  const closeTo = d => { while (stack.length > d) html += `</li></${stack.pop()}>`; };
+  for (const ln of toLines(ops)) {
+    const A = ln.attrs, inner = ln.runs.map(run).join("") || "<br>";
+    const al = { center: "center", right: "right", justify: "justify" }[A.align];
+    const sty = [al && `text-align:${al}`, !A.list && !A.header && !A.blockquote && A.indent && `margin-left:${2.5 * A.indent}em`].filter(Boolean);
+    const style = sty.length ? ` style="${sty.join(";")}"` : "";
+    if (A.list) {
+      const want = A.list === "ordered" ? "ol" : "ul", depth = (A.indent || 0) + 1;
+      closeTo(depth);
+      if (stack.length === depth) {
+        if (stack[depth - 1] === want) html += "</li>";
+        else { html += `</li></${stack.pop()}><${want}>`; stack.push(want); }
+      } else while (stack.length < depth) { stack.push(want); html += `<${want}>`; if (stack.length < depth) html += "<li>"; }
+      html += `<li${style}>${inner}`;
+    } else {
+      closeTo(0);
+      if (A.header) html += `<h${A.header}${style}>${inner}</h${A.header}>`;
+      else if (A.blockquote) html += `<blockquote${style}><p>${inner}</p></blockquote>`;
+      else html += `<p${style}>${inner}</p>`;
+    }
+  }
+  closeTo(0);
+  return html;
+}
+// The page as the wiki shows it: Arial 16px, 1.62 line height, 14px between paragraphs.
+const PAGE_CSS = `body{font:16px/1.62 Arial,"Liberation Sans",Helvetica,sans-serif;color:#111;max-width:46em;margin:40px auto;padding:0 20px}
+h1{font-size:clamp(32px,5.4vw,60px);line-height:1.08;margin:72px 0 26px}h1:first-child{margin-top:0}h2{font-size:26px;margin:0 0 22px}h3{font-size:19px;margin:22px 0 8px}
+p{margin:0 0 14px}blockquote{margin:0 0 14px;padding:2px 0 2px 16px;border-left:3px solid #999;color:#555}blockquote p{margin:0}img{display:block;max-width:100%;margin:8px auto}a{color:#0b57d0}
+@media print{body{margin:0;max-width:none;padding:0}h1{page-break-after:avoid;margin-top:0}h2,h3{page-break-after:avoid}p{orphans:3;widows:3}}`;
+export function deltaToHtml(ops, title = "The Legend of Chris") {
+  return `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escH(title)}</title><style>${PAGE_CSS}</style></head><body>\n${deltaToHtmlBody(ops)}\n</body></html>\n`;
+}
+
+// RTF opens in Word, Pages, TextEdit, Google Docs and nearly everything else.
+export function deltaToRtf(ops) {
+  const colors = [], col = c => { const h = hex(c); if (!h) return 0; let i = colors.indexOf(h); if (i < 0) i = colors.push(h) - 1; return i + 1; };
+  const rtfText = t => { let o = ""; for (const ch of t) { const c = ch.codePointAt(0); o += ch === "\\" || ch === "{" || ch === "}" ? "\\" + ch : ch === "\t" ? "\\tab " : c < 128 ? ch : c > 0xffff ? "\\u" + (((c - 0x10000) >> 10) + 0xd800 - 65536) + "?\\u" + (((c - 0x10000) & 0x3ff) + 0xdc00 - 65536) + "?" : "\\u" + (c > 32767 ? c - 65536 : c) + "?"; } return o; };
+  const n = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const body = toLines(ops).map(ln => {
+    const A = ln.attrs, hs = A.header ? { 1: 64, 2: 40, 3: 28 }[A.header] : 0;
+    let p = "\\pard\\f0\\fs24\\sa210\\sl389\\slmult1";
+    if (A.header) p = `\\pard\\f0\\keepn\\sb${{ 1: 1080, 2: 0, 3: 330 }[A.header]}\\sa${{ 1: 390, 2: 330, 3: 120 }[A.header]}\\sl276\\slmult1`;
+    const al = { center: "\\qc", right: "\\qr", justify: "\\qj" }[A.align]; if (al) p += al;
+    let lead = "";
+    if (A.list) {
+      const l = A.indent || 0; n.fill(0, l + 1);
+      p += `\\li${720 * (l + 1)}\\fi-360`;
+      lead = (A.list === "ordered" ? `${++n[l]}.` : "\\u8226?") + "\\tab ";
+    } else { n.fill(0); if (A.blockquote) p += "\\li720\\brdrl\\brdrs\\brdrw20\\brsp240\\brdrcf" + col("#999999"); else if (A.indent) p += `\\li${720 * A.indent}`; }
+    const runs = ln.runs.map(r => {
+      if (r.image) return rtfText(`[Picture: ${r.image}]`);
+      const a = r.attrs; let f = "";
+      if (a.font === "comic") f += "\\f1";
+      if (a.bold || hs) f += "\\b";
+      if (a.italic) f += "\\i";
+      if (a.underline) f += "\\ul";
+      if (a.strike) f += "\\strike";
+      const c = col(a.color); if (c) f += `\\cf${c}`;
+      const bg = col(a.background); if (bg) f += `\\chshdng0\\chcbpat${bg}`;
+      const size = hs || (a.size === "small" ? 18 : a.size === "large" ? 36 : a.size === "huge" ? 60 : 0); if (size) f += `\\fs${size}`;
+      let t = `{${f} ${rtfText(r.text)}}`;
+      if (a.link) t = `{\\field{\\*\\fldinst HYPERLINK "${a.link.replace(/["\\]/g, "")}"}{\\fldrslt {\\cf${col("#0563C1")}\\ul ${rtfText(r.text)}}}}`;
+      return t;
+    }).join("");
+    return `${p} ${lead}${runs}\\par`;
+  }).join("\n");
+  const ct = colors.map(h => `\\red${parseInt(h.slice(0, 2), 16)}\\green${parseInt(h.slice(2, 4), 16)}\\blue${parseInt(h.slice(4), 16)};`).join("");
+  return `{\\rtf1\\ansi\\ansicpg1252\\deff0\n{\\fonttbl{\\f0\\fswiss\\fcharset0 Arial;}{\\f1\\fscript\\fcharset0 Comic Sans MS;}}\n{\\colortbl;${ct}}\n${body}\n}`;
+}
+
+// PDF: the browser's own "Save as PDF" in the print dialog, from a page styled like the wiki.
+export function printAsPdf(ops, title = "The Legend of Chris") {
+  return new Promise((resolve, reject) => {
+    const f = document.createElement("iframe");
+    f.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0";
+    f.onload = () => {
+      try {
+        f.contentWindow.focus(); f.contentWindow.print();
+        setTimeout(() => { f.remove(); resolve(); }, 60000);
+      } catch (e) { f.remove(); reject(e); }
+    };
+    f.srcdoc = deltaToHtml(ops, title);
+    document.body.append(f);
+  });
+}
+
+export const EXPORTS = [
+  { id: "docx", label: "Word document (.docx)", ext: "docx", make: ops => deltaToDocx(ops) },
+  { id: "pdf", label: "PDF (opens the print window)", ext: "pdf", make: null },
+  { id: "rtf", label: "Rich Text (.rtf): Pages, TextEdit, Word", ext: "rtf", make: ops => new Blob([deltaToRtf(ops)], { type: "application/rtf" }) },
+  { id: "html", label: "Web page (.html)", ext: "html", make: ops => new Blob([deltaToHtml(ops)], { type: "text/html" }) },
+  { id: "md", label: "Markdown (.md)", ext: "md", make: ops => new Blob([deltaToMarkdown(ops)], { type: "text/markdown" }) },
+  { id: "txt", label: "Plain text (.txt)", ext: "txt", make: ops => new Blob([deltaToText(ops)], { type: "text/plain" }) }
+];
+
 // ---------------------------------------------------------------- import: shared helpers
 const wordsOf = ops => ops.reduce((n, o) => n + (typeof o.insert === "string" ? (o.insert.match(/\S+/g) || []).length : 0), 0);
 function finish(ops, notes = []) {
