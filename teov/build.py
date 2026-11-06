@@ -186,7 +186,7 @@ def page(entries, title, body, *, active=None, description="", head_extra="", sc
   {nav_html(entries, active)}
   <main class="sheet">
     {body}
-    <footer class="foot">The Epic of Vinny Wiki: a fan wiki for <i>The Epic of Vinny</i> by Pacman2810, a spin-off set in the <a href="../index.html">Legend Of Chris</a> multiverse. The story is unfinished.</footer>
+    <footer class="foot">The Epic of Vinny Wiki: a fan wiki for <i>The Epic of Vinny</i>, a spin-off set in the <a href="../index.html">Legend Of Chris</a> multiverse. The story is unfinished.</footer>
   </main>
 </div>
 <script src="assets/search-index.js?v={ver}"></script>
@@ -296,7 +296,6 @@ def render_index(entries, R, ver):
   <div class="hero-mark">{LOGO}</div>
   <p class="hero-kicker">A spin-off of The Legend Of Chris</p>
   <h1 class="hero-title">The Epic of Vinny</h1>
-  <p class="hero-by">by Pacman2810</p>
   <p class="hero-meta">Planet <a href="garth.html">Garth</a> · <a href="kanye-system.html">The Kanye System</a> · 1995 to 1996</p>
   <p class="hero-btns"><a class="btn primary" href="read.html">Read the story</a> <a class="btn" href="chapter-1.html">Chapter 1</a> <a class="btn" href="timeline.html">Timeline</a> <a class="btn gold" href="../index.html">← Legend Of Chris Wiki</a></p>
 </section>
@@ -377,12 +376,12 @@ def render_read(entries, R, story, ver):
             else:
                 out += f"<p>{t}</p>"
     R.current = None
-    body = (f'<h1 class="title">Read the story</h1><p class="crumbs">{html.escape(story["byline"])} · the full text so far, coloured and set like the PDF</p>'
+    body = (f'<h1 class="title">Read the story</h1><p class="crumbs">The full text so far, coloured and set like the PDF</p>'
             '<p class="story-note muted">Typed up from the PDF, with its colours and fonts: Comic Sans for the narration, Arial for Claude\'s lines. '
             'The in-story text boxes are rebuilt as text. One word in the first one is partly starred out. The story is unfinished and this page grows with it.</p>'
             f'<ul class="story-toc">{toc}</ul>'
-            f'<div class="story"><p class="story-title"><span class="s-gb">[The Epic of Vinny]</span></p><p class="story-by">{html.escape(story["byline"])}</p>{out}</div>')
-    return page(entries, "Read the story", body, active="read", description="The full text of The Epic of Vinny by Pacman2810.", ver=ver)
+            f'<div class="story"><p class="story-title"><span class="s-gb">[The Epic of Vinny]</span></p>{out}</div>')
+    return page(entries, "Read the story", body, active="read", description="The full text of The Epic of Vinny.", ver=ver)
 
 
 def render_random(entries, ver):

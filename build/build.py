@@ -217,9 +217,9 @@ def import_spinoff(entries):
     chs = "\n".join(f"- [[teov:{c}|{TEOV_ENTRIES[c]['title']}]]: {TEOV_ENTRIES[c]['subtitle']}" for c in TEOV_ENTRIES if c in chapters)
     entries[hub] = {"slug": hub, "title": "The Epic of Vinny", "category": "concepts",
         "subtitle": "A spin-off set on Garth, in the Kanye System, 1995 to 1996.",
-        "infobox": {"Author": "Pacman2810", "Setting": "[[teov:garth|Garth]], [[kanye-system|The Kanye System]]", "Years": "1995 to 1996",
+        "infobox": {"Setting": "[[teov:garth|Garth]], [[kanye-system|The Kanye System]]", "Years": "1995 to 1996",
                     "Status": "Unfinished (a prologue and three chapters)", "Full wiki": "[[teov:index|The Epic of Vinny Wiki]]"},
-        "lead": "**The Epic of Vinny** is a spin-off story by Pacman2810, set from 1995 to 1996 on the planet [[teov:garth|Garth]] in the [[kanye-system|Kanye System]]. "
+        "lead": "**The Epic of Vinny** is a spin-off story set from 1995 to 1996 on the planet [[teov:garth|Garth]] in the [[kanye-system|Kanye System]]. "
                 "It follows [[vinny]], a Boston Burger King cashier. It is canon in the Legend Of Chris universe, so its characters, places and events have articles here too.\n\n"
                 "The full story text, a dedicated timeline and every article live on [[teov:index|The Epic of Vinny Wiki]]. You can [[teov:read|read the story there]].",
         "sections": [{"heading": "Chapters", "body": chs}, {"heading": "Articles from the spin-off", "body": lists}]}
