@@ -84,7 +84,7 @@ PICKS = {
     "forklift": ["Forklift", REAL], "the-fork": ["Fork"], "five-below-watch": ["Watch"], "super-smash-bros-wii-u": ["Wii U", REAL], "wordle": ["Wordle", C("Wordle game grid"), REAL],
     "rum-and-coke": ["Rum and Coke", REAL], "spyglass": ["Telescope"], "pretzel-bun-baconator": ["Pretzel"],
     # ---- locations
-    "minor-miner-universe": ["Mining"], "call-of-duty-lobbies": ["LAN party"], "galactic-senate": ["United States Senate chamber", "Senate"], "planet-patrick": ["Starfish"],
+    "minor-miner-universe": ["Mining"], "call-of-duty-lobbies": ["Call of Duty", "Gamer"], "galactic-senate": ["United States Senate chamber", "Senate"], "planet-patrick": ["Starfish"],
     "8aller-jump-street": ["Basketball court"], "dusty-depot": ["Warehouse"], "the-court": ["Courtroom"], "the-border": [C("border checkpoint booth"), "Border control"],
     "salty-springs": ["Hot spring"], "earth-new-jersey": ["New Jersey", REAL], "wawa": ["Wawa (company)", REAL], "austin-texas": ["Austin, Texas", REAL], "bucees-hq": ["Buc-ee's", REAL],
     "american-garage": ["Garage (residential)"], "louisiana": ["Louisiana", REAL], "great-data-center": ["Data center"], "burger-king-dark-world": [C("Burger King restaurant at night"), "Night"],
@@ -112,8 +112,10 @@ FALLBACKS = {
     "wordle": "crossword puzzle grid", "spyglass": "brass telescope", "minor-miner-universe": "mine shaft", "call-of-duty-lobbies": "gaming computer", "dusty-depot": "dusty warehouse",
     "the-court": "courtroom", "bucees-hq": "Buc-ee's gas station", "american-garage": "garage with American flag", "garth": "planet", "little-saint-james-sea": "Caribbean sea",
 }
+FALLBACKS.update({"super-bowl": "football stadium night game", "rap-battle-club-shadowban": "hip hop concert", "kanyes-dream": "bed pillow bedroom", "night-1": "moonlit night street",
+                  "claude-livestreams": "computer monitor microphone desk", "galaxy-gas": "gas cylinder", "call-of-duty-lobbies": "video game players", "dusty-depot": "abandoned warehouse"})
 for _slug, _q in FALLBACKS.items():
-    if _slug in PICKS:
+    if _slug in PICKS and C(_q) not in PICKS[_slug]:
         PICKS[_slug] = PICKS[_slug] + [C(_q)]
 
 
