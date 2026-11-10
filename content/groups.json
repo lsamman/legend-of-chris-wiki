@@ -120,22 +120,19 @@
           ]
         },
         "chapter-new-jersey": {
-          "place": "Aboard the iNav, then Earth, New Jersey",
-          "doing": "Plankton, RFK and Ioannus wake up on the iNav with the New Apple Employees. Plankton beams Quandale Dingle with USA POWER and finds the golden plaque. MF Vroom and Son are not mentioned.",
+          "place": "Not shown",
+          "doing": "The chapter opens with Plankton waking to Ioannus's voice “as a distant voice in his ear”, then follows the iNav. Plankton and Ioann Paranukus are also named twice in the pizzeria scenes.",
           "events": [
-            "planktons-dream",
-            "salty-springs-ambush",
-            "golden-plaque",
-            "night-1"
+            "kanyes-dream"
           ]
         }
       },
       "now": {
-        "place": "Inside Freddy Fazbear's Pizza, with the New Apple Employees",
-        "doing": "Plankton, RFK and Ioannus are on Night 1. The book skips how they left O'Block 2, and whether they got [[facebook-pre-cringe|Facebook (Pre-Cringe)]]. MF Vroom and Son were last seen in the Honda Accord.",
+        "place": "O'Block 2, in Son's 2005 Honda Accord, near the palace",
+        "doing": "Going for [[facebook-pre-cringe|Facebook (Pre-Cringe)]] in the palace at chicken hour, while TON 618 hunts them. Facebook is one piece of the Prophecy's phone. In the newest chapter Plankton only wakes, hearing Ioannus in his ear.",
         "last": {
-          "line": 1512,
-          "event": "night-1"
+          "line": 1446,
+          "event": "kanyes-dream"
         }
       }
     },
@@ -364,21 +361,15 @@
           "parts": [
             {
               "group": "ye",
-              "text": "Steve navigates, ChatGPT keeps the phone, and Kanye fights Yeat until God steps in."
+              "text": "Kanye dreams of Travis Scott, Steve uses AIRPOWER, ChatGPT keeps the phone, and Kanye fights Yeat until God steps in."
             },
             {
               "group": "propane",
               "text": "Hank Hill is not mentioned in this chapter."
             }
           ],
-          "moves": [
-            {
-              "kind": "join",
-              "text": "[[plankton|Plankton]], [[rfk|RFK]] and [[ioannus-paranukus|Ioannus Paranukus]] are aboard when the chapter opens. The book does not say how",
-              "line": 1444
-            }
-          ],
           "events": [
+            "kanyes-dream",
             "earth-new-jersey",
             "salty-springs-ambush",
             "smiting-of-yeat",
@@ -389,7 +380,7 @@
       },
       "now": {
         "place": "Inside Freddy Fazbear's Pizza, Salty Springs, Earth, New Jersey",
-        "doing": "Night 1 of five, for [[snapchat-ghost-protocol|Snapchat: Ghost Protocol]]. Steve, Kanye and ChatGPT have a flashlight, a covid mask and three New Crips with them. Hank has not been seen since the roadster.",
+        "doing": "Night 1 of five, for [[snapchat-ghost-protocol|Snapchat: Ghost Protocol]]. Steve, Kanye and ChatGPT have a flashlight and a covid mask. Hank has not been seen since the roadster.",
         "last": {
           "line": 1512,
           "event": "night-1"
@@ -405,5 +396,5 @@
       "event": "chris-traced"
     }
   },
-  "apart": "Three New Crips (Plankton, RFK and Ioannus) are now travelling with the New Apple Employees, though the book never shows them meeting. The Prophecy's phone needs the 3 year contract plan from Verizon (they have it), Facebook (Pre-Cringe) (last seen as the New Crips' target in the palace) and Snapchat: Ghost Protocol (five nights at Freddy's away). Walter and Jesse are cooking in Scott the Woz's basement. Chris “already has his foothold” in the New Jersey system."
+  "apart": "The New Crips and the New Apple Employees are both after Chris, but they haven't met. The Prophecy's phone needs the 3 year contract plan from Verizon (the New Apple Employees have it), Facebook (Pre-Cringe) (the New Crips are going for it) and Snapchat: Ghost Protocol (five nights at Freddy's away; the New Apple Employees are on Night 1). Walter and Jesse are cooking in Scott the Woz's basement. Chris “already has his foothold” in the New Jersey system."
 }
