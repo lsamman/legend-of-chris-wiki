@@ -2,8 +2,8 @@
   "_readme": "The Timeline's 'By group' view (timeline.html?order=groups). Rows are ordered so groups that combine sit next to each other. 'cells' are keyed by chapter slug (told order); a missing chapter means the group isn't in it. 'merged' groups replace their parts from 'from' onwards (shown as one card spanning the rows). 'events' are ids from content/timeline.json. 'moves' are members joining or leaving, with the book line. Text uses [[slug|label]] links. After a new chapter is published: add a cell per group, set 'asOf', and update each 'now'. Then run python3 build/build.py.",
   "asOf": {
     "chapter": "chapter-new-jersey",
-    "line": 1440,
-    "note": "A ninth chapter has begun, but so far it is only a title. The last scene is the departure for the New Jersey system."
+    "line": 1512,
+    "note": "Chapter Number New Jersey now has a body. It ends as Night 1 begins in Freddy Fazbear's Pizza."
   },
   "groups": [
     {
@@ -118,14 +118,24 @@
             "the-prophecy",
             "locate-facebook"
           ]
+        },
+        "chapter-new-jersey": {
+          "place": "Aboard the iNav, then Earth, New Jersey",
+          "doing": "Plankton, RFK and Ioannus wake up on the iNav with the New Apple Employees. Plankton beams Quandale Dingle with USA POWER and finds the golden plaque. MF Vroom and Son are not mentioned.",
+          "events": [
+            "planktons-dream",
+            "salty-springs-ambush",
+            "golden-plaque",
+            "night-1"
+          ]
         }
       },
       "now": {
-        "place": "O'Block 2, in Son's 2005 Honda Accord, near the palace",
-        "doing": "Going for [[facebook-pre-cringe|Facebook (Pre-Cringe)]] in the palace at chicken hour, while TON 618 hunts them. Facebook is one piece of the Prophecy's phone.",
+        "place": "Inside Freddy Fazbear's Pizza, with the New Apple Employees",
+        "doing": "Plankton, RFK and Ioannus are on Night 1. The book skips how they left O'Block 2, and whether they got [[facebook-pre-cringe|Facebook (Pre-Cringe)]]. MF Vroom and Son were last seen in the Honda Accord.",
         "last": {
-          "line": 1247,
-          "event": "locate-facebook"
+          "line": 1512,
+          "event": "night-1"
         }
       }
     },
@@ -347,14 +357,42 @@
             "kromer-sale",
             "to-new-jersey"
           ]
+        },
+        "chapter-new-jersey": {
+          "place": "The iNav, then Salty Springs and Freddy Fazbear's Pizza on Earth, New Jersey",
+          "doing": "Land in Salty Springs, beat Yeat and Quandale Dingle, find Mike Schmidt and the golden plaque, and start five nights at Freddy's for Snapchat: Ghost Protocol.",
+          "parts": [
+            {
+              "group": "ye",
+              "text": "Steve navigates, ChatGPT keeps the phone, and Kanye fights Yeat until God steps in."
+            },
+            {
+              "group": "propane",
+              "text": "Hank Hill is not mentioned in this chapter."
+            }
+          ],
+          "moves": [
+            {
+              "kind": "join",
+              "text": "[[plankton|Plankton]], [[rfk|RFK]] and [[ioannus-paranukus|Ioannus Paranukus]] are aboard when the chapter opens. The book does not say how",
+              "line": 1444
+            }
+          ],
+          "events": [
+            "earth-new-jersey",
+            "salty-springs-ambush",
+            "smiting-of-yeat",
+            "golden-plaque",
+            "night-1"
+          ]
         }
       },
       "now": {
-        "place": "In a Tesla 2028 roadster, bound for the New Jersey system",
-        "doing": "Four of the six: Steve, Kanye, ChatGPT and Hank. They hold the Verizon contract and know where Snapchat is (Freddy Fazbear's Pizza), but they are going to the [[new-jersey-system|New Jersey system]]. Walter and Jesse have left them.",
+        "place": "Inside Freddy Fazbear's Pizza, Salty Springs, Earth, New Jersey",
+        "doing": "Night 1 of five, for [[snapchat-ghost-protocol|Snapchat: Ghost Protocol]]. Steve, Kanye and ChatGPT have a flashlight, a covid mask and three New Crips with them. Hank has not been seen since the roadster.",
         "last": {
-          "line": 1438,
-          "event": "to-new-jersey"
+          "line": 1512,
+          "event": "night-1"
         }
       }
     }
@@ -367,5 +405,5 @@
       "event": "chris-traced"
     }
   },
-  "apart": "The New Crips and the New Apple Employees are both after Chris, but they haven't met. The Prophecy's phone needs the 3 year contract plan from Verizon (the New Apple Employees have it), Facebook (Pre-Cringe) (the New Crips are going for it) and Snapchat: Ghost Protocol (said to be in Freddy Fazbear's Pizza). Walter and Jesse have left the New Apple Employees to cook in Scott the Woz's basement."
+  "apart": "Three New Crips (Plankton, RFK and Ioannus) are now travelling with the New Apple Employees, though the book never shows them meeting. The Prophecy's phone needs the 3 year contract plan from Verizon (they have it), Facebook (Pre-Cringe) (last seen as the New Crips' target in the palace) and Snapchat: Ghost Protocol (five nights at Freddy's away). Walter and Jesse are cooking in Scott the Woz's basement. Chris “already has his foothold” in the New Jersey system."
 }

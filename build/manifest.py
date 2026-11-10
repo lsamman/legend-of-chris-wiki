@@ -11,7 +11,7 @@ CHAPTERS = [
     ("flashback-chapter", "chapter that is after the last one but its all a flashback", "The Flashback Chapter", 752, 900),
     ("chapter-maybe-seventh", "chapter the maybe seventh one if you can still count idk tho", "Chapter the Maybe Seventh", 901, 1061),
     ("chapter-4-point-1", "Chapter 4+.1+.1+.1+.1+.1+.1+.1+.1+.1+.1+idk bro figure it out", "Chapter 4+.1+.1…", 1062, 1439),
-    ("chapter-new-jersey", "Chaper Number New Jersey, the newest jersey, dare I say the most modern jersey I have seen yet, believe me I've seen alot of jerseys and none are as meta as this jersey", "Chapter Number New Jersey", 1440, 1442),
+    ("chapter-new-jersey", "Chaper Number New Jersey, the newest jersey, dare I say the most modern jersey I have seen yet, believe me I've seen alot of jerseys and none are as meta as this jersey", "Chapter Number New Jersey", 1440, 1512),
 ]
 
 E = [
