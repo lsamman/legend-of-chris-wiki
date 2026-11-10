@@ -2972,5 +2972,65 @@
    "site": "Wikimedia Commons",
    "standin": true
   }
+ ],
+ "osama-bin-bomin": [
+  {
+   "src": "osama-bin-bomin-1.jpg",
+   "caption": "Bomb. A stand-in picture: the canon has no picture of this.",
+   "artist": "LoKiLeCh",
+   "license": "GFDL",
+   "source": "https://commons.wikimedia.org/wiki/File:Saarlouis_Bombe.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Bomb",
+   "site": "Wikimedia Commons",
+   "standin": true
+  }
+ ],
+ "ye-olde-bin": [
+  {
+   "src": "ye-olde-bin-1.jpg",
+   "caption": "Waste container. A stand-in picture: the canon has no picture of this.",
+   "artist": "Hyeonyoung Lee 21",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Waste_container_in_Japan.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Waste_container",
+   "site": "Wikimedia Commons",
+   "standin": true
+  }
+ ],
+ "quandale-dingle": [
+  {
+   "src": "quandale-dingle-1.jpg",
+   "caption": "Football helmet. A stand-in picture: the canon has no picture of this.",
+   "artist": "Oregon State University",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:CFLPA_helmets.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Football_helmet",
+   "site": "Wikimedia Commons",
+   "standin": true
+  }
+ ],
+ "mike-schmidt": [
+  {
+   "src": "mike-schmidt-1.jpg",
+   "caption": "Security guard. A stand-in picture: the canon has no picture of this.",
+   "artist": "Chidgk1",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:UN_security_COP26.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Security_guard",
+   "site": "Wikimedia Commons",
+   "standin": true
+  }
+ ],
+ "god": [
+  {
+   "src": "god-1.jpg",
+   "caption": "Crepuscular rays. A stand-in picture: the canon has no picture of this.",
+   "artist": "Michal Klajban",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Sun_over_Lake_Hawea%2C_New_Zealand.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Crepuscular_rays",
+   "site": "Wikimedia Commons",
+   "standin": true
+  }
  ]
 }
