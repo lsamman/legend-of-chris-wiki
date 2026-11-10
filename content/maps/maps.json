@@ -29,9 +29,9 @@
       "id": "garth",
       "title": "Garth: The Epic of Vinny",
       "file": "garth.png",
-      "alt": "Map of the United States on the planet Garth from The Epic of Vinny: Boston, Wyoming highlighted, and the Little Saint James Sea in the Caribbean with the AI Shadow Realm beneath it.",
-      "blurb": "The United States on planet Garth, in the Kanye System, from the spin-off The Epic of Vinny (1995 to 1996). Garth is not Earth: Earth is in the New Jersey System. The story only places Boston, Wyoming and the Little Saint James Sea, so the rest of the map assumes Garth's geography matches the real world's.",
-      "places": ["kanye-system", "teov:garth", "teov:boston", "teov:burger-king-boston", "teov:wyoming", "teov:dunkin-wyoming", "teov:little-saint-james-sea", "teov:little-saint-james-island", "teov:ai-shadow-realm", "teov:united-states-of-america", "teov:ss-vessel"]
+      "alt": "Map of the United States on the planet Garth from The Epic of Vinny, with the seven stops of Vinny's route numbered: Boston, the Little Saint James Sea, Wyoming, Austin in Texas, Route 66, Louisiana drawn as a data center, and Boston again.",
+      "blurb": "The United States on planet Garth, in the Kanye System, from the spin-off The Epic of Vinny (1995 to 1996). Garth is not Earth: Earth is in the New Jersey System. The numbers follow Vinny's route from July 4th to November 2nd, 1995. The story names Boston, the Little Saint James Sea, Wyoming, Austin, Route 66 and Louisiana, and nothing else, so the rest of the map assumes Garth's geography matches the real world's.",
+      "places": ["kanye-system", "teov:garth", "teov:boston", "teov:burger-king-boston", "teov:wyoming", "teov:dunkin-wyoming", "teov:little-saint-james-sea", "teov:little-saint-james-island", "teov:ai-shadow-realm", "teov:united-states-of-america", "teov:ss-vessel", "teov:austin-texas", "teov:bucees-hq", "teov:freedom-road-trip", "teov:louisiana", "teov:great-data-center"]
     }
   ]
 }

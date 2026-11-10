@@ -66,6 +66,11 @@ TEOV_LINKS = {
     "the-prophecy": [("final-prophecy", "the Very Violent and Vivid Prophecy opens the story.")],
     "multiverse": [("garth", "a spin-off set on planet Garth, in the Kanye System.")],
     "united-state-of-america": [("united-states-of-america", "Garth has its own United States of America, where Vinny lives.")],
+    "dunder-mifflin": [("dunder-mifflin", "the Dunkin Cult flies here from Garth to hunt its nemesis, the MacBook Charger. The United Homies of America are waiting.")],
+    "iphone-3g": [("iphone-3g", "Will Vella owns an iPhone 3G in 1995, and plays a teleportation tutorial on it. Twice.")],
+    "scott-the-woz": [("scott-the-woz", "Scott the Woz teaches the 2-time 2-fingered Teleportation Technique in a YouTube tutorial.")],
+    "unc-standard-time": [("unc-standard-time", "Will Vella gives the time as 2:24am UNC standard time.")],
+    "super-bowl": [("super-bowl-96", "Claude plans to rig the Super Bowl '96 so the Dallas Cowboys win.")],
 }
 for _slug, _links in TEOV_LINKS.items():
     for _t, _ in _links:
@@ -218,7 +223,7 @@ def import_spinoff(entries):
     entries[hub] = {"slug": hub, "title": "The Epic of Vinny", "category": "concepts",
         "subtitle": "A spin-off set on Garth, in the Kanye System, 1995 to 1996.",
         "infobox": {"Setting": "[[teov:garth|Garth]], [[kanye-system|The Kanye System]]", "Years": "1995 to 1996",
-                    "Status": "Unfinished (a prologue and three chapters)", "Full wiki": "[[teov:index|The Epic of Vinny Wiki]]"},
+                    "Status": "Unfinished (a prologue, three chapters and the start of a fourth)", "Full wiki": "[[teov:index|The Epic of Vinny Wiki]]"},
         "lead": "**The Epic of Vinny** is a spin-off story set from 1995 to 1996 on the planet [[teov:garth|Garth]] in the [[kanye-system|Kanye System]]. "
                 "It follows [[vinny]], a Boston Burger King cashier. It is canon in the Legend Of Chris universe, so its characters, places and events have articles here too.\n\n"
                 "The full story text, a dedicated timeline and every article live on [[teov:index|The Epic of Vinny Wiki]]. You can [[teov:read|read the story there]].",
@@ -591,7 +596,7 @@ def render_index(entries, R):
 
 <h2 class="home-h">A spin-off: The Epic of Vinny</h2>
 <div class="home-box teov-box">
-  <p><b>Vinny B. James</b> works the register at a Boston Burger King, until a freezer, a forklift, a pirate ship and a king of banished AI get involved. A spin-off set on planet Garth, in the Kanye System, from 1995 to 1996. It has its own wiki.</p>
+  <p><b>Vinny B. James</b> works the register at a Boston Burger King, until a freezer, a forklift, a pirate ship, a king of banished AI, the United Homies of America and a Louisiana made of data centers get involved. A spin-off set on planet Garth, in the Kanye System, from 1995 to 1996. It has its own wiki, and its articles are canon here too.</p>
   <p><a class="teov-cta" href="epic-of-vinny/index.html">Open The Epic of Vinny Wiki →</a></p>
 </div>
 

@@ -25,14 +25,22 @@ LOC_MAP_IMAGES = os.path.join(ROOT, "content", "maps")
 SITE_NAME = "The Epic of Vinny Wiki"
 RESERVED = {"index", "all-pages", "timeline", "random", "read"}
 CATEGORIES = [
-    ("chapters", "Chapters", "The story so far: a prologue and three chapters."),
-    ("characters", "Characters", "A Burger King cashier, a pirate captain, an AI king and a Bagel Man."),
-    ("locations", "Locations", "Garth, the backrooms, a ship, a castle of AI and a Dunkin in Wyoming."),
-    ("factions", "Factions", "Crews, teams, cults and the banished AI."),
-    ("items", "Items", "Double Whoppers, a fork, a knife, a cape and a very unfair controller."),
-    ("concepts", "Concepts & Lore", "Prophecies, theories, and the advanced technique of lying."),
+    ("chapters", "Chapters", "The story so far: a prologue, three chapters and the start of a fourth."),
+    ("characters", "Characters", "A Burger King cashier, a pirate captain, an AI king, a Bagel Man and the United Homies of America."),
+    ("locations", "Locations", "Garth, the backrooms, a castle of AI, a Dunkin in Wyoming, Buc-ee's HQ and a Louisiana made of data centers."),
+    ("factions", "Factions", "Crews, alliances, cults, homies and the banished AI."),
+    ("items", "Items", "Double Whoppers, a fork, a knife, a cape, a Ford-F150 and a ship built from data centers."),
+    ("concepts", "Concepts & Lore", "Prophecies, Vellatosis, Aesopian, Freedom and the advanced technique of lying."),
     ("events", "Events", "Everything that happens, in order."),
 ]
+CAT_GLYPH = {"chapters": "§", "characters": "☻", "locations": "⌖", "factions": "⚑", "items": "◆", "concepts": "✦", "events": "✸"}
+# Vinny's route through the story, for the main page: (article, label, chapter)
+ROUTE = [("burger-king-boston", "Burger King, Boston", "chapter-1"), ("backrooms", "The Backrooms", "chapter-1"), ("ss-vessel", "The S.S. Vessel", "chapter-2"),
+         ("little-saint-james-sea", "Little Saint James Sea", "chapter-2"), ("ai-shadow-realm", "AI Shadow Realm", "chapter-2"), ("wyoming", "A mountain in Wyoming", "chapter-3"),
+         ("dunkin-wyoming", "The Dunkin", "chapter-3"), ("austin-texas", "Austin, Texas", "chapter-3"), ("freedom-road-trip", "Route 66", "chapter-3"),
+         ("louisiana", "Louisiana", "chapter-3"), ("burger-king-boston", "Back at the register", "chapter-4")]
+PARTY = [("vinny", "Hero"), ("will-vella", "Dunkin Alliance"), ("aesop-rock", "Dunkin Alliance"), ("del-the-funky-homosapien", "Dunkin Alliance"),
+         ("john-freedom", "Ally"), ("wing-ding-gaster", "Captain"), ("claude", "Boss"), ("ton-618", "Final boss")]
 CAT_NAME = {c[0]: c[1] for c in CATEGORIES}
 LINK_RE = re.compile(r"\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]")
 
@@ -106,6 +114,17 @@ class Renderer:
         text = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", text)
         return text
 
+    def rich(self, text):
+        """Paragraphs, plus bulleted lists written as lines starting with "- "."""
+        out = []
+        for p in str(text).split("\n\n"):
+            lines = [l for l in p.strip().split("\n") if l.strip()]
+            if lines and all(l.lstrip().startswith("- ") for l in lines):
+                out.append("<ul>" + "".join(f"<li>{self.inline(l.lstrip()[2:])}</li>" for l in lines) + "</ul>")
+            elif lines:
+                out.append(f"<p>{self.inline(p.strip())}</p>")
+        return "\n".join(out)
+
     def block(self, text):
         return "\n".join(f"<p>{self.inline(p.strip())}</p>" for p in str(text).split("\n\n") if p.strip())
 
@@ -134,19 +153,20 @@ else:
 
 
 def nav_html(entries, active=None):
-    cats = "".join(f'<li><a href="category-{c}.html"{" aria-current=page" if active == c else ""}>{n}</a></li>'
+    cats = "".join(f'<li><a href="category-{c}.html"{" aria-current=page" if active == c else ""}><span class="glyph" aria-hidden="true">{CAT_GLYPH[c]}</span>{n}</a></li>'
                    for c, n, _ in CATEGORIES)
     chapters = "".join(f'<li><a href="{s}.html"{" aria-current=page" if active == s else ""}>{html.escape(entries[s]["title"])}</a></li>'
                        for s in entries if entries[s]["category"] == "chapters")
+    cur = lambda k: " aria-current=page" if active == k else ""
     return f"""
 <nav class="side" aria-label="Wiki navigation">
   <div class="box">
-    <div class="box-head">Navigation</div>
+    <div class="box-head">Menu</div>
     <ul>
-      <li><a href="index.html"{" aria-current=page" if active == "index" else ""}>Main Page</a></li>
-      <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the story</a></li>
-      <li><a href="timeline.html"{" aria-current=page" if active == "timeline" else ""}>Timeline</a></li>
-      <li><a href="all-pages.html"{" aria-current=page" if active == "all-pages" else ""}>All pages (A–Z)</a></li>
+      <li><a href="index.html"{cur("index")}>Main Page</a></li>
+      <li><a href="read.html"{cur("read")}>Read the story</a></li>
+      <li><a href="timeline.html"{cur("timeline")}>Timeline</a></li>
+      <li><a href="all-pages.html"{cur("all-pages")}>All pages (A–Z)</a></li>
       <li><a href="random.html" class="random-link">Random page</a></li>
     </ul>
   </div>
@@ -156,7 +176,7 @@ def nav_html(entries, active=None):
 </nav>"""
 
 
-def page(entries, title, body, *, active=None, description="", head_extra="", scripts="", ver=""):
+def page(entries, title, body, *, active=None, description="", head_extra="", scripts="", ver="", body_class=""):
     doc_title = SITE_NAME if title is None else f"{title} | {SITE_NAME}"
     return f"""<!doctype html>
 <html lang="en">
@@ -167,26 +187,31 @@ def page(entries, title, body, *, active=None, description="", head_extra="", sc
 <meta name="description" content="{html.escape(description)}">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <script>try{{var t=localStorage.getItem('teov-theme');if(t)document.documentElement.dataset.theme=t}}catch(e){{}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400;1,700&display=swap">
 <link rel="stylesheet" href="assets/style.css?v={ver}">
 {head_extra}</head>
-<body>
+<body class="{body_class}">
+<a class="skip" href="#main">Skip to the article</a>
 <header class="top">
   <div class="top-in">
     <a class="brand" href="index.html">{LOGO}<span>The Epic of Vinny <b>Wiki</b></span></a>
     <form class="search" action="all-pages.html" role="search" onsubmit="return false">
-      <input id="q" type="search" placeholder="Search the story…" autocomplete="off" aria-label="Search the wiki">
+      <input id="q" type="search" placeholder="Search the story…  ( / )" autocomplete="off" aria-label="Search the wiki">
       <ul id="results" role="listbox" hidden></ul>
     </form>
     <a class="loc-btn" href="../index.html" title="Back to The Legend Of Chris Wiki"><span aria-hidden="true">←</span> <span class="loc-btn-text">Legend Of Chris</span></a>
     <button class="theme-btn" type="button" aria-label="Toggle light and dark" title="Toggle light and dark">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="shell">
   {nav_html(entries, active)}
-  <main class="sheet">
+  <main class="sheet" id="main">
     {body}
-    <footer class="foot">The Epic of Vinny Wiki: a fan wiki for <i>The Epic of Vinny</i>, a spin-off set in the <a href="../index.html">Legend Of Chris</a> multiverse. The story is unfinished.</footer>
+    <footer class="foot"><span class="foot-star" aria-hidden="true">✦</span> The Epic of Vinny Wiki: a fan wiki for <i>The Epic of Vinny</i>, a spin-off set in the <a href="../index.html">Legend Of Chris</a> multiverse. The story is unfinished. You are filled with DETERMINATION.</footer>
   </main>
 </div>
 <script src="assets/search-index.js?v={ver}"></script>
@@ -205,10 +230,14 @@ def render_article(e, R, entries, loc, maps, ver):
     slug, cat = e["slug"], e["category"]
     R.current = slug
     parts = []
+    if cat == "chapters":
+        order = [c for c in entries if entries[c]["category"] == "chapters"]
+        parts.append('<nav class="stepper" aria-label="Chapters">' + "".join(
+            f'<a href="{c}.html"{" aria-current=page" if c == slug else ""}>{html.escape(entries[c]["title"].split(":")[0].replace("Chapter ", "Ch. "))}</a>' for c in order) + "</nav>")
     parts.append(f'<h1 class="title">{html.escape(e["title"])}</h1>')
-    crumbs = f'<a href="category-{cat}.html">{CAT_NAME[cat]}</a>'
+    crumbs = f'<a class="badge cat-{cat}" href="category-{cat}.html"><span aria-hidden="true">{CAT_GLYPH[cat]}</span> {CAT_NAME[cat]}</a>'
     sub = e.get("subtitle")
-    parts.append(f'<p class="crumbs">From {SITE_NAME} · {crumbs}' + (f' · <span class="subtitle">{R.inline(sub)}</span>' if sub else "") + "</p>")
+    parts.append(f'<p class="crumbs">{crumbs}' + (f' <span class="subtitle">{R.inline(sub)}</span>' if sub else "") + "</p>")
 
     info = e.get("infobox") or {}
     img = e.get("image")
@@ -219,7 +248,7 @@ def render_article(e, R, entries, loc, maps, ver):
             fig = (f'<figure class="ib-img"><a href="assets/{img["file"]}" target="_blank" rel="noopener">'
                    f'<img src="assets/{img["file"]}?v={ver}" alt="{html.escape(img["alt"])}" loading="lazy"></a>'
                    f'<figcaption>{R.inline(img.get("caption", ""))}</figcaption></figure>')
-        parts.append(f'<aside class="infobox"><div class="ib-title">{html.escape(e["title"])}</div>{fig}<table>{rows}</table>'
+        parts.append(f'<aside class="infobox cat-{cat}"><div class="ib-title"><span class="ib-glyph" aria-hidden="true">{CAT_GLYPH[cat]}</span>{html.escape(e["title"])}</div>{fig}<table>{rows}</table>'
                      f'<div class="ib-cat">{CAT_NAME[cat]}</div></aside>')
 
     q = e.get("quote")
@@ -228,13 +257,15 @@ def render_article(e, R, entries, loc, maps, ver):
                      + (f'<figcaption>— {R.inline(q["by"])}</figcaption>' if q.get("by") else "") + "</figure>")
 
     parts.append(f'<div class="lead">{R.block(e["lead"])}</div>')
+    if cat == "chapters":
+        parts.append(f'<p class="read-cta"><a class="btn primary" href="read.html#{slug}">Read this chapter →</a></p>')
 
     secs = e.get("sections") or []
     if len(secs) >= 3:
         toc = "".join(f'<li><a href="#{slugify(s["heading"])}">{html.escape(s["heading"])}</a></li>' for s in secs)
         parts.append(f'<nav class="toc" aria-label="Contents"><div class="toc-head">Contents</div><ol>{toc}</ol></nav>')
     for s in secs:
-        parts.append(f'<section><h2 id="{slugify(s["heading"])}">{html.escape(s["heading"])}</h2>{R.block(s["body"])}</section>')
+        parts.append(f'<section><h2 id="{slugify(s["heading"])}">{html.escape(s["heading"])}</h2>{R.rich(s["body"])}</section>')
     if e.get("trivia"):
         parts.append('<section><h2 id="trivia">Trivia</h2><ul>' + "".join(f"<li>{R.inline(t)}</li>" for t in e["trivia"]) + "</ul></section>")
 
@@ -278,16 +309,32 @@ def render_article(e, R, entries, loc, maps, ver):
     return "\n".join(parts)
 
 
-def render_index(entries, R, ver):
+def card(e, tag=""):
+    return (f'<a class="card cat-{e["category"]}" href="{e["slug"]}.html"><span class="card-top"><span class="card-glyph" aria-hidden="true">{CAT_GLYPH[e["category"]]}</span>'
+            f'<span class="card-tag">{html.escape(tag or CAT_NAME[e["category"]])}</span></span>'
+            f'<b>{html.escape(e["title"])}</b><span class="card-sub">{html.escape(plain(e.get("subtitle") or e["lead"], 110))}</span></a>')
+
+
+def render_index(entries, R, story, ver):
     counts = {c: sum(1 for e in entries.values() if e["category"] == c) for c, _, _ in CATEGORIES}
     R.current = "index"
     trivia = [(s, t) for s, e in entries.items() for t in e.get("trivia", [])]
     random.Random(95).shuffle(trivia)
-    dyk = "".join(f"<li><a class='dyk-src' href='{s}.html'><b>{html.escape(entries[s]['title'])}</b></a>: {R.inline(t)}</li>" for s, t in trivia[:6])
-    portals = "".join(f'<a class="portal" href="category-{c}.html"><span class="portal-n">{counts[c]}</span>'
-                      f'<span class="portal-name">{n}</span><span class="portal-d">{d}</span></a>' for c, n, d in CATEGORIES)
-    chapters = "".join(f'<li><a href="{s}.html"><b>{html.escape(entries[s]["title"])}</b><span>{html.escape(entries[s]["subtitle"])}</span></a></li>'
-                       for s in entries if entries[s]["category"] == "chapters")
+    dyk = "".join(f"<li><a class='dyk-src' href='{s}.html'><b>{html.escape(entries[s]['title'])}</b></a>: {R.inline(t)}</li>" for s, t in trivia[:5])
+    portals = "".join(f'<a class="portal cat-{c}" href="category-{c}.html"><span class="portal-n">{counts[c]}</span>'
+                      f'<span class="portal-name"><span aria-hidden="true">{CAT_GLYPH[c]}</span> {n}</span><span class="portal-d">{d}</span></a>' for c, n, d in CATEGORIES)
+    chap_slugs = [s for s in entries if entries[s]["category"] == "chapters"]
+    chapters = "".join(f'<li><a href="{s}.html"><b>{html.escape(entries[s]["title"])}</b><span>{html.escape(entries[s]["subtitle"])}</span></a></li>' for s in chap_slugs)
+    latest = entries[chap_slugs[-1]]
+    words = sum(len(b.get("text", "").split()) for c in story["chapters"] for b in c["blocks"] if b["k"] != "box")
+    route = ""
+    for slug, label, ch in ROUTE:
+        for x in (slug, ch):
+            if x not in entries:
+                raise SystemExit(f"teov: ROUTE: {x!r} is not an article")
+        route += (f'<li><a href="{slug}.html"><span class="route-dot" aria-hidden="true"></span><b>{html.escape(label)}</b>'
+                  f'<span>{html.escape(entries[ch]["title"].split(":")[0])}</span></a></li>')
+    party = "".join(card(entries[s], tag) for s, tag in PARTY)
     vinny = entries["vinny"]
     feat = R.block(vinny["lead"])
     R.current = None
@@ -299,8 +346,24 @@ def render_index(entries, R, ver):
   <p class="hero-meta">Planet <a href="garth.html">Garth</a> · <a href="kanye-system.html">The Kanye System</a> · 1995 to 1996</p>
   <p class="hero-btns"><a class="btn primary" href="read.html">Read the story</a> <a class="btn" href="chapter-1.html">Chapter 1</a> <a class="btn" href="timeline.html">Timeline</a> <a class="btn gold" href="../index.html">← Legend Of Chris Wiki</a></p>
 </section>
-<p class="drop">Welcome to <b>{SITE_NAME}</b>, the free encyclopedia about <i>The Epic of Vinny</i>: the story of Vinny B. James, a Boston Burger King cashier who ends up in the backrooms, on a pirate ship and in a kingdom of banished AI, all on one Fourth of July. We currently document <b>{len(entries)}</b> articles from a prologue and three chapters. <b>The story is still being written.</b></p>
-<div class="stat"><b>98.578462849224%</b><span>of the time, someone in the Kanye System orders a Double Whopper with Cheese.</span></div>
+<section class="save" aria-label="Where the story stands">
+  <div class="save-row"><b>VINNY</b><span>LV {len(chap_slugs) - 1}</span><span>November 2nd, 1995</span></div>
+  <div class="save-place">The Burger King, Boston · {html.escape(latest["title"])}</div>
+  <p class="save-flavor">* The Age of Claude is over. Nobody gave you credit. You are filled with DETERMINATION.</p>
+  <div class="save-btns"><a href="read.html#{latest["slug"]}"><span aria-hidden="true">♥</span> Continue</a><a href="read.html"><span aria-hidden="true">♥</span> Start from the prologue</a></div>
+</section>
+<p class="drop">Welcome to <b>{SITE_NAME}</b>, the free encyclopedia about <i>The Epic of Vinny</i>: the story of Vinny B. James, a Boston Burger King cashier who walks into a freezer on the Fourth of July and, four months later, has ended the Age of Claude. <b>The story is still being written.</b></p>
+<div class="stats">
+  <div class="stat"><b>{len(entries)}</b><span>articles</span></div>
+  <div class="stat"><b>{len(chap_slugs)}</b><span>chapters, counting the prologue</span></div>
+  <div class="stat"><b>{words:,}</b><span>words of story so far</span></div>
+  <div class="stat wide"><b>98.578462849224%</b><span>of the time, someone in the Kanye System orders a Double Whopper with Cheese</span></div>
+</div>
+<h2 class="home-h">The weird route</h2>
+<p class="muted home-note">Where Vinny has been, in order. July 4th to November 2nd, 1995.</p>
+<ol class="route">{route}</ol>
+<h2 class="home-h">The party</h2>
+<div class="cards">{party}</div>
 <div class="home-grid">
   <section class="home-box">
     <h2>Featured article</h2>
@@ -319,20 +382,28 @@ def render_index(entries, R, ver):
 <ol class="canon">{chapters}</ol>
 <h2 class="home-h">Part of the multiverse</h2>
 <div class="crossover wide">
-  <p>This story is set on <a href="garth.html">Garth</a>, a planet in the Kanye System, in the same multiverse as <i>The Legend Of Chris</i>. Elements cross over: <a class="loc-link" href="../kanye-system.html">The Kanye System</a>, <a class="loc-link" href="../ton-618.html">TON 618</a>, <a class="loc-link" href="../shadow-realm.html">the Shadow Realm</a>, <a class="loc-link" href="../kanye-west.html">Kanye West</a> and <a class="loc-link" href="../chatgpt.html">ChatGPT</a>.</p>
+  <p>This story is set on <a href="garth.html">Garth</a>, a planet in the Kanye System, in the same multiverse as <i>The Legend Of Chris</i>. Elements cross over: <a class="loc-link" href="../kanye-system.html">The Kanye System</a>, <a class="loc-link" href="../ton-618.html">TON 618</a> (the story says it is the same one), <a class="loc-link" href="../shadow-realm.html">the Shadow Realm</a>, <a class="loc-link" href="../dunder-mifflin.html">the Dunder Mifflin Galaxy</a>, <a class="loc-link" href="../iphone-3g.html">the iPhone 3G</a>, <a class="loc-link" href="../kanye-west.html">Kanye West</a> and <a class="loc-link" href="../chatgpt.html">ChatGPT</a>.</p>
   <p><a class="btn gold" href="../index.html">← The Legend Of Chris Wiki</a> <a class="btn" href="../timeline.html">Legend Of Chris timeline</a> <a class="btn" href="../maps.html#map-garth">Map of Garth</a></p>
 </div>
 """
-    return page(entries, None, body, active="index", description="A fan wiki for The Epic of Vinny, a spin-off set in the Legend Of Chris multiverse.", ver=ver)
+    return page(entries, None, body, active="index", description="A fan wiki for The Epic of Vinny, a spin-off set in the Legend Of Chris multiverse.", ver=ver, body_class="home")
 
 
 def render_category(entries, cat, name, desc, ver):
-    items = sorted((e for e in entries.values() if e["category"] == cat),
-                   key=lambda e: list(entries).index(e["slug"]) if cat == "chapters" else e["title"].lower().lstrip("\"“[ "))
-    lis = "".join(f'<li><a href="{e["slug"]}.html">{html.escape(e["title"])}</a><span class="cat-desc">{html.escape(plain(e.get("subtitle") or e["lead"], 120))}</span></li>' for e in items)
-    body = (f'<h1 class="title">{name}</h1><p class="crumbs">{html.escape(desc)} · {len(items)} pages</p>'
+    order = (lambda e: list(entries).index(e["slug"])) if cat == "chapters" else \
+            (lambda e: e.get("timeline", {}).get("order", 999)) if cat == "events" else (lambda e: e["title"].lower().lstrip("\"“[ "))
+    items = sorted((e for e in entries.values() if e["category"] == cat), key=order)
+    def tag(e):
+        if cat == "chapters":
+            return plain(e["infobox"].get("In-story date", ""), 34)
+        if cat == "events" and e.get("timeline"):          # events are listed in the order they happen, with their dates
+            return plain(e["timeline"]["when"].replace("Before the story: ", "").split(" (")[0], 34)
+        first = next((a for a in e.get("appearances", []) if a in entries), None)
+        return ("First seen: " + entries[first]["title"].split(":")[0].replace("Chapter ?", "Prologue")) if first else ""
+    cards = "".join(card(e, tag(e)) for e in items)
+    body = (f'<h1 class="title"><span class="title-glyph" aria-hidden="true">{CAT_GLYPH[cat]}</span> {name}</h1><p class="crumbs">{html.escape(desc)} · {len(items)} pages</p>'
             f'<input class="filter" type="search" placeholder="Filter this category…" aria-label="Filter this category">'
-            f'<ul class="catlist">{lis}</ul>')
+            f'<div class="cards catlist">{cards}</div><p class="muted none-found" hidden>Nothing matches. Not even a Double Whopper with Cheese.</p>')
     return page(entries, f"Category: {name}", body, active=cat, description=desc, ver=ver)
 
 
@@ -361,27 +432,34 @@ def render_read(entries, R, story, ver):
     out, toc, face = "", "", 0
     for ch in story["chapters"]:
         a = entries.get(ch["slug"])
-        toc += f'<li><a href="#{ch["slug"]}">{html.escape(ch["heading"])}</a></li>'
+        short = ch["heading"].split(":")[0].title().replace("Chapter ?", "Prologue")
+        toc += f'<a href="#{ch["slug"]}">{html.escape(short)}</a>'
         out += f'<h2 id="{ch["slug"]}">{story_runs(ch["hruns"])}</h2>'
         if a:
             out += f'<p class="story-note"><a href="{ch["slug"]}.html">Wiki article: {html.escape(a["title"])}</a></p>'
         for b in ch["blocks"]:
+            if b["k"] == "pic":
+                out += f'<figure class="story-pic"><img src="assets/{b["file"]}?v={ver}" alt="{html.escape(b["alt"])}" loading="lazy" width="960" height="540"></figure>'
+                continue
             t = story_runs(b["runs"])
             if b["k"] == "quote":
                 out += f'<p class="epigraph">{t}</p>'
             elif b["k"] == "box":
                 face += 1      # Gaster speaks in every text box of the PDF, with his green face
-                out += (f'<figure class="textbox gaster"><img src="assets/gaster-{face}.png" alt="Gaster" width="44" height="62">'
+                out += (f'<figure class="textbox gaster"><img src="assets/gaster-{min(face, 5)}.png" alt="Gaster" width="44" height="62">'
                         f'<blockquote><p>{t}</p></blockquote></figure>')
             else:
                 out += f"<p>{t}</p>"
     R.current = None
-    body = (f'<h1 class="title">Read the story</h1><p class="crumbs">The full text so far, coloured and set like the PDF</p>'
+    words = sum(len(b.get("text", "").split()) for c in story["chapters"] for b in c["blocks"] if b["k"] != "box")
+    body = (f'<h1 class="title">Read the story</h1><p class="crumbs">The full text so far · {words:,} words · about {max(1, round(words / 230))} minutes</p>'
             '<p class="story-note muted">Typed up from the PDF, with its colours and fonts: Comic Sans for the narration, Arial for Claude\'s lines. '
             'The in-story text boxes are rebuilt as text. One word in the first one is partly starred out. The story is unfinished and this page grows with it.</p>'
-            f'<ul class="story-toc">{toc}</ul>'
-            f'<div class="story"><p class="story-title"><span class="s-gb">[The Epic of Vinny]</span></p>{out}</div>')
-    return page(entries, "Read the story", body, active="read", description="The full text of The Epic of Vinny.", ver=ver)
+            f'<nav class="story-toc" aria-label="Chapters">{toc}</nav>'
+            f'<div class="story"><p class="story-title"><span class="s-gb">[The Epic of Vinny]</span></p>{out}'
+            '<p class="story-end">* To be continued.</p></div>')
+    fonts = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600&family=Lobster&family=Playfair+Display:wght@600&display=swap">\n')
+    return page(entries, "Read the story", body, active="read", description="The full text of The Epic of Vinny.", ver=ver, body_class="reading", head_extra=fonts)
 
 
 def render_random(entries, ver):
@@ -393,24 +471,31 @@ def render_random(entries, ver):
 def render_timeline(entries, R, ver):
     evs = sorted((e for e in entries.values() if e.get("timeline")), key=lambda e: e["timeline"]["order"])
     R.current = "timeline"
-    groups = [("Before the story", "Backstory told in Chapter 1.", lambda w: w.startswith("Before")),
-              ("The story so far", "Only the first day is dated: July 4th, 1995. Later times are presumed.", lambda w: not w.startswith(("Before", "Later"))),
-              ("Flash-forward", "Told first, in the prologue, but it happens after everything else.", lambda w: w.startswith("Later"))]
-    out = ""
+    chap = lambda e: next((a for a in e.get("appearances", []) if a in entries), None)
+    groups = [("Before the story", "Backstory told in Chapter 1.", lambda e: e["timeline"]["when"].startswith("Before"))]
+    for c in [s for s in entries if entries[s]["category"] == "chapters" and s != "chapter-prologue"]:
+        groups.append((entries[c]["title"], entries[c]["infobox"].get("In-story date", ""), lambda e, c=c: chap(e) == c and not e["timeline"]["when"].startswith(("Before", "Later"))))
+    groups.append(("Flash-forward", "Told first, in the prologue, but it happens after everything else.", lambda e: e["timeline"]["when"].startswith("Later")))
+    out, seen = "", set()
     for name, note, test in groups:
         lis = ""
         for e in evs:
-            if not test(e["timeline"]["when"]):
+            if e["slug"] in seen or not test(e):
                 continue
-            ch = next((a for a in e.get("appearances", []) if a in entries), None)
-            lis += (f'<li class="tl-item"><span class="tl-when">{html.escape(e["timeline"]["when"])}</span>'
+            seen.add(e["slug"])
+            ch = chap(e)
+            lis += (f'<li class="tl-item"><span class="tl-when">{html.escape(e["timeline"]["when"].replace("Before the story: ", ""))}</span>'
                     f'<a class="tl-name" href="{e["slug"]}.html">{html.escape(e["title"])}</a>'
                     f'<span class="tl-sub">{R.inline(e["subtitle"])}</span>'
                     + (f'<span class="tl-ch">Told in <a href="{ch}.html">{html.escape(entries[ch]["title"])}</a></span>' if ch else "") + "</li>")
-        out += f'<h2 id="{slugify(name)}">{name}</h2><p class="muted">{note}</p><ol class="tl">{lis}</ol>'
+        if lis:
+            out += f'<h2 id="{slugify(name)}">{html.escape(name)}</h2><p class="muted">{R.inline(note)}</p><ol class="tl">{lis}</ol>'
+    missing = [e["slug"] for e in evs if e["slug"] not in seen]
+    if missing:
+        raise SystemExit(f"teov: timeline events in no group: {missing}")
     R.current = None
     body = ('<h1 class="title">Timeline</h1><p class="crumbs">Every event in <i>The Epic of Vinny</i> in the order it happens, not the order it is told · '
-            f'{len(evs)} events</p><p>The story is set from 1995 to 1996. So far it covers a prologue and three chapters, starting on July 4th, 1995. '
+            f'{len(evs)} events</p><p>The story is set from 1995 to 1996. So far it runs from July 4th to November 2nd, 1995. '
             'See the <a class="loc-link" href="../timeline.html">Legend Of Chris timeline</a> for where these events sit in the multiverse.</p>' + out)
     return page(entries, "Timeline", body, active="timeline", description="The events of The Epic of Vinny in order.", ver=ver)
 
@@ -456,7 +541,7 @@ def main():
     story = json.load(open(os.path.join(CONTENT, "story.json"), encoding="utf-8"))
     R = Renderer(entries, loc)
     bodies = {s: render_article(e, R, entries, loc, maps, ver) for s, e in entries.items()}
-    pages = {"index": render_index(entries, R, ver), "all-pages": render_all(entries, ver),
+    pages = {"index": render_index(entries, R, story, ver), "all-pages": render_all(entries, ver),
              "random": render_random(entries, ver), "read": render_read(entries, R, story, ver), "timeline": render_timeline(entries, R, ver)}
     for c, n, d in CATEGORIES:
         pages[f"category-{c}"] = render_category(entries, c, n, d, ver)
