@@ -242,9 +242,6 @@ img { max-width: 100%; height: auto; }
   width: 100%; max-width: 420px; font: inherit; padding: 8px 12px; margin: 0 0 18px;
   border: 1px solid var(--rule); border-radius: 6px; background: var(--box); color: var(--ink);
 }
-.catlist { list-style: none; padding: 0 !important; columns: 2; column-gap: 34px; }
-.catlist li { break-inside: avoid; margin: 0 0 12px; }
-.catlist a { font-weight: 700; }
 .cat-desc { display: block; font-size: 13.5px; color: var(--ink-3); line-height: 1.4; }
 .jump { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
 .jump a { border: 1px solid var(--rule); min-width: 32px; text-align: center; padding: 3px 6px; font-weight: 700; }
@@ -332,7 +329,7 @@ img { max-width: 100%; height: auto; }
   .search { flex-basis: auto; }
   .infobox { float: none; width: 100%; margin: 0 0 20px; }
   .home-grid { grid-template-columns: 1fr; }
-  .catlist, .az { columns: 1; }
+  .az { columns: 1; }
   .lead > p:first-child::first-letter, .drop::first-letter { margin-right: 10px; }
 }
 @media print {
@@ -362,3 +359,58 @@ img { max-width: 100%; height: auto; }
 .teov-cta { display: inline-block; font-weight: 700; padding: 7px 14px; border-radius: 7px; background: #55555e; color: #fff !important; text-decoration: none !important; }
 .teov-cta:hover { background: #4c1d95; }
 @media (max-width: 960px) { .teov-btn span { display: none; } .teov-btn { padding: 4px 5px; } }
+
+/* ---------- cards (categories, the squad), with each article's picture ---------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin: 0 0 8px; }
+.card {
+  display: flex; gap: 12px; align-items: flex-start; padding: 10px; min-width: 0; border: 1px solid var(--rule); background: var(--paper);
+  color: var(--ink) !important; transition: transform .12s ease, box-shadow .12s ease;
+}
+.card:hover { text-decoration: none; transform: translateY(-2px); box-shadow: var(--shadow); }
+.card-img { flex: none; width: 72px; height: 72px; object-fit: cover; border: 1px solid var(--rule); background: #fff; }
+.card-img.contain { object-fit: contain; }
+.card-img.none { background: var(--box); }
+.card-body { display: flex; flex-direction: column; min-width: 0; }
+.card-tag { font-family: var(--comic); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.card b { font-size: 16px; line-height: 1.25; overflow-wrap: anywhere; }
+.card-sub { font-size: 13px; color: var(--ink-3); line-height: 1.35; margin-top: 2px; }
+@media (prefers-reduced-motion: reduce) { .card, .portal { transition: none; } }
+
+/* ---------- main page: where the story stands, stats, the Prophecy's phone ---------- */
+.stands { border: 2px solid var(--box-edge); background: var(--box); padding: 14px 18px 12px; margin: 0 0 18px; font-family: var(--comic); }
+.stands p { margin: 0; }
+.stands-k { font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.stands-t { font-size: 26px; font-weight: 700; line-height: 1.2; font-family: var(--sans); }
+.stands-t a { color: var(--ink) !important; }
+.stands-n { color: var(--ink-2); margin: 4px 0 10px !important; }
+.stands-b { display: flex; flex-wrap: wrap; gap: 8px; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0 0 6px; }
+.stat { display: flex; flex-direction: column; border: 1px solid var(--rule); padding: 10px 12px; background: var(--paper); }
+.stat b { font-size: 30px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--ink-3); line-height: 1.35; }
+.meter { display: flex; gap: 4px; margin: 0 0 14px; }
+.meter i { flex: 1; height: 8px; background: var(--rule); }
+.meter .m-have { background: #1f9d55; } .meter .m-doing { background: #d97706; } .meter .m-found { background: #2563eb; }
+.apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.app { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 12px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink) !important; }
+.app:hover { text-decoration: none; box-shadow: var(--shadow); }
+.app img, .app-icon { width: 56px; height: 56px; border-radius: 13px; margin-bottom: 4px; }
+.verizon-icon { display: grid; place-items: center; background: #cd040b; color: #fff; font-weight: 700; font-size: 20px; }
+.app b { font-size: 15px; line-height: 1.25; }
+.app-status { font-family: var(--comic); font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; border: 1px solid currentColor; }
+.app-have .app-status { color: #15803d; } .app-doing .app-status { color: #b45309; } .app-found .app-status { color: #1d4ed8; } .app-missing .app-status { color: var(--ink-3); }
+.app-missing img { filter: grayscale(1); opacity: .55; }
+.app-note { font-size: 12.5px; color: var(--ink-3); line-height: 1.35; }
+:root[data-theme="dark"] .app-have .app-status { color: #4ade80; } :root[data-theme="dark"] .app-doing .app-status { color: #fbbf24; } :root[data-theme="dark"] .app-found .app-status { color: #93c5fd; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .app-have .app-status { color: #4ade80; } :root:not([data-theme="light"]) .app-doing .app-status { color: #fbbf24; } :root:not([data-theme="light"]) .app-found .app-status { color: #93c5fd; } }
+
+/* ---------- articles: category badge, chapter switcher ---------- */
+.badge { display: inline-block; font-family: var(--comic); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 1px 10px; margin-right: 6px;
+  border: 1px solid var(--box-edge); border-radius: 999px; background: var(--box); color: var(--ink) !important; }
+.badge:hover { background: var(--hi); text-decoration: none; }
+.stepper { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
+.stepper a { min-width: 34px; text-align: center; font-weight: 700; font-size: 14px; padding: 3px 8px; border: 1px solid var(--rule); background: var(--box); color: var(--ink) !important; }
+.stepper a:hover { background: var(--hi); text-decoration: none; }
+.stepper a[aria-current] { background: var(--ink); color: var(--paper) !important; border-color: var(--ink); }
+.ib-img figcaption .standin { font-style: italic; }
+@media (max-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }

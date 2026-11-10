@@ -75,6 +75,20 @@ TEOV_LINKS = {
 for _slug, _links in TEOV_LINKS.items():
     for _t, _ in _links:
         assert _t in TEOV_ENTRIES, ("TEOV_LINKS", _slug, _t)
+# The Prophecy's phone, for the main page: (article, name, status, note, app icon). Status: have | doing | found | missing.
+PROPHECY = [
+    ("verizon-contract", "The 3 Year Contract Plan from Verizon", "have", "Taken in the Casino Heist. Aboard the iNav.", None),
+    ("snapchat-ghost-protocol", "Snapchat: Ghost Protocol", "doing", "Night 1 of 5 at Freddy Fazbear's Pizza.", "app-snapchat.png"),
+    ("facebook-pre-cringe", "Facebook (Pre-Cringe)", "found", "In the Projects National Archives, on a 67GB microSD card.", "app-facebook.png"),
+    ("myspace", "MySpace v1.3.3", "missing", "Not located.", "app-myspace.png"),
+    ("twitter", "Twitter Bluebird Variant", "missing", "Not located.", "app-bluebird.png"),
+    ("apple-podcasts", "Apple Podcasts 2", "missing", "Not located.", "app-podcasts.png"),
+    ("settings", "Settings (Full access)", "missing", "Not located.", "app-settings.png"),
+]
+PROPHECY_STATUS = {"have": "In hand", "doing": "Being earned", "found": "Located", "missing": "Not found"}
+# The squad, for the main page: (article, tag)
+SQUAD = [("rfk", "New Crips"), ("plankton", "New Crips"), ("ioannus-paranukus", "New Crips"), ("kanye-west", "New Apple Employees"),
+         ("steve-jobs", "New Apple Employees"), ("chatgpt", "New Apple Employees"), ("osama-bin-bomin", "Boss"), ("chris", "Final boss")]
 TIMELINE_FOR = {}   # article slug -> its first event on the Timeline
 for _ev in TIMELINE["events"]:
     if _ev.get("article"):
@@ -423,6 +437,9 @@ def render_article(e, R, entries):
 
     # Title: chapters get the giant stacked heading the book uses.
     if cat == "chapters":
+        parts.append('<nav class="stepper" aria-label="Chapters">' + "".join(
+            f'<a href="{c}.html" title="{html.escape(CHAPTER_SHORT[c])}"{" aria-current=page" if c == slug else ""}>{n}</a>'
+            for n, c in enumerate(CHAPTER_ORDER, 1)) + "</nav>")
         printed = CHAPTER_PRINTED.get(slug, e["title"])
         parts.append(f'<div class="chapter-title" aria-label="{html.escape(printed)}">'
                      + "".join(f"<span>{html.escape(w)}</span> " for w in printed.split())
@@ -431,8 +448,8 @@ def render_article(e, R, entries):
     else:
         parts.append(f'<h1 class="title">{html.escape(e["title"])}</h1>')
     sub = e.get("subtitle")
-    crumbs = f'<a href="category-{cat}.html">{CAT_NAME[cat]}</a>'
-    parts.append(f'<p class="crumbs">From The Legend Of Chris Wiki · {crumbs}'
+    crumbs = f'<a class="badge" href="category-{cat}.html">{CAT_NAME[cat]}</a>'
+    parts.append(f'<p class="crumbs">{crumbs} From The Legend Of Chris Wiki'
                  + (f' · <span class="subtitle">{R.inline(sub)}</span>' if sub else "") + "</p>")
 
     if e.get("stub"):
@@ -530,6 +547,50 @@ def plain(text, n=160):
     return t if len(t) <= n else t[: n - 1].rsplit(" ", 1)[0] + "…"
 
 
+# ----------------------------------------------------------------- cards
+def thumb(slug):
+    """A small square picture for a card: the article's first picture (site/assets/img/t/, made in main())."""
+    if slug == "chris":
+        return '<img class="card-img contain" src="assets/chill-chris.png" alt="" loading="lazy" width="72" height="72">'
+    ph = IMAGES.get(slug)
+    if not ph:
+        return ""            # no picture yet: the card is text only
+    return f'<img class="card-img" src="assets/img/t/{os.path.splitext(ph[0]["src"])[0]}.jpg" alt="" loading="lazy" width="72" height="72">'
+
+
+def card(e, tag=""):
+    return (f'<a class="card" href="{e["slug"]}.html">{thumb(e["slug"])}<span class="card-body">'
+            + (f'<span class="card-tag">{html.escape(tag)}</span>' if tag else "")
+            + f'<b>{html.escape(e["title"])}</b><span class="card-sub">{html.escape(plain(e.get("subtitle") or e.get("lead", ""), 96))}</span></span></a>')
+
+
+def make_thumbs(img_out):
+    """Square 144px thumbnails of every article picture, for the cards. Needs Pillow; without it the cards use the full pictures."""
+    t_out = os.path.join(img_out, "t")
+    os.makedirs(t_out, exist_ok=True)
+    try:
+        from PIL import Image, ImageOps
+    except ImportError:
+        Image = None
+    for photos in IMAGES.values():
+        src = os.path.join(img_out, photos[0]["src"])
+        dst = os.path.join(t_out, os.path.splitext(photos[0]["src"])[0] + ".jpg")
+        if not os.path.exists(src):
+            continue
+        if Image is None:
+            shutil.copyfile(src, dst)
+            continue
+        im = Image.open(src)
+        if im.mode in ("RGBA", "LA", "P"):                      # logos and cut-outs: put them on white
+            im = im.convert("RGBA")
+            bg = Image.new("RGBA", im.size, (255, 255, 255, 255))
+            bg.alpha_composite(im)
+            im = ImageOps.pad(bg.convert("RGB"), (144, 144), color=(255, 255, 255))
+        else:
+            im = ImageOps.fit(im.convert("RGB"), (144, 144), centering=(0.5, 0.3))
+        im.save(dst, quality=80, optimize=True)
+
+
 # ----------------------------------------------------------------- main page
 def collect_trivia(entries):
     out = []
@@ -561,6 +622,20 @@ def render_index(entries, R):
         f'<li><a href="{s}.html"><b>{html.escape(CHAPTER_SHORT[s])}</b><span>{html.escape(CHAPTER_PRINTED[s]) if CHAPTER_PRINTED[s] != CHAPTER_SHORT[s] else "&nbsp;"}</span></a></li>'
         for s in CHAPTER_ORDER)
     featured_lead = R.block(plain(chris.get("lead", ""), 520))
+    for slug, *_ in PROPHECY:
+        assert slug in entries, ("PROPHECY", slug)
+    have = sum(1 for x in PROPHECY if x[2] == "have")
+    tiles = "".join(
+        f'<a class="app app-{st}" href="{slug}.html">'
+        + (f'<img src="assets/{icon}" alt="" width="56" height="56" loading="lazy">' if icon else '<span class="app-icon verizon-icon" aria-hidden="true">3G</span>')
+        + f'<b>{html.escape(name)}</b><span class="app-status">{PROPHECY_STATUS[st]}</span><span class="app-note">{html.escape(note)}</span></a>'
+        for slug, name, st, note, icon in PROPHECY)
+    meter = "".join(f'<i class="m-{x[2]}"></i>' for x in sorted(PROPHECY, key=lambda x: ["have", "doing", "found", "missing"].index(x[2])))
+    squad = "".join(card(entries[s], tag) for s, tag in SQUAD)
+    as_of = GROUPS["asOf"] if GROUPS else {"chapter": CHAPTER_ORDER[-1], "note": ""}
+    with open(os.path.join(ROOT, "content", "book.txt"), encoding="utf-8") as f:
+        book_words = len(f.read().split())
+    n_events = sum(1 for ev in TIMELINE["events"] if not ev.get("spinoff"))
     R.current = None
     nuh = " ".join(['<span>“Nuh Uh”</span> <span>“Nuh Uh”</span> <span class="yuh">“Yuh huh”</span>'] * 14)
     body = f"""
@@ -573,6 +648,28 @@ def render_index(entries, R):
 <p class="drop">Why do we believe what we believe we believe that we believe we believe we believe. It's a matter of Chris. Welcome to <b>The Legend Of Chris Wiki</b>, the free encyclopedia about the MASTER FILE that anyone can read but no one can explain. We currently document <b>{total}</b> articles about every baller, hater, planet, sector, sacred app and contract plan in the canon.</p>
 
 <div class="verizon">“The 3 year contract plan from Verizon<br>for unlimited talk and text”</div>
+
+<section class="stands" aria-label="Where the story stands">
+  <p class="stands-k">Where the story stands</p>
+  <p class="stands-t"><a href="{as_of["chapter"]}.html">{html.escape(CHAPTER_SHORT[as_of["chapter"]])}</a></p>
+  <p class="stands-n">{html.escape(as_of.get("note", ""))}</p>
+  <p class="stands-b"><a class="write-btn" href="read.html#{as_of["chapter"]}">Continue reading →</a> <a class="write-btn" href="timeline.html?order=groups">Where everyone is</a> <a class="write-btn" href="maps.html">Maps</a></p>
+</section>
+
+<div class="stats">
+  <div class="stat"><b>{total}</b><span>articles</span></div>
+  <div class="stat"><b>{len(CHAPTER_ORDER)}</b><span>chapters, numbered as they are</span></div>
+  <div class="stat"><b>{book_words:,}</b><span>words in the MASTER FILE</span></div>
+  <div class="stat"><b>{n_events}</b><span>events on the Timeline</span></div>
+</div>
+
+<h2 class="home-h">The Prophecy's phone</h2>
+<p class="muted">What it takes to beat Chris on the court, according to <a href="the-prophecy.html">the Prophecy</a>: one phone, six <a href="sacred-apps.html">sacred apps</a> and a contract. <b>{have} of {len(PROPHECY)}</b> in hand.</p>
+<div class="meter" role="img" aria-label="{have} of {len(PROPHECY)} in hand">{meter}</div>
+<div class="apps-grid">{tiles}</div>
+
+<h2 class="home-h">The squad</h2>
+<div class="cards">{squad}</div>
 
 <div class="home-grid">
   <section class="home-box featured" id="featured">
@@ -591,7 +688,7 @@ def render_index(entries, R):
 <div class="portals">{portals}</div>
 
 <h2 class="home-h">The Canon</h2>
-<p class="muted">Eight chapters. The numbering is canon. Please do not ask about the numbering.</p>
+<p class="muted">{len(CHAPTER_ORDER)} chapters. The numbering is canon. Please do not ask about the numbering.</p>
 <ol class="canon">{chapters}</ol>
 
 <h2 class="home-h">A spin-off: The Epic of Vinny</h2>
@@ -602,7 +699,7 @@ def render_index(entries, R):
 
 <h2 class="home-h">The Timeline</h2>
 <div class="home-box playlist-box">
-  <p>{sum(1 for ev in TIMELINE["events"] if not ev.get("spinoff"))} events, from the first time Chris was a baby to chicken hour in O'Block 2. Put them in the order they happened, or the order the book tells them. It is not the same order.</p>
+  <p>{sum(1 for ev in TIMELINE["events"] if not ev.get("spinoff"))} events, from the first time Chris was a baby to Night 1 at Freddy Fazbear's Pizza. Put them in the order they happened, or the order the book tells them. It is not the same order.</p>
   <p><a href="timeline.html">Open the Timeline →</a></p>
 </div>
 
@@ -652,16 +749,18 @@ def featured_pool(entries, R):
 def render_category(cat, name, desc, entries):
     items = sorted((e for e in entries.values() if e["category"] == cat),
                    key=lambda e: CHAPTER_ORDER.index(e["slug"]) if cat == "chapters" else e["title"].lower().lstrip("\"“[ "))
-    lis = "".join(
-        f'<li><a href="{e["slug"]}.html">{html.escape(e["title"])}</a>'
-        f'<span class="cat-desc">{html.escape(plain(e.get("subtitle") or e.get("lead", ""), 120))}</span></li>'
-        for e in items)
+    def tag(e):
+        if e.get("_imported"):
+            return "The Epic of Vinny"
+        first = next((a for a in (e.get("appearances") or []) if a in CHAPTER_ORDER), None)
+        return CHAPTER_SHORT[first] if first and cat != "chapters" else ""
+    lis = "".join(card(e, tag(e)) for e in items)
     words = name.split()
     body = (f'<div class="chapter-title cat-title">' + "".join(f"<span>{html.escape(w)}</span> " for w in ["Category:"] + words) + "</div>"
             f'<h1 class="sr-title">Category: {html.escape(name)}</h1>'
             f'<p class="crumbs">{html.escape(desc)} · {len(items)} pages</p>'
             f'<input class="filter" type="search" placeholder="Filter this category…" aria-label="Filter this category">'
-            f'<ul class="catlist">{lis}</ul>')
+            f'<div class="cards catlist">{lis}</div><p class="muted none-found" hidden>Nothing matches. Much like Mic Q.</p>')
     return page(f"Category: {name}", body, active=cat, description=desc)
 
 
@@ -1045,7 +1144,7 @@ def render_book_html():
             if i == 0 and re.match(r"^[A-Z]\s{3,}\w", s):     # the drop cap: "W         hy do we believe"
                 s = re.sub(r"^([A-Z])\s+", r"\1", s)
                 keep_going = True
-            if s.startswith(VERIZON):                         # the sacred plan, always set apart
+            if s.lstrip("“").startswith(VERIZON.lstrip("“")):                         # the sacred plan, always set apart
                 flush()
                 quote = [s]
                 if not s.endswith("”") and nxt:
@@ -1249,6 +1348,7 @@ def main():
     img_out = os.path.join(SITE, "assets", "img")
     shutil.rmtree(img_out, ignore_errors=True)
     shutil.copytree(os.path.join(ROOT, "content", "images"), img_out)
+    make_thumbs(img_out)
     maps_out = os.path.join(SITE, "assets", "maps")
     shutil.rmtree(maps_out, ignore_errors=True)
     os.makedirs(maps_out)

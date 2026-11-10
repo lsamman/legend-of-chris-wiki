@@ -70,8 +70,12 @@
   var f = document.querySelector('.filter');
   if (f) f.addEventListener('input', function () {
     var t = norm(f.value);
-    document.querySelectorAll('.catlist li').forEach(function (li) {
-      li.hidden = t && norm(li.textContent).indexOf(t) === -1;
+    var shown = 0;
+    document.querySelectorAll('.catlist .card').forEach(function (c) {
+      c.hidden = !!t && norm(c.textContent).indexOf(t) === -1;
+      if (!c.hidden) shown++;
     });
+    var none = document.querySelector('.none-found');
+    if (none) none.hidden = shown > 0;
   });
 })();
