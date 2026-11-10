@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "245449ca6ff0";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=245449ca6ff0">
+<link rel="stylesheet" href="assets/phone.css?v=245449ca6ff0">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,10 +87,10 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">The Ibeam</h1>
 <p class="crumbs"><a class="badge" href="category-items.html">Items & Technology</a> From The Legend Of Chris Wiki · <span class="subtitle">EMP first. Haircut second. Vault third.</span></p>
-<aside class="infobox"><div class="ib-title">The Ibeam</div><table><tr><th>Type</th><td>Orbital-style beam weapon</td></tr><tr><th>Mounted on</th><td><a href="inav.html">The Inav</a></td></tr><tr><th>Targeting</th><td><a href="airtag.html">AirTag</a> lock</td></tr><tr><th>Activation</th><td>"Hey Siri.. fire the Ibeam."</td></tr><tr><th>Side effects</th><td>Area-wide EMP; low taper fade on <a href="dj-khaled.html">DJ Khaled</a></td></tr><tr><th>Notable use</th><td>Opening <a href="the-vault.html">the vault</a></td></tr><tr><th>First appearance</th><td><a href="chapter-maybe-seventh.html">Chapter the Maybe Seventh</a></td></tr></table><div class="ib-cat">Items & Technology</div></aside>
+<aside class="infobox"><div class="ib-title">The Ibeam</div><figure class="ib-img"><a href="https://commons.wikimedia.org/wiki/File:I-Beam_002.JPG" target="_blank" rel="noopener"><img src="assets/img/ibeam-1.jpg" alt="I-Beam 002. A stand-in picture: the canon has no picture of this." loading="lazy"></a><figcaption>I-Beam 002. A stand-in picture: the canon has no picture of this.<span class="credit">Photo: Todd Murray · GFDL · <a href="https://commons.wikimedia.org/wiki/File:I-Beam_002.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption></figure><table><tr><th>Type</th><td>Orbital-style beam weapon</td></tr><tr><th>Mounted on</th><td><a href="inav.html">The Inav</a></td></tr><tr><th>Targeting</th><td><a href="airtag.html">AirTag</a> lock</td></tr><tr><th>Activation</th><td>"Hey Siri.. fire the Ibeam."</td></tr><tr><th>Side effects</th><td>Area-wide EMP; low taper fade on <a href="dj-khaled.html">DJ Khaled</a></td></tr><tr><th>Notable use</th><td>Opening <a href="the-vault.html">the vault</a></td></tr><tr><th>First appearance</th><td><a href="chapter-maybe-seventh.html">Chapter the Maybe Seventh</a></td></tr></table><div class="ib-cat">Items & Technology</div></aside>
 <figure class="epigraph"><blockquote>“The.. Ibeam needs to use a emp to get rid of any excess energy in the area.. just stay where you are”</blockquote><figcaption>— <a href="steve-jobs.html">Steve Jobs</a></figcaption></figure>
 <div class="lead"><p><strong>The Ibeam</strong> is the <a href="inav.html">Inav</a>'s main weapon. It is a giant beam that fires at whatever an <a href="airtag.html">AirTag</a> is stuck to. It was used to open <a href="the-vault.html">the vault</a> holding <a href="verizon-contract.html">the 3 Year Contract Plan from Verizon</a> during the <a href="casino-heist.html">Casino Heist</a>.</p></div>
 <section><h2 id="the-firing">The firing</h2><p><a href="hank-hill.html">Hank Hill</a> said that nothing his crew had could open the vault. <a href="steve-jobs.html">Steve Jobs</a> smirked, said "Behold," and produced an AirTag: "Once I place this onto the vault door then the Inav outside will be able to lock onto it, and fire the Ibeam."</p>
@@ -97,7 +99,7 @@
 <section><h2 id="trivia">Trivia</h2><ul><li>The low taper fade is a haircut, and a 2024 meme. Why the Ibeam gives haircuts is unexplained. <a href="dj-khaled.html">DJ Khaled</a> is its only known recipient.</li><li>The beam made a hole so large that the Inav later pulled up to "the massive hole made by the hole" (sic) to pick up the crew.</li></ul></section>
 <p class="read-chapter">On the Timeline: <a href="timeline.html#ev-ibeam">The Ibeam opens the vault</a> →</p>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-maybe-seventh.html">Chapter the Maybe Seventh</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="inav.html">The Inav</a></li><li><a href="airtag.html">The AirTag</a></li><li><a href="the-vault.html">The Vault</a></li><li><a href="dj-khaled.html">DJ Khaled</a></li><li><a href="casino-heist.html">The Casino Heist</a></li><li><a href="steve-jobs.html">Steve Jobs</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="inav.html"><img class="card-img" src="assets/img/t/inav-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Inav</b><span class="card-sub">A multiverse navigator that just works.</span></span></a><a class="card" href="airtag.html"><img class="card-img" src="assets/img/t/airtag-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The AirTag</b><span class="card-sub">Targeting beacon. Not for luggage.</span></span></a><a class="card" href="the-vault.html"><img class="card-img" src="assets/img/t/the-vault-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Vault</b><span class="card-sub">Nothing could open it. Then something did.</span></span></a><a class="card" href="dj-khaled.html"><img class="card-img" src="assets/img/t/dj-khaled-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>DJ Khaled</b><span class="card-sub">Security guard. Lobster summoner. Recipient of a low taper fade.</span></span></a><a class="card" href="casino-heist.html"><img class="card-img" src="assets/img/t/casino-heist-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Casino Heist</b><span class="card-sub">The journey to the court begins with a FaceTime laser.</span></span></a><a class="card" href="steve-jobs.html"><img class="card-img" src="assets/img/t/steve-jobs-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Steve Jobs</b><span class="card-sub">Turtleneck of algorithms and starlight. One more thing.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (17)</summary><ul class="chips"><li><a href="chapter-maybe-seventh.html">Chapter the Maybe Seventh</a></li><li><a href="dj-khaled.html">DJ Khaled</a></li><li><a href="hank-hill.html">Hank Hill</a></li><li><a href="iphone-3g.html">iPhone 3G</a></li><li><a href="kanye-west.html">Kanye West</a></li><li><a href="siri.html">Siri (3G)</a></li><li><a href="steve-jobs.html">Steve Jobs</a></li><li><a href="verizon-contract.html">The 3 Year Contract Plan from Verizon for Unlimited Talk and Text</a></li><li><a href="the-67-casino.html">The 6 7 Casino</a></li><li><a href="airtag.html">The AirTag</a></li><li><a href="casino-heist.html">The Casino Heist</a></li><li><a href="jeffrey-epstein-statue.html">The Casino Statues</a></li><li><a href="igun.html">The Igun</a></li><li><a href="inav.html">The Inav</a></li><li><a href="ipod-touch.html">The iPod Touch</a></li><li><a href="openable-door.html">The OpenAble Door™</a></li><li><a href="the-vault.html">The Vault</a></li></ul></details>
 <div class="catbar">Category: <a href="category-items.html">Items & Technology</a></div>
     <footer class="sheet-foot">
@@ -106,8 +108,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=245449ca6ff0"></script>
+<script src="assets/wiki.js?v=245449ca6ff0"></script>
+<script src="assets/phone.js?v=245449ca6ff0"></script>
 </body>
 </html>

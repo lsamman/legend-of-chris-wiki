@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "245449ca6ff0";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=245449ca6ff0">
+<link rel="stylesheet" href="assets/phone.css?v=245449ca6ff0">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,10 +87,10 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">The Wozniaks</h1>
 <p class="crumbs"><a class="badge" href="category-factions.html">Factions & Organizations</a> From The Legend Of Chris Wiki · <span class="subtitle">Four guys, one Wii box.</span></p>
-<aside class="infobox"><div class="ib-title">The Wozniaks</div><table><tr><th>Leader</th><td><a href="scott-the-woz.html">Scott the Woz</a></td></tr><tr><th>Members</th><td><a href="jerry-attricks.html">Jerry Attricks</a>, <a href="rex-mohs.html">Rex Mohs</a>, <a href="jerry-jab.html">Jerry Jab</a>; later <a href="walter-white.html">Walter White</a> and <a href="jesse-pinkman.html">Jesse Pinkman</a> (by arrangement)</td></tr><tr><th>Ship</th><td><a href="wii-cube.html">The Wii cube</a></td></tr><tr><th>Base</th><td><a href="scotts-house.html">Scott's house</a>, Ohio</td></tr><tr><th>Allies</th><td><a href="officer-steelwool.html">Officer Steelwool</a></td></tr><tr><th>First appearance</th><td><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></td></tr></table><div class="ib-cat">Factions & Organizations</div></aside>
+<aside class="infobox"><div class="ib-title">The Wozniaks</div><figure class="ib-img"><a href="https://en.wikipedia.org/wiki/Wii" target="_blank" rel="noopener"><img src="assets/img/the-wozniaks-1.png" alt="Wii. A stand-in picture: the canon has no picture of this." loading="lazy"></a><figcaption>Wii. A stand-in picture: the canon has no picture of this.<span class="credit">Photo: Evan-Amos · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Wii-Console.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption></figure><table><tr><th>Leader</th><td><a href="scott-the-woz.html">Scott the Woz</a></td></tr><tr><th>Members</th><td><a href="jerry-attricks.html">Jerry Attricks</a>, <a href="rex-mohs.html">Rex Mohs</a>, <a href="jerry-jab.html">Jerry Jab</a>; later <a href="walter-white.html">Walter White</a> and <a href="jesse-pinkman.html">Jesse Pinkman</a> (by arrangement)</td></tr><tr><th>Ship</th><td><a href="wii-cube.html">The Wii cube</a></td></tr><tr><th>Base</th><td><a href="scotts-house.html">Scott's house</a>, Ohio</td></tr><tr><th>Allies</th><td><a href="officer-steelwool.html">Officer Steelwool</a></td></tr><tr><th>First appearance</th><td><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></td></tr></table><div class="ib-cat">Factions & Organizations</div></aside>
 <div class="lead"><p><strong>The Wozniaks</strong> are the crew of the <a href="wii-cube.html">Wii cube</a>: <a href="scott-the-woz.html">Scott the Woz</a> and the three associates he calls before leaving Ohio. The name is used once, in the sentence “As the apple employees went into the roaders and the wozniaks went into the wii cube”, which is also the only place the book calls the heroes “the apple employees” (see <a href="new-apple-employees.html">The New Apple Employees</a>).</p></div>
 <nav class="toc" aria-label="Contents"><div class="toc-head">Contents</div><ol><li><a href="#formation">Formation</a></li><li><a href="#dynamics">Dynamics</a></li><li><a href="#walter-and-jesse">Walter and Jesse</a></li><li><a href="#trivia">Trivia</a></li></ol></nav>
 <section><h2 id="formation">Formation</h2><p>Scott phones his gang from the backyard with the words “Jerry attricks, Rex mohs, Jerry jab.. we’re going back”. Two hours and a trip to Sheetz later they are in the Wii box: “Fast forward 2 hours and a trip to sheetz the gang was in the box of Wii games.”</p></section>
@@ -96,7 +98,7 @@
 <section><h2 id="walter-and-jesse">Walter and Jesse</h2><p>At the end of the Turbographx chapter <a href="walter-white.html">Walter</a> and <a href="jesse-pinkman.html">Jesse</a> join the Wozniaks' orbit when Walter proposes cooking in Scott's basement. They fly back to Ohio with the Wii box. See <a href="basement-deal.html">The Basement Deal</a>.</p></section>
 <section><h2 id="trivia">Trivia</h2><ul><li>The name echoes Steve Wozniak (<a href="steve-wozniak.html">the other Steve</a>) and Scott's own nickname, “the Woz”.</li><li>The Wozniaks answer their call with a stop at Sheetz before leaving, which is a first for the canon.</li></ul></section>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="scott-the-woz.html">Scott the Woz</a></li><li><a href="wii-cube.html">The Wii Cube</a></li><li><a href="jerry-attricks.html">Jerry Attricks</a></li><li><a href="rex-mohs.html">Rex Mohs</a></li><li><a href="jerry-jab.html">Jerry Jab</a></li><li><a href="new-apple-employees.html">The New Apple Employees</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="scott-the-woz.html"><img class="card-img" src="assets/img/t/scott-the-woz-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Scott the Woz</b><span class="card-sub">Owner of a giant box made of Wii games. Enemy of the Border.</span></span></a><a class="card" href="wii-cube.html"><img class="card-img" src="assets/img/t/wii-cube-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Wii Cube</b><span class="card-sub">A giant box made out of Wii games.</span></span></a><a class="card" href="jerry-attricks.html"><img class="card-img" src="assets/img/t/jerry-attricks-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Jerry Attricks</b><span class="card-sub">One of the Wozniaks.</span></span></a><a class="card" href="rex-mohs.html"><img class="card-img" src="assets/img/t/rex-mohs-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Rex Mohs</b><span class="card-sub">The second Wozniak, and possibly “Moh”.</span></span></a><a class="card" href="jerry-jab.html"><img class="card-img" src="assets/img/t/jerry-jab-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Jerry Jab</b><span class="card-sub">He left his Wii zapper at home.</span></span></a><a class="card" href="new-apple-employees.html"><img class="card-img" src="assets/img/t/new-apple-employees-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The New Apple Employees</b><span class="card-sub">The Propane Dropouts and the Propane Gang, after the merger.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (11)</summary><ul class="chips"><li><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></li><li><a href="hank-hill.html">Hank Hill</a></li><li><a href="jerry-attricks.html">Jerry Attricks</a></li><li><a href="jerry-jab.html">Jerry Jab</a></li><li><a href="jesse-pinkman.html">Jesse Pinkman</a></li><li><a href="rex-mohs.html">Rex Mohs</a></li><li><a href="scott-the-woz.html">Scott the Woz</a></li><li><a href="the-border-fight.html">The Border Fight</a></li><li><a href="new-apple-employees.html">The New Apple Employees</a></li><li><a href="wii-cube.html">The Wii Cube</a></li><li><a href="walter-white.html">Walter White</a></li></ul></details>
 <div class="catbar">Category: <a href="category-factions.html">Factions & Organizations</a></div>
     <footer class="sheet-foot">
@@ -105,8 +107,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=245449ca6ff0"></script>
+<script src="assets/wiki.js?v=245449ca6ff0"></script>
+<script src="assets/phone.js?v=245449ca6ff0"></script>
 </body>
 </html>

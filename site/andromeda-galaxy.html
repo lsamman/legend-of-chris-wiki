@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "245449ca6ff0";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=245449ca6ff0">
+<link rel="stylesheet" href="assets/phone.css?v=245449ca6ff0">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,7 +87,7 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">Andromeda Galaxy</h1>
 <p class="crumbs"><a class="badge" href="category-locations.html">Locations</a> From The Legend Of Chris Wiki · <span class="subtitle">Taken by Frodo.</span></p>
 <aside class="infobox"><div class="ib-title">Andromeda Galaxy</div><figure class="ib-img"><a href="https://en.wikipedia.org/wiki/Andromeda_Galaxy" target="_blank" rel="noopener"><img src="assets/img/andromeda-galaxy-1.jpg" alt="The real Andromeda Galaxy, before Frodo" loading="lazy"></a><figcaption>The real Andromeda Galaxy, before Frodo<span class="credit">Photo: Brody Wesner · CC0 · <a href="https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_2025.png" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption></figure><table><tr><th>Conquered by</th><td><a href="frodo.html">Frodo Baggins</a></td></tr><tr><th>Event</th><td>Galactic takeover</td></tr><tr><th>First appearance</th><td><a href="chapter-before-chapter-2.html">Chris Origins</a></td></tr></table><div class="ib-cat">Locations</div></aside>
@@ -93,7 +95,7 @@
 <p>In the real world, Andromeda is the nearest large galaxy to the Milky Way, about 2.5 million light-years away. In this canon it was an appetizer.</p></div>
 <p class="read-chapter">On the map: <a href="maps.html#map-multiverse">The Multiverse</a> →</p>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-before-chapter-2.html">Chris Origins</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="frodo.html">Frodo Baggins</a></li><li><a href="cooking-of-the-universe.html">The Cooking of the Universe</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="frodo.html"><img class="card-img" src="assets/img/t/frodo-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Frodo Baggins</b><span class="card-sub">Conqueror of Andromeda. Ate the universe.</span></span></a><a class="card" href="cooking-of-the-universe.html"><img class="card-img" src="assets/img/t/cooking-of-the-universe-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Cooking of the Universe</b><span class="card-sub">Sirloin steak with lobster tail.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (4)</summary><ul class="chips"><li><a href="chapter-before-chapter-2.html">Chris Origins</a></li><li><a href="frodo.html">Frodo Baggins</a></li><li><a href="cooking-of-the-universe.html">The Cooking of the Universe</a></li><li><a href="the-cycle.html">The Cycle of Chris (Origin Litany)</a></li></ul></details>
 <div class="catbar">Category: <a href="category-locations.html">Locations</a></div>
     <footer class="sheet-foot">
@@ -102,8 +104,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=245449ca6ff0"></script>
+<script src="assets/wiki.js?v=245449ca6ff0"></script>
+<script src="assets/phone.js?v=245449ca6ff0"></script>
 </body>
 </html>

@@ -414,3 +414,15 @@ img { max-width: 100%; height: auto; }
 .stepper a[aria-current] { background: var(--ink); color: var(--paper) !important; border-color: var(--ink); }
 .ib-img figcaption .standin { font-style: italic; }
 @media (max-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- see-also cards, skip link, focus, reading progress ---------- */
+.cards.small { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.cards.small .card { padding: 7px; gap: 9px; align-items: center; }
+.cards.small .card-img { width: 44px; height: 44px; }
+.cards.small .card b { font-size: 14.5px; }
+.cards.small .card-sub { display: none; }
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 50; background: var(--ink); color: var(--paper) !important; padding: 8px 12px; font-weight: 700; }
+.skip:focus { left: 8px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.progress { height: 3px; }
+.progress i { display: block; height: 100%; width: 0; background: var(--red); }

@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "245449ca6ff0";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=245449ca6ff0">
+<link rel="stylesheet" href="assets/phone.css?v=245449ca6ff0">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,14 +87,14 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">The Ethereal Green Dot</h1>
 <p class="crumbs"><a class="badge" href="category-concepts.html">Concepts & Lore</a> From The Legend Of Chris Wiki · <span class="subtitle">0.0836 seconds of existence.</span></p>
-<aside class="infobox"><div class="ib-title">The Ethereal Green Dot</div><table><tr><th>Duration</th><td>0.0836 seconds</td></tr><tr><th>Location</th><td>The middle of <a href="war-for-byzantine-mexico.html">the War for Byzantine Mexico</a></td></tr><tr><th>Colour</th><td>Green</td></tr><tr><th>Nature</th><td>Ethereal</td></tr></table><div class="ib-cat">Concepts & Lore</div></aside>
+<aside class="infobox"><div class="ib-title">The Ethereal Green Dot</div><figure class="ib-img"><a href="https://commons.wikimedia.org/wiki/File:5mW_green_laser_pointer.jpg" target="_blank" rel="noopener"><img src="assets/img/ethereal-green-dot-1.jpg" alt="5mW green laser pointer. A stand-in picture: the canon has no picture of this." loading="lazy"></a><figcaption>5mW green laser pointer. A stand-in picture: the canon has no picture of this.<span class="credit">Photo: Jastrow · CC BY 2.5 · <a href="https://commons.wikimedia.org/wiki/File:5mW_green_laser_pointer.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption></figure><table><tr><th>Duration</th><td>0.0836 seconds</td></tr><tr><th>Location</th><td>The middle of <a href="war-for-byzantine-mexico.html">the War for Byzantine Mexico</a></td></tr><tr><th>Colour</th><td>Green</td></tr><tr><th>Nature</th><td>Ethereal</td></tr></table><div class="ib-cat">Concepts & Lore</div></aside>
 <div class="lead"><p><strong>The Ethereal Green Dot</strong> is a phenomenon that appeared in the middle of <a href="war-for-byzantine-mexico.html">the War for Byzantine Mexico</a>: “ethereal green dotted existed for 0.0836 seconds in the middle of the war.”</p>
 <p>It has no cause, no effect, and no further mention. It is the most precisely timed event in a book that otherwise reports times like “14:74pm,” and the source text spells it “dotted,” which may make it a verb. Fan theories describe it as a laser sight, a glitch in <a href="the-cycle.html">the Cycle</a>, or a very brief online status indicator.</p></div>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-before-chapter-2.html">Chris Origins</a></li><li><a href="chapter-2.html">Chapter 2</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="war-for-byzantine-mexico.html">The War for Byzantine Mexico</a></li><li><a href="unc-standard-time.html">Unc Standard Time</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="war-for-byzantine-mexico.html"><img class="card-img" src="assets/img/t/war-for-byzantine-mexico-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The War for Byzantine Mexico</b><span class="card-sub">Long and hard.</span></span></a><a class="card" href="unc-standard-time.html"><img class="card-img" src="assets/img/t/unc-standard-time-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Unc Standard Time</b><span class="card-sub">Where it is always 14:74pm somewhere.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (3)</summary><ul class="chips"><li><a href="chapter-2.html">Chapter 2</a></li><li><a href="ron-desantis.html">Ron DeSantis</a></li><li><a href="war-for-byzantine-mexico.html">The War for Byzantine Mexico</a></li></ul></details>
 <div class="catbar">Category: <a href="category-concepts.html">Concepts & Lore</a></div>
     <footer class="sheet-foot">
@@ -101,8 +103,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=245449ca6ff0"></script>
+<script src="assets/wiki.js?v=245449ca6ff0"></script>
+<script src="assets/phone.js?v=245449ca6ff0"></script>
 </body>
 </html>

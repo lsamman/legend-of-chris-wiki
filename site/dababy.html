@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "245449ca6ff0";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=245449ca6ff0">
+<link rel="stylesheet" href="assets/phone.css?v=245449ca6ff0">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,7 +87,7 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">DaBaby</h1>
 <p class="crumbs"><a class="badge" href="category-characters.html">Characters</a> From The Legend Of Chris Wiki · <span class="subtitle">Vaporized, suspended, a landmark.</span></p>
 <aside class="infobox"><div class="ib-title">DaBaby</div><figure class="ib-img"><a href="https://en.wikipedia.org/wiki/DaBaby" target="_blank" rel="noopener"><img src="assets/img/dababy-1.jpg" alt="DaBaby, real-world rapper (unvaporized)" loading="lazy"></a><figcaption>DaBaby, real-world rapper (unvaporized)<span class="credit">Photo: MILLION DOLLAZ WORTH OF GAME · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:DaBaby_2026.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption></figure><table><tr><th>Location</th><td><a href="constantinople.html">Constantinople</a></td></tr><tr><th>Condition</th><td>Vaporized, in a suspended animation cell</td></tr><tr><th>Use</th><td>Navigational landmark</td></tr><tr><th>First appearance</th><td><a href="chapter-the-fourth.html">Chapter the Fourth</a></td></tr></table><div class="ib-cat">Characters</div></aside>
@@ -93,7 +95,7 @@
 <div class="lead"><p><strong>DaBaby</strong> is a rapper who appears in the canon only as a landmark. When <a href="lightning-mcqueen.html">McQueen</a> asked where <a href="the-wormhole.html">the wormhole</a> was, the answer was "just north of Dababy's last known location". <a href="goober-gang.html">The Goober Gang</a> then "flew by the seen of vaporized dababy in a suspended animation cell and entered the wormhole".</p>
 <p>How DaBaby came to be both vaporized and in suspended animation is never explained. Editors have pointed out that being vaporized would normally make suspended animation pointless.</p></div>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-the-fourth.html">Chapter the Fourth</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="the-wormhole.html">Wormholes</a></li><li><a href="fall-of-constantinople.html">The Fall of Constantinople</a></li><li><a href="constantinople.html">Constantinople</a></li><li><a href="goober-gang.html">The Goober Gang</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="the-wormhole.html"><img class="card-img" src="assets/img/t/the-wormhole-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Wormholes</b><span class="card-sub">Theoretically could open. Usually does.</span></span></a><a class="card" href="fall-of-constantinople.html"><img class="card-img" src="assets/img/t/fall-of-constantinople-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Fall of Constantinople</b><span class="card-sub">14:74pm, Unc Standard Time.</span></span></a><a class="card" href="constantinople.html"><img class="card-img" src="assets/img/t/constantinople-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Constantinople</b><span class="card-sub">Mid at best.</span></span></a><a class="card" href="goober-gang.html"><img class="card-img" src="assets/img/t/goober-gang-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Goober Gang</b><span class="card-sub">Last heard from at 14:74pm. For now.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (5)</summary><ul class="chips"><li><a href="chapter-the-fourth.html">Chapter the Fourth</a></li><li><a href="constantinople.html">Constantinople</a></li><li><a href="lightning-mcqueen.html">Lightning McQueen</a></li><li><a href="fall-of-constantinople.html">The Fall of Constantinople</a></li><li><a href="the-wormhole.html">Wormholes</a></li></ul></details>
 <div class="catbar">Category: <a href="category-characters.html">Characters</a></div>
     <footer class="sheet-foot">
@@ -102,8 +104,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=245449ca6ff0"></script>
+<script src="assets/wiki.js?v=245449ca6ff0"></script>
+<script src="assets/phone.js?v=245449ca6ff0"></script>
 </body>
 </html>

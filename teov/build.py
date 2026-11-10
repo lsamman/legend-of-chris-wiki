@@ -42,6 +42,8 @@ ROUTE = [("burger-king-boston", "Burger King, Boston", "chapter-1"), ("backrooms
 PARTY = [("vinny", "Hero"), ("will-vella", "Dunkin Alliance"), ("aesop-rock", "Dunkin Alliance"), ("del-the-funky-homosapien", "Dunkin Alliance"),
          ("john-freedom", "Ally"), ("wing-ding-gaster", "Captain"), ("claude", "Boss"), ("ton-618", "Final boss")]
 CAT_NAME = {c[0]: c[1] for c in CATEGORIES}
+_img = os.path.join(ROOT, "content", "images.json")     # the pictures the Legend Of Chris wiki shows for the same articles
+PICTURES = json.load(open(_img, encoding="utf-8")) if os.path.exists(_img) else {}
 LINK_RE = re.compile(r"\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]")
 
 
@@ -241,13 +243,19 @@ def render_article(e, R, entries, loc, maps, ver):
 
     info = e.get("infobox") or {}
     img = e.get("image")
-    if info or img:
+    photo = None if img else (PICTURES.get(slug) or [None])[0]
+    if info or img or photo:
         rows = "".join(f"<tr><th>{R.inline(k)}</th><td>{R.inline(v)}</td></tr>" for k, v in info.items())
         fig = ""
         if img:
             fig = (f'<figure class="ib-img"><a href="assets/{img["file"]}" target="_blank" rel="noopener">'
                    f'<img src="assets/{img["file"]}?v={ver}" alt="{html.escape(img["alt"])}" loading="lazy"></a>'
                    f'<figcaption>{R.inline(img.get("caption", ""))}</figcaption></figure>')
+        elif photo:
+            fig = (f'<figure class="ib-img photo"><a href="{html.escape(photo["source"])}" target="_blank" rel="noopener">'
+                   f'<img src="../assets/img/{photo["src"]}" alt="{html.escape(photo["caption"])}" loading="lazy"></a>'
+                   f'<figcaption>{html.escape(photo["caption"])}<span class="credit">Photo: {html.escape(photo["artist"][:60])} · {html.escape(photo["license"])} · '
+                   f'<a href="{html.escape(photo["source"])}" target="_blank" rel="noopener">{html.escape(photo.get("site", "Wikimedia Commons"))}</a></span></figcaption></figure>')
         parts.append(f'<aside class="infobox cat-{cat}"><div class="ib-title"><span class="ib-glyph" aria-hidden="true">{CAT_GLYPH[cat]}</span>{html.escape(e["title"])}</div>{fig}<table>{rows}</table>'
                      f'<div class="ib-cat">{CAT_NAME[cat]}</div></aside>')
 
@@ -310,7 +318,9 @@ def render_article(e, R, entries, loc, maps, ver):
 
 
 def card(e, tag=""):
-    return (f'<a class="card cat-{e["category"]}" href="{e["slug"]}.html"><span class="card-top"><span class="card-glyph" aria-hidden="true">{CAT_GLYPH[e["category"]]}</span>'
+    ph = PICTURES.get(e["slug"])
+    pic = f'<img class="card-img" src="../assets/img/t/{os.path.splitext(ph[0]["src"])[0]}.jpg" alt="" loading="lazy" width="56" height="56">' if ph else ""
+    return (f'<a class="card cat-{e["category"]}" href="{e["slug"]}.html">{pic}<span class="card-top"><span class="card-glyph" aria-hidden="true">{CAT_GLYPH[e["category"]]}</span>'
             f'<span class="card-tag">{html.escape(tag or CAT_NAME[e["category"]])}</span></span>'
             f'<b>{html.escape(e["title"])}</b><span class="card-sub">{html.escape(plain(e.get("subtitle") or e["lead"], 110))}</span></a>')
 

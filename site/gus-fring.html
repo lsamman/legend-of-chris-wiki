@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "245449ca6ff0";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=245449ca6ff0">
+<link rel="stylesheet" href="assets/phone.css?v=245449ca6ff0">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,14 +87,14 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">Gus Fring</h1>
 <p class="crumbs"><a class="badge" href="category-characters.html">Characters</a> From The Legend Of Chris Wiki · <span class="subtitle">Has a meeting. Allegedly.</span></p>
 <aside class="infobox"><div class="ib-title">Gus Fring</div><figure class="ib-img"><a href="https://breakingbad.fandom.com/wiki/Gustavo_Fring" target="_blank" rel="noopener"><img src="assets/img/gus-fring-1.jpg" alt="Gustavo Fring" loading="lazy"></a><figcaption>Gustavo Fring<span class="credit">Image: breakingbad Fandom wiki contributors · Fandom wiki image; rights belong to its owners · <a href="https://breakingbad.fandom.com/wiki/Gustavo_Fring" target="_blank" rel="noopener">Breakingbad Fandom wiki</a></span></figcaption></figure><table><tr><th>Known associates</th><td><a href="hank-hill.html">Hank Hill</a> (meeting pending)</td></tr><tr><th>Possible affiliation</th><td><a href="los-polos-harmonicas.html">Los Polos Harmonicas</a> (theory)</td></tr><tr><th>Appearances</th><td>Mentioned only</td></tr><tr><th>First appearance</th><td><a href="chapter-the-fourth.html">Chapter the Fourth</a></td></tr></table><div class="ib-cat">Characters</div></aside>
 <div class="lead"><p><strong>Gus Fring</strong> is mentioned exactly once. As <a href="hank-hill.html">Hank Hill</a> climbed aboard <a href="crack-van.html">the crack van</a> to escape the <a href="department-of-defense.html">DOD</a>, he said: "I knew you'd be here, now I have meeting with Gus fring".</p>
 <p>The meeting never happens on-page, and Hank does not bring it up again. In <em>Breaking Bad</em>, Gus Fring runs the Los Pollos Hermanos chicken chain. Fans believe he is linked to <a href="los-polos-harmonicas.html">Los Polos Harmonicas Under System Gang</a>. <em>This is a theory.</em></p></div>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-the-fourth.html">Chapter the Fourth</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="hank-hill.html">Hank Hill</a></li><li><a href="los-polos-harmonicas.html">Los Polos Harmonicas Under System Gang</a></li><li><a href="walter-white.html">Walter White</a></li><li><a href="jesse-pinkman.html">Jesse Pinkman</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="hank-hill.html"><img class="card-img" src="assets/img/t/hank-hill-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Hank Hill</b><span class="card-sub">Propane magnate. Fugitive. Casino security.</span></span></a><a class="card" href="los-polos-harmonicas.html"><img class="card-img" src="assets/img/t/los-polos-harmonicas-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Los Polos Harmonicas Under System Gang</b><span class="card-sub">Propane and propane accessories.</span></span></a><a class="card" href="walter-white.html"><img class="card-img" src="assets/img/t/walter-white-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Walter White</b><span class="card-sub">Dreamer of Erger Wings.</span></span></a><a class="card" href="jesse-pinkman.html"><img class="card-img" src="assets/img/t/jesse-pinkman-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Jesse Pinkman</b><span class="card-sub">Yo.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (3)</summary><ul class="chips"><li><a href="chapter-the-fourth.html">Chapter the Fourth</a></li><li><a href="hank-hill.html">Hank Hill</a></li><li><a href="los-polos-harmonicas.html">Los Polos Harmonicas Under System Gang</a></li></ul></details>
 <div class="catbar">Category: <a href="category-characters.html">Characters</a></div>
     <footer class="sheet-foot">
@@ -101,8 +103,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=245449ca6ff0"></script>
+<script src="assets/wiki.js?v=245449ca6ff0"></script>
+<script src="assets/phone.js?v=245449ca6ff0"></script>
 </body>
 </html>

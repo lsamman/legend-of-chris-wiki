@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "245449ca6ff0";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=245449ca6ff0">
+<link rel="stylesheet" href="assets/phone.css?v=245449ca6ff0">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,10 +87,10 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">Dusty Depot</h1>
 <p class="crumbs"><a class="badge" href="category-locations.html">Locations</a> From The Legend Of Chris Wiki · <span class="subtitle">Trees, a port-a-potty, and absolutely no oil.</span></p>
-<aside class="infobox"><div class="ib-title">Dusty Depot</div><table><tr><th>Type</th><td>Wilderness / oil prospecting site</td></tr><tr><th>Notable residents</th><td><a href="hank-hill.html">Hank Hill</a>, <a href="jesse-pinkman.html">Jesse Pinkman</a>, <a href="walter-white.html">Walter White</a></td></tr><tr><th>Amenities</th><td>One port-a-potty, trees, a lawn chair</td></tr><tr><th>Connected to</th><td><a href="quick-check.html">The Quick-Check</a>, <a href="the-67-casino.html">The 6 7 Casino</a></td></tr><tr><th>Oil reserves</th><td>None found</td></tr><tr><th>First appearance</th><td><a href="flashback-chapter.html">The Flashback Chapter</a></td></tr></table><div class="ib-cat">Locations</div></aside>
+<aside class="infobox"><div class="ib-title">Dusty Depot</div><figure class="ib-img"><a href="https://commons.wikimedia.org/wiki/File:Abandoned_sugarcane_warehouse%2C_Plaquemines_Parish%2C_Louisiana_1935.jpg" target="_blank" rel="noopener"><img src="assets/img/dusty-depot-1.jpg" alt="Abandoned sugarcane warehouse, Plaquemines Parish, Louisiana 1935. A stand-in picture: the canon has no picture of this." loading="lazy"></a><figcaption>Abandoned sugarcane warehouse, Plaquemines Parish, Louisiana 1935. A stand-in picture: the canon has no picture of this.<span class="credit">Photo: Arthur Rothstein · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Abandoned_sugarcane_warehouse%2C_Plaquemines_Parish%2C_Louisiana_1935.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption></figure><table><tr><th>Type</th><td>Wilderness / oil prospecting site</td></tr><tr><th>Notable residents</th><td><a href="hank-hill.html">Hank Hill</a>, <a href="jesse-pinkman.html">Jesse Pinkman</a>, <a href="walter-white.html">Walter White</a></td></tr><tr><th>Amenities</th><td>One port-a-potty, trees, a lawn chair</td></tr><tr><th>Connected to</th><td><a href="quick-check.html">The Quick-Check</a>, <a href="the-67-casino.html">The 6 7 Casino</a></td></tr><tr><th>Oil reserves</th><td>None found</td></tr><tr><th>First appearance</th><td><a href="flashback-chapter.html">The Flashback Chapter</a></td></tr></table><div class="ib-cat">Locations</div></aside>
 <figure class="epigraph"><blockquote>“Well Kanye ever since we got teleported into dusty depot we haven't had a ounce of oil for our business, its left us broke and big sad”</blockquote><figcaption>— Hank Hill, <a href="chapter-maybe-seventh.html">Chapter the Maybe Seventh</a></figcaption></figure>
 <div class="lead"><p><strong>Dusty Depot</strong> is a location where <a href="hank-hill.html">Hank Hill</a>, <a href="jesse-pinkman.html">Jesse Pinkman</a> and <a href="walter-white.html">Walter White</a> become stranded after being teleported there in the <a href="crack-van.html">RV of time</a>. It is the site of the trio's failed search for an <a href="oil.html">Oil</a> deposit, and, through a port-a-potty of extraordinary versatility, the gateway to <a href="the-67-casino.html">The 6 7 Casino</a>.</p></div>
 <nav class="toc" aria-label="Contents"><div class="toc-head">Contents</div><ol><li><a href="#description">Description</a></li><li><a href="#history">History</a></li><li><a href="#continuity-errors">Continuity errors</a></li><li><a href="#trivia">Trivia</a></li></ol></nav>
@@ -107,7 +109,7 @@
 <p class="read-chapter">On the Timeline: <a href="timeline.html#ev-teleported-to-dusty-depot">Hank, Jesse and Walter are teleported into Dusty Depot</a> →</p>
 <p class="read-chapter">On the map: <a href="maps.html#map-multiverse">The Multiverse</a> →</p>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="flashback-chapter.html">The Flashback Chapter</a></li><li><a href="chapter-maybe-seventh.html">Chapter the Maybe Seventh</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="hank-hill.html">Hank Hill</a></li><li><a href="jesse-pinkman.html">Jesse Pinkman</a></li><li><a href="walter-white.html">Walter White</a></li><li><a href="port-a-potty-portal.html">The Port-a-Potty Portal</a></li><li><a href="quick-check.html">The Quick-Check</a></li><li><a href="erger-wings.html">Erger Wings</a></li><li><a href="the-67-casino.html">The 6 7 Casino</a></li><li><a href="oil.html">Oil</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="hank-hill.html"><img class="card-img" src="assets/img/t/hank-hill-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Hank Hill</b><span class="card-sub">Propane magnate. Fugitive. Casino security.</span></span></a><a class="card" href="jesse-pinkman.html"><img class="card-img" src="assets/img/t/jesse-pinkman-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Jesse Pinkman</b><span class="card-sub">Yo.</span></span></a><a class="card" href="walter-white.html"><img class="card-img" src="assets/img/t/walter-white-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Walter White</b><span class="card-sub">Dreamer of Erger Wings.</span></span></a><a class="card" href="port-a-potty-portal.html"><img class="card-img" src="assets/img/t/port-a-potty-portal-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Port-a-Potty Portal</b><span class="card-sub">A port-a-potty that goes places.</span></span></a><a class="card" href="quick-check.html"><img class="card-img" src="assets/img/t/quick-check-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Quick-Check</b><span class="card-sub">Grub, intel, and nicotine pouches.</span></span></a><a class="card" href="erger-wings.html"><img class="card-img" src="assets/img/t/erger-wings-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Erger Wings</b><span class="card-sub">A Mountain Dew refinery and restaurant. Coming eventually.</span></span></a><a class="card" href="the-67-casino.html"><img class="card-img" src="assets/img/t/the-67-casino-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The 6 7 Casino</b><span class="card-sub">Taller than the wideness of the tall.</span></span></a><a class="card" href="oil.html"><img class="card-img" src="assets/img/t/oil-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Oil</b><span class="card-sub">The resource behind more of the plot than you&#x27;d think.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (12)</summary><ul class="chips"><li><a href="erger-wings.html">Erger Wings</a></li><li><a href="hank-hill.html">Hank Hill</a></li><li><a href="jesse-pinkman.html">Jesse Pinkman</a></li><li><a href="oil.html">Oil</a></li><li><a href="propane.html">Propane</a></li><li><a href="casino-heist.html">The Casino Heist</a></li><li><a href="crack-van.html">The Crack Van (RV of Time)</a></li><li><a href="flashback-chapter.html">The Flashback Chapter</a></li><li><a href="golden-scar.html">The Golden SCAR</a></li><li><a href="port-a-potty-portal.html">The Port-a-Potty Portal</a></li><li><a href="quick-check.html">The Quick-Check</a></li><li><a href="walter-white.html">Walter White</a></li></ul></details>
 <div class="catbar">Category: <a href="category-locations.html">Locations</a></div>
     <footer class="sheet-foot">
@@ -116,8 +118,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=245449ca6ff0"></script>
+<script src="assets/wiki.js?v=245449ca6ff0"></script>
+<script src="assets/phone.js?v=245449ca6ff0"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "245449ca6ff0";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=245449ca6ff0">
+<link rel="stylesheet" href="assets/phone.css?v=245449ca6ff0">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,10 +87,10 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">The Battle of Club Shadowban</h1>
 <p class="crumbs"><a class="badge" href="category-events.html">Events</a> From The Legend Of Chris Wiki · <span class="subtitle">Bars were dropped. So was everyone else.</span></p>
-<aside class="infobox"><div class="ib-title">The Battle of Club Shadowban</div><table><tr><th>Location</th><td><a href="club-shadowban.html">Club Shadowban</a>, <a href="gotham-city.html">Gotham City</a></td></tr><tr><th>Combatants</th><td><a href="kanye-west.html">Kanye West</a> &amp; <a href="chatgpt.html">ChatGPT</a> vs. <a href="lil-jokez.html">Lil Jokez</a></td></tr><tr><th>Intervention</th><td><a href="drake-batman.html">Drake Batman</a></td></tr><tr><th>Result</th><td>Lil Jokez tackled into a <a href="meme-portal.html">meme portal</a>; <a href="steve-jobs.html">Steve Jobs</a> arrives</td></tr><tr><th>Aftermath</th><td>Club sent to the <a href="shadow-realm.html">Shadow Realm</a></td></tr><tr><th>Chapter</th><td><a href="dunder-mifflan-chapter.html">Dunder Mifflan</a></td></tr></table><div class="ib-cat">Events</div></aside>
+<aside class="infobox"><div class="ib-title">The Battle of Club Shadowban</div><figure class="ib-img"><a href="https://commons.wikimedia.org/wiki/File:Boston_-_Hip_Hop_concert_02b.JPG" target="_blank" rel="noopener"><img src="assets/img/rap-battle-club-shadowban-1.jpg" alt="Boston - Hip Hop concert 02b. A stand-in picture: the canon has no picture of this." loading="lazy"></a><figcaption>Boston - Hip Hop concert 02b. A stand-in picture: the canon has no picture of this.<span class="credit">Photo: myself (User:Piotrus) · GFDL · <a href="https://commons.wikimedia.org/wiki/File:Boston_-_Hip_Hop_concert_02b.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption></figure><table><tr><th>Location</th><td><a href="club-shadowban.html">Club Shadowban</a>, <a href="gotham-city.html">Gotham City</a></td></tr><tr><th>Combatants</th><td><a href="kanye-west.html">Kanye West</a> &amp; <a href="chatgpt.html">ChatGPT</a> vs. <a href="lil-jokez.html">Lil Jokez</a></td></tr><tr><th>Intervention</th><td><a href="drake-batman.html">Drake Batman</a></td></tr><tr><th>Result</th><td>Lil Jokez tackled into a <a href="meme-portal.html">meme portal</a>; <a href="steve-jobs.html">Steve Jobs</a> arrives</td></tr><tr><th>Aftermath</th><td>Club sent to the <a href="shadow-realm.html">Shadow Realm</a></td></tr><tr><th>Chapter</th><td><a href="dunder-mifflan-chapter.html">Dunder Mifflan</a></td></tr></table><div class="ib-cat">Events</div></aside>
 <figure class="epigraph"><blockquote>“I'm Ye the Gas, no watered-down trash, My bars melt steel beams, while you still DoorDash.”</blockquote><figcaption>— <a href="kanye-west.html">Kanye West</a></figcaption></figure>
 <div class="lead"><p><strong>The Battle of Club Shadowban</strong> was a rap battle between <a href="kanye-west.html">Kanye West</a> and <a href="chatgpt.html">ChatGPT</a> on one side and <a href="lil-jokez.html">Lil Jokez</a> on the other. It ended with no surviving clubgoers, a meme portal, and the second coming of <a href="steve-jobs.html">Steve Jobs</a>.</p></div>
 <nav class="toc" aria-label="Contents"><div class="toc-head">Contents</div><ol><li><a href="#background">Background</a></li><li><a href="#the-battle">The battle</a></li><li><a href="#the-drop">The drop</a></li><li><a href="#aftermath">Aftermath</a></li><li><a href="#trivia">Trivia</a></li></ol></nav>
@@ -102,7 +104,7 @@
 <section><h2 id="trivia">Trivia</h2><ul><li>"Steel beams" refers to the long-running "jet fuel can't melt steel beams" meme.</li><li>No judges were present. By most readings, Kanye and GPT won by forfeit, since their opponent became a JPEG.</li></ul></section>
 <p class="read-chapter">On the Timeline: <a href="timeline.html#ev-club-shadowban">The Battle of Club Shadowban</a> →</p>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="dunder-mifflan-chapter.html">Dunder Mifflan</a></li><li><a href="flashback-chapter.html">The Flashback Chapter</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="club-shadowban.html">Club Shadowban</a></li><li><a href="lil-jokez.html">Lil Jokez (The Joker)</a></li><li><a href="kanye-west.html">Kanye West</a></li><li><a href="chatgpt.html">ChatGPT</a></li><li><a href="drake-batman.html">Drake Batman</a></li><li><a href="808s-and-apocalypses.html">808s and Apocalypses</a></li><li><a href="steve-jobs.html">Steve Jobs</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="club-shadowban.html"><img class="card-img" src="assets/img/t/club-shadowban-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Club Shadowban</b><span class="card-sub">Nightly Joker residency. Dust optional.</span></span></a><a class="card" href="lil-jokez.html"><img class="card-img" src="assets/img/t/lil-jokez-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Lil Jokez (The Joker)</b><span class="card-sub">Clown prince of SoundCloud.</span></span></a><a class="card" href="kanye-west.html"><img class="card-img" src="assets/img/t/kanye-west-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Kanye West</b><span class="card-sub">Ye the Gas. No watered-down trash.</span></span></a><a class="card" href="chatgpt.html"><img class="card-img" src="assets/img/t/chatgpt-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>ChatGPT</b><span class="card-sub">Gasps in XML.</span></span></a><a class="card" href="drake-batman.html"><img class="card-img" src="assets/img/t/drake-batman-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Drake Batman</b><span class="card-sub">The Dark Knight, in Uggs.</span></span></a><a class="card" href="808s-and-apocalypses.html"><img class="card-img" src="assets/img/t/808s-and-apocalypses-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>808s and Apocalypses</b><span class="card-sub">The drop heard across all multiverses.</span></span></a><a class="card" href="steve-jobs.html"><img class="card-img" src="assets/img/t/steve-jobs-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Steve Jobs</b><span class="card-sub">Turtleneck of algorithms and starlight. One more thing.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (17)</summary><ul class="chips"><li><a href="one-more-thing.html">&quot;One More Thing&quot;</a></li><li><a href="808s-and-apocalypses.html">808s and Apocalypses</a></li><li><a href="chatgpt.html">ChatGPT</a></li><li><a href="club-shadowban.html">Club Shadowban</a></li><li><a href="drake-batman.html">Drake Batman</a></li><li><a href="dunder-mifflan-chapter.html">Dunder Mifflan</a></li><li><a href="flint.html">Flint</a></li><li><a href="fortnite.html">Fortnite</a></li><li><a href="gotham-city.html">Gotham City</a></li><li><a href="kanye-west.html">Kanye West</a></li><li><a href="lil-jokez.html">Lil Jokez (The Joker)</a></li><li><a href="steve-jobs.html">Steve Jobs</a></li><li><a href="angry-pope.html">The Angry Pope (disguised as Tyler1)</a></li><li><a href="the-boys.html">The Boys (not the Amazon Prime show)</a></li><li><a href="meme-portal.html">The Meme Portal</a></li><li><a href="ye-the-gas.html">Ye the Gas</a></li><li><a href="zuck-tears-usb.html">Zuck Tears USB</a></li></ul></details>
 <div class="catbar">Category: <a href="category-events.html">Events</a></div>
     <footer class="sheet-foot">
@@ -111,8 +113,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=245449ca6ff0"></script>
+<script src="assets/wiki.js?v=245449ca6ff0"></script>
+<script src="assets/phone.js?v=245449ca6ff0"></script>
 </body>
 </html>
