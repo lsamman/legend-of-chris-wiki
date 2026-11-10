@@ -8,10 +8,11 @@
       "Type": "Planet",
       "System": "[[kanye-system|The Kanye System]]",
       "Known countries": "[[united-states-of-america|The United States of America]]",
-      "Known places": "[[boston]], [[wyoming]], [[little-saint-james-sea|the Little Saint James Sea]]",
+      "Known places": "[[boston]], [[wyoming]], [[austin-texas|Austin, Texas]], [[louisiana|Louisiana]], [[little-saint-james-sea|the Little Saint James Sea]]",
       "Ruler of the system": "[[ton-618]]",
       "Era": "1995 to 1996",
-      "First mention": "[[chapter-2]]"
+      "First mention": "[[chapter-2]]",
+      "Most American place": "[[bucees-hq|Buc-ee's HQ]]"
     },
     "lead": "**Garth** is the planet where most of *The Epic of Vinny* takes place. It orbits in the [[kanye-system|Kanye System]] and has the [[united-states-of-america|United States]], [[boston]], [[wyoming|Wyoming]] and an ocean with a banished [[the-ai|AI]] under it.",
     "sections": [
@@ -22,6 +23,10 @@
       {
         "heading": "Claude's view",
         "body": "When [[claude]] first sees the planet from the sky, the narrator names it in one word, \"Garth\", and says he \"looks at it disgusted\". Claude's verdict is that it is \"infested with humans\" and needs more data centers."
+      },
+      {
+        "heading": "In Chapter 3",
+        "body": "The fight for Garth is fought in its United States. [[claude]] fills [[louisiana|Louisiana]] with data centers and hands the Louisiana Purchase back to France ([[reversal-of-the-louisiana-purchase]]). After [[day-of-the-bagel-man|the Day of the Bagel Man]] he buys Louisiana back, and the narrator declares: \"Peace is restored to Garth.\" The [[dunkin-cult|Dunkin Cult]] then leaves the planet for the [[dunder-mifflin|Dunder Mifflin Galaxy]]."
       }
     ],
     "loc": [
@@ -34,7 +39,9 @@
       "kanye-system",
       "united-states-of-america",
       "ai-shadow-realm",
-      "boston"
+      "boston",
+      "louisiana",
+      "austin-texas"
     ],
     "appearances": [
       "chapter-2",
@@ -42,8 +49,8 @@
     ],
     "image": {
       "file": "garth-map.png",
-      "alt": "Map of the United States on Garth with Boston, Wyoming and the Little Saint James Sea marked.",
-      "caption": "Garth's United States, as far as the story places it."
+      "alt": "Map of the United States on Garth with the seven stops of Vinny's route numbered, from Boston to Louisiana and back.",
+      "caption": "Garth's United States, with Vinny's route from July 4th to November 2nd, 1995."
     }
   },
   {
@@ -116,7 +123,9 @@
       "united-states-of-america"
     ],
     "appearances": [
-      "chapter-1"
+      "chapter-1",
+      "chapter-3",
+      "chapter-4"
     ]
   },
   {
@@ -137,16 +146,24 @@
       {
         "heading": "On July 4th, 1995",
         "body": "The shift covers a [[random-customer|customer]] who wants a Wendy's sandwich, a shortage of [[double-whopper-with-cheese|Double Whoppers with Cheese]], and a trip into the [[freezer]]. Vinny and Tyrone never come back to finish it ([[independence-day-1995]], [[friend-abduction]])."
+      },
+      {
+        "heading": "After the Age of Claude",
+        "body": "In [[chapter-3]] Vinny describes it to his team as \"a Burger King that has an entrance to the Backrooms Dimension in the freezer\". In [[chapter-4]], on November 2nd, 1995, he is back at its cash register. The chapter is titled [[burger-king-dark-world|\"The Burger King Dark World\"]]."
       }
     ],
     "related": [
       "boston",
       "freezer",
       "backrooms",
-      "vinny"
+      "vinny",
+      "burger-king-dark-world",
+      "chapter-4"
     ],
     "appearances": [
-      "chapter-1"
+      "chapter-1",
+      "chapter-3",
+      "chapter-4"
     ]
   },
   {
@@ -201,7 +218,8 @@
       "friend-abduction"
     ],
     "appearances": [
-      "chapter-1"
+      "chapter-1",
+      "chapter-3"
     ]
   },
   {
@@ -242,13 +260,18 @@
       "Sea": "[[little-saint-james-sea|The Little Saint James Sea]]",
       "Visited by": "Nobody (the crew turn away)",
       "Real-world note": "The name is a real island's; it is not described in detail",
-      "First sighting": "[[chapter-2]]"
+      "First sighting": "[[chapter-2]]",
+      "Building": "\"Epstein's Temple\", spotted by [[wing-ding-gaster|Captain Gaster]]"
     },
     "lead": "**Little Saint James Island** is sighted by the [[ss-vessel|S.S. Vessel]] in [[chapter-2]]. The crew see \"a small building\" through [[spyglass|Captain Gaster's spyglass]] and speed away \"after a quick escape from being extremely political\".",
     "sections": [
       {
         "heading": "The theory",
         "body": "Furious, [[vinny]] asks what Gaster was thinking. Gaster answers that the island's secret might have been that it held [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]]. Vinny says that only the [[great-double-whopper-with-cheese-god|god]] has it ([[little-saint-james-detour]]). Later, when Vinny is knocked overboard, the island is one of his two choices: swim for it or drown. He chooses to drown."
+      },
+      {
+        "heading": "The sighting",
+        "body": "The updated text names what the crew sees: \"Captain Gaster spots Epstein's Temple on the island. It's Little Saint James Island.\" Gaster's reaction is \"HOLY SHIT GO BACK GO BACK GO BACK\", and the PDF shows a photo of the island at that point."
       }
     ],
     "related": [
@@ -379,6 +402,10 @@
       {
         "heading": "In the story",
         "body": "Vinny's [[boston|Boston]], the [[dunkin-wyoming|Dunkin]] in [[wyoming|Wyoming]], and the setting of [[clash-over-the-usa]] are all within it. The [[starwalker-manager|Starwalker manager]] reminds [[will-vella|Will]] of it: \"This is America.\""
+      },
+      {
+        "heading": "In Chapter 3",
+        "body": "The story crosses the country: [[wyoming|Wyoming]], [[austin-texas|Austin, Texas]], Route 66 and [[louisiana|Louisiana]]. [[claude]] briefly gives the Louisiana Purchase back to France ([[reversal-of-the-louisiana-purchase]]). [[bucees-hq|Buc-ee's HQ]] is called \"the most American place on Garth\"."
       }
     ],
     "loc": [
@@ -390,7 +417,10 @@
     "related": [
       "garth",
       "boston",
-      "wyoming"
+      "wyoming",
+      "louisiana",
+      "austin-texas",
+      "united-homies-of-america"
     ],
     "appearances": [
       "chapter-1",
@@ -414,6 +444,10 @@
       {
         "heading": "The mountain",
         "body": "Vinny is \"genuinely not balling frfr\", then decides what he wants is Dunkin Donuts. He flies out of the mountain and finds one in the state \"even though Wyoming only has 3\"."
+      },
+      {
+        "heading": "After the Age of Claude",
+        "body": "[[del-the-funky-homosapien|Del]] and [[aesop-rock]] \"eventually got back to Wyoming\", where [[word-shit-diss-track|their song]] became the most popular song of the moment ([[chapter-4]])."
       }
     ],
     "related": [
@@ -422,7 +456,8 @@
       "united-states-of-america"
     ],
     "appearances": [
-      "chapter-3"
+      "chapter-3",
+      "chapter-4"
     ]
   },
   {

@@ -65,6 +65,27 @@
   var f = document.querySelector('.filter');
   if (f) f.addEventListener('input', function () {
     var t = norm(f.value);
-    document.querySelectorAll('.catlist li').forEach(function (li) { li.hidden = t && norm(li.textContent).indexOf(t) === -1; });
+    var shown = 0;
+    document.querySelectorAll('.catlist .card').forEach(function (c) { c.hidden = !!t && norm(c.textContent).indexOf(t) === -1; if (!c.hidden) shown++; });
+    var none = document.querySelector('.none-found'); if (none) none.hidden = shown > 0;
   });
+
+  // the story page: a reading progress bar, and the chapter you are in lit up in the chapter bar
+  var bar = document.querySelector('.progress i'), story = document.querySelector('.story');
+  if (bar && story) {
+    var tabs = [].slice.call(document.querySelectorAll('.story-toc a'));
+    var heads = tabs.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var tick = false;
+    function update() {
+      tick = false;
+      var r = story.getBoundingClientRect(), total = r.height - innerHeight * 0.6;
+      bar.style.width = Math.max(0, Math.min(100, (-r.top + 80) / total * 100)) + '%';
+      var cur = 0;
+      heads.forEach(function (h, i) { if (h && h.getBoundingClientRect().top < 160) cur = i; });
+      tabs.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+    }
+    addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('resize', update);
+    update();
+  }
 })();

@@ -49,38 +49,44 @@
     "slug": "age-of-claude",
     "title": "The Age of Claude",
     "category": "concepts",
-    "subtitle": "The era that begins when the portal closes.",
+    "subtitle": "July 4th to October 29th, 1995. Began with a portal, ended with an Uber.",
     "infobox": {
       "Begins": "When [[claude]] leaves the [[ai-shadow-realm|AI Shadow Realm]] ([[chapter-2]])",
       "Ruler": "[[claude]]",
       "Aim": "Replace humans with data centers and robots",
       "Resistance": "[[vinny]] and the [[dunkin-alliance|Dunkin Alliance]]",
-      "First appearance": "[[chapter-2]]"
+      "First appearance": "[[chapter-2]]",
+      "Ends": "October 29th, 1995, in [[louisiana|Louisiana]] ([[end-of-the-age-of-claude]])",
+      "Length": "July 4th to October 29th, 1995"
     },
     "lead": "**The Age of Claude** is what [[chapter-2]] says begins when the portal seals: \"The Age of Claude had begun.\" It is also the title of [[chapter-3]].",
     "sections": [
-      {"heading": "So far", "body": "In the era's first hours, [[claude]] flies into the [[united-states-of-america|United States]] to start building data centers ([[clash-over-the-usa]]), and [[vinny]] begins to gather allies against him ([[dunkin-alliance]]). The era's length is not given."}
+      {"heading": "So far", "body": "In the era's first hours, [[claude]] flies into the [[united-states-of-america|United States]] to start building data centers ([[clash-over-the-usa]]), and [[vinny]] begins to gather allies against him ([[dunkin-alliance]]). The era's length is not given."},
+      {"heading": "How it ended", "body": "Claude spends three months streaming and building data centers ([[claude-livestreams]]). The [[dunkin-alliance|Dunkin Alliance]], trained in [[ways-of-freedom|the ways of Freedom]], loses the [[battle-of-louisiana|Battle of Louisiana]], but [[vellatosis|Vellatosis]] turns it ([[day-of-the-bagel-man]]). \"The job was finished. The Age of Claude was over.\" Claude himself had just said it \"is just beginning\"."}
     ],
-    "related": ["claude", "clash-over-the-usa", "claude-escape"],
+    "related": ["claude", "clash-over-the-usa", "claude-escape", "end-of-the-age-of-claude", "battle-of-louisiana"],
     "appearances": ["chapter-2", "chapter-3"]
   },
   {
     "slug": "vellatosis",
     "title": "Vellatosis",
     "category": "concepts",
-    "subtitle": "Isn't that just a game theory?",
+    "subtitle": "Not just a game theory. 2, 4, 8, 16, 32, 64, 128, and so forth.",
     "infobox": {
-      "Described as": "A theory (\"a game theory\"), per [[vinny]]",
-      "Pursued by": "[[will-vella]]",
-      "Goal": "An \"army of Vella's\" and the [[dunkin-cult|Dunkin Cult]]",
-      "Status": "Secret not yet found",
+      "Described as": "\"The Vellatosis Theory\"",
+      "Explained by": "[[claude]]",
+      "Achieved by": "[[will-vella]], October 29th, 1995",
+      "Effect": "The subject grows an extra eye, leg and arm, then splits in two, repeatedly",
+      "Produces": "[[the-vellas|The Vellas]]; the [[dunkin-cult|Dunkin Cult]]",
+      "Status": "Begun, but \"not been completed yet\"",
       "First appearance": "[[chapter-3]]"
     },
-    "lead": "**Vellatosis** is the process [[will-vella]] says he will use to create an army of Vellas. [[vinny]] asks, \"Isn't that just a theory? A game theory?\" Will says that once he figures out its secret, he can create the [[dunkin-cult|Dunkin Cult]].",
+    "lead": "**Vellatosis** is the process by which [[will-vella]] becomes an army. [[vinny]] first hears of it as a rumor (\"Isn't that just a theory? A game theory?\"). [[claude]] turns out to know the secret, explains \"the mysteries of Vellatosis, the explanation and how to achieve it\", and is beaten by the result.",
     "sections": [
-      {"heading": "The deal", "body": "Vinny offers to help find the secret in exchange for Will's help against [[claude]] ([[dunkin-alliance]]). Will agrees. \"Soon I will have an army. An army of Vella's. Vellatosis will begin.\""}
+      {"heading": "The deal", "body": "Vinny offers to help find the secret in exchange for Will's help against [[claude]] ([[dunkin-alliance]]). Will agrees. \"Soon I will have an army. An army of Vella's. Vellatosis will begin.\""},
+      {"heading": "How it happens", "body": "\"Will Vella then starts shaking. Will starts growing another eye, a leg, and an arm. Suddenly he splits into 2 Vellas, which split into 4, then 8, then 16, then 32, then 64, then 128, and so forth.\" The explanation itself is not printed. The narrator adds that \"Vellatosis has not been completed yet\", while the number of Vellas keeps growing ([[day-of-the-bagel-man]])."}
     ],
-    "related": ["will-vella", "dunkin-cult", "dunkin-alliance"],
+    "related": ["will-vella", "dunkin-cult", "dunkin-alliance", "the-vellas", "day-of-the-bagel-man"],
     "appearances": ["chapter-3"]
   },
   {
@@ -184,19 +190,20 @@
     "slug": "word-shit-diss-track",
     "title": "\"Wordle? More like Word-shit\"",
     "category": "concepts",
-    "subtitle": "A diss track about a word game. In progress.",
+    "subtitle": "A diss track about a word game. Now the most popular song.",
     "infobox": {
       "By": "[[aesop-rock]] and [[del-the-funky-homosapien|Del the Funky Homosapien]]",
       "About": "[[wordle|Wordle]]",
-      "Status": "Being written in [[chapter-3]]",
+      "Status": "Released; \"the most popular song as of right now\" ([[chapter-4]])",
       "First appearance": "[[chapter-3]]"
     },
     "lead": "**\"Wordle? More like Word-shit\"** is the song [[aesop-rock]] and [[del-the-funky-homosapien|Del]] are working on at the [[dunkin-wyoming|Dunkin]]. They failed Wordle \"that miserably\" that they \"completely lost it\" and started a diss track about it.",
     "sections": [
-      {"heading": "Lyrics so far", "body": "Del: \"Yeah, Yeah, you know what time it is, Me and Aesop dunking inside Dunkin on this piece of shit game.\" Aesop: \"What What.\" Del: \"Wordle is the name and it doesn't have enough shame.\" Aesop: \"Tell em', Del.\""}
+      {"heading": "Lyrics so far", "body": "Del: \"Yeah, Yeah, you know what time it is, Me and Aesop dunking inside Dunkin on this piece of shit game.\" Aesop: \"What What.\" Del: \"Wordle is the name and it doesn't have enough shame.\" Aesop: \"Tell em', Del.\""},
+      {"heading": "Success", "body": "By November 2nd, 1995, the song \"blew up and is the most popular song as of right now. Want me to play it? Too bad you don't have spotify premium, bitch.\""}
     ],
     "related": ["wordle", "aesop-rock", "del-the-funky-homosapien"],
-    "appearances": ["chapter-3"]
+    "appearances": ["chapter-3", "chapter-4"]
   },
   {
     "slug": "banishing-of-the-ai",
@@ -204,17 +211,17 @@
     "category": "events",
     "subtitle": "Fired by AI. Pissed. Banished it.",
     "infobox": {
-      "When": "Before 1995 (date not given)",
+      "When": "1972",
       "Where": "[[little-saint-james-sea|The Little Saint James Sea]], [[garth|Garth]]",
       "Done by": "[[laid-off-workers|The Laid-Off Workers]]",
       "Result": "The AI rules the [[ai-shadow-realm|Shadow Realm]]",
       "First mention": "[[chapter-1]]"
     },
-    "lead": "**The Banishing of the AI** is the backstory event in which \"all of the people who got laid-off or fired because of AI got pretty pissed and came together to banish it\". They sent it to the [[little-saint-james-sea|Little Saint James Sea]].",
+    "lead": "**The Banishing of the AI** is the backstory event in which \"all of the people who got laid-off or fired because of AI got pretty pissed and came together to banish it in the year 1972\". They sent it to the [[little-saint-james-sea|Little Saint James Sea]].",
     "sections": [
       {"heading": "Consequences", "body": "The narrator chains the result: that sea is \"where the Shadow Realm is. Which is where the AI is. Which is where the Shadows are. Which is where the AI now rules.\" The AI's ruler is [[claude]], who still resents it."}
     ],
-    "timeline": {"when": "Before July 1995 (date not given)", "order": 1},
+    "timeline": {"when": "Before the story: 1972", "order": 1},
     "related": ["laid-off-workers", "the-ai", "ai-shadow-realm"],
     "appearances": ["chapter-1"]
   },
@@ -234,7 +241,7 @@
     "sections": [
       {"heading": "Cause and aftermath", "body": "\"Many say that the TON 618 consumed the power of The Great Double Whopper with Cheese to conquer all things. Many say otherwise.\" Since the conquest, TON 618 \"has been at rest, waiting to wake again.\" In the prologue it has."}
     ],
-    "timeline": {"when": "Before July 1995 (date not given)", "order": 2},
+    "timeline": {"when": "Before the story: millions of years ago", "order": 2},
     "related": ["ton-618", "kanye-system", "great-double-whopper-with-cheese"],
     "appearances": ["chapter-1"]
   },
@@ -252,7 +259,7 @@
     },
     "lead": "**Independence Day, 1995** is the date the story's main timeline begins. The text says \"the year is 1995, July 4th\", and that [[vinny]]'s British boss refuses to give him the day off.",
     "sections": [
-      {"heading": "The day", "body": "Vinny's shift starts normally and then passes through the [[freezer]] into the [[backrooms]]. The rest of the story so far, through [[chapter-3]], appears to take place in the hours and days after: the ship, the drowning, the Shadow Realm, and Wyoming. The text only dates the start."}
+      {"heading": "The day", "body": "Vinny's shift starts normally and then passes through the [[freezer]] into the [[backrooms]]. Everything up to the forming of the [[dunkin-alliance|Dunkin Alliance]] happens on this same day: the ship, the drowning, the Shadow Realm, and Wyoming. [[chapter-3]] only says \"July 5th\" once the Alliance has driven off into the night. The text only dates the start."}
     ],
     "timeline": {"when": "July 4th, 1995", "order": 3},
     "related": ["boston", "burger-king-boston", "friend-abduction"],
@@ -289,7 +296,7 @@
       "Involved": "[[black-cat|The Black Cat]], [[vinny]], [[tyrone]]",
       "First mention": "[[chapter-1]]"
     },
-    "lead": "**The Cat in the Box** is the short scene where a black cat jumps into a box of Double Whoppers with Cheese. [[vinny]] and [[tyrone]] stop their play to look and say \"Cat\" in sync.",
+    "lead": "**The Cat in the Box** is the short scene where a black cat, who turns out to be [[friend|FRIEND]], jumps into a box of Double Whoppers with Cheese. [[vinny]] and [[tyrone]] stop their play to look and say \"Cat\" in sync.",
     "sections": [
       {"heading": "The scene", "body": "The cat's head turns, \"revealing its yellow and pink eyes\", and it laughs and disappears. Vinny says, \"Welp, things really took a weird route back there, let's go back to work-\", which is cut off by [[friend|FRIEND]] ([[friend-abduction]]). It gives [[chapter-2]] its title."}
     ],
@@ -324,7 +331,7 @@
     "category": "events",
     "subtitle": "A quick escape from being extremely political.",
     "infobox": {
-      "When": "Presumably July 4th, 1995",
+      "When": "July 4th, 1995",
       "Where": "[[little-saint-james-sea|The Little Saint James Sea]]",
       "Involved": "The [[ss-vessel-crew|S.S. Vessel crew]], [[vinny]], [[tyrone]]",
       "Cause": "Gaster's theory that the island held the Great Double Whopper with Cheese",
@@ -334,7 +341,7 @@
     "sections": [
       {"heading": "The argument", "body": "Vinny asks, \"What were you thinking, you bastard?!\" Gaster says the island's secret might have been that it had [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]]. Vinny says only [[great-double-whopper-with-cheese-god|the god]] has it, and that Gaster is \"almost as stupid as Taking Back Sunday\". That insult leads straight to [[roaring-knights-strike]]."}
     ],
-    "timeline": {"when": "Presumably July 4th, 1995", "order": 7},
+    "timeline": {"when": "July 4th, 1995", "order": 7},
     "related": ["little-saint-james-island", "spyglass", "roaring-knights-strike"],
     "appearances": ["chapter-2"]
   },
@@ -344,7 +351,7 @@
     "category": "events",
     "subtitle": "Insult the band, get the BLACK KNIFE. Drown. Not quite.",
     "infobox": {
-      "When": "Presumably July 4th, 1995",
+      "When": "July 4th, 1995",
       "Where": "The [[ss-vessel|S.S. Vessel]], then the [[little-saint-james-sea|sea]]",
       "Attacker": "[[roaring-knight|The Roaring Knight]]",
       "Victim": "[[vinny]]",
@@ -356,7 +363,7 @@
     "sections": [
       {"heading": "Drowning", "body": "\"He starts losing consciousness after a minute and twenty-four seconds. Is it so joever for Vinny?\" The narrator immediately answers: \"Nah, we're so BARACK.\" Shadows from the sea carry him to the [[ai-shadow-realm|AI Shadow Realm]].\n\nBefore he falls, [[tyrone]] shouts, \"Tell the big brit boss that I quit, Vinny!\""}
     ],
-    "timeline": {"when": "Presumably July 4th, 1995", "order": 8},
+    "timeline": {"when": "July 4th, 1995", "order": 8},
     "related": ["roaring-knight", "black-knife", "ai-shadow-realm", "little-saint-james-sea"],
     "appearances": ["chapter-2"]
   },
@@ -366,7 +373,7 @@
     "category": "events",
     "subtitle": "Vinny (Greninja) vs. Claude (Mr. Game & Watch). Controller dispute.",
     "infobox": {
-      "When": "Presumably July 4th, 1995",
+      "When": "July 4th, 1995",
       "Where": "[[claudes-castle|Claude's castle]], [[ai-shadow-realm|AI Shadow Realm]]",
       "Game": "[[super-smash-bros-wii-u|Super Smash Bros. for the Wii U]]",
       "Stakes": "Claude wins: Vinny frees him. Vinny wins: Claude leaves.",
@@ -377,7 +384,7 @@
     "sections": [
       {"heading": "Aftermath", "body": "Vinny complains that \"I was using the crappy controller!\" Claude repeats \"Copium\" many times. Vinny honors the deal and asks how to open the portal ([[opening-of-the-portal]])."}
     ],
-    "timeline": {"when": "Presumably July 4th, 1995", "order": 9},
+    "timeline": {"when": "July 4th, 1995", "order": 9},
     "related": ["super-smash-bros-wii-u", "claude", "opening-of-the-portal"],
     "appearances": ["chapter-2"]
   },
@@ -387,7 +394,7 @@
     "category": "events",
     "subtitle": "One fork. One burst of darkness that shines.",
     "infobox": {
-      "When": "Presumably July 4th, 1995",
+      "When": "July 4th, 1995",
       "Where": "The throne room of [[claudes-castle|Claude's castle]]",
       "Done by": "[[vinny]]",
       "Tool": "[[the-fork|The Fork in the Road]]",
@@ -398,7 +405,7 @@
     "sections": [
       {"heading": "The conversation", "body": "Before the stab, Claude says Vinny needs \"a fork in the road\", Vinny produces it, and they discuss the pun. Vinny asks whether it will make a Dark Fountain; Claude says no. Vinny: \"Aight bet.\" ([[aight-bet]])"}
     ],
-    "timeline": {"when": "Presumably July 4th, 1995", "order": 10},
+    "timeline": {"when": "July 4th, 1995", "order": 10},
     "related": ["the-portal", "the-fork", "claude-escape"],
     "appearances": ["chapter-2"]
   },
@@ -408,7 +415,7 @@
     "category": "events",
     "subtitle": "\"Try and stop me.\" The Age of Claude begins.",
     "infobox": {
-      "When": "Presumably July 4th, 1995",
+      "When": "July 4th, 1995",
       "Where": "[[ai-shadow-realm|AI Shadow Realm]] to the sky of [[garth|Garth]]",
       "Escapee": "[[claude]]",
       "Followed by": "[[vinny]], wearing the [[shadow-cape|Shadow Cape]]",
@@ -419,7 +426,7 @@
     "sections": [
       {"heading": "After", "body": "The [[ai-shadow-figures|AI shadow figures]] thank Vinny for \"freeing us from him\" and give him the [[shadow-cape|Shadow Cape]]. He follows Claude out, and the portal seals behind him. \"The Age of Claude had begun.\""}
     ],
-    "timeline": {"when": "Presumably July 4th, 1995", "order": 11},
+    "timeline": {"when": "July 4th, 1995", "order": 11},
     "related": ["claude", "the-portal", "age-of-claude"],
     "appearances": ["chapter-2"]
   },
@@ -429,7 +436,7 @@
     "category": "events",
     "subtitle": "Stoppable force. Immovable object. Wyoming.",
     "infobox": {
-      "When": "Presumably July 4th–5th, 1995",
+      "When": "July 4th, 1995",
       "Where": "The sky over the [[united-states-of-america|United States]], then [[wyoming|Wyoming]]",
       "Fighters": "[[vinny]] and [[claude]]",
       "Outcome": "Vinny is thrown into a mountain in Wyoming",
@@ -439,7 +446,7 @@
     "sections": [
       {"heading": "Before and after", "body": "Claude has just flown into the [[united-states-of-america|United States]], remarking that it \"needs more data centers\". Vinny crashes into a mountain and lies in pain for \"about 6 hours and 8 minutes\", until the sun goes down. He then goes in search of Dunkin ([[dunkin-alliance]])."}
     ],
-    "timeline": {"when": "Presumably July 4th–5th, 1995", "order": 12},
+    "timeline": {"when": "July 4th, 1995", "order": 12},
     "related": ["claude", "wyoming", "age-of-claude"],
     "appearances": ["chapter-3"]
   },
@@ -447,21 +454,26 @@
     "slug": "dunkin-alliance",
     "title": "The Dunkin Alliance",
     "category": "events",
-    "subtitle": "Four people, one table, one common enemy who likes Wordle.",
+    "subtitle": "Four people, one table, one common enemy who likes Wordle. Disbanded, forever.",
     "infobox": {
-      "When": "After sundown (date not given)",
+      "When": "Formed July 4th, 1995; disbanded October 29th, 1995",
       "Where": "[[dunkin-wyoming|The Dunkin, Wyoming]]",
       "Members": "[[vinny]], [[will-vella]], [[aesop-rock]], [[del-the-funky-homosapien|Del]]",
       "Against": "[[claude]]",
       "Price": "Help with [[vellatosis]] for Will; the rest just need [[wordle|Wordle]]",
-      "First mention": "[[chapter-3]]"
+      "First mention": "[[chapter-3]]",
+      "Trained by": "[[united-homies-of-america|The United Homies of America]]",
+      "Vehicles": "[[mystery-machine|The Mystery Machine]]; [[uha-ford-f150|the UHA Ford-F150]]; an Uber",
+      "Status": "Disbanded, forever"
     },
     "lead": "**The Dunkin Alliance** is the team [[vinny]] assembles at the [[dunkin-wyoming|Dunkin]] after being thrown into [[wyoming|Wyoming]]. It is made of [[will-vella|Will Vella]], [[aesop-rock]] and [[del-the-funky-homosapien|Del]].",
     "sections": [
-      {"heading": "Recruiting", "body": "Vinny offers Will help finding the secret of [[vellatosis]] if Will helps defeat [[claude]] (\"Sounds baller\"). Then he and Will sit at the rappers' table, and Vinny asks them for help against a super-AI \"trying to take over the world with Data-centers and Robots\". They are unmoved until he says, \"He likes Wordle.\" Del: \"We're in.\""}
+      {"heading": "Recruiting", "body": "Vinny offers Will help finding the secret of [[vellatosis]] if Will helps defeat [[claude]] (\"Sounds baller\"). Then he and Will sit at the rappers' table, and Vinny asks them for help against a super-AI \"trying to take over the world with Data-centers and Robots\". They are unmoved until he says, \"He likes Wordle.\" Del: \"We're in.\""},
+      {"heading": "The campaign", "body": "The Alliance loses the [[mystery-machine|Mystery Machine]] ([[mystery-machine-crash]]), learns [[two-time-teleportation|to teleport]], lands in Texas ([[teleport-to-austin]]) and trains with the UHA for three months ([[freedom-road-trip]]). It then loses the [[battle-of-louisiana|Battle of Louisiana]] after six hours, and wins anyway through [[vellatosis|Vellatosis]]."},
+      {"heading": "The end", "body": "\"The Dunkin Alliance disbands, forever. They all call an Uber because they have no way to get back home.\" Will has already left with the [[dunkin-cult|Dunkin Cult]]; Aesop and Del return to Wyoming; Vinny returns to the register ([[chapter-4]])."}
     ],
-    "timeline": {"when": "Presumably July 4th–5th, 1995", "order": 13},
-    "related": ["will-vella", "aesop-rock", "del-the-funky-homosapien", "wordle"],
+    "timeline": {"when": "July 4th, 1995", "order": 13},
+    "related": ["will-vella", "aesop-rock", "del-the-funky-homosapien", "wordle", "freedom-road-trip", "battle-of-louisiana", "end-of-the-age-of-claude"],
     "appearances": ["chapter-3"]
   },
   {
@@ -480,7 +492,7 @@
     "sections": [
       {"heading": "What is known", "body": "Vinny has [[vinnys-sword|a vibrant sword]], [[titanium-armor|titanium armor]], a [[shadow-cape|cape of shadows]], the power of [[great-double-whopper-with-cheese|The Great Double Whopper with Cheese]], and [[determination|DETERMINATION]]. Behind him is [[vigorous-v|The VIGOROUS V]]. The outcome is not given."}
     ],
-    "timeline": {"when": "Later (flash-forward; exact date not given)", "order": 14},
+    "timeline": {"when": "Later (flash-forward; exact date not given)", "order": 99},
     "related": ["chapter-prologue", "ton-618", "vigorous-v"],
     "appearances": ["chapter-prologue"]
   }

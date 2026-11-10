@@ -56,7 +56,12 @@ The tracker only knows the chapters in `groups.json`. If the live published book
   - A spin-off article lists its Legend Of Chris counterparts in its `loc` field.
   - In text, `[[loc:slug|label]]` links to a Legend Of Chris article (in the spin-off), and `[[teov:slug|label]]` links to a spin-off article (in the Legend Of Chris timeline).
 - **Timeline and maps.** The spin-off's events are in the Legend Of Chris Timeline as the "Epic of Vinny" storyline (events with `"spinoff": true` in `content/timeline.json`; they sit after the eight chapters in "As told in the book"). The Maps page has a map of Garth, and the Multiverse map shows Garth in the Kanye System. Garth is not Earth: Earth is in the New Jersey System.
-- **After a new chapter.** Tell Claude. It adds the chapter, updates the articles it touches, adds new characters, places and events, and adds the new events to `teov/content/` and to the Legend Of Chris timeline. The wiki does not include the story's full text, only summaries and short quotes.
+- **After a new chapter.** Tell Claude and send the new PDF. The steps:
+  1. `python3 teov/extract_story.py <story.pdf> teov/content/story.json` rebuilds the full text for `read.html`, with the PDF's fonts, colours, text boxes and pictures (needs `pip install pymupdf`). The byline is left out on purpose: the wiki credits no author.
+  2. Add the chapter to `teov/content/chapters.json`, update the articles it touches, and add new characters, places and events (events carry `timeline: {when, order}`).
+  3. Add the new events to the Legend Of Chris timeline (`content/timeline.json`, `"spinoff": true`).
+  4. If Vinny goes somewhere new, redraw the map: `python3 teov/garth_map.py <countries.geojson> <states.geojson> content/maps/garth.png` (the Natural Earth files are linked in the script), and update `ROUTE` in `teov/build.py`, which draws "The weird route" on the main page.
+- **The look.** Grey and coral blue, Comic Sans, a white light mode. It borrows from the story: quotes are game-style text boxes, the main page has a save-file panel (where the story stands), Vinny's route and party cards (`ROUTE` and `PARTY` in `teov/build.py`). The story page is a white sheet set like the PDF and loads the PDF's display fonts from Google Fonts.
 
 ## The MASTER FILE: reading page and writing room
 
