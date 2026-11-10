@@ -97,6 +97,26 @@ PICKS = {
     "flashback-chapter": ["Apple I"], "chapter-maybe-seventh": ["Las Vegas Strip"], "chapter-4-point-1": ["TurboGrafx-16"], "chapter-new-jersey": ["Chuck E. Cheese", "Pizza"],
 }
 
+# second choices, tried when the first pick has no usable Commons photo (an SVG diagram, say, or a non-free lead image)
+FALLBACKS = {
+    "mf-vroom": "drag racing car", "random-customer": "customer at fast food counter", "wing-ding-gaster": "pirate captain costume", "eram": "sail on a ship",
+    "lost-society-of-ballers": "basketball players outdoor court", "pol-phi-doros": "Greek letters carved stone", "new-apple-employees": "Apple Store employees",
+    "dunkin-cult": "doughnuts", "5g": "cell tower antenna", "pog": "milk caps game", "no-clip": "empty hallway", "quest-73-taco-bells": "Taco Bell restaurant",
+    "war-for-byzantine-mexico": "Byzantine mosaic", "nuh-uh-debate": "debate stage podium", "chris-war-crimes": "cloned sheep", "weezing-of-kanye": "asthma inhaler",
+    "super-bowl": "Super Bowl stadium", "rap-battle-club-shadowban": "rap battle", "spaceport-chase": "spaceport launch pad", "the-border-fight": "border fence",
+    "basement-deal": "basement room", "salty-springs-ambush": "ambush", "kanyes-dream": "sleeping person dream", "night-1": "night sky city", "freedom-road-trip": "Route 66 sign",
+    "claude-livestreams": "streamer desk setup", "back-to-the-register": "cash register", "claude-smash-match": "GameCube controller", "clash-over-the-usa": "Wyoming mountains",
+    "settings": "gear icon", "medeas-tesseract": "tesseract hypercube", "openable-door": "open door", "galaxy-gas": "nitrous oxide canister", "inav": "GPS navigation device",
+    "igun": "water pistol", "ibeam": "steel I-beam", "facetime-laser": "laser beam", "t1-phones": "old mobile phones", "xp-candy": "wrapped candy", "i-cant-put-down-the-cup": "red plastic cup",
+    "ultra-hand": "reaching grabber tool", "infinity-blades": "sword", "golden-plaque": "bronze plaque", "wii-play": "Wii Remote", "shadow-cape": "black cape", "five-below-watch": "wristwatch",
+    "wordle": "crossword puzzle grid", "spyglass": "brass telescope", "minor-miner-universe": "mine shaft", "call-of-duty-lobbies": "gaming computer", "dusty-depot": "dusty warehouse",
+    "the-court": "courtroom", "bucees-hq": "Buc-ee's gas station", "american-garage": "garage with American flag", "garth": "planet", "little-saint-james-sea": "Caribbean sea",
+}
+for _slug, _q in FALLBACKS.items():
+    if _slug in PICKS:
+        PICKS[_slug] = PICKS[_slug] + [C(_q)]
+
+
 
 # Wikimedia's API refuses anonymous requests from shared cloud addresses, so this reads the ordinary
 # pages instead, slowly: the article's lead picture, the file's page on Commons (author, licence),
