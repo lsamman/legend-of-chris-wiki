@@ -319,3 +319,10 @@ body:not(.reading) .progress { display: none; }
   .hero-title { text-shadow: 2px 2px 0 var(--accent); }
 }
 @media print { .top, .side, .story-toc, .foot { display: none; } .shell { display: block; } .sheet { border: 0; box-shadow: none; } }
+
+/* pictures shared with the Legend Of Chris wiki */
+.card { position: relative; }
+.card-img { position: absolute; right: 12px; bottom: 12px; width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--rule); background: #fff; }
+.card:has(.card-img) .card-sub { padding-right: 66px; min-height: 44px; }
+.ib-img .credit { display: block; margin-top: 3px; font-size: 10.5px; overflow-wrap: anywhere; }
+.ib-img.photo img { max-height: 320px; width: 100%; object-fit: cover; object-position: center top; }

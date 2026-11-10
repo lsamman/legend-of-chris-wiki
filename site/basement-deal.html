@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "e083a3bcf843";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=e083a3bcf843">
+<link rel="stylesheet" href="assets/phone.css?v=e083a3bcf843">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,7 +87,7 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">The Basement Deal</h1>
 <p class="crumbs"><a class="badge" href="category-events.html">Events</a> From The Legend Of Chris Wiki · <span class="subtitle">Propane, but in a basement.</span></p>
 <aside class="infobox"><div class="ib-title">The Basement Deal</div><table><tr><th>Parties</th><td><a href="walter-white.html">Walter White</a>, <a href="jesse-pinkman.html">Jesse Pinkman</a>, <a href="scott-the-woz.html">Scott the Woz</a></td></tr><tr><th>Terms</th><td>Money and free propane for the grill, in exchange for The Internet and Scott's support of Walter's “Cooking”</td></tr><tr><th>Condition</th><td>Play Wii Sports with Moh on Thursdays</td></tr><tr><th>Location</th><td><a href="scotts-house.html">Scott's basement</a></td></tr><tr><th>First appearance</th><td><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></td></tr></table><div class="ib-cat">Events</div></aside>
@@ -95,7 +97,7 @@
 <p>As far as the Wiki can tell, this is Walter White's first partnership with the owner of a ship made of Wii games.</p></section>
 <p class="read-chapter">On the Timeline: <a href="timeline.html#ev-basement-deal">The Basement Deal</a> →</p>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="walter-white.html">Walter White</a></li><li><a href="jesse-pinkman.html">Jesse Pinkman</a></li><li><a href="scott-the-woz.html">Scott the Woz</a></li><li><a href="scotts-house.html">Scott&#x27;s House</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="walter-white.html"><img class="card-img" src="assets/img/t/walter-white-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Walter White</b><span class="card-sub">Dreamer of Erger Wings.</span></span></a><a class="card" href="jesse-pinkman.html"><img class="card-img" src="assets/img/t/jesse-pinkman-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Jesse Pinkman</b><span class="card-sub">Yo.</span></span></a><a class="card" href="scott-the-woz.html"><img class="card-img" src="assets/img/t/scott-the-woz-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Scott the Woz</b><span class="card-sub">Owner of a giant box made of Wii games. Enemy of the Border.</span></span></a><a class="card" href="scotts-house.html"><img class="card-img" src="assets/img/t/scotts-house-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Scott&#x27;s House</b><span class="card-sub">Ohio. A backyard with a ship in it.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (8)</summary><ul class="chips"><li><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></li><li><a href="hank-hill.html">Hank Hill</a></li><li><a href="jesse-pinkman.html">Jesse Pinkman</a></li><li><a href="rex-mohs.html">Rex Mohs</a></li><li><a href="scott-the-woz.html">Scott the Woz</a></li><li><a href="scotts-house.html">Scott&#x27;s House</a></li><li><a href="the-wozniaks.html">The Wozniaks</a></li><li><a href="walter-white.html">Walter White</a></li></ul></details>
 <div class="catbar">Category: <a href="category-events.html">Events</a></div>
     <footer class="sheet-foot">
@@ -104,8 +106,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=e083a3bcf843"></script>
+<script src="assets/wiki.js?v=e083a3bcf843"></script>
+<script src="assets/phone.js?v=e083a3bcf843"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
 // Every app is one of Will's real apps on lsamman.github.io. The wallpaper comes from the Settings app
 // (localStorage "loc.phone.wallpaper", a CSS background value).
 (function () {
-  var V = "51aa0e87778a";   // filled in by build.py, so a new icon is fetched after an update
+  var V = "e083a3bcf843";   // filled in by build.py, so a new icon is fetched after an update
   var SITE = "https://lsamman.github.io/";
   var APPS = [
     { name: "MySpace", icon: "app-myspace", url: SITE + "dbyc/", full: "MySpace v1.3.3", glyph: "M", bg: "linear-gradient(#7fd0ff,#1a8fe0)" },

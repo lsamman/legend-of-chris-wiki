@@ -396,6 +396,7 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
 <script>try{{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 {head_extra}</head>
 <body{f' class="{body_class}"' if body_class else ""}>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -409,10 +410,11 @@ def page(title, body, *, active=None, description="", page_no=None, head_extra="
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   {nav_html(active, sidebar)}
-  <main class="sheet">
+  <main id="main" class="sheet">
     {body}
     <footer class="sheet-foot">
       <span>The Legend Of Chris Wiki — a fan wiki. Lore is canon. Spelling is canon. Nothing is canon.</span>
@@ -530,9 +532,8 @@ def render_article(e, R, entries):
     if rel:
         for r in rel:
             R.backlinks[r].add(slug)
-        parts.append('<section class="meta"><h2 id="see-also">See also</h2><ul class="chips">'
-                     + "".join(f'<li><a href="{r}.html">{html.escape(entries[r]["title"])}</a></li>' for r in rel)
-                     + "</ul></section>")
+        parts.append('<section class="meta"><h2 id="see-also">See also</h2><div class="cards small">'
+                     + "".join(card(entries[r]) for r in rel) + "</div></section>")
 
     parts.append("<!--BACKLINKS-->")
     parts.append(f'<div class="catbar">Category: <a href="category-{cat}.html">{CAT_NAME[cat]}</a></div>')

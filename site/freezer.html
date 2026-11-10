@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "e083a3bcf843";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=e083a3bcf843">
+<link rel="stylesheet" href="assets/phone.css?v=e083a3bcf843">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,14 +87,14 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">The Freezer</h1>
 <p class="crumbs"><a class="badge" href="category-locations.html">Locations</a> From The Legend Of Chris Wiki · <span class="subtitle">Cold. Cleaning duty. Wall.</span></p>
 <aside class="infobox"><div class="ib-title">The Freezer</div><table><tr><th>Location</th><td><a href="burger-king-boston.html">Burger King, Boston</a></td></tr><tr><th>Leads to</th><td>The <a href="backrooms.html">The Backrooms</a>, through the wall</td></tr><tr><th>First appearance</th><td><a class="teov-link" href="epic-of-vinny/chapter-1.html">Chapter 1: Beginnings</a></td></tr><tr><th>Series</th><td><a href="the-epic-of-vinny.html">The Epic of Vinny</a> (spin-off)</td></tr><tr><th>Told in</th><td><a class="teov-link" href="epic-of-vinny/chapter-1.html">Chapter 1: Beginnings</a></td></tr></table><div class="ib-cat">Locations</div></aside>
 <div class="lead"><p><strong>The Freezer</strong> at the <a href="burger-king-boston.html">Burger King</a> is on <a href="vinny.html">Vinny B. James</a>'s list of chores. When Vinny and <a href="tyrone.html">Tyrone</a> open it, they "walk into the wall and enter the backrooms".</p></div>
 <section><h2 id="use-as-a-door">Use as a door</h2><p>The text does not say how the wall works. It is the first of several walls that characters pass through in <a class="teov-link" href="epic-of-vinny/chapter-1.html">Chapter 1: Beginnings</a> (see <a href="no-clip.html">No-clipping</a>).</p></section>
 <section><h2 id="on-the-spin-off-wiki">On the spin-off wiki</h2><p>This article is canon in the Legend Of Chris universe. It comes from the spin-off <a href="the-epic-of-vinny.html">The Epic of Vinny</a>. <a class="teov-link" href="epic-of-vinny/freezer.html">Read the full article on The Epic of Vinny Wiki</a>.</p></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="backrooms.html">The Backrooms</a></li><li><a href="burger-king-boston.html">The Burger King (Boston)</a></li><li><a href="no-clip.html">No-clipping</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="backrooms.html"><span class="card-body"><b>The Backrooms</b><span class="card-sub">A storage room full of Double Whoppers with Cheese. Staffed by a forklift guy.</span></span></a><a class="card" href="burger-king-boston.html"><span class="card-body"><b>The Burger King (Boston)</b><span class="card-sub">Where the freezer is not just a freezer.</span></span></a><a class="card" href="no-clip.html"><span class="card-body"><b>No-clipping</b><span class="card-sub">Walking through walls, on purpose or otherwise.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (10)</summary><ul class="chips"><li><a href="garret.html">Garret the Forklift Guy</a></li><li><a href="independence-day-1995.html">Independence Day, 1995</a></li><li><a href="no-clip.html">No-clipping</a></li><li><a href="backrooms.html">The Backrooms</a></li><li><a href="burger-king-boston.html">The Burger King (Boston)</a></li><li><a href="the-epic-of-vinny.html">The Epic of Vinny</a></li><li><a href="teleport-to-austin.html">The Teleport to Texas</a></li><li><a href="tyrone.html">Tyrone</a></li><li><a href="vinny.html">Vinny B. James</a></li><li><a href="five-below-watch.html">Vinny&#x27;s 5 Below Watch</a></li></ul></details>
 <div class="catbar">Category: <a href="category-locations.html">Locations</a></div>
     <footer class="sheet-foot">
@@ -101,8 +103,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=e083a3bcf843"></script>
+<script src="assets/wiki.js?v=e083a3bcf843"></script>
+<script src="assets/phone.js?v=e083a3bcf843"></script>
 </body>
 </html>

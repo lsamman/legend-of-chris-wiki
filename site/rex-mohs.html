@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "e083a3bcf843";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=e083a3bcf843">
+<link rel="stylesheet" href="assets/phone.css?v=e083a3bcf843">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,14 +87,14 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">Rex Mohs</h1>
 <p class="crumbs"><a class="badge" href="category-characters.html">Characters</a> From The Legend Of Chris Wiki · <span class="subtitle">The second Wozniak, and possibly “Moh”.</span></p>
 <aside class="infobox"><div class="ib-title">Rex Mohs</div><figure class="ib-img"><a href="https://scott-the-woz.fandom.com/wiki/Rex_Mohs" target="_blank" rel="noopener"><img src="assets/img/rex-mohs-1.jpg" alt="Rex Mohs" loading="lazy"></a><figcaption>Rex Mohs<span class="credit">Image: scott-the-woz Fandom wiki contributors · Fandom wiki image; rights belong to its owners · <a href="https://scott-the-woz.fandom.com/wiki/Rex_Mohs" target="_blank" rel="noopener">Scott-the-woz Fandom wiki</a></span></figcaption></figure><table><tr><th>Affiliation</th><td><a href="the-wozniaks.html">The Wozniaks</a></td></tr><tr><th>Leader</th><td><a href="scott-the-woz.html">Scott the Woz</a></td></tr><tr><th>First appearance</th><td><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></td></tr></table><div class="ib-cat">Characters</div></aside>
 <div class="lead"><p><strong>Rex Mohs</strong> is a member of <a href="the-wozniaks.html">the Wozniaks</a>, listed second when <a href="scott-the-woz.html">Scott</a> phones his crew. He never speaks.</p></div>
 <section><h2 id="moh">Moh?</h2><p>Near the end, Scott tells <a href="walter-white.html">Walter White</a> that if he sets up in his basement, “you have to play wii sports with Moh on thursdays though”. The book does not say who Moh is. Most editors take it to be Rex Mohs, which makes him the only Wozniak with a standing appointment in the canon. This is a fan reading.</p></section>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="the-wozniaks.html">The Wozniaks</a></li><li><a href="scott-the-woz.html">Scott the Woz</a></li><li><a href="jerry-attricks.html">Jerry Attricks</a></li><li><a href="basement-deal.html">The Basement Deal</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="the-wozniaks.html"><span class="card-body"><b>The Wozniaks</b><span class="card-sub">Four guys, one Wii box.</span></span></a><a class="card" href="scott-the-woz.html"><img class="card-img" src="assets/img/t/scott-the-woz-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Scott the Woz</b><span class="card-sub">Owner of a giant box made of Wii games. Enemy of the Border.</span></span></a><a class="card" href="jerry-attricks.html"><img class="card-img" src="assets/img/t/jerry-attricks-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Jerry Attricks</b><span class="card-sub">One of the Wozniaks.</span></span></a><a class="card" href="basement-deal.html"><span class="card-body"><b>The Basement Deal</b><span class="card-sub">Propane, but in a basement.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (3)</summary><ul class="chips"><li><a href="jerry-attricks.html">Jerry Attricks</a></li><li><a href="scott-the-woz.html">Scott the Woz</a></li><li><a href="the-wozniaks.html">The Wozniaks</a></li></ul></details>
 <div class="catbar">Category: <a href="category-characters.html">Characters</a></div>
     <footer class="sheet-foot">
@@ -101,8 +103,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=e083a3bcf843"></script>
+<script src="assets/wiki.js?v=e083a3bcf843"></script>
+<script src="assets/phone.js?v=e083a3bcf843"></script>
 </body>
 </html>

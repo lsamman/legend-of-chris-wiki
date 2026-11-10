@@ -78,4 +78,18 @@
     var none = document.querySelector('.none-found');
     if (none) none.hidden = shown > 0;
   });
+
+  // long pages (the MASTER FILE, chapters): a thin reading-progress line under the toolbar
+  var bar = document.querySelector('.progress i'), sheet = document.querySelector('.sheet');
+  if (bar && sheet) {
+    var tick = false;
+    var update = function () {
+      tick = false;
+      var r = sheet.getBoundingClientRect(), total = r.height - innerHeight;
+      bar.style.width = total > innerHeight ? Math.max(0, Math.min(100, -r.top / total * 100)) + '%' : '0';
+    };
+    addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('resize', update);
+    update();
+  }
 })();

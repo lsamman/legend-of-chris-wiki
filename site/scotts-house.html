@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <script>
 (function () {
-  var SITE_VERSION = "51aa0e87778a";
+  var SITE_VERSION = "e083a3bcf843";
   if (!window.fetch) return;
   fetch("version.json?t=" + Date.now(), { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -38,11 +38,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=51aa0e87778a">
-<link rel="stylesheet" href="assets/phone.css?v=51aa0e87778a">
+<link rel="stylesheet" href="assets/style.css?v=e083a3bcf843">
+<link rel="stylesheet" href="assets/phone.css?v=e083a3bcf843">
 <script>try{var t=localStorage.getItem('loc-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the article</a>
 <header class="toolbar">
   <div class="toolbar-inner">
     <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -56,6 +57,7 @@
     <button class="theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
     <button class="menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
   </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
 </header>
 <div class="desk">
   
@@ -85,7 +87,7 @@
   </div>
   <img class="side-mascot" src="assets/chill-chris.png" alt="" width="108" height="118">
 </nav>
-  <main class="sheet">
+  <main id="main" class="sheet">
     <h1 class="title">Scott&#x27;s House</h1>
 <p class="crumbs"><a class="badge" href="category-locations.html">Locations</a> From The Legend Of Chris Wiki · <span class="subtitle">Ohio. A backyard with a ship in it.</span></p>
 <aside class="infobox"><div class="ib-title">Scott&#x27;s House</div><figure class="ib-img"><a href="https://commons.wikimedia.org/wiki/File:SUBURBAN_UTOPIA_-_Jefferson,_Ohio_(4039283226).jpg" target="_blank" rel="noopener"><img src="assets/img/scotts-house-1.jpg" alt="SUBURBAN UTOPIA - Jefferson, Ohio (4039283226)" loading="lazy"></a><figcaption>SUBURBAN UTOPIA - Jefferson, Ohio (4039283226)<span class="credit">Photo: joiseyshowaa from Freehold, NJ, USA · CC BY-SA 2.0 · <a href="https://commons.wikimedia.org/wiki/File:SUBURBAN_UTOPIA_-_Jefferson,_Ohio_(4039283226).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption></figure><table><tr><th>Owner</th><td><a href="scott-the-woz.html">Scott the Woz</a></td></tr><tr><th>Location</th><td>Ohio</td></tr><tr><th>Landmarks</th><td>The Target, the GameStop, a Sheetz</td></tr><tr><th>Notable feature</th><td><a href="wii-cube.html">The Wii Cube</a> in the backyard</td></tr><tr><th>First appearance</th><td><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></td></tr></table><div class="ib-cat">Locations</div></aside>
@@ -94,7 +96,7 @@
 <section><h2 id="notes">Notes</h2><ul><li>Steve Jobs tells Scott: “anything for ohio rizz gamestops”.</li><li>Ohio also contains <a href="corner-store-ohio.html">the corner store</a> and <a href="united-streets-of-ohio.html">the United Streets of Ohio</a>, which seems to be an area of heavy sightseeing for the canon.</li></ul></section>
 <p class="read-chapter">On the map: <a href="maps.html#map-multiverse">The Multiverse</a> →</p>
 <section class="meta"><h2 id="appearances">Appearances</h2><ul class="apps"><li><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></li></ul></section>
-<section class="meta"><h2 id="see-also">See also</h2><ul class="chips"><li><a href="scott-the-woz.html">Scott the Woz</a></li><li><a href="wii-cube.html">The Wii Cube</a></li><li><a href="basement-deal.html">The Basement Deal</a></li></ul></section>
+<section class="meta"><h2 id="see-also">See also</h2><div class="cards small"><a class="card" href="scott-the-woz.html"><img class="card-img" src="assets/img/t/scott-the-woz-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>Scott the Woz</b><span class="card-sub">Owner of a giant box made of Wii games. Enemy of the Border.</span></span></a><a class="card" href="wii-cube.html"><img class="card-img" src="assets/img/t/wii-cube-1.jpg" alt="" loading="lazy" width="72" height="72"><span class="card-body"><b>The Wii Cube</b><span class="card-sub">A giant box made out of Wii games.</span></span></a><a class="card" href="basement-deal.html"><span class="card-body"><b>The Basement Deal</b><span class="card-sub">Propane, but in a basement.</span></span></a></div></section>
 <details class="meta backlinks"><summary>What links here (6)</summary><ul class="chips"><li><a href="chapter-4-point-1.html">Chapter 4+.1+.1…</a></li><li><a href="scott-the-woz.html">Scott the Woz</a></li><li><a href="basement-deal.html">The Basement Deal</a></li><li><a href="inav.html">The Inav</a></li><li><a href="wii-cube.html">The Wii Cube</a></li><li><a href="the-wozniaks.html">The Wozniaks</a></li></ul></details>
 <div class="catbar">Category: <a href="category-locations.html">Locations</a></div>
     <footer class="sheet-foot">
@@ -103,8 +105,8 @@
     </footer>
   </main>
 </div>
-<script src="assets/search-index.js?v=51aa0e87778a"></script>
-<script src="assets/wiki.js?v=51aa0e87778a"></script>
-<script src="assets/phone.js?v=51aa0e87778a"></script>
+<script src="assets/search-index.js?v=e083a3bcf843"></script>
+<script src="assets/wiki.js?v=e083a3bcf843"></script>
+<script src="assets/phone.js?v=e083a3bcf843"></script>
 </body>
 </html>
