@@ -223,7 +223,7 @@
       st.rooms = st.runObj.n; st.hall = hallOf(st.b, st.rooms); st.sec.setAttribute('data-run', st.run);
     });
     legs = stops.map(function (st, i) { return i < N - 1 ? legOf(st, stops[i + 1]) : null; });
-    lastS = -1; dirty = true;
+    painted = -1; hudKey = null; lastS = -1; dirty = true;
   }
   function runInfo(key) {   // what tour3d.js needs to furnish one hallway: its rooms' pictures and names
     for (var i = 0; i < stops.length; i++) if (stops[i].run === key) {
@@ -250,15 +250,32 @@
     return cur + clamp((A - tops[cur]) / (tops[cur + 1] - tops[cur]), 0, 1);
   }
 
+  // A re-layout (the 3D starting, a resize) moves every band: put the reader back on the same stop at the same
+  // point through it. Above the first stop or below the last (the introduction, the closing card) they stay put.
+  function keepPlace(relayout) {
+    var A = window.scrollY + topOffset(), inside = N && tops.length && A >= tops[0] && A <= tops[N];
+    var s = inside ? sFromScroll() : 0;
+    relayout();
+    if (!inside) return;
+    var i = Math.min(Math.floor(s), N - 1);
+    window.scrollTo(0, tops[i] + (s - i) * (tops[i + 1] - tops[i]) - topOffset());
+  }
+
   // ---- paint: the cards, the veil, the HUD
+  var painted = -1, hudKey = null;
   function paint(s) {
     var i = Math.min(Math.floor(s), N - 1), u = s - i;
-    stops.forEach(function (st, k) { st.sec.style.setProperty('--u', k === i ? u.toFixed(3) : '0'); });
+    if (painted !== i && stops[painted]) stops[painted].sec.style.setProperty('--u', '0');
+    painted = i;
+    stops[i].sec.style.setProperty('--u', u.toFixed(3));
     if (veilEl) veilEl.style.setProperty('--veil', POSE.veil.toFixed(3));
     if (hud) {
       var r = routesById[state.route], st = stops[i], c = r && st && st.ch && r.cells[st.ch];
       var above = tops.length && window.scrollY + topOffset() < tops[0] - 40;   // still reading the introduction
-      if (c && !above) {
+      var key = c && !above ? state.route + '/' + st.ch : null;
+      if (key === hudKey) return;
+      hudKey = key;
+      if (key) {
         hud.querySelector('.tour-hud-ch').textContent = T.chapters[st.ch] || st.ch;
         hud.querySelector('.tour-hud-place').innerHTML = c.place;
         hud.querySelector('.tour-hud-doing').innerHTML = c.doing;
@@ -296,7 +313,7 @@
     orderBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-order') === state.order ? 'true' : 'false'); });
   }
   function remember() {
-    try { localStorage.setItem('loc-tour-route', state.route); localStorage.setItem('loc-tour-order', state.order); localStorage.setItem('loc-tour-motion', state.motion ? '1' : '0'); } catch (e) {}
+    try { localStorage.setItem('loc-tour-route', state.route); localStorage.setItem('loc-tour-order', state.order); } catch (e) {}
     var p = new URLSearchParams(location.search);
     if (state.route !== T.routes[0].id) p.set('route', state.route); else p.delete('route');
     if (state.order !== 'happened') p.set('order', state.order); else p.delete('order');
@@ -323,10 +340,11 @@
     state.order = o;
     setRoute(state.route, false);
   }
-  function setMotion(on) {
+  function setMotion(on, chosen) {
     state.motion = on;
     if (motionBtn) { motionBtn.textContent = on ? 'Camera: moving' : 'Camera: stills'; motionBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); }
-    lastStill = -1; lastS = -1; dirty = true; remember(); req();
+    if (chosen) { try { localStorage.setItem('loc-tour-motion', on ? '1' : '0'); } catch (e) {} }   // only a choice is remembered, never the default
+    lastStill = -1; lastS = -1; dirty = true; req();
   }
 
   // ---- the 3D, if it can start. flythrough.html calls enable3d() from the module that loads three.js.
@@ -347,10 +365,8 @@
       if (motionBtn) motionBtn.hidden = false;
       view.resize();
       view.setRoute(routesById[state.route], anchors(), laneColor());
-      // the layout just changed under us: keep the reader on the same stop
-      var s = N ? sFromScroll() : 0;
-      measure();
-      if (N) window.scrollTo(0, tops[Math.min(Math.floor(s), N - 1)] - topOffset() + (s % 1) * ((tops[Math.min(Math.floor(s), N - 1) + 1] || 0) - tops[Math.min(Math.floor(s), N - 1)]));
+      // the layout just changed under us: keep the reader on the same stop, if they were on one
+      keepPlace(function () { measure(); });
       lastS = -1; dirty = true; req();
     },
     view: function () { return view; }
@@ -363,13 +379,10 @@
     if (a) { ev.preventDefault(); setRoute(a.getAttribute('data-route'), false); }
   });
   orderBtns.forEach(function (b) { b.addEventListener('click', function () { setOrder(b.getAttribute('data-order')); }); });
-  if (motionBtn) motionBtn.addEventListener('click', function () { setMotion(!state.motion); });
+  if (motionBtn) motionBtn.addEventListener('click', function () { setMotion(!state.motion, true); });
   window.addEventListener('scroll', req, { passive: true });
   window.addEventListener('resize', function () {
-    var s = N ? sFromScroll() : 0;
-    measure();
-    if (view) view.resize();
-    if (N) { var i = Math.min(Math.floor(s), N - 1); window.scrollTo(0, tops[i] + (s - i) * (tops[i + 1] - tops[i]) - topOffset()); }
+    keepPlace(function () { measure(); if (view) view.resize(); });
     lastS = -1; dirty = true; req();
   });
   new MutationObserver(function () { if (view) view.setRoute(routesById[state.route], anchors(), laneColor()); dirty = true; req(); })
@@ -382,7 +395,7 @@
   var want = params.get('route') || hashRoute || saved.route || T.routes[0].id;
   state.order = (params.get('order') || saved.order) === 'told' ? 'told' : 'happened';
   if (saved.motion === '0') state.motion = false; else if (saved.motion === '1') state.motion = true;
-  setMotion(state.motion);
+  setMotion(state.motion, false);
   setRoute(want, true);
   if (location.hash) {
     requestAnimationFrame(function () {

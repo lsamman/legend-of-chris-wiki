@@ -1236,13 +1236,14 @@ def render_flythrough(entries, R):
             need(val is None or val in P, f"stop {eid}: {val!r} is not a place")
 
     def stop_place(eid, rid, prev):
+        """(place, stayed): stayed means the camera did not move for this event -- it is a memory, a call, or news."""
         v = TOUR["stops"].get(eid, KeyError)
         if v is KeyError or (isinstance(v, dict) and rid not in v):
             print(f"warn: content/tour.json: no stop for {eid!r} on route {rid!r}; the camera stays at {prev!r}", file=sys.stderr)
-            return prev
+            return prev, True
         if isinstance(v, dict):
             v = v[rid]
-        return v or prev
+        return (v, False) if v else (prev, True)
 
     def art_link(a):
         return f'<a href="{a}.html">{esc(entries[a]["title"])}</a>'
@@ -1274,7 +1275,7 @@ def render_flythrough(entries, R):
         prev, blob_stops = None, []
         for eid in stops:
             ev = events[eid]
-            pl = stop_place(eid, rid, prev)
+            pl, stayed = stop_place(eid, rid, prev)
             need(pl is not None, f"route {rid}: its first stop {eid!r} has no place (null is only allowed after a place)")
             prev = pl
             ch = tour_chapter(ev["line"])
@@ -1286,7 +1287,8 @@ def render_flythrough(entries, R):
             pic = art if art and thumb_url(art) else pl
             parts = [f'<section class="tour-stop" id="stop-{rid}-{eid}" data-ev="{eid}" data-place="{pl}" data-chapter="{ch or ""}" '
                      f'data-when="{when[eid]}" data-told="{told}" tabindex="-1"><div class="tour-cap">',
-                     f'<p class="tour-where"><a href="{pl}.html">{esc(entries[pl]["title"])}</a> <span class="tour-kind">{P[pl]["kind"]}</span></p>',
+                     (f'<p class="tour-where">Still at <a href="{pl}.html">{esc(entries[pl]["title"])}</a> <span class="tour-kind">heard from elsewhere</span></p>' if stayed else
+                      f'<p class="tour-where"><a href="{pl}.html">{esc(entries[pl]["title"])}</a> <span class="tour-kind">{P[pl]["kind"]}</span></p>'),
                      f'<h3>{R.inline(ev["title"])}</h3>']
             if thumb_url(pic):
                 parts.append(f'<img class="tour-pic" src="{thumb_url(pic)}" alt="" loading="lazy" width="144" height="144">')
