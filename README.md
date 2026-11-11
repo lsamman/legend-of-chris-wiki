@@ -42,7 +42,16 @@ The third button on the Timeline follows the separate groups (the Reformed Crips
 
 The tracker only knows the chapters in `groups.json`. If the live published book has more chapters than that, the page shows "A newer chapter has been published. This tracker hasn't caught up with it yet."
 
-**After you publish a new chapter**, tell Claude. It updates `content/timeline.json` (the new events), `content/groups.json` (a cell for each group in the new chapter, each group's `now`, and `asOf`), and the wiki's chapter article.
+**After you publish a new chapter**, tell Claude. It updates `content/timeline.json` (the new events), `content/groups.json` (a cell for each group in the new chapter, each group's `now`, and `asOf`), `content/tour.json` (where the camera watches each new event from), and the wiki's chapter article.
+
+### The Flythrough
+
+`flythrough.html` flies a camera along each group's route as you scroll: from system to planet, down to wherever the group is, and through the hallways where the book goes indoors, with the Timeline's words and the tracker's "where / doing" summary beside it. Eight routes: the six groups, the New Apple Employees, and the spin-off. The order is the order things happened, with a switch to book order. No character models; it is only ever a camera's point of view.
+
+- The routes come from `groups.json` (a group's own cells, plus its storyline's events in the chapters it has a cell for) and the spin-off's from the `teov` storyline.
+- `content/tour.json` is the only authored part: a containment tree over location articles (`kind`, `parent`, `inside: true` for buildings the camera can walk into) and the place each event is watched from, keyed per route where two groups see one event from different places. **Where things sit is invented**, like the maps: the book gives no distances or directions. An event missing from it inherits the previous stop's place and the build prints a warning; a bad place, parent, route or event id stops the build.
+- three.js is the copy already vendored for Super Smash Ballers (`build/smash/`); the page loads it from there. With no WebGL, with reduced motion (one still per stop), or with no JavaScript, the page is the same walkthrough as words and pictures.
+- Positions are computed in `build/build.py` (`tour_world`), the camera in `build/tour.js`, the drawing in `build/tour3d.js`.
 
 ## The Epic of Vinny Wiki (spin-off)
 
@@ -127,4 +136,4 @@ With `?emulator` on localhost the pages talk to the emulators instead of the rea
 - The main page shows where the story stands (from `content/groups.json` `asOf`), stats, "The Prophecy's phone" (`PROPHECY` in `build/build.py`: update a row's status when an app is found) and "The squad" (`SQUAD`).
 - Category pages are cards. A card shows the article's picture when it has one (thumbnails are made at build time, with Pillow).
 - Every article has a picture. Real people, places and things use their own photo; for everything the canon invented, `build/fetch_stand_in_images.py` picked a freely licensed Wikimedia Commons photo of the nearest real thing (a basketball for Chris, cell division for Vellatosis) and the caption says it is a stand-in. Author and licence are in `content/images.json` and shown under each picture. To change one, delete its entry in `images.json` and its file in `content/images/`, edit its picks in the script and run `python3 build/fetch_stand_in_images.py <slug>`. It reads Wikipedia and Commons pages slowly (the API is rate-limited for shared servers) and needs network access to en.wikipedia.org, commons.wikimedia.org and upload.wikimedia.org. The Epic of Vinny wiki shows the same pictures.
-- When the MASTER FILE gets new text: append it to `content/book.txt`, regenerate `content/book-numbered.txt`, update the chapter's line range in `build/manifest.py`, then the articles, `content/timeline.json` and `content/groups.json`.
+- When the MASTER FILE gets new text: append it to `content/book.txt`, regenerate `content/book-numbered.txt`, update the chapter's line range in `build/manifest.py`, then the articles, `content/timeline.json`, `content/groups.json` and `content/tour.json`.
