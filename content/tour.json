@@ -1,5 +1,5 @@
 {
-  "_readme": "The Flythrough (flythrough.html). 'places' is a containment tree over articles that already exist: 'kind' picks the geometry and the camera stage, 'parent' is what it sits inside, and 'inside: true' means the camera can go indoors there (consecutive stops at the same indoor place become successive rooms down one hallway). POSITIONS AND INTERIORS ARE INVENTED, like the pictures on the Maps page: the book gives no distances or directions, only what is inside what. 'stops' maps a timeline event id to the place the camera watches it from -- a bare string, or an object keyed by route when two groups see the same event from different places, where null means 'stay where you were, this is news from elsewhere'. An event with no entry here inherits the previous stop's place and prints a warning. Run python3 build/build.py after editing.",
+  "_readme": "The Flythrough (flythrough.html). 'places' is a containment tree over articles that already exist: 'kind' picks the geometry and the camera stage, 'parent' is what it sits inside, and 'inside: true' means the camera can go indoors there (consecutive stops at the same indoor place become successive rooms down one hallway). POSITIONS AND INTERIORS ARE INVENTED, like the pictures on the Maps page: the book gives no distances or directions, only what is inside what. 'stops' maps a timeline event id to the place the camera watches it from -- a bare string, or an object keyed by route when two groups see the same event from different places, where null means 'stay where you were: this is a memory, a phone call, or news from elsewhere' (a bare null does the same for every route). An event with no entry here inherits the previous stop's place and prints a warning. Run python3 build/build.py after editing.",
 
   "places": {
     "multiverse":                   { "kind": "universe", "parent": null },
@@ -93,11 +93,11 @@
     "ton-618-wakes":             "o-block",
 
     "siege-of-the-senate":       "galactic-senate",
-    "rfk-parents":               "newark",
+    "rfk-parents":               null,
     "nuh-uh-debate":             "galactic-senate",
     "bon-jovi-dies":             "galactic-senate",
     "rfk-meets-plankton":        "chai-town",
-    "chris-traced":              "reformed-travis-scott-sector",
+    "chris-traced":              null,
     "new-crips-quest":           "chai-town",
     "dunder-mifflan-reached":    "the-sign",
     "vending-machine-labyrinth": "vending-machine-labyrinth",
@@ -105,9 +105,9 @@
     "xbox-live-dungeons":        "xbox-live-dungeons",
     "mf-vroom-found":            "chambers-360",
     "out-of-cod-hq":             "chambers-360",
-    "spamton-calls":             "cyber-city",
+    "spamton-calls":             null,
     "adirondack-park":           "adirondack-park",
-    "son-returns":               "adirondack-park",
+    "son-returns":               "projects-national-spaceport",
     "spaceport-chase":           "projects-national-spaceport",
     "the-prophecy":              "o-block",
     "locate-facebook":           "o-block",
@@ -127,7 +127,7 @@
     "inav-lands":                "gotham-city",
 
     "twelve-towers":             "twelve-towers",
-    "crack-van":                 "kanye-system",
+    "crack-van":                 "twelve-towers",
     "out-of-propane":            "dusty-depot",
     "roulette-bet":              "the-67-casino",
     "microsoft-bing":            "stairway-to-heaven",
