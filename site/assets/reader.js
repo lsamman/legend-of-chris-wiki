@@ -1,6 +1,6 @@
 // The reading page: shows the built-in original text, then swaps in whatever the
 // author last published (and keeps it live if they publish again while you read).
-import { CONFIGURED, firebase, sanitize, chapters, when } from "./book.js?v=0d0f3581ddf2";
+import { CONFIGURED, firebase, sanitize, chapters, when } from "./book.js?v=2bb5b3fb61b6";
 
 const book = document.getElementById("book");
 const toc = document.getElementById("book-toc");

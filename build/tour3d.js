@@ -134,8 +134,8 @@
       ground.scale.set(600, 600, 1); ground.rotation.x = -Math.PI / 2; g.add(ground);
       g.add(box(wallMat, 14, 8, 10, 0, 4, 0));                                                               // the building
       var pic = new THREE.Mesh(PLANE, new THREE.MeshStandardMaterial({ map: texture(p.img), color: 0xffffff, roughness: .8, emissive: 0x303030 }));
-      pic.scale.set(5.6, 5.6, 1); pic.position.set(3.6, 4.6, 5.02); g.add(pic);                              // its picture, square, beside the door
-      g.add(box(new THREE.MeshStandardMaterial({ color: 0x15161a, roughness: .6 }), 5.9, 5.9, .08, 3.6, 4.6, 5.0));
+      pic.scale.set(5.6, 5.6, 1); pic.position.set(3.6, 4.6, 5.06); g.add(pic);                              // its picture, square, beside the door
+      g.add(box(new THREE.MeshStandardMaterial({ color: 0x15161a, roughness: .6 }), 5.9, 5.9, .08, 3.6, 4.6, 4.98));  // its frame, behind it
       g.add(box(new THREE.MeshStandardMaterial({ color: 0x0f1014, roughness: .5 }), 2.4, 3.4, .3, -2.2, 1.7, 5.1));  // the door
       g.add(box(laneMat, 3.4, .22, .3, -2.2, 3.7, 5.15));                                                           // a lit lintel in the group's colour
       var sign = new THREE.Mesh(PLANE, new THREE.MeshBasicMaterial({ map: textTex(p.t, 512, 96, 44, '#f2f2f2', 'rgba(10,10,14,.85)'), transparent: true }));
