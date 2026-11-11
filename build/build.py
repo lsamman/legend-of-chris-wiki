@@ -6,6 +6,7 @@ Reads content/entries/*.json and writes a flat static site into site/.
 import glob
 import html
 import json
+import math
 import os
 import random
 import re
@@ -18,7 +19,7 @@ import manifest  # noqa: E402
 
 SITE = os.path.join(ROOT, "site")
 PHONE_PAGES = {"iphone-3g", "sacred-apps", "myspace", "twitter", "iphone-keynote"}   # articles with a "Turn on the iPhone 3G" button
-RESERVED = {"index", "all-pages", "search", "random", "read", "write", "playlist", "smash", "timeline", "maps"}
+RESERVED = {"index", "all-pages", "search", "random", "read", "write", "playlist", "smash", "timeline", "maps", "flythrough"}
 PLAYLIST_URL = "https://music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
 PLAYLIST_EMBED = "https://embed.music.apple.com/us/playlist/legend-of-chris/pl.u-r2yBJ62TeYlkAZA"
 
@@ -41,6 +42,8 @@ _tl_path = os.path.join(ROOT, "content", "timeline.json")
 TIMELINE = json.load(open(_tl_path, encoding="utf-8")) if os.path.exists(_tl_path) else {"lanes": [], "eras": [], "events": []}
 _gr_path = os.path.join(ROOT, "content", "groups.json")
 GROUPS = json.load(open(_gr_path, encoding="utf-8")) if os.path.exists(_gr_path) else None
+_tour_path = os.path.join(ROOT, "content", "tour.json")
+TOUR = json.load(open(_tour_path, encoding="utf-8")) if os.path.exists(_tour_path) else None
 _maps_path = os.path.join(ROOT, "content", "maps", "maps.json")
 MAPS = json.load(open(_maps_path, encoding="utf-8"))["maps"] if os.path.exists(_maps_path) else []
 MAPS_FOR = {}   # article slug -> the maps it appears on
@@ -351,6 +354,7 @@ def nav_html(active=None, sidebar=None):
       <li><a href="read.html"{" aria-current=page" if active == "read" else ""}>Read the MASTER FILE</a></li>
       <li><a href="timeline.html"{" aria-current=page" if active == "timeline" else ""}>The Timeline</a></li>
       <li><a href="maps.html"{" aria-current=page" if active == "maps" else ""}>Maps</a></li>
+      <li><a href="flythrough.html"{" aria-current=page" if active == "flythrough" else ""}>The Flythrough</a></li>
       <li><a href="epic-of-vinny/index.html" class="teov-side">The Epic of Vinny ↗</a></li>
       <li><a href="playlist.html"{" aria-current=page" if active == "playlist" else ""}>The Official Playlist</a></li>
       <li><a href="smash/smash.html">Super Smash Ballers</a></li>
@@ -1112,6 +1116,260 @@ BOOK_SUBTITLES = {"chapter-before-chapter-2": "Chris Origins"}
 VERIZON = "“The 3 year contract plan from Verizon"
 
 
+# ----------------------------------------------------------------- the flythrough
+# Ring radius round the parent, and the body's own radius, by kind. Invented, like the pictures on the
+# Maps page: the book says what is inside what and nothing about distances or directions.
+TOUR_RING = {"universe": (9000.0, 2400.0), "galaxy": (3400.0, 900.0), "sector": (3400.0, 800.0), "system": (3000.0, 700.0),
+             "planet": (380.0, 46.0), "region": (70.0, 16.0), "poi": (22.0, 5.0)}
+TOUR_ORDER = ["moscow", "crips", "goober", "ye", "propane", "inav", "woz", "teov"]
+
+
+def _fnv(s):
+    h = 2166136261
+    for ch in s.encode():
+        h = ((h ^ ch) * 16777619) & 0xFFFFFFFF
+    return h
+
+
+def tour_chapter(line):
+    """chapter_of_line, except that the spin-off's events have no line in the MASTER FILE."""
+    return None if line is None else chapter_of_line(line)
+
+
+def tour_stops(lanes, cells):
+    """A route's stops: every event the group's own cells list, plus its lane's main-era events in a
+    chapter it has a cell for that no cell already claims -- in the order things happened."""
+    idx = {ev["id"]: i for i, ev in enumerate(TIMELINE["events"])}
+    chaps, claimed = set(cells), {e for c in cells.values() for e in c.get("events", [])}
+    extra = {ev["id"] for ev in TIMELINE["events"]
+             if any(l in ev["lanes"] for l in lanes) and ev["era"] == "main"
+             and tour_chapter(ev["line"]) in chaps and ev["id"] not in claimed}
+    return sorted(claimed | extra, key=idx.get)
+
+
+def tour_routes():
+    """[(id, name, lane, owner, stops)]: one per group, the merged group, and the spin-off (owner None)."""
+    out = [(g["id"], g["name"], g["id"], g, tour_stops([g["id"]], g["cells"])) for g in GROUPS["groups"]]
+    for m in GROUPS.get("merged", []):
+        out.append((m["id"], m["name"], m["id"], m, tour_stops(m["groups"], m["cells"])))
+    out.append(("teov", "The Epic of Vinny", "teov", None, [ev["id"] for ev in TIMELINE["events"] if "teov" in ev["lanes"]]))
+    return sorted(out, key=lambda r: TOUR_ORDER.index(r[0]) if r[0] in TOUR_ORDER else 99)
+
+
+def tour_world(entries):
+    """Check content/tour.json's place tree and give every place a position: siblings spaced evenly round
+    their parent, the slug deciding only the jitter. The same cosmos for every route, so paths cross."""
+    P = TOUR["places"]
+
+    def need(ok, msg):
+        if not ok:
+            raise SystemExit(f"content/tour.json: {msg}")
+    roots = [s for s, v in P.items() if not v.get("parent")]
+    need(len(roots) == 1, f"expected one root place, got {sorted(roots)}")
+    for s, v in P.items():
+        need(s in entries, f"{s!r} is not an article")
+        need(v.get("kind") in TOUR_RING, f"{s}: unknown kind {v.get('kind')!r}")
+        need(v.get("parent") is None or v["parent"] in P, f"{s}: parent {v.get('parent')!r} is not a place")
+    for s in P:
+        seen, cur = set(), s
+        while cur:
+            need(cur not in seen, f"{s}: the parent chain loops at {cur!r}")
+            seen.add(cur)
+            cur = P[cur].get("parent")
+    kids = {}
+    for s, v in sorted(P.items()):
+        kids.setdefault(v.get("parent"), []).append(s)
+    pos = {}
+
+    def place(s):
+        if s in pos:
+            return pos[s]
+        v, p = P[s], P[s].get("parent")
+        ring, body = TOUR_RING[v["kind"]]
+        if p is None:
+            pos[s] = (0.0, 0.0, 0.0, body)
+            return pos[s]
+        px, py, pz, _r = place(p)
+        sibs, h = kids[p], _fnv(s)
+        i, n = sibs.index(s), len(sibs)
+        if P[p]["kind"] == "poi":
+            ring *= 0.25                                  # rooms cluster on their building
+        a = 2 * math.pi * (i + 0.5 * (h % 64) / 64.0) / n
+        r = ring * (0.82 + 0.36 * ((h >> 8) % 128) / 128.0)
+        y = ring * 0.10 * (((h >> 16) % 128) / 128.0 - 0.5)
+        pos[s] = (round(px + r * math.cos(a), 2), round(py + y, 2), round(pz + r * math.sin(a), 2), body)
+        return pos[s]
+    for s in P:
+        place(s)
+    return pos
+
+
+def thumb_url(slug):
+    """Just the address of the small square picture thumb() shows, for the flythrough's textures."""
+    if slug == "chris":
+        return "assets/chill-chris.png"
+    ph = IMAGES.get(slug)
+    return f'assets/img/t/{os.path.splitext(ph[0]["src"])[0]}.jpg' if ph else ""
+
+
+def render_flythrough(entries, R):
+    """The Flythrough (flythrough.html): a camera's-eye walkthrough of each group's route, advanced by
+    scrolling. The captions ARE the page; the 3D is a layer behind them. With no WebGL, with reduced
+    motion, or with no JavaScript at all, what is left is the whole walkthrough as prose."""
+    pos, P = tour_world(entries), TOUR["places"]
+    routes = tour_routes()
+    ids = [r[0] for r in routes]
+    events = {ev["id"]: ev for ev in TIMELINE["events"]}
+    when = {ev["id"]: i for i, ev in enumerate(TIMELINE["events"])}
+    lanes = {l["id"]: l for l in TIMELINE["lanes"]}
+    esc = html.escape
+
+    def need(ok, msg):
+        if not ok:
+            raise SystemExit(f"content/tour.json: {msg}")
+    used = {e for *_r, st in routes for e in st}
+    for eid, v in TOUR["stops"].items():
+        need(eid in events, f"stop {eid!r} is not a timeline event")
+        need(eid in used, f"stop {eid!r} is not on any route")
+        for key, val in (v.items() if isinstance(v, dict) else [(None, v)]):
+            need(key is None or key in ids, f"stop {eid}: {key!r} is not a route")
+            need(val is None or val in P, f"stop {eid}: {val!r} is not a place")
+
+    def stop_place(eid, rid, prev):
+        v = TOUR["stops"].get(eid, KeyError)
+        if v is KeyError or (isinstance(v, dict) and rid not in v):
+            print(f"warn: content/tour.json: no stop for {eid!r} on route {rid!r}; the camera stays at {prev!r}", file=sys.stderr)
+            return prev
+        if isinstance(v, dict):
+            v = v[rid]
+        return v or prev
+
+    def art_link(a):
+        return f'<a href="{a}.html">{esc(entries[a]["title"])}</a>'
+
+    R.current = "flythrough"
+    chips, sections, blob_routes, spin_n = [], [], [], 0
+    total = 0
+    for rid, name, lane, owner, stops in routes:
+        cells = (owner or {}).get("cells", {})
+        moves = [(ch, mv) for ch, c in cells.items() for mv in c.get("moves", [])]
+        # Each join/split goes on the stop whose line is nearest its own.
+        lined = [(events[e]["line"], e) for e in stops if events[e]["line"] is not None]
+        on_stop = {}
+        for ch, mv in moves:
+            if lined:
+                on_stop.setdefault(min(lined, key=lambda x: abs(x[0] - mv["line"]))[1], []).append(mv)
+        col = f"--c:var(--lane-{lane})"
+        chips.append(f'<a class="tour-chip" href="?route={rid}" data-route="{rid}" style="{col}" aria-pressed="{"true" if rid == ids[0] else "false"}">'
+                     f'<span class="tl-dot" aria-hidden="true"></span>{esc(name)} <b>{len(stops)}</b></a>')
+        body = [f'<section class="tour-route" id="route-{rid}" data-route="{rid}" style="{col}">',
+                f'<h2 class="tour-route-name"><span class="tl-dot" aria-hidden="true"></span>{esc(name)}</h2>']
+        if owner:
+            body.append(f'<article class="tour-card tour-open"><p class="tour-members">{R.inline(owner["members"])}</p>'
+                        f'<p class="muted">{len(stops)} stops, in the order they happened. Scroll to fly.</p></article>')
+        else:
+            body.append('<article class="tour-card tour-open"><p>' + R.inline("A spin-off set on the planet [[garth|Garth]] in the [[kanye-system|Kanye System]], 1995 to 1996, "
+                        "following [[vinny|Vinny]], a Boston Burger King cashier.") + ' Its full story and wiki are at <a class="teov-link" href="epic-of-vinny/index.html">The Epic of Vinny Wiki</a>.</p>'
+                        f'<p class="muted">{len(stops)} stops, in the order they happened. Scroll to fly.</p></article>')
+        prev, blob_stops = None, []
+        for eid in stops:
+            ev = events[eid]
+            pl = stop_place(eid, rid, prev)
+            need(pl is not None, f"route {rid}: its first stop {eid!r} has no place (null is only allowed after a place)")
+            prev = pl
+            ch = tour_chapter(ev["line"])
+            art = ev.get("article")
+            spin = ev.get("spinoff")
+            if spin:
+                spin_n += 1
+            told = 5000 + spin_n if spin else ev["line"]
+            pic = art if art and thumb_url(art) else pl
+            parts = [f'<section class="tour-stop" id="stop-{rid}-{eid}" data-ev="{eid}" data-place="{pl}" data-chapter="{ch or ""}" '
+                     f'data-when="{when[eid]}" data-told="{told}" tabindex="-1"><div class="tour-cap">',
+                     f'<p class="tour-where"><a href="{pl}.html">{esc(entries[pl]["title"])}</a> <span class="tour-kind">{P[pl]["kind"]}</span></p>',
+                     f'<h3>{R.inline(ev["title"])}</h3>']
+            if thumb_url(pic):
+                parts.append(f'<img class="tour-pic" src="{thumb_url(pic)}" alt="" loading="lazy" width="144" height="144">')
+            parts.append(f'<div class="tour-text"><p>{R.inline(ev["text"])}</p>')
+            q = ev.get("quote")
+            if q:
+                parts.append(f'<figure class="tl-quote"><blockquote>“{R.inline(q["text"])}”</blockquote>'
+                             + (f'<figcaption>— {R.inline(q["by"])}</figcaption>' if q.get("by") else "") + "</figure>")
+            parts.append("</div>")
+            for mv in on_stop.get(eid, []):
+                parts.append(f'<p class="tg-move" data-kind="{mv["kind"]}"><b>{"Joins" if mv["kind"] == "join" else "Leaves"}</b> {R.inline(mv["text"])} <i>line {mv["line"]}</i></p>')
+            if spin:
+                te = TEOV_ENTRIES[ev["teov"]]
+                tch = next(a for a in te.get("appearances", []) if a in TEOV_ENTRIES)
+                parts.append(f'<p class="tour-src">Told in <a href="epic-of-vinny/{tch}.html">The Epic of Vinny, {esc(TEOV_ENTRIES[tch]["title"])}</a>'
+                             f' · <a href="epic-of-vinny/{ev["teov"]}.html">Article: {esc(te["title"])}</a>'
+                             f' · <a href="timeline.html#ev-{eid}">On the Timeline</a></p>')
+            else:
+                parts.append(f'<p class="tour-src">Told in <a href="{ch}.html">{esc(CHAPTER_SHORT[ch])}</a>, line {ev["line"]}'
+                             + (f' · Article: {art_link(art)}' if art else "")
+                             + f' · <a href="timeline.html#ev-{eid}">On the Timeline</a></p>')
+            parts.append("</div></section>")
+            body.append("".join(parts))
+            blob_stops.append({"ev": eid, "pl": pl, "ch": ch, "when": when[eid], "told": told})
+        # The closing card: where the group is now, or whom it became.
+        handoff = next((m for m in GROUPS.get("merged", []) if owner and rid in m["groups"]), None)
+        if handoff:
+            body.append(f'<article class="tour-card tour-end"><h3>Then they combine</h3><p>From <a href="{handoff["from"]}.html">{esc(CHAPTER_SHORT[handoff["from"]])}</a> on, '
+                        f'this group is part of <b>{esc(handoff["name"])}</b>.</p><p><a class="write-btn tour-next" href="?route={handoff["id"]}" data-route="{handoff["id"]}">Fly on with {esc(handoff["name"])} →</a></p></article>')
+        elif owner:
+            now, last = owner["now"], owner["now"]["last"]
+            lch = chapter_of_line(last["line"])
+            body.append(f'<article class="tour-card tour-end"><h3>Where they are now</h3><dl><dt>Where</dt><dd>{R.inline(now["place"])}</dd><dt>Doing</dt><dd>{R.inline(now["doing"])}</dd></dl>'
+                        f'<p class="tg-last">Last seen in <a href="{lch}.html">{esc(CHAPTER_SHORT[lch])}</a>, line {last["line"]}: <a href="timeline.html#ev-{last["event"]}">{R.inline(events[last["event"]]["title"])}</a></p>'
+                        + (f'<p class="tour-apart">{R.inline(GROUPS["apart"])}</p>' if rid in ("crips", "inav") else "")
+                        + (f'<p class="tour-chris"><b>And Chris?</b> {R.inline(GROUPS["chris"]["place"])}. {R.inline(GROUPS["chris"]["doing"])}</p>' if rid in ("crips", "inav") else "")
+                        + '</article>')
+        else:
+            body.append('<article class="tour-card tour-end"><h3>To be continued</h3><p>The spin-off is unfinished: a prologue, three chapters and the start of a fourth. '
+                        '<a class="teov-link" href="epic-of-vinny/read.html">Read it on The Epic of Vinny Wiki</a>.</p></article>')
+        body.append("</section>")
+        sections.append("\n".join(body))
+        total += len(stops)
+        blob_routes.append({"id": rid, "name": name, "lane": lane, "stops": blob_stops,
+                            "cells": {ch: {"place": R.inline(c["place"]), "doing": R.inline(c["doing"])} for ch, c in cells.items()}})
+    R.current = None
+
+    blob = {"places": {s: {"k": v["kind"], "p": v.get("parent"), "x": pos[s][0], "y": pos[s][1], "z": pos[s][2], "r": pos[s][3],
+                           "t": entries[s]["title"], "img": thumb_url(s), "in": bool(v.get("inside"))} for s, v in P.items()},
+            "routes": blob_routes, "chapters": {s: n for s, _p, n, *_r in manifest.CHAPTERS}}
+    body = f"""
+<div class="chapter-title" aria-hidden="true"><span>The</span> <span>Flythrough</span></div>
+<h1 class="sr-title">The Flythrough</h1>
+<p class="crumbs">Every group's route through the MASTER FILE, from a camera's point of view · {len(routes)} routes, {total} stops</p>
+<p>Pick a group and scroll. The camera flies from system to planet, drops to wherever that group is, and walks the hallways
+where the book goes indoors, while the words beside it tell what happened there. The order is the order things happened;
+you can switch to the order the book tells them. There are no people in it: it is only ever a camera's point of view.</p>
+<p class="muted">Where things are is invented. The MASTER FILE says what is inside what and nothing about distances or directions,
+so the shapes of places and the roads between them are this page's guess, the same way the <a href="maps.html">Maps</a> are.</p>
+<div class="tour-controls" id="tour-controls">
+  <div class="tour-chips" role="group" aria-label="Groups">{"".join(chips)}</div>
+  <div class="tl-order tour-order" role="group" aria-label="Order">
+    <button type="button" data-order="happened" aria-pressed="true">As it happened</button><button type="button" data-order="told" aria-pressed="false">As told in the book</button>
+  </div>
+  <div class="tl-row"><span id="tour-count" class="muted" role="status"></span><span class="tl-row-btns">
+    <button class="write-btn" type="button" id="tour-motion" aria-pressed="true" hidden>Camera: moving</button></span></div>
+  <p class="tour-nogl muted" id="tour-nogl" hidden>This browser can't draw the 3D, so here is the walkthrough as words and pictures.</p>
+</div>
+<aside class="tour-hud" id="tour-hud" aria-live="polite" hidden><p class="tour-hud-ch"></p><dl><dt>Where</dt><dd class="tour-hud-place"></dd><dt>Doing</dt><dd class="tour-hud-doing"></dd></dl></aside>
+<div class="tour-routes" id="tour-routes">
+{chr(10).join(sections)}
+</div>
+<noscript><p class="muted">The flythrough itself needs JavaScript. Everything it would show is written above.</p></noscript>"""
+    return page("The Flythrough", body, active="flythrough",
+                description="A scroll-driven camera flythrough of every group's route through The Legend Of Chris, planet to planet and down the hallways.",
+                body_class="tour",
+                head_extra=f'<link rel="stylesheet" href="{asset("timeline.css")}">\n<link rel="stylesheet" href="{asset("tour.css")}">\n',
+                scripts=f'<script>window.LOC_TOUR={json.dumps(blob, ensure_ascii=False, separators=(",", ":"))};</script>\n'
+                        f'<script src="{asset("tour.js")}"></script>\n<script src="{asset("tour3d.js")}"></script>\n'
+                        '<script type="module">import * as THREE from "./smash/three.module.min.js"; window.THREE = THREE; '
+                        'if (window.LOCTour) window.LOCTour.enable3d();</script>\n')
+
+
 def render_book_html():
     """content/book.txt (hard-wrapped text from the PDF) as clean HTML: one <h1> per chapter, real paragraphs."""
     with open(os.path.join(ROOT, "content", "book.txt"), encoding="utf-8") as f:
@@ -1356,7 +1614,7 @@ def main():
     for m in MAPS:
         shutil.copyfile(os.path.join(ROOT, "content", "maps", m["file"]), os.path.join(maps_out, m["file"]))
     for name in ("style.css", "wiki.js", "phone.css", "phone.js", "editor.css", "book.js", "reader.js", "docx.js", "editor.js", "notify.js", "firebase-config.js",
-                 "timeline.css", "timeline.js", "timeline-live.js"):
+                 "timeline.css", "timeline.js", "timeline-live.js", "tour.css", "tour.js", "tour3d.js"):
         with open(os.path.join(ROOT, "build", name), encoding="utf-8") as f:
             text = f.read()
         if name.endswith(".js"):
@@ -1423,6 +1681,9 @@ def main():
         f.write(render_timeline(entries, R))
     with open(os.path.join(SITE, "maps.html"), "w", encoding="utf-8") as f:
         f.write(render_maps(entries))
+    if TOUR and GROUPS:
+        with open(os.path.join(SITE, "flythrough.html"), "w", encoding="utf-8") as f:
+            f.write(render_flythrough(entries, R))
     book_html = render_book_html()
     with open(os.path.join(SITE, "assets", "book-import.html"), "w", encoding="utf-8") as f:
         f.write(book_html + "\n")

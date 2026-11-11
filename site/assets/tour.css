@@ -1,0 +1,101 @@
+/* The Flythrough (flythrough.html). Two layouts share one markup:
+   - plain: every route's stops, written out as prose with their pictures (no JavaScript, no WebGL, or
+     a browser that could not start the 3D). Nothing here assumes a canvas.
+   - body.tour-live: tour.js added a canvas fixed behind the page, the sheet goes dark and see-through,
+     and each stop becomes a tall band with its caption pinned while the camera travels.
+   Everything that assumes the canvas hangs off body.tour-live, so the plain page is never broken. */
+
+.tour .tour-controls { display: flex; flex-direction: column; gap: 10px; margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; background: var(--box); }
+.tour .tour-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.tour .tour-chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px 4px 8px; border: 1px solid var(--rule); border-radius: 999px;
+  background: var(--paper); color: var(--ink); text-decoration: none; font-size: 14px; line-height: 1.3;
+}
+.tour .tour-chip b { font-weight: 400; color: var(--ink-3); font-size: 12.5px; }
+.tour .tour-chip:hover { border-color: var(--ink-3); }
+.tour .tour-chip[aria-pressed="true"] { border-color: var(--ink); background: var(--hi); font-weight: 700; }
+.tour .tour-chip:focus-visible, .tour .tour-next:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.tour .tour-chip .tl-dot, .tour .tour-route-name .tl-dot {
+  position: static; display: inline-block; width: 11px; height: 11px; flex: none; margin: 0;
+  background: var(--c); box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--c);
+}
+.tour .tour-route-name { display: flex; align-items: center; gap: 12px; }
+.tour .tour-route-name .tl-dot { width: 14px; height: 14px; }
+.tour .tour-nogl { margin: 0; font-size: 13.5px; }
+
+/* a stop, as prose */
+.tour .tour-stop { position: relative; margin: 0 0 26px; padding: 0 0 0 0; scroll-margin-top: 80px; }
+.tour .tour-stop:focus { outline: none; }
+.tour .tour-where { margin: 0 0 2px; font-size: 13px; color: var(--ink-3); }
+.tour .tour-where a { color: inherit; }
+.tour .tour-kind { margin-left: 6px; padding: 0 6px; border: 1px solid var(--rule); border-radius: 999px; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+.tour .tour-stop h3 { margin: 0 0 8px; font-size: 20px; }
+.tour .tour-pic { float: right; width: 96px; height: 96px; object-fit: cover; margin: 0 0 8px 14px; border-radius: 8px; border: 1px solid var(--rule); background: #fff; }
+.tour .tour-text > p { margin: 0 0 10px; }
+.tour .tour-text .tl-quote blockquote { margin: 0; padding: 2px 0 2px 14px; border-left: 3px solid var(--c); font-style: italic; }
+.tour .tour-src { margin: 4px 0 0; font-size: 13px; color: var(--ink-3); clear: both; }
+.tour .tour-stop .tg-move { margin: 6px 0 8px; padding: 3px 7px; border-left: 3px solid var(--c); background: var(--box); font-size: 12.5px; display: inline-block; }
+.tour .tour-stop .tg-move[data-kind="split"] { border-left-style: dashed; }
+.tour .tour-card { margin: 0 0 26px; padding: 14px 16px; border: 1px solid var(--rule); border-left: 4px solid var(--c); border-radius: 8px; background: var(--box); }
+.tour .tour-card h3 { margin: 0 0 8px; font-size: 17px; }
+.tour .tour-card dl { margin: 0 0 8px; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; }
+.tour .tour-card dt { font-weight: 700; color: var(--ink-3); font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; padding-top: 3px; }
+.tour .tour-card dd { margin: 0; }
+.tour .tour-card p:last-child { margin-bottom: 0; }
+.tour .tour-members, .tour .tour-apart, .tour .tour-chris { font-size: 14.5px; }
+.tour .tour-next { display: inline-block; text-decoration: none; }
+.tour .tour-hud { display: none; }
+
+/* ---------- live: the canvas behind, the page on top ---------- */
+body.tour-live { background: #07080c; }
+body.tour-live .tour-canvas { position: fixed; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; }
+body.tour-live .tour-veil { position: fixed; inset: 0; z-index: 2; background: #000; opacity: var(--veil, 0); pointer-events: none; }
+body.tour-live .desk { position: relative; z-index: 3; grid-template-columns: minmax(0, 1fr); max-width: none; padding: 0; color: var(--ink);
+  /* a dark palette for the page over the canvas; the toolbar keeps the wiki's own */
+  --paper: #121419; --ink: #ececec; --ink-2: #c8c8cc; --ink-3: #9a9ca4; --rule: #2e3139; --link: #8ab4ff; --link-visited: #c3a6ff;
+  --box: #1a1d24; --bar: #1a1d24; --bar-edge: #363a44; --hi: #3b3417; --desk: #07080c; }
+body.tour-live .sidebar { display: none; }          /* the wiki nav stays behind the ☰ button */
+body.tour-live .menu-btn { display: block; }
+body.tour-live.nav-open .sidebar { display: block; position: fixed; top: 52px; left: 0; right: 0; bottom: 0; z-index: 15; overflow: auto; padding: 16px; background: var(--desk); }
+body.tour-live .sheet { background: transparent; box-shadow: none; max-width: none; padding: 0; min-height: 0; }
+body.tour-live .sheet > .chapter-title, body.tour-live .sheet > p:not(.crumbs), body.tour-live .sheet > .crumbs, body.tour-live .tour-controls,
+body.tour-live .sheet-foot, body.tour-live .tour-route-name, body.tour-live .tour-card {
+  width: min(560px, calc(100vw - 32px)); margin-left: 16px; margin-right: 16px; }
+body.tour-live .sheet > .chapter-title { margin-top: 28px; }
+body.tour-live .sheet > .chapter-title span { color: var(--ink); text-shadow: 0 2px 12px rgba(0, 0, 0, .9); }
+body.tour-live .sheet > p { background: rgba(18, 20, 25, .82); padding: 10px 14px; border-radius: 8px; backdrop-filter: blur(6px); }
+body.tour-live .sheet > .crumbs { border: 0; }
+body.tour-live .tour-controls { position: relative; z-index: 4; background: rgba(18, 20, 25, .86); backdrop-filter: blur(6px); }
+body.tour-live .tour-route-name { margin-top: 16px; color: var(--ink); }
+body.tour-live .tour-card { background: rgba(18, 20, 25, .86); backdrop-filter: blur(6px); }
+body.tour-live .tour-stop { min-height: 100svh; margin: 0; padding: 0 16px; display: flex; flex-direction: column; justify-content: flex-start; }
+body.tour-live .tour-stop[data-run] { min-height: 130svh; }
+body.tour-live .tour-stop .tour-cap {
+  position: sticky; top: calc(var(--tl-top, 56px) + 16px); width: min(440px, calc(100vw - 32px)); padding: 14px 16px 12px;
+  border-radius: 10px; background: rgba(18, 20, 25, .86); backdrop-filter: blur(6px); border: 1px solid var(--rule); border-left: 4px solid var(--c);
+  /* --u is how far through its band this stop is (0..1); the card fades as the camera leaves for the next one */
+  opacity: calc(1 - max(0, (var(--u, 0) - .55) / .35)); transform: translateY(calc(max(0, var(--u, 0) - .55) * -30px));
+}
+body.tour-live .tour-cap .tour-pic { width: 72px; height: 72px; }
+body.tour-live .tour-cap h3 { font-size: 18px; }
+body.tour-live .tour-cap .tour-text { font-size: 14.5px; max-height: 38vh; overflow: auto; }
+body.tour-live .tour-hud {
+  display: block; position: fixed; z-index: 4; right: 16px; top: calc(var(--tl-top, 56px) + 16px); width: min(300px, calc(100vw - 32px));
+  padding: 10px 14px; border-radius: 10px; background: rgba(18, 20, 25, .8); border: 1px solid var(--rule); font-size: 13.5px; color: var(--ink);
+}
+body.tour-live .tour-hud[hidden] { display: none; }
+body.tour-live .tour-hud-ch { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-3); }
+body.tour-live .tour-hud dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; }
+body.tour-live .tour-hud dt { font-weight: 700; color: var(--ink-3); font-size: 11.5px; text-transform: uppercase; padding-top: 2px; }
+body.tour-live .tour-hud dd { margin: 0; }
+body.tour-live .tour-hud a { color: var(--link); }
+body.tour-flat .tour-nogl { display: block; }
+@media (max-width: 760px) {
+  body.tour-live .tour-stop .tour-cap { position: sticky; top: auto; bottom: 12px; margin-top: auto; align-self: stretch; width: auto; }
+  body.tour-live .tour-stop { justify-content: flex-end; padding-bottom: 12px; }
+  body.tour-live .tour-hud { top: calc(var(--tl-top, 56px) + 8px); right: 8px; left: 8px; width: auto; font-size: 12.5px; padding: 6px 10px; }
+  body.tour-live .tour-hud dl { display: block; }
+  body.tour-live .tour-hud dt { display: none; }
+  body.tour-live .tour-hud dd + dd { display: none; }
+  body.tour-live .tour-cap .tour-text { max-height: 24vh; }
+}
