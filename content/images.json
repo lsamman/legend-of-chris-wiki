@@ -2060,13 +2060,13 @@
  "zarkmuckerberg": [
   {
    "src": "zarkmuckerberg-1.jpg",
-   "caption": "Rocking chair. A stand-in picture: the canon has no picture of this.",
-   "artist": "Dominik Matus",
-   "license": "CC BY-SA 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Moravsk%C3%A1_galerie_02_-_Thonet-Mundus_k%C5%99eslo.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Rocking_chair",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A caricature of Mark Zuckerberg",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/zarkmuckerberg.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/zarkmuckerberg.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "elon-mush": [
@@ -2204,13 +2204,13 @@
  "angry-pope": [
   {
    "src": "angry-pope-1.jpg",
-   "caption": "Papal tiara. A stand-in picture: the canon has no picture of this.",
-   "artist": "MatthiasKabel",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:Papal_Tiara_with_silver_gems_pearls.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Papal_tiara",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Tyler1, streamer",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/angry-pope.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/angry-pope.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "bings-son": [
@@ -2275,13 +2275,13 @@
  "john-freedom": [
   {
    "src": "john-freedom-1.jpg",
-   "caption": "Bald eagle. A stand-in picture: the canon has no picture of this.",
-   "artist": "Andy Morffew from Itchen Abbas, Hampshire, UK",
-   "license": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Bald_eagle_about_to_fly_in_Alaska_%282016%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Bald_eagle",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "John Freedom, YouTuber",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/john-freedom.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/john-freedom.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "bucee": [
@@ -2332,13 +2332,13 @@
  "macbook-charger": [
   {
    "src": "macbook-charger-1.jpg",
-   "caption": "MagSafe. A stand-in picture: the canon has no picture of this.",
-   "artist": "Premeditated",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:MacBook_Pro_16_%28M1_Pro%2C_2021%29_-_Wikipedia.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/MagSafe",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A MacBook MagSafe charger",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/macbook-charger.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/macbook-charger.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "the-vellas": [
@@ -4154,11 +4154,11 @@
   {
    "src": "galactic-senate-1.jpg",
    "caption": "The Galactic Senate, from Star Wars",
-   "artist": "starwars Fandom wiki contributors",
-   "license": "Fandom wiki image; rights belong to its owners",
-   "source": "https://starwars.fandom.com/wiki/File:YodaEscapeShaft.jpg",
-   "wiki": "https://starwars.fandom.com/wiki/File:YodaEscapeShaft.jpg",
-   "site": "Starwars Fandom wiki",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/galactic-senate.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/galactic-senate.html",
+   "site": "The Legend Of Chris Wiki",
    "requested": true
   }
  ],
@@ -4433,11 +4433,11 @@
   {
    "src": "chapter-2-1.jpg",
    "caption": "The Galactic Senate, from Star Wars",
-   "artist": "starwars Fandom wiki contributors",
-   "license": "Fandom wiki image; rights belong to its owners",
-   "source": "https://starwars.fandom.com/wiki/File:YodaEscapeShaft.jpg",
-   "wiki": "https://starwars.fandom.com/wiki/File:YodaEscapeShaft.jpg",
-   "site": "Starwars Fandom wiki",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/chapter-2.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/chapter-2.html",
+   "site": "The Legend Of Chris Wiki",
    "requested": true
   }
  ],
@@ -4588,24 +4588,24 @@
  "pol-phi-doros": [
   {
    "src": "pol-phi-doros-1.jpg",
-   "caption": "All Saints Church, Terrington - Interior - geograph.org.uk - 494896. A stand-in picture: the canon has no picture of this.",
-   "artist": "Trish Steel",
-   "license": "CC BY-SA 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:All_Saints_Church%2C_Terrington_-_Interior_-_geograph.org.uk_-_494896.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:All_Saints_Church%2C_Terrington_-_Interior_-_geograph.org.uk_-_494896.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A fraternity house",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/pol-phi-doros.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/pol-phi-doros.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "new-apple-employees": [
   {
    "src": "new-apple-employees-1.jpg",
    "caption": "Apple employees",
-   "artist": "Asoundd",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Googleplex_HQ_%28cropped%29.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Googleplex_HQ_%28cropped%29.jpg",
-   "site": "Wikimedia Commons",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/new-apple-employees.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/new-apple-employees.html",
+   "site": "The Legend Of Chris Wiki",
    "requested": true
   }
  ],
@@ -4896,13 +4896,13 @@
  ],
  "t1-phones": [
   {
-   "src": "t1-phones-1.png",
+   "src": "t1-phones-1.jpg",
    "caption": "The Trump Mobile T1 phone",
-   "artist": "小宁子 XNZ",
-   "license": "CC BY 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:T1_Trump_Mobile_Phone_back_side.png",
-   "wiki": "https://commons.wikimedia.org/wiki/File:T1_Trump_Mobile_Phone_back_side.png",
-   "site": "Wikimedia Commons",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/t1-phones.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/t1-phones.html",
+   "site": "The Legend Of Chris Wiki",
    "requested": true
   }
  ],
@@ -5110,13 +5110,13 @@
  "rap-battle-club-shadowban": [
   {
    "src": "rap-battle-club-shadowban-1.jpg",
-   "caption": "Boston - Hip Hop concert 02b. A stand-in picture: the canon has no picture of this.",
-   "artist": "myself (User:Piotrus)",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:Boston_-_Hip_Hop_concert_02b.JPG",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Boston_-_Hip_Hop_concert_02b.JPG",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "The rap battle from 8 Mile",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/rap-battle-club-shadowban.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/rap-battle-club-shadowban.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "kanyes-dream": [

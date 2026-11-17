@@ -78,7 +78,7 @@ REQUESTS = {
     "new-apple-employees": ("Apple employees", [C("Apple Store Genius Bar staff"), C("Apple Store employees blue shirts"), C("Apple retail store staff")]),
     "tech-bros": ("Steve Jobs in the early 1980s", [C("Steve Jobs Macintosh 1984"), C("Steve Jobs 1984"), C("Steve Jobs young")]),
     # ---- items
-    "snapchat-ghost-protocol": ("The Snapchat logo", [C("Snapchat logo"), WN("Snapchat")]),
+    "snapchat-ghost-protocol": ("The Snapchat logo", [WN("Snapchat"), C("Snapchat ghost logo")]),
     "t1-phones": ("The Trump Mobile T1 phone", [WN("Trump Mobile"), C("Trump Mobile T1")]),
     "blue-dust": ("The blue meth from Breaking Bad", [F("breakingbad", "Blue Sky"), C("Breaking Bad blue meth")]),
     "ibeam": ("A spotlight", [C("theatre spotlight"), C("stage spotlight")]),
@@ -113,7 +113,10 @@ REQUESTS = {
 
 # Files placed by hand: sent by the author with the review, or drawn here.
 SUPPLIED = ("chapter-4-point-1", "chris", "quandale-dingle", "son-s-sonionring", "the-redditor", "tyler-from-uber",
-            "yuno-miles", "chris-war-crimes", "kanyes-dream", "moscow-bombing", "basement-deal")
+            "yuno-miles", "chris-war-crimes", "kanyes-dream", "moscow-bombing", "basement-deal",
+            # sent afterwards, for the ones the searches could not find or got wrong
+            "pol-phi-doros", "new-apple-employees", "zarkmuckerberg", "angry-pope", "galactic-senate", "chapter-2",
+            "john-freedom", "t1-phones", "rap-battle-club-shadowban", "macbook-charger")
 
 NONFREE = "Not a free image; rights belong to its owners"
 
@@ -214,7 +217,7 @@ def main():
     only = set(sys.argv[1:])
     missed = []
     for slug, (caption, specs) in REQUESTS.items():
-        if only and slug not in only:
+        if (only and slug not in only) or (not only and slug in SUPPLIED):
             continue
         old = [ph["src"] for ph in out.get(slug, [])]
         got = None
