@@ -2217,10 +2217,10 @@
   {
    "src": "bings-son-1.png",
    "caption": "The Bing logo",
-   "artist": "Mobile review",
+   "artist": "Microsoft",
    "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Realme_logo.png",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Realme_logo.png",
+   "source": "https://commons.wikimedia.org/wiki/File:Bing_Fluent_Logo.svg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Bing_Fluent_Logo.svg",
    "site": "Wikimedia Commons",
    "requested": true
   }
@@ -3119,12 +3119,12 @@
  ],
  "knights-of-4chan": [
   {
-   "src": "knights-of-4chan-1.jpg",
+   "src": "knights-of-4chan-1.png",
    "caption": "The 4chan logo",
-   "artist": "To be formally attributed as \"Anonymous\"",
+   "artist": "Original: Hiroyuki Nishimura",
    "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:4chan_-pol-_logo.png",
-   "wiki": "https://commons.wikimedia.org/wiki/File:4chan_-pol-_logo.png",
+   "source": "https://commons.wikimedia.org/wiki/File:4chan_logo.svg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:4chan_logo.svg",
    "site": "Wikimedia Commons",
    "requested": true
   }
