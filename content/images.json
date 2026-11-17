@@ -2179,14 +2179,14 @@
  ],
  "ioannus-paranukus": [
   {
-   "src": "ioannus-paranukus-1.jpg",
-   "caption": "Calculator. A stand-in picture: the canon has no picture of this.",
-   "artist": "Mc681",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Casio_calculator_JS-20WK_in_201901_002.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Calculator",
+   "src": "ioannus-paranukus-1.png",
+   "caption": "The flag of Russia",
+   "artist": "Peter the Great",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "fs-martin-genius": [
@@ -2510,13 +2510,13 @@
  "tech-bros": [
   {
    "src": "tech-bros-1.jpg",
-   "caption": "Silicon Valley. A stand-in picture: the canon has no picture of this.",
-   "artist": "Coolcaesar",
-   "license": "CC BY-SA 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Silicon_Valley%2C_facing_southward_towards_Downtown_San_Jose%2C_2014_%28cropped%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Silicon_Valley",
+   "caption": "Steve Jobs in the early 1980s",
+   "artist": "Photo: Bernard Gotfryd - Edited from tif by Cart",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_and_Macintosh_computer%2C_January_1984%2C_by_Bernard_Gotfryd_-_edited.jpg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_and_Macintosh_computer%2C_January_1984%2C_by_Bernard_Gotfryd_-_edited.jpg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "baller-army": [
@@ -4435,8 +4435,8 @@
    "caption": "The Galactic Senate, from Star Wars",
    "artist": "starwars Fandom wiki contributors",
    "license": "Fandom wiki image; rights belong to its owners",
-   "source": "https://starwars.fandom.com/wiki/File:Happy-Color-Yoda-senate-chamber.png",
-   "wiki": "https://starwars.fandom.com/wiki/File:Happy-Color-Yoda-senate-chamber.png",
+   "source": "https://starwars.fandom.com/wiki/File:YodaEscapeShaft.jpg",
+   "wiki": "https://starwars.fandom.com/wiki/File:YodaEscapeShaft.jpg",
    "site": "Starwars Fandom wiki",
    "requested": true
   }
@@ -4933,13 +4933,13 @@
  "ultra-hand": [
   {
    "src": "ultra-hand-1.jpg",
-   "caption": "36 inch reach extender. A stand-in picture: the canon has no picture of this.",
-   "artist": "Shmuser",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:36_inch_reach_extender.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:36_inch_reach_extender.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Nintendo's Ultra Hand toy",
+   "artist": "See the Wikipedia file page",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://en.wikipedia.org/wiki/Ultra_Hand",
+   "wiki": "https://en.wikipedia.org/wiki/Ultra_Hand",
+   "site": "Wikipedia",
+   "requested": true
   }
  ],
  "infinity-blades": [

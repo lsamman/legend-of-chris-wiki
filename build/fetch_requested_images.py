@@ -45,10 +45,10 @@ FF = lambda site, query: ("fandomfile", site, query)
 
 REQUESTS = {
     # ---- chapters
-    "chapter-2": ("The Galactic Senate, from Star Wars", [F("starwars", "Galactic Senate"), FF("starwars", "Galactic Senate chamber")]),
+    "chapter-2": ("The Galactic Senate, from Star Wars", [FF("starwars", "Senate Rotunda"), FF("starwars", "Galactic Senate Rotunda interior"), F("starwars", "Senate Rotunda")]),
     "dunder-mifflan-chapter": ("The Dunder Mifflin company logo", [WN("Dunder Mifflin"), C("Dunder Mifflin logo"), W("Dunder Mifflin")]),
     # ---- characters
-    "bings-son": ("The Bing logo", [C("Bing Fluent logo"), C("Microsoft Bing logo"), WN("Microsoft Bing")]),
+    "bings-son": ("The Bing logo", [C("Bing logo 2020"), C("Microsoft Bing logo"), WN("Microsoft Bing")]),
     "elon-mush": ("A caricature of Elon Musk", [CF("Elon Musk - Caricature with money glasses.png"), C("Elon Musk caricature")]),
     "george-constanta": ("George Costanza, from Seinfeld", [F("seinfeld", "George Costanza"), WN("George Costanza")]),
     "golden-freddy": ("Golden Freddy, from Five Nights at Freddy's", [F("freddy-fazbears-pizza", "Golden Freddy")]),
@@ -67,7 +67,7 @@ REQUESTS = {
     "dusty-depot": ("Dusty Divot, from Fortnite", [F("fortnite", "Dusty Divot")]),
     "salty-springs": ("Salty Springs, from Fortnite", [FF("fortnite", "Salty Springs map"), F("fortnite", "Salty Springs")]),
     "the-border": ("The Mexico–United States border wall", [W("Mexico–United States border wall"), C("US Mexico border wall")]),
-    "galactic-senate": ("The Galactic Senate, from Star Wars", [F("starwars", "Galactic Senate"), FF("starwars", "Galactic Senate chamber")]),
+    "galactic-senate": ("The Galactic Senate, from Star Wars", [FF("starwars", "Senate Rotunda"), FF("starwars", "Galactic Senate Rotunda interior"), F("starwars", "Senate Rotunda")]),
     # ---- factions
     "charlie-kirks": ("Charlie Kirk", [W("Charlie Kirk")]),
     "knights-of-4chan": ("The 4chan logo", [WN("4chan"), C("4chan logo")]),
@@ -75,7 +75,7 @@ REQUESTS = {
     "police-kirks": ("Charlie Kirk", [C("Charlie Kirk car"), C("Charlie Kirk 2024"), C("Charlie Kirk speaking")]),
     "the-boys": ("The Crips", [W("Crips"), C("Crips gang")]),
     "goober-gang": ("The Bloods", [W("Bloods"), C("Bloods gang")]),
-    "new-apple-employees": ("Apple employees", [C("Apple Store employees"), C("Apple Store staff")]),
+    "new-apple-employees": ("Apple employees", [C("Apple Store Genius Bar staff"), C("Apple Store employees blue shirts"), C("Apple retail store staff")]),
     "tech-bros": ("Steve Jobs in the early 1980s", [C("Steve Jobs Macintosh 1984"), C("Steve Jobs 1984"), C("Steve Jobs young")]),
     # ---- items
     "snapchat-ghost-protocol": ("The Snapchat logo", [C("Snapchat logo"), WN("Snapchat")]),
@@ -96,7 +96,7 @@ REQUESTS = {
     "mogging": ("Clavicular, streamer", [W("Clavicular (streamer)"), W("Clavicular (influencer)"), C("Clavicular streamer")]),
     "the-ball": ("A basketball", [W("Basketball (ball)")]),
     # ---- The Epic of Vinny
-    "wing-ding-gaster": ("W. D. Gaster, from Deltarune", [F("deltarune", "W. D. Gaster"), F("deltarune", "Gaster"), FF("deltarune", "Gaster")]),
+    "wing-ding-gaster": ("W. D. Gaster, from Deltarune", [FF("deltarune", "Gaster"), FF("deltarune", "W. D. Gaster"), F("deltarune", "Gaster")]),
     "friend": ("Friend, from Deltarune", [F("deltarune", "Friend"), FF("deltarune", "Friend")]),
     "john-freedom": ("John Freedom, YouTuber", [C("John Freedom YouTuber"), WN("John Freedom")]),
     "polydoros": ("A Greek man", [C("elderly Greek man"), C("Greek man portrait")]),
@@ -105,7 +105,7 @@ REQUESTS = {
     "starwalker-manager": ("Starwalker, from Deltarune", [F("deltarune", "Starwalker")]),
     "little-saint-james-sea": ("Little Saint James island", [W("Little Saint James, U.S. Virgin Islands"), W("Little Saint James"), C("Little Saint James island")]),
     "dunkin-cult-cruiser": ("A Space Shuttle orbiter", [W("Space Shuttle orbiter"), C("Space Shuttle orbiter in orbit")]),
-    "mystery-machine": ("The Mystery Machine, from Scooby-Doo", [F("scoobydoo", "Mystery Machine"), F("scoobydoo", "The Mystery Machine")]),
+    "mystery-machine": ("The Mystery Machine, from Scooby-Doo", [FF("scoobydoo", "Mystery Machine van"), FF("scoobydoo", "Mystery Machine")]),
     "departure-of-the-dunkin-cult": ("A Space Shuttle launch", [C("Space Shuttle launch"), W("STS-1")]),
     "opening-of-the-portal": ("A Nether portal, from Minecraft", [F("minecraft", "Nether Portal"), F("minecraft", "Nether portal")]),
     "roaring-knights-strike": ("The Roaring Knight fight, from Deltarune", [FF("deltarune", "Roaring Knight battle"), FF("deltarune", "Roaring Knight fight"), FF("deltarune", "Knight battle")]),
@@ -116,6 +116,35 @@ SUPPLIED = ("chapter-4-point-1", "chris", "quandale-dingle", "son-s-sonionring",
             "yuno-miles", "chris-war-crimes", "kanyes-dream", "moscow-bombing", "basement-deal")
 
 NONFREE = "Not a free image; rights belong to its owners"
+
+_thumb_download = fs.download
+
+
+def download(slug, path):
+    """fetch_stand_in_images.download, but when Wikimedia refuses the resized thumbnails (HTTP 429, which it
+    does to shared servers) fall back to the original file and shrink it here. SVG originals are skipped."""
+    got = _thumb_download(slug, path)
+    if got or path[1].lower().endswith(".svg"):
+        return got
+    folder, name = path
+    try:
+        raw = fs.fetch(f"https://upload.wikimedia.org/wikipedia/commons/{folder}/{urllib.parse.quote(name)}", tries=3)
+    except Exception:
+        raw = None
+    if not raw:
+        return None
+    im = Image.open(io.BytesIO(raw)); im.load()
+    if im.width < 150:
+        return None
+    if im.width > 600:
+        im = im.resize((600, round(im.height * 600 / im.width)), Image.LANCZOS)
+    alpha = im.mode in ("RGBA", "LA", "P")
+    fname = f"{slug}-1{'.png' if alpha else '.jpg'}"
+    im.convert("RGBA" if alpha else "RGB").save(os.path.join(OUT, fname), optimize=True, **({} if alpha else {"quality": 88}))
+    return fname
+
+
+fs.download = download   # pick_picture looks it up at call time
 
 
 def from_wiki_nonfree(title):
