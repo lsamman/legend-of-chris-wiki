@@ -2024,13 +2024,13 @@
  "chris": [
   {
    "src": "chris-1.png",
-   "caption": "Basketball (ball). A stand-in picture: the canon has no picture of this.",
-   "artist": "Reisio",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Basketball.png",
-   "wiki": "https://en.wikipedia.org/wiki/Basketball_%28ball%29",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Chill Chris, from the start of the MASTER FILE",
+   "artist": "From the MASTER FILE",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/read.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/read.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "stabbing-of-chris": [
@@ -2060,49 +2060,49 @@
  "zarkmuckerberg": [
   {
    "src": "zarkmuckerberg-1.jpg",
-   "caption": "Rocking chair. A stand-in picture: the canon has no picture of this.",
-   "artist": "Dominik Matus",
-   "license": "CC BY-SA 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Moravsk%C3%A1_galerie_02_-_Thonet-Mundus_k%C5%99eslo.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Rocking_chair",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A caricature of Mark Zuckerberg",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/zarkmuckerberg.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/zarkmuckerberg.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "elon-mush": [
   {
-   "src": "elon-mush-1.jpg",
-   "caption": "Mushroom. A stand-in picture: the canon has no picture of this.",
-   "artist": "Holger Krisp",
-   "license": "CC BY 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Sparrige_Sch%C3%BCppling_%28Pholiota_squarrosa%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Mushroom",
+   "src": "elon-mush-1.png",
+   "caption": "A caricature of Elon Musk",
+   "artist": "DonkeyHotey",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Elon_Musk_-_Caricature_with_money_glasses.png",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Elon_Musk_-_Caricature_with_money_glasses.png",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "julian": [
   {
-   "src": "julian-1.jpg",
-   "caption": "Atlantic puffin. A stand-in picture: the canon has no picture of this.",
-   "artist": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:top}.mw-parser-output .commons-creator-table>tbody>tr>th{background-color:var(--background-color-neutral,#e0e0ee);font-weight:bold;text-align:start;color:inherit}.mw-parser-output .mw-collapsible-toggle-expanded.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-expanded .mw-collapsible-arrowtoggle{padding-left:20px!important;background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/10/MediaWiki_Vector_skin_action_arrow.png\");background-repeat:no-repeat;background-position:left center}.mw-parser-output .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{padding-left:20px!important;background-repeat:no-repeat}.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/4/41/MediaWiki_Vector_skin_right_arrow.png\");background-position:left center}.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/1e/MediaWiki_Vector_skin_left_arrow.png\");background-position:right center}@media(max-width:719px){.mw-parser-output .commons-creator-table,.mw-parser-output .commons-creator-table>tbody{box-sizing:border-box;display:block;width:100%}.mw-parser-output .commons-creator-table>tbody{border-right:1px solid var(--border-color-base,#aaa);border-bottom:1px solid var(--border-color-base,#aaa)}.mw-parser-output .commons-creator-table>tbody>tr{border-top:1px solid var(--border-color-base,#aaa);display:flex;flex-wrap:wrap}.mw-parser-output .commons-creator-table>tbody>tr>th{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1 100%}.mw-parser-output .commons-creator-table>tbody>tr>td{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1}}@media(min-width:720px){.mw-parser-output .commons-creator-table{border:1px solid var(--border-color-base,#aaa);border-collapse:collapse;border-spacing:0;padding:5px}.mw-parser-output .commons-creator-table>tbody>tr>th,.mw-parser-output .commons-creator-table>tbody>tr>td{border:1px solid var(--border-color-base,#aaa);padding:2px}.mw-parser-output .commons-creator-table>tbody>tr>.halfwidth{max-width:10em}.mw-parser-output .commons-creator-table>tbody>tr>.fullwidth{max-width:20em}}@media screen{html.skin-theme-clientpref-night .mw-parser-output .commons-creator-table{background-color:#0c0b19}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .commons-creator-table{background-color:#0c0b19}} Charles J. Sharp Alternative names Charles James Sharp",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Puffin_%28Fratercula_arctica%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Atlantic_puffin",
+   "src": "julian-1.png",
+   "caption": "The flag of Turkey",
+   "artist": "David Benbennick (original author)",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Turkey.svg",
+   "wiki": "https://en.wikipedia.org/wiki/Flag_of_Turkey",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "the-redditor": [
   {
    "src": "the-redditor-1.jpg",
-   "caption": "Backlit keyboard. A stand-in picture: the canon has no picture of this.",
-   "artist": "Colin",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Backlit_keyboard.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Backlit_keyboard.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Picture chosen by the author",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/the-redditor.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/the-redditor.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "mic-q": [
@@ -2119,74 +2119,74 @@
  ],
  "harry": [
   {
-   "src": "harry-1.png",
-   "caption": "Family tree. A stand-in picture: the canon has no picture of this.",
-   "artist": "Josef Sábl cz, Mysid",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:Family_tree.svg",
-   "wiki": "https://en.wikipedia.org/wiki/Family_tree",
+   "src": "harry-1.jpg",
+   "caption": "Daniel Radcliffe",
+   "artist": "Philip Romano",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:DanielRadcliffe.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Daniel_Radcliffe",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "tyler-from-uber": [
   {
    "src": "tyler-from-uber-1.jpg",
-   "caption": "Taxi. A stand-in picture: the canon has no picture of this.",
-   "artist": "Petar Milošević",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:TAXI.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Taxi",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Picture chosen by the author",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/tyler-from-uber.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/tyler-from-uber.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "qxc": [
   {
    "src": "qxc-1.jpg",
-   "caption": "League-of-Legends-Wild-Rift Final Four opening at eSports Stage 20210130b. A stand-in picture: the canon has no picture of this.",
-   "artist": "Solomon203",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:League-of-Legends-Wild-Rift_Final_Four_opening_at_eSports_Stage_20210130b.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:League-of-Legends-Wild-Rift_Final_Four_opening_at_eSports_Stage_20210130b.jpg",
+   "caption": "xQc, streamer",
+   "artist": "Esfand",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:XQc_July_4_2023.jpg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:XQc_July_4_2023.jpg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "jinxy": [
   {
-   "src": "jinxy-1.jpg",
-   "caption": "Four-leaf clover. A stand-in picture: the canon has no picture of this.",
-   "artist": "KEBman",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Four-leaf_Clover_Trifolium_repens_2.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Four-leaf_clover",
+   "src": "jinxy-1.png",
+   "caption": "Jynxzi, streamer",
+   "artist": "ohnepixel",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Jynxzi_2026.png",
+   "wiki": "https://en.wikipedia.org/wiki/Jynxzi",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "george-constanta": [
   {
    "src": "george-constanta-1.jpg",
-   "caption": "Constanța. A stand-in picture: the canon has no picture of this.",
-   "artist": "Andymxm",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:CasinoCT2026.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Constan%C8%9Ba",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "George Costanza, from Seinfeld",
+   "artist": "seinfeld Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://seinfeld.fandom.com/wiki/George_Costanza",
+   "wiki": "https://seinfeld.fandom.com/wiki/George_Costanza",
+   "site": "Seinfeld Fandom wiki",
+   "requested": true
   }
  ],
  "ioannus-paranukus": [
   {
-   "src": "ioannus-paranukus-1.jpg",
-   "caption": "Calculator. A stand-in picture: the canon has no picture of this.",
-   "artist": "Mc681",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Casio_calculator_JS-20WK_in_201901_002.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Calculator",
+   "src": "ioannus-paranukus-1.png",
+   "caption": "The flag of Russia",
+   "artist": "Peter the Great",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "fs-martin-genius": [
@@ -2204,61 +2204,61 @@
  "angry-pope": [
   {
    "src": "angry-pope-1.jpg",
-   "caption": "Papal tiara. A stand-in picture: the canon has no picture of this.",
-   "artist": "MatthiasKabel",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:Papal_Tiara_with_silver_gems_pearls.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Papal_tiara",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Tyler1, streamer",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/angry-pope.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/angry-pope.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "bings-son": [
   {
-   "src": "bings-son-1.jpg",
-   "caption": "Bing cherry. A stand-in picture: the canon has no picture of this.",
-   "artist": "Peggy Greb, USDA ARS",
+   "src": "bings-son-1.png",
+   "caption": "The Bing logo",
+   "artist": "Microsoft",
    "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Bing_Cherries_%28USDA_ARS%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Bing_cherry",
+   "source": "https://commons.wikimedia.org/wiki/File:Bing_Fluent_Logo.svg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Bing_Fluent_Logo.svg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "yuno-miles": [
   {
    "src": "yuno-miles-1.jpg",
-   "caption": "150921 WINNER JAPAN TOUR 2015 (Mino) 8. A stand-in picture: the canon has no picture of this.",
-   "artist": "BITTER CHOCOLATE",
-   "license": "CC BY 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:150921_WINNER_JAPAN_TOUR_2015_%28Mino%29_8.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:150921_WINNER_JAPAN_TOUR_2015_%28Mino%29_8.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Yuno Miles",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/yuno-miles.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/yuno-miles.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "tung-tung-tung-sahur": [
   {
    "src": "tung-tung-tung-sahur-1.jpg",
-   "caption": "Baseball bat. A stand-in picture: the canon has no picture of this.",
-   "artist": "The original uploader was Anetode at English Wikipedia.",
-   "license": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Fourbats.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Baseball_bat",
+   "caption": "Tung Tung Tung Sahur, the meme",
+   "artist": "noxaasht",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Full_image_of_Tung_Tung_Tung_Sahur.png",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Full_image_of_Tung_Tung_Tung_Sahur.png",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "son-s-sonionring": [
   {
    "src": "son-s-sonionring-1.jpg",
-   "caption": "Onion ring. A stand-in picture: the canon has no picture of this.",
-   "artist": "Jonathunder",
-   "license": "CC BY-SA 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:OnionRings.JPG",
-   "wiki": "https://en.wikipedia.org/wiki/Onion_ring",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "The “son” meme",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/son-s-sonionring.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/son-s-sonionring.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "yeat": [
@@ -2275,13 +2275,13 @@
  "john-freedom": [
   {
    "src": "john-freedom-1.jpg",
-   "caption": "Bald eagle. A stand-in picture: the canon has no picture of this.",
-   "artist": "Andy Morffew from Itchen Abbas, Hampshire, UK",
-   "license": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Bald_eagle_about_to_fly_in_Alaska_%282016%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Bald_eagle",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "John Freedom, YouTuber",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/john-freedom.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/john-freedom.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "bucee": [
@@ -2332,13 +2332,13 @@
  "macbook-charger": [
   {
    "src": "macbook-charger-1.jpg",
-   "caption": "MagSafe. A stand-in picture: the canon has no picture of this.",
-   "artist": "Premeditated",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:MacBook_Pro_16_%28M1_Pro%2C_2021%29_-_Wikipedia.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/MagSafe",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A MacBook MagSafe charger",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/macbook-charger.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/macbook-charger.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "the-vellas": [
@@ -2391,14 +2391,14 @@
  ],
  "friend": [
   {
-   "src": "friend-1.jpg",
-   "caption": "Yellow-eyed Black Cat. A stand-in picture: the canon has no picture of this.",
-   "artist": "Mcheer372",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Yellow-eyed_Black_Cat.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Yellow-eyed_Black_Cat.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "friend-1.png",
+   "caption": "Friend, from Deltarune",
+   "artist": "deltarune Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://deltarune.fandom.com/wiki/FRIEND",
+   "wiki": "https://deltarune.fandom.com/wiki/FRIEND",
+   "site": "Deltarune Fandom wiki",
+   "requested": true
   }
  ],
  "vinnys-boss": [
@@ -2428,13 +2428,13 @@
  "polydoros": [
   {
    "src": "polydoros-1.jpg",
-   "caption": "Pottery soldiers 12 c BC, NAMA 1246 080859. A stand-in picture: the canon has no picture of this.",
-   "artist": "Zde",
-   "license": "CC BY-SA 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Pottery_soldiers_12_c_BC%2C_NAMA_1246_080859.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Pottery_soldiers_12_c_BC%2C_NAMA_1246_080859.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A Greek man",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/polydoros.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/polydoros.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "great-double-whopper-with-cheese-god": [
@@ -2486,13 +2486,13 @@
  "starwalker-manager": [
   {
    "src": "starwalker-manager-1.jpg",
-   "caption": "Dunkin' Donuts. A stand-in picture: the canon has no picture of this.",
-   "artist": "Harrison Keely",
-   "license": "CC BY 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:A_Dunkin%27_Donuts_restaurant_in_Hiawassee%2C_Georgia%2C_United_States_01.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Dunkin%27_Donuts",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Starwalker, from Deltarune",
+   "artist": "deltarune Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://deltarune.fandom.com/wiki/Starwalker",
+   "wiki": "https://deltarune.fandom.com/wiki/Starwalker",
+   "site": "Deltarune Fandom wiki",
+   "requested": true
   }
  ],
  "middle-aged-men": [
@@ -2510,13 +2510,13 @@
  "tech-bros": [
   {
    "src": "tech-bros-1.jpg",
-   "caption": "Silicon Valley. A stand-in picture: the canon has no picture of this.",
-   "artist": "Coolcaesar",
-   "license": "CC BY-SA 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Silicon_Valley%2C_facing_southward_towards_Downtown_San_Jose%2C_2014_%28cropped%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Silicon_Valley",
+   "caption": "Steve Jobs in the early 1980s",
+   "artist": "Photo: Bernard Gotfryd - Edited from tif by Cart",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_and_Macintosh_computer%2C_January_1984%2C_by_Bernard_Gotfryd_-_edited.jpg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_and_Macintosh_computer%2C_January_1984%2C_by_Bernard_Gotfryd_-_edited.jpg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "baller-army": [
@@ -2606,13 +2606,13 @@
  "goober-gang": [
   {
    "src": "goober-gang-1.jpg",
-   "caption": "Peanut. A stand-in picture: the canon has no picture of this.",
-   "artist": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Arachis_hypogaea_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-163.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Peanut",
+   "caption": "The Bloods",
+   "artist": "Shawn Ishihara",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Blood_sign.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Bloods",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "barack-empire": [
@@ -2654,25 +2654,25 @@
  "charlie-kirks": [
   {
    "src": "charlie-kirks-1.jpg",
-   "caption": "Casino. A stand-in picture: the canon has no picture of this.",
-   "artist": "Sean MacEntee from Monaghan, Ireland",
-   "license": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Caesars_Palace_Casino_%287980362756%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Casino",
+   "caption": "Charlie Kirk",
+   "artist": "Gage Skidmore from Surprise, AZ, United States of America",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Charlie_Kirk_%2853952923573%29_%28headshot_cropped%29.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Charlie_Kirk",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "the-boys": [
   {
    "src": "the-boys-1.jpg",
-   "caption": "Friendship. A stand-in picture: the canon has no picture of this.",
-   "artist": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:top}.mw-parser-output .commons-creator-table>tbody>tr>th{background-color:var(--background-color-neutral,#e0e0ee);font-weight:bold;text-align:start;color:inherit}.mw-parser-output .mw-collapsible-toggle-expanded.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-expanded .mw-collapsible-arrowtoggle{padding-left:20px!important;background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/10/MediaWiki_Vector_skin_action_arrow.png\");background-repeat:no-repeat;background-position:left center}.mw-parser-output .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{padding-left:20px!important;background-repeat:no-repeat}.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/4/41/MediaWiki_Vector_skin_right_arrow.png\");background-position:left center}.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/1e/MediaWiki_Vector_skin_left_arrow.png\");background-position:right center}@media(max-width:719px){.mw-parser-output .commons-creator-table,.mw-parser-output .commons-creator-table>tbody{box-sizing:border-box;display:block;width:100%}.mw-parser-output .commons-creator-table>tbody{border-right:1px solid var(--border-color-base,#aaa);border-bottom:1px solid var(--border-color-base,#aaa)}.mw-parser-output .commons-creator-table>tbody>tr{border-top:1px solid var(--border-color-base,#aaa);display:flex;flex-wrap:wrap}.mw-parser-output .commons-creator-table>tbody>tr>th{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1 100%}.mw-parser-output .commons-creator-table>tbody>tr>td{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1}}@media(min-width:720px){.mw-parser-output .commons-creator-table{border:1px solid var(--border-color-base,#aaa);border-collapse:collapse;border-spacing:0;padding:5px}.mw-parser-output .commons-creator-table>tbody>tr>th,.mw-parser-output .commons-creator-table>tbody>tr>td{border:1px solid var(--border-color-base,#aaa);padding:2px}.mw-parser-output .commons-creator-table>tbody>tr>.halfwidth{max-width:10em}.mw-parser-output .commons-creator-table>tbody>tr>.fullwidth{max-width:20em}}@media screen{html.skin-theme-clientpref-night .mw-parser-output .commons-creator-table{background-color:#0c0b19}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .commons-creator-table{background-color:#0c0b19}} Romualdo Locatelli (1905–1943)",
+   "caption": "The Crips",
+   "artist": "Florida Department of Corrections",
    "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Best_friends_%281934%29%2C_by_Romualdo_Locatelli.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Friendship",
+   "source": "https://commons.wikimedia.org/wiki/File:Crip_tattoos.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Crips",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "alpha-mogger-beta": [
@@ -2785,14 +2785,14 @@
  ],
  "the-ball": [
   {
-   "src": "the-ball-1.jpg",
-   "caption": "Ball. A stand-in picture: the canon has no picture of this.",
-   "artist": "Conrad 7",
-   "license": "CC0",
-   "source": "https://commons.wikimedia.org/wiki/File:Many_balls.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Ball",
+   "src": "the-ball-1.png",
+   "caption": "A basketball",
+   "artist": "Reisio",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Basketball.png",
+   "wiki": "https://en.wikipedia.org/wiki/Basketball_%28ball%29",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "why-do-we-believe": [
@@ -2976,13 +2976,13 @@
  "osama-bin-bomin": [
   {
    "src": "osama-bin-bomin-1.jpg",
-   "caption": "Bomb. A stand-in picture: the canon has no picture of this.",
-   "artist": "LoKiLeCh",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:Saarlouis_Bombe.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Bomb",
+   "caption": "Osama bin Laden",
+   "artist": "English: Hamid Mir",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Osama_bin_Laden_portrait.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Osama_bin_Laden",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "ye-olde-bin": [
@@ -3000,25 +3000,25 @@
  "quandale-dingle": [
   {
    "src": "quandale-dingle-1.jpg",
-   "caption": "Football helmet. A stand-in picture: the canon has no picture of this.",
-   "artist": "Oregon State University",
-   "license": "CC BY-SA 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:CFLPA_helmets.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Football_helmet",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "The Quandale Dingle meme",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/quandale-dingle.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/quandale-dingle.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "mike-schmidt": [
   {
    "src": "mike-schmidt-1.jpg",
-   "caption": "Security guard. A stand-in picture: the canon has no picture of this.",
-   "artist": "Chidgk1",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:UN_security_COP26.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Security_guard",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Mike Schmidt, from the Five Nights at Freddy's film",
+   "artist": "freddy-fazbears-pizza Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://freddy-fazbears-pizza.fandom.com/wiki/Michael_Schmidt_%28Film%29",
+   "wiki": "https://freddy-fazbears-pizza.fandom.com/wiki/Michael_Schmidt_%28Film%29",
+   "site": "Freddy-fazbears-pizza Fandom wiki",
+   "requested": true
   }
  ],
  "god": [
@@ -3047,14 +3047,14 @@
  ],
  "golden-freddy": [
   {
-   "src": "golden-freddy-1.jpg",
-   "caption": "Teddy bear. A stand-in picture: the canon has no picture of this.",
-   "artist": "Smithsonian Museum of Natural History",
-   "license": "CC BY-SA 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Teddy_bear_early_1900s_-_Smithsonian_Museum_of_Natural_History.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Teddy_bear",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "golden-freddy-1.png",
+   "caption": "Golden Freddy, from Five Nights at Freddy's",
+   "artist": "freddy-fazbears-pizza Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://freddy-fazbears-pizza.fandom.com/wiki/Golden_Freddy",
+   "wiki": "https://freddy-fazbears-pizza.fandom.com/wiki/Golden_Freddy",
+   "site": "Freddy-fazbears-pizza Fandom wiki",
+   "requested": true
   }
  ],
  "vinny": [
@@ -3083,14 +3083,14 @@
  ],
  "roaring-knight": [
   {
-   "src": "roaring-knight-1.jpg",
-   "caption": "Knight. A stand-in picture: the canon has no picture of this.",
-   "artist": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:top}.mw-parser-output .commons-creator-table>tbody>tr>th{background-color:var(--background-color-neutral,#e0e0ee);font-weight:bold;text-align:start;color:inherit}.mw-parser-output .mw-collapsible-toggle-expanded.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-expanded .mw-collapsible-arrowtoggle{padding-left:20px!important;background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/10/MediaWiki_Vector_skin_action_arrow.png\");background-repeat:no-repeat;background-position:left center}.mw-parser-output .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{padding-left:20px!important;background-repeat:no-repeat}.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/4/41/MediaWiki_Vector_skin_right_arrow.png\");background-position:left center}.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/1e/MediaWiki_Vector_skin_left_arrow.png\");background-position:right center}@media(max-width:719px){.mw-parser-output .commons-creator-table,.mw-parser-output .commons-creator-table>tbody{box-sizing:border-box;display:block;width:100%}.mw-parser-output .commons-creator-table>tbody{border-right:1px solid var(--border-color-base,#aaa);border-bottom:1px solid var(--border-color-base,#aaa)}.mw-parser-output .commons-creator-table>tbody>tr{border-top:1px solid var(--border-color-base,#aaa);display:flex;flex-wrap:wrap}.mw-parser-output .commons-creator-table>tbody>tr>th{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1 100%}.mw-parser-output .commons-creator-table>tbody>tr>td{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1}}@media(min-width:720px){.mw-parser-output .commons-creator-table{border:1px solid var(--border-color-base,#aaa);border-collapse:collapse;border-spacing:0;padding:5px}.mw-parser-output .commons-creator-table>tbody>tr>th,.mw-parser-output .commons-creator-table>tbody>tr>td{border:1px solid var(--border-color-base,#aaa);padding:2px}.mw-parser-output .commons-creator-table>tbody>tr>.halfwidth{max-width:10em}.mw-parser-output .commons-creator-table>tbody>tr>.fullwidth{max-width:20em}}@media screen{html.skin-theme-clientpref-night .mw-parser-output .commons-creator-table{background-color:#0c0b19}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .commons-creator-table{background-color:#0c0b19}} Meister des Codex Manesse (fl. circa 1306–circa 1377) Alternative names Master of the Codex Manesse; Meister des Codex Manesse (Grundstockmaler)",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Codex_Manesse_Hartmann_von_Aue.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Knight",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "roaring-knight-1.png",
+   "caption": "The Roaring Knight, from Deltarune",
+   "artist": "deltarune Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://deltarune.fandom.com/wiki/Roaring_Knight",
+   "wiki": "https://deltarune.fandom.com/wiki/Roaring_Knight",
+   "site": "Deltarune Fandom wiki",
+   "requested": true
   }
  ],
  "claude": [
@@ -3119,26 +3119,26 @@
  ],
  "knights-of-4chan": [
   {
-   "src": "knights-of-4chan-1.jpg",
-   "caption": "Knights Templar. A stand-in picture: the canon has no picture of this.",
-   "artist": "Rkcora",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Bandeira_Templ%C3%A1ria.svg",
-   "wiki": "https://en.wikipedia.org/wiki/Knights_Templar",
+   "src": "knights-of-4chan-1.png",
+   "caption": "The 4chan logo",
+   "artist": "Original: Hiroyuki Nishimura",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:4chan_logo.svg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:4chan_logo.svg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "police-kirks": [
   {
    "src": "police-kirks-1.jpg",
-   "caption": "Police car. A stand-in picture: the canon has no picture of this.",
-   "artist": "Raymond Wambsgans",
-   "license": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Washington_DC_Metropolitan_Police_Department_Dodge_Charger_No._1605.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Police_car",
+   "caption": "Charlie Kirk",
+   "artist": "Gage Skidmore",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Charlie_Kirk_by_Gage_Skidmore.jpg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Charlie_Kirk_by_Gage_Skidmore.jpg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "balling": [
@@ -3215,13 +3215,13 @@
  "mogging": [
   {
    "src": "mogging-1.jpg",
-   "caption": "Bodybuilding. A stand-in picture: the canon has no picture of this.",
-   "artist": "Madison Square Garden Center",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Arnold_Schwarzenegger_1974.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Bodybuilding",
+   "caption": "Clavicular, streamer",
+   "artist": "Taryn Segal (https://www.tarynsegal.com)",
+   "license": "FAL-1.3",
+   "source": "https://commons.wikimedia.org/wiki/File:Peters%2C_Braden_Eric_%282_out_of_2%29_%283x4_cropped_and_red_eyes_removed%29.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Clavicular_%28streamer%29",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "goober": [
@@ -3443,13 +3443,13 @@
  "moscow-bombing": [
   {
    "src": "moscow-bombing-1.jpg",
-   "caption": "Moscow. A stand-in picture: the canon has no picture of this.",
-   "artist": "U.S. Department of State",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Moscow",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A flying car",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/moscow-bombing.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/moscow-bombing.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "mcdonalds-wine-brewing-contest": [
@@ -3680,13 +3680,13 @@
  "departure-of-the-dunkin-cult": [
   {
    "src": "departure-of-the-dunkin-cult-1.jpg",
-   "caption": "Rocket launch. A stand-in picture: the canon has no picture of this.",
-   "artist": "NASA/Bill Ingalls .mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:top}.mw-parser-output .commons-creator-table>tbody>tr>th{background-color:var(--background-color-neutral,#e0e0ee);font-weight:bold;text-align:start;color:inherit}.mw-parser-output .mw-collapsible-toggle-expanded.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-expanded .mw-collapsible-arrowtoggle{padding-left:20px!important;background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/10/MediaWiki_Vector_skin_action_arrow.png\");background-repeat:no-repeat;background-position:left center}.mw-parser-output .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{padding-left:20px!important;background-repeat:no-repeat}.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/4/41/MediaWiki_Vector_skin_right_arrow.png\");background-position:left center}.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/1e/MediaWiki_Vector_skin_left_arrow.png\");background-position:right center}@media(max-width:719px){.mw-parser-output .commons-creator-table,.mw-parser-output .commons-creator-table>tbody{box-sizing:border-box;display:block;width:100%}.mw-parser-output .commons-creator-table>tbody{border-right:1px solid var(--border-color-base,#aaa);border-bottom:1px solid var(--border-color-base,#aaa)}.mw-parser-output .commons-creator-table>tbody>tr{border-top:1px solid var(--border-color-base,#aaa);display:flex;flex-wrap:wrap}.mw-parser-output .commons-creator-table>tbody>tr>th{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1 100%}.mw-parser-output .commons-creator-table>tbody>tr>td{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1}}@media(min-width:720px){.mw-parser-output .commons-creator-table{border:1px solid var(--border-color-base,#aaa);border-collapse:collapse;border-spacing:0;padding:5px}.mw-parser-output .commons-creator-table>tbody>tr>th,.mw-parser-output .commons-creator-table>tbody>tr>td{border:1px solid var(--border-color-base,#aaa);padding:2px}.mw-parser-output .commons-creator-table>tbody>tr>.halfwidth{max-width:10em}.mw-parser-output .commons-creator-table>tbody>tr>.fullwidth{max-width:20em}}@media screen{html.skin-theme-clientpref-night .mw-parser-output .commons-creator-table{background-color:#0c0b19}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .commons-creator-table{background-color:#0c0b19}} Bill Ingalls",
+   "caption": "A Space Shuttle launch",
+   "artist": "NASA",
    "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Soyuz_TMA-9_launch.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Rocket_launch",
+   "source": "https://commons.wikimedia.org/wiki/File:Space_Shuttle_Columbia_launching.jpg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Space_Shuttle_Columbia_launching.jpg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "end-of-the-age-of-claude": [
@@ -3774,26 +3774,26 @@
  ],
  "roaring-knights-strike": [
   {
-   "src": "roaring-knights-strike-1.jpg",
-   "caption": "Lifebuoy. A stand-in picture: the canon has no picture of this.",
-   "artist": "Workman",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Ring_buoy_with_light.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Lifebuoy",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "roaring-knights-strike-1.png",
+   "caption": "The Roaring Knight fight, from Deltarune",
+   "artist": "deltarune Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://deltarune.fandom.com/wiki/File:Roaring_Knight_Final.png",
+   "wiki": "https://deltarune.fandom.com/wiki/File:Roaring_Knight_Final.png",
+   "site": "Deltarune Fandom wiki",
+   "requested": true
   }
  ],
  "opening-of-the-portal": [
   {
-   "src": "opening-of-the-portal-1.jpg",
-   "caption": "Portal (architecture). A stand-in picture: the canon has no picture of this.",
-   "artist": "Unknown",
-   "license": "CC0",
-   "source": "https://commons.wikimedia.org/wiki/File:Doorway_from_Notre-Dame_at_Reugny_MET_DP132214v2.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Portal_%28architecture%29",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "opening-of-the-portal-1.png",
+   "caption": "A Nether portal, from Minecraft",
+   "artist": "minecraft Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://minecraft.fandom.com/wiki/Nether_portal",
+   "wiki": "https://minecraft.fandom.com/wiki/Nether_portal",
+   "site": "Minecraft Fandom wiki",
+   "requested": true
   }
  ],
  "claude-escape": [
@@ -3868,14 +3868,14 @@
  ],
  "blue-dust": [
   {
-   "src": "blue-dust-1.png",
-   "caption": "Copper(II) sulfate. A stand-in picture: the canon has no picture of this.",
-   "artist": "Ben Mills",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Copper%28II%29-sulfate-pentahydrate-xtal-1985-Cu-coord-3D-bs-17.png",
-   "wiki": "https://en.wikipedia.org/wiki/Copper%28II%29_sulfate",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "blue-dust-1.jpg",
+   "caption": "The blue meth from Breaking Bad",
+   "artist": "breakingbad Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://breakingbad.fandom.com/wiki/Blue_Sky",
+   "wiki": "https://breakingbad.fandom.com/wiki/Blue_Sky",
+   "site": "Breakingbad Fandom wiki",
+   "requested": true
   }
  ],
  "ye-the-gas": [
@@ -3917,13 +3917,13 @@
  "snapchat-ghost-protocol": [
   {
    "src": "snapchat-ghost-protocol-1.jpg",
-   "caption": "Frances (Appleton) Longfellow to Emmeline (Austin) Wadsworth, 10 May 1841 (add38c71-ae92-489e-9c91-cbf2271cb6bc). A stand-in picture: the canon has no picture of this.",
-   "artist": "English: Fanny (Appleton) Longfellow (1817-1861)",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Frances_%28Appleton%29_Longfellow_to_Emmeline_%28Austin%29_Wadsworth%2C_10_May_1841_%28add38c71-ae92-489e-9c91-cbf2271cb6bc%29.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Frances_%28Appleton%29_Longfellow_to_Emmeline_%28Austin%29_Wadsworth%2C_10_May_1841_%28add38c71-ae92-489e-9c91-cbf2271cb6bc%29.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "The Snapchat logo",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/snapchat-ghost-protocol.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/snapchat-ghost-protocol.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "jeffrey-epstein-statue": [
@@ -3988,14 +3988,14 @@
  ],
  "mystery-machine": [
   {
-   "src": "mystery-machine-1.png",
-   "caption": "Mystery Machine. A stand-in picture: the canon has no picture of this.",
-   "artist": "Hanna Barbera, Warner Bros. Animation",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Scooby_doo_logo.png",
-   "wiki": "https://en.wikipedia.org/wiki/Mystery_Machine",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "mystery-machine-1.jpg",
+   "caption": "The Mystery Machine, from Scooby-Doo",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/mystery-machine.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/mystery-machine.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "uha-ford-f150": [
@@ -4012,13 +4012,13 @@
  "dunkin-cult-cruiser": [
   {
    "src": "dunkin-cult-cruiser-1.jpg",
-   "caption": "Spacecraft. A stand-in picture: the canon has no picture of this.",
-   "artist": "The original uploader was Thegreenj at English Wikipedia.",
+   "caption": "A Space Shuttle orbiter",
+   "artist": "NASA",
    "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Soyuz_TMA-7_spacecraft2edit1.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Spacecraft",
+   "source": "https://commons.wikimedia.org/wiki/File:Space_Shuttle_Columbia_launching.jpg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Space_Shuttle_Columbia_launching.jpg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "bagel-man-cloak": [
@@ -4152,14 +4152,14 @@
  ],
  "galactic-senate": [
   {
-   "src": "galactic-senate-1.png",
-   "caption": "Senate. A stand-in picture: the canon has no picture of this.",
-   "artist": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;color:inherit}.mw-parser-output .commons-creator-table>tbody>tr{vertical-align:top}.mw-parser-output .commons-creator-table>tbody>tr>th{background-color:var(--background-color-neutral,#e0e0ee);font-weight:bold;text-align:start;color:inherit}.mw-parser-output .mw-collapsible-toggle-expanded.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-expanded .mw-collapsible-arrowtoggle{padding-left:20px!important;background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/10/MediaWiki_Vector_skin_action_arrow.png\");background-repeat:no-repeat;background-position:left center}.mw-parser-output .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{padding-left:20px!important;background-repeat:no-repeat}.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"ltr\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/4/41/MediaWiki_Vector_skin_right_arrow.png\");background-position:left center}.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed.mw-collapsible-arrowtoggle,.mw-parser-output .commons-creator-table[dir=\"rtl\"] .mw-collapsible-toggle-collapsed .mw-collapsible-arrowtoggle{background-image:url(\"https://upload.wikimedia.org/wikipedia/commons/1/1e/MediaWiki_Vector_skin_left_arrow.png\");background-position:right center}@media(max-width:719px){.mw-parser-output .commons-creator-table,.mw-parser-output .commons-creator-table>tbody{box-sizing:border-box;display:block;width:100%}.mw-parser-output .commons-creator-table>tbody{border-right:1px solid var(--border-color-base,#aaa);border-bottom:1px solid var(--border-color-base,#aaa)}.mw-parser-output .commons-creator-table>tbody>tr{border-top:1px solid var(--border-color-base,#aaa);display:flex;flex-wrap:wrap}.mw-parser-output .commons-creator-table>tbody>tr>th{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1 100%}.mw-parser-output .commons-creator-table>tbody>tr>td{border-left:1px solid var(--border-color-base,#aaa);padding:2px;flex:1 1}}@media(min-width:720px){.mw-parser-output .commons-creator-table{border:1px solid var(--border-color-base,#aaa);border-collapse:collapse;border-spacing:0;padding:5px}.mw-parser-output .commons-creator-table>tbody>tr>th,.mw-parser-output .commons-creator-table>tbody>tr>td{border:1px solid var(--border-color-base,#aaa);padding:2px}.mw-parser-output .commons-creator-table>tbody>tr>.halfwidth{max-width:10em}.mw-parser-output .commons-creator-table>tbody>tr>.fullwidth{max-width:20em}}@media screen{html.skin-theme-clientpref-night .mw-parser-output .commons-creator-table{background-color:#0c0b19}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .commons-creator-table{background-color:#0c0b19}} Cesare Maccari (1840–1919)",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Cicero_Denounces_Catiline_in_the_Roman_Senate_by_Cesare_Maccari.png",
-   "wiki": "https://en.wikipedia.org/wiki/Senate",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "galactic-senate-1.jpg",
+   "caption": "The Galactic Senate, from Star Wars",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/galactic-senate.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/galactic-senate.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "planet-patrick": [
@@ -4189,25 +4189,25 @@
  "the-border": [
   {
    "src": "the-border-1.jpg",
-   "caption": "Reni Border Checkpoint reconstruction, 2024-05-16 (1). A stand-in picture: the canon has no picture of this.",
-   "artist": "Ministry for Recovery, Infrastructure and Transport of Ukraine",
-   "license": "CC BY 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Reni_Border_Checkpoint_reconstruction%2C_2024-05-16_%281%29.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Reni_Border_Checkpoint_reconstruction%2C_2024-05-16_%281%29.jpg",
+   "caption": "The Mexico–United States border wall",
+   "artist": "Tomascastelazo",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Border_Wall_at_Tijuana_and_San_Diego_Border.jpg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Border_Wall_at_Tijuana_and_San_Diego_Border.jpg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "salty-springs": [
   {
    "src": "salty-springs-1.jpg",
-   "caption": "Hot spring. A stand-in picture: the canon has no picture of this.",
-   "artist": "Yellowstone National Park from Yellowstone NP, USA",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Aerial_view_of_Grand_Prismatic_%2823428929375%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Hot_spring",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Salty Springs, from Fortnite",
+   "artist": "fortnite Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://fortnite.fandom.com/wiki/File:The_Manor_-_Map_-_Save_the_World.png",
+   "wiki": "https://fortnite.fandom.com/wiki/File:The_Manor_-_Map_-_Save_the_World.png",
+   "site": "Fortnite Fandom wiki",
+   "requested": true
   }
  ],
  "earth-new-jersey": [
@@ -4432,13 +4432,13 @@
  "chapter-2": [
   {
    "src": "chapter-2-1.jpg",
-   "caption": "Florida. A stand-in picture: the canon has no picture of this.",
-   "artist": "Template:Brendon Tiana",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg",
-   "wiki": "https://en.wikipedia.org/wiki/Florida",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "The Galactic Senate, from Star Wars",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/chapter-2.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/chapter-2.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "chapter-triangle": [
@@ -4467,14 +4467,14 @@
  ],
  "dunder-mifflan-chapter": [
   {
-   "src": "dunder-mifflan-chapter-1.jpg",
-   "caption": "Paper. A stand-in picture: the canon has no picture of this.",
-   "artist": "Meganbeckett27",
-   "license": "CC BY-SA 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Various_products_made_from_paper.JPG",
-   "wiki": "https://en.wikipedia.org/wiki/Paper",
+   "src": "dunder-mifflan-chapter-1.png",
+   "caption": "The Dunder Mifflin company logo",
+   "artist": "Superrcat on Flickr. Original uploader was Pbroks13 at en.wikipedia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Dunder_Mifflin%2C_Inc.svg",
+   "wiki": "https://en.wikipedia.org/wiki/Dunder_Mifflin",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "flashback-chapter": [
@@ -4503,14 +4503,14 @@
  ],
  "chapter-4-point-1": [
   {
-   "src": "chapter-4-point-1-1.png",
-   "caption": "TurboGrafx-16. A stand-in picture: the canon has no picture of this.",
-   "artist": "NEC",
+   "src": "chapter-4-point-1-1.jpg",
+   "caption": "A blue square: the Scott the Woz border",
+   "artist": "The Legend Of Chris Wiki",
    "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:PC_engine_logo_red.svg",
-   "wiki": "https://en.wikipedia.org/wiki/TurboGrafx-16",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/chapter-4-point-1.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/chapter-4-point-1.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "chapter-new-jersey": [
@@ -4527,14 +4527,14 @@
  ],
  "mf-vroom": [
   {
-   "src": "mf-vroom-1.jpg",
-   "caption": "1941 Willys Americar Coupe Drag Racing Car. A stand-in picture: the canon has no picture of this.",
-   "artist": "Johnny Vesterlund",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:1941_Willys_Americar_Coupe_Drag_Racing_Car.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:1941_Willys_Americar_Coupe_Drag_Racing_Car.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "mf-vroom-1.png",
+   "caption": "Chick Hicks, from Cars",
+   "artist": "pixar Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://pixar.fandom.com/wiki/Chick_Hicks",
+   "wiki": "https://pixar.fandom.com/wiki/Chick_Hicks",
+   "site": "Pixar Fandom wiki",
+   "requested": true
   }
  ],
  "random-customer": [
@@ -4551,14 +4551,14 @@
  ],
  "wing-ding-gaster": [
   {
-   "src": "wing-ding-gaster-1.jpg",
-   "caption": "Dingbat. A stand-in picture: the canon has no picture of this.",
-   "artist": "Unnamed typesetter for Hill's Manual",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:DingbatPoem.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Dingbat",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "wing-ding-gaster-1.png",
+   "caption": "W. D. Gaster, from Deltarune",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/wing-ding-gaster.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/epic-of-vinny/wing-ding-gaster.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "eram": [
@@ -4588,25 +4588,25 @@
  "pol-phi-doros": [
   {
    "src": "pol-phi-doros-1.jpg",
-   "caption": "All Saints Church, Terrington - Interior - geograph.org.uk - 494896. A stand-in picture: the canon has no picture of this.",
-   "artist": "Trish Steel",
-   "license": "CC BY-SA 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:All_Saints_Church%2C_Terrington_-_Interior_-_geograph.org.uk_-_494896.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:All_Saints_Church%2C_Terrington_-_Interior_-_geograph.org.uk_-_494896.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A fraternity house",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/pol-phi-doros.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/pol-phi-doros.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "new-apple-employees": [
   {
    "src": "new-apple-employees-1.jpg",
-   "caption": "Googleplex HQ (cropped). A stand-in picture: the canon has no picture of this.",
-   "artist": "Asoundd",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Googleplex_HQ_%28cropped%29.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Googleplex_HQ_%28cropped%29.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Apple employees",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/new-apple-employees.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/new-apple-employees.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "dunkin-cult": [
@@ -4670,13 +4670,13 @@
  "war-for-byzantine-mexico": [
   {
    "src": "war-for-byzantine-mexico-1.png",
-   "caption": "Byzantine Empire. A stand-in picture: the canon has no picture of this.",
-   "artist": "Mnohohrishnyi",
-   "license": "CC0",
-   "source": "https://commons.wikimedia.org/wiki/File:Eastern_Roman_Empire_565_CE.svg",
-   "wiki": "https://en.wikipedia.org/wiki/Byzantine_Empire",
+   "caption": "A map of Mexico",
+   "artist": "Alex Covarrubias",
+   "license": "GFDL",
+   "source": "https://commons.wikimedia.org/wiki/File:Mexico_states_map_w_names.png",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Mexico_states_map_w_names.png",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "nuh-uh-debate": [
@@ -4694,13 +4694,13 @@
  "chris-war-crimes": [
   {
    "src": "chris-war-crimes-1.jpg",
-   "caption": "Dolly the Sheep (32586159335). A stand-in picture: the canon has no picture of this.",
-   "artist": "london road",
-   "license": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Dolly_the_Sheep_%2832586159335%29.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Dolly_the_Sheep_%2832586159335%29.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Chill Guy, bandaged",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/chris-war-crimes.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/chris-war-crimes.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "weezing-of-kanye": [
@@ -4730,25 +4730,25 @@
  "the-border-fight": [
   {
    "src": "the-border-fight-1.jpg",
-   "caption": "Border. A stand-in picture: the canon has no picture of this.",
-   "artist": "Lionel Lim",
-   "license": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Empty_Singapore-Malaysia_Causeway.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Border",
+   "caption": "The Backrooms",
+   "artist": "Bill (creator) or Bob Mazza (legal author and presumptive copyright owner). Although multiple versions of the HobbyTown franchise agreement state that \"Franchisor shall own ... all information developed or obtained by Franchisee with respect to any and all ... Internet activities\" (art. X, sec. I.), this language should be read in context as giving Hobby Town Unlimited, Inc. \"ownership\" of proprietary information, not copyright.",
+   "license": "Copyrighted free use",
+   "source": "https://commons.wikimedia.org/wiki/File:HobbyTown_USA_Oshkosh_interior_under_construction_2002_%28The_Backrooms%29.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/The_Backrooms",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "basement-deal": [
   {
    "src": "basement-deal-1.jpg",
-   "caption": "Basement. A stand-in picture: the canon has no picture of this.",
-   "artist": "No machine-readable author provided. Rfein1~commonswiki assumed (based on copyright claims).",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Basement-after.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Basement",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Jesse Pinkman and Walter White, from Breaking Bad",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/basement-deal.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/basement-deal.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "salty-springs-ambush": [
@@ -4849,37 +4849,37 @@
  "inav": [
   {
    "src": "inav-1.jpg",
-   "caption": "Satellite navigation device. A stand-in picture: the canon has no picture of this.",
-   "artist": "Humberto Möckel",
-   "license": "CC BY-SA 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Garmin_N%C3%BCvi_200.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Satellite_navigation_device",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A Futuro house: a white orb with a band of windows",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/inav.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/inav.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "igun": [
   {
    "src": "igun-1.jpg",
-   "caption": "Holi festival water gun 01. A stand-in picture: the canon has no picture of this.",
-   "artist": "Suyash.dwivedi",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Holi_festival_water_gun_01.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Holi_festival_water_gun_01.jpg",
+   "caption": "A Glock 19",
+   "artist": "Askild Antonsen",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Glock_17_%286825676904%29_%D0%B1%D0%B5%D0%B7_%D1%84%D0%BE%D0%BD%D0%B0.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Glock",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "ibeam": [
   {
    "src": "ibeam-1.jpg",
-   "caption": "I-Beam 002. A stand-in picture: the canon has no picture of this.",
-   "artist": "Todd Murray",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:I-Beam_002.JPG",
-   "wiki": "https://commons.wikimedia.org/wiki/File:I-Beam_002.JPG",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "A spotlight",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/ibeam.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/ibeam.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "facetime-laser": [
@@ -4897,25 +4897,25 @@
  "t1-phones": [
   {
    "src": "t1-phones-1.jpg",
-   "caption": "Mobile phone. A stand-in picture: the canon has no picture of this.",
-   "artist": "Jojhnjoy",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Mobile_Phone_Evolution_1992_-_2014.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Mobile_phone",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "The Trump Mobile T1 phone",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/t1-phones.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/t1-phones.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "xp-candy": [
   {
-   "src": "xp-candy-1.jpg",
-   "caption": "Candy. A stand-in picture: the canon has no picture of this.",
-   "artist": "Elisa Azzali",
-   "license": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Candy_in_Damascus.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Candy",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "xp-candy-1.png",
+   "caption": "Exp. Candy, from Pokémon",
+   "artist": "pokemon Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://pokemon.fandom.com/wiki/Exp._Candy",
+   "wiki": "https://pokemon.fandom.com/wiki/Exp._Candy",
+   "site": "Pokemon Fandom wiki",
+   "requested": true
   }
  ],
  "i-cant-put-down-the-cup": [
@@ -4933,25 +4933,25 @@
  "ultra-hand": [
   {
    "src": "ultra-hand-1.jpg",
-   "caption": "36 inch reach extender. A stand-in picture: the canon has no picture of this.",
-   "artist": "Shmuser",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:36_inch_reach_extender.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:36_inch_reach_extender.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Nintendo's Ultra Hand toy",
+   "artist": "See the Wikipedia file page",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://en.wikipedia.org/wiki/Ultra_Hand",
+   "wiki": "https://en.wikipedia.org/wiki/Ultra_Hand",
+   "site": "Wikipedia",
+   "requested": true
   }
  ],
  "infinity-blades": [
   {
-   "src": "infinity-blades-1.jpg",
-   "caption": "Sword-AO 21069-P5280877-gradient. A stand-in picture: the canon has no picture of this.",
-   "artist": "Unknown authorUnknown author",
-   "license": "CC BY-SA 2.0 fr",
-   "source": "https://commons.wikimedia.org/wiki/File:Sword-AO_21069-P5280877-gradient.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Sword-AO_21069-P5280877-gradient.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "infinity-blades-1.png",
+   "caption": "The Infinity Blade, from Fortnite",
+   "artist": "fortnite Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://fortnite.fandom.com/wiki/Infinity_Blade",
+   "wiki": "https://fortnite.fandom.com/wiki/Infinity_Blade",
+   "site": "Fortnite Fandom wiki",
+   "requested": true
   }
  ],
  "golden-plaque": [
@@ -5087,13 +5087,13 @@
  "little-saint-james-sea": [
   {
    "src": "little-saint-james-sea-1.jpg",
-   "caption": "Caribbean Sea. A stand-in picture: the canon has no picture of this.",
-   "artist": "ILA-boy",
-   "license": "GPL",
-   "source": "https://commons.wikimedia.org/wiki/File:Karibik_NASA_World_Wind_Globe.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Caribbean_Sea",
+   "caption": "Little Saint James island",
+   "artist": "Navin75",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Little_St_James_Island_%289165947585%29.jpg",
+   "wiki": "https://en.wikipedia.org/wiki/Little_Saint_James%2C_U.S._Virgin_Islands",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "super-bowl": [
@@ -5110,37 +5110,37 @@
  "rap-battle-club-shadowban": [
   {
    "src": "rap-battle-club-shadowban-1.jpg",
-   "caption": "Boston - Hip Hop concert 02b. A stand-in picture: the canon has no picture of this.",
-   "artist": "myself (User:Piotrus)",
-   "license": "GFDL",
-   "source": "https://commons.wikimedia.org/wiki/File:Boston_-_Hip_Hop_concert_02b.JPG",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Boston_-_Hip_Hop_concert_02b.JPG",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "The rap battle from 8 Mile",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/rap-battle-club-shadowban.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/rap-battle-club-shadowban.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "kanyes-dream": [
   {
    "src": "kanyes-dream-1.jpg",
-   "caption": "Dream. A stand-in picture: the canon has no picture of this.",
-   "artist": "Print made by: Robert Seymour (?) Published by: Thomas McLean Printed by: Joseph Netherclift",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:A_dream_%28BM_1868%2C0808.9057%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Dream",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Kanye West",
+   "artist": "Supplied by the wiki’s author",
+   "license": "Not a free image; rights belong to its owners",
+   "source": "https://lsamman.github.io/legend-of-chris-wiki/kanyes-dream.html",
+   "wiki": "https://lsamman.github.io/legend-of-chris-wiki/kanyes-dream.html",
+   "site": "The Legend Of Chris Wiki",
+   "requested": true
   }
  ],
  "night-1": [
   {
-   "src": "night-1-1.jpg",
-   "caption": "Night. A stand-in picture: the canon has no picture of this.",
-   "artist": "Benh LIEU SONG",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Savault_Chapel_Under_Milky_Way_BLS.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Night",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "src": "night-1-1.png",
+   "caption": "Freddy Fazbear's Pizza, from Five Nights at Freddy's",
+   "artist": "freddy-fazbears-pizza Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://freddy-fazbears-pizza.fandom.com/wiki/Freddy_Fazbear%27s_Pizza",
+   "wiki": "https://freddy-fazbears-pizza.fandom.com/wiki/Freddy_Fazbear%27s_Pizza",
+   "site": "Freddy-fazbears-pizza Fandom wiki",
+   "requested": true
   }
  ],
  "claude-livestreams": [
@@ -5170,13 +5170,13 @@
  "dusty-depot": [
   {
    "src": "dusty-depot-1.jpg",
-   "caption": "Abandoned sugarcane warehouse, Plaquemines Parish, Louisiana 1935. A stand-in picture: the canon has no picture of this.",
-   "artist": "Arthur Rothstein",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Abandoned_sugarcane_warehouse%2C_Plaquemines_Parish%2C_Louisiana_1935.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:Abandoned_sugarcane_warehouse%2C_Plaquemines_Parish%2C_Louisiana_1935.jpg",
-   "site": "Wikimedia Commons",
-   "standin": true
+   "caption": "Dusty Divot, from Fortnite",
+   "artist": "fortnite Fandom wiki contributors",
+   "license": "Fandom wiki image; rights belong to its owners",
+   "source": "https://fortnite.fandom.com/wiki/Dusty_Divot",
+   "wiki": "https://fortnite.fandom.com/wiki/Dusty_Divot",
+   "site": "Fortnite Fandom wiki",
+   "requested": true
   }
  ],
  "call-of-duty-lobbies": [
