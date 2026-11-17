@@ -1715,8 +1715,38 @@ def main():
     print(f"built {len(entries)} articles + {len(CATEGORIES)} categories; stubs={len(stubs)}; redlinks={sorted(R.redlinks)}")
     import subprocess   # The Epic of Vinny Wiki (site/epic-of-vinny/) has its own generator
     subprocess.run([sys.executable, os.path.join(ROOT, "teov", "build.py")], check=True)
+    stamp_pictures()
     if stubs:
         print("stubs:", ", ".join(stubs))
+
+
+def stamp_pictures():
+    """Give every link to a picture a fingerprint of the file, e.g. assets/img/chris-1.png?h=3f9a1c20.
+    A replaced picture keeps its file name, so without this a browser goes on showing the copy it already
+    has. With it, a changed picture gets a new address and an unchanged one keeps its old one (and stays
+    cached). Runs over both wikis' pages after they are written."""
+    import hashlib
+    img_root = os.path.join(SITE, "assets", "img")
+    sums = {}
+
+    def fingerprint(rel):
+        if rel not in sums:
+            path = os.path.join(img_root, rel)
+            sums[rel] = hashlib.sha1(open(path, "rb").read()).hexdigest()[:8] if os.path.isfile(path) else None
+        return sums[rel]
+
+    pat = re.compile(r'(assets/img/((?:t/)?[\w.%-]+\.(?:png|jpe?g|webp|gif)))(\?h=[0-9a-f]+)?')
+
+    def sub(m):
+        h = fingerprint(m.group(2))
+        return f"{m.group(1)}?h={h}" if h else m.group(0)
+    pages = glob.glob(os.path.join(SITE, "*.html")) + glob.glob(os.path.join(SITE, "epic-of-vinny", "*.html"))
+    for path in pages:
+        text = open(path, encoding="utf-8").read()
+        new = pat.sub(sub, text)
+        if new != text:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(new)
 
 
 if __name__ == "__main__":

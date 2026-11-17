@@ -1,7 +1,7 @@
 // The writing room: sign in, write in a Pages-style editor, autosave a private
 // draft, and publish it to the reading page (read.html).
-import { CONFIGURED, firebase, chapters, when } from "./book.js?v=423e7af480a9";
-import { EXPORTS, printAsPdf, importFile, IMPORT_ACCEPT } from "./docx.js?v=423e7af480a9";
+import { CONFIGURED, firebase, chapters, when } from "./book.js?v=eb8d09634636";
+import { EXPORTS, printAsPdf, importFile, IMPORT_ACCEPT } from "./docx.js?v=eb8d09634636";
 
 const $ = id => document.getElementById(id);
 const SESSION = Math.random().toString(36).slice(2);   // tells this tab's saves apart from other devices'
