@@ -4896,14 +4896,14 @@
  ],
  "t1-phones": [
   {
-   "src": "t1-phones-1.jpg",
-   "caption": "Mobile phone. A stand-in picture: the canon has no picture of this.",
-   "artist": "Jojhnjoy",
-   "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Mobile_Phone_Evolution_1992_-_2014.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Mobile_phone",
+   "src": "t1-phones-1.png",
+   "caption": "The Trump Mobile T1 phone",
+   "artist": "小宁子 XNZ",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:T1_Trump_Mobile_Phone_back_side.png",
+   "wiki": "https://commons.wikimedia.org/wiki/File:T1_Trump_Mobile_Phone_back_side.png",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "xp-candy": [
