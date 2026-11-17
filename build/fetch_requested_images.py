@@ -83,7 +83,7 @@ REQUESTS = {
     "blue-dust": ("The blue meth from Breaking Bad", [F("breakingbad", "Blue Sky"), C("Breaking Bad blue meth")]),
     "ibeam": ("A spotlight", [C("theatre spotlight"), C("stage spotlight")]),
     "igun": ("A Glock 19", [C("Glock 19 pistol"), W("Glock")]),
-    "inav": ("A Futuro house: a white orb with a band of windows (author's choice, replacing the Enterprise)", [WN("USS Enterprise (NCC-1701)"), C("Enterprise NCC-1701 model Smithsonian")]),
+    "inav": ("The iNav: a white orb with a thin window band across the front (supplied by the author)", [WN("USS Enterprise (NCC-1701)"), C("Enterprise NCC-1701 model Smithsonian")]),
     "infinity-blades": ("The Infinity Blade, from Fortnite", [F("fortnite", "Infinity Blade")]),
     "ultra-hand": ("Nintendo's Ultra Hand toy", [WN("Ultra Hand"), C("Nintendo Ultra Hand")]),
     "xp-candy": ("Exp. Candy, from Pokémon", [F("pokemon", "Exp. Candy"), FF("pokemon", "Exp. Candy")]),
