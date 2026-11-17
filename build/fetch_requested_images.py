@@ -48,7 +48,7 @@ REQUESTS = {
     "chapter-2": ("The Galactic Senate, from Star Wars", [FF("starwars", "Senate Rotunda"), FF("starwars", "Galactic Senate Rotunda interior"), F("starwars", "Senate Rotunda")]),
     "dunder-mifflan-chapter": ("The Dunder Mifflin company logo", [WN("Dunder Mifflin"), C("Dunder Mifflin logo"), W("Dunder Mifflin")]),
     # ---- characters
-    "bings-son": ("The Bing logo", [C("Bing logo 2020"), C("Microsoft Bing logo"), WN("Microsoft Bing")]),
+    "bings-son": ("The Bing logo", [CF("Bing Fluent Logo.svg"), CF("Microsoft Bing logo.svg")]),
     "elon-mush": ("A caricature of Elon Musk", [CF("Elon Musk - Caricature with money glasses.png"), C("Elon Musk caricature")]),
     "george-constanta": ("George Costanza, from Seinfeld", [F("seinfeld", "George Costanza"), WN("George Costanza")]),
     "golden-freddy": ("Golden Freddy, from Five Nights at Freddy's", [F("freddy-fazbears-pizza", "Golden Freddy")]),
@@ -70,7 +70,7 @@ REQUESTS = {
     "galactic-senate": ("The Galactic Senate, from Star Wars", [FF("starwars", "Senate Rotunda"), FF("starwars", "Galactic Senate Rotunda interior"), F("starwars", "Senate Rotunda")]),
     # ---- factions
     "charlie-kirks": ("Charlie Kirk", [W("Charlie Kirk")]),
-    "knights-of-4chan": ("The 4chan logo", [WN("4chan"), C("4chan logo")]),
+    "knights-of-4chan": ("The 4chan logo", [CF("4chan logo.svg")]),
     "pol-phi-doros": ("A fraternity house", [C("fraternity house"), C("fraternity house university")]),
     "police-kirks": ("Charlie Kirk", [C("Charlie Kirk car"), C("Charlie Kirk 2024"), C("Charlie Kirk speaking")]),
     "the-boys": ("The Crips", [W("Crips"), C("Crips gang")]),
@@ -122,9 +122,10 @@ _thumb_download = fs.download
 
 def download(slug, path):
     """fetch_stand_in_images.download, but when Wikimedia refuses the resized thumbnails (HTTP 429, which it
-    does to shared servers) fall back to the original file and shrink it here. SVG originals are skipped."""
+    does to shared servers) fall back to the original file and shrink it here. SVG originals (logos, flags)
+    are rendered with cairosvg (`pip install cairosvg`)."""
     got = _thumb_download(slug, path)
-    if got or path[1].lower().endswith(".svg"):
+    if got:
         return got
     folder, name = path
     try:
@@ -133,6 +134,9 @@ def download(slug, path):
         raw = None
     if not raw:
         return None
+    if name.lower().endswith(".svg"):
+        import cairosvg
+        raw = cairosvg.svg2png(bytestring=raw, output_width=600)
     im = Image.open(io.BytesIO(raw)); im.load()
     if im.width < 150:
         return None

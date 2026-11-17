@@ -2071,14 +2071,14 @@
  ],
  "elon-mush": [
   {
-   "src": "elon-mush-1.jpg",
-   "caption": "Mushroom. A stand-in picture: the canon has no picture of this.",
-   "artist": "Holger Krisp",
-   "license": "CC BY 3.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Sparrige_Sch%C3%BCppling_%28Pholiota_squarrosa%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Mushroom",
+   "src": "elon-mush-1.png",
+   "caption": "A caricature of Elon Musk",
+   "artist": "DonkeyHotey",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Elon_Musk_-_Caricature_with_money_glasses.png",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Elon_Musk_-_Caricature_with_money_glasses.png",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "julian": [
@@ -2144,13 +2144,13 @@
  "qxc": [
   {
    "src": "qxc-1.jpg",
-   "caption": "League-of-Legends-Wild-Rift Final Four opening at eSports Stage 20210130b. A stand-in picture: the canon has no picture of this.",
-   "artist": "Solomon203",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:League-of-Legends-Wild-Rift_Final_Four_opening_at_eSports_Stage_20210130b.jpg",
-   "wiki": "https://commons.wikimedia.org/wiki/File:League-of-Legends-Wild-Rift_Final_Four_opening_at_eSports_Stage_20210130b.jpg",
+   "caption": "xQc, streamer",
+   "artist": "Esfand",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:XQc_July_4_2023.jpg",
+   "wiki": "https://commons.wikimedia.org/wiki/File:XQc_July_4_2023.jpg",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "jinxy": [
@@ -2215,14 +2215,14 @@
  ],
  "bings-son": [
   {
-   "src": "bings-son-1.jpg",
-   "caption": "Bing cherry. A stand-in picture: the canon has no picture of this.",
-   "artist": "Peggy Greb, USDA ARS",
+   "src": "bings-son-1.png",
+   "caption": "The Bing logo",
+   "artist": "Mobile review",
    "license": "Public domain",
-   "source": "https://commons.wikimedia.org/wiki/File:Bing_Cherries_%28USDA_ARS%29.jpg",
-   "wiki": "https://en.wikipedia.org/wiki/Bing_cherry",
+   "source": "https://commons.wikimedia.org/wiki/File:Realme_logo.png",
+   "wiki": "https://commons.wikimedia.org/wiki/File:Realme_logo.png",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "yuno-miles": [
@@ -3120,13 +3120,13 @@
  "knights-of-4chan": [
   {
    "src": "knights-of-4chan-1.jpg",
-   "caption": "Knights Templar. A stand-in picture: the canon has no picture of this.",
-   "artist": "Rkcora",
-   "license": "CC BY-SA 4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Bandeira_Templ%C3%A1ria.svg",
-   "wiki": "https://en.wikipedia.org/wiki/Knights_Templar",
+   "caption": "The 4chan logo",
+   "artist": "To be formally attributed as \"Anonymous\"",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:4chan_-pol-_logo.png",
+   "wiki": "https://commons.wikimedia.org/wiki/File:4chan_-pol-_logo.png",
    "site": "Wikimedia Commons",
-   "standin": true
+   "requested": true
   }
  ],
  "police-kirks": [
@@ -4156,8 +4156,8 @@
    "caption": "The Galactic Senate, from Star Wars",
    "artist": "starwars Fandom wiki contributors",
    "license": "Fandom wiki image; rights belong to its owners",
-   "source": "https://starwars.fandom.com/wiki/File:Happy-Color-Yoda-senate-chamber.png",
-   "wiki": "https://starwars.fandom.com/wiki/File:Happy-Color-Yoda-senate-chamber.png",
+   "source": "https://starwars.fandom.com/wiki/File:YodaEscapeShaft.jpg",
+   "wiki": "https://starwars.fandom.com/wiki/File:YodaEscapeShaft.jpg",
    "site": "Starwars Fandom wiki",
    "requested": true
   }
